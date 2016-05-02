@@ -1,0 +1,62 @@
+
+bob_walk_right.png
+size: 512,128
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+0001
+  rotate: false
+  xy: 2, 2
+  size: 49, 83
+  orig: 49, 83
+  offset: 0, 0
+  index: -1
+0005
+  rotate: false
+  xy: 2, 2
+  size: 49, 83
+  orig: 49, 83
+  offset: 0, 0
+  index: -1
+0002
+  rotate: false
+  xy: 53, 2
+  size: 49, 83
+  orig: 49, 83
+  offset: 0, 0
+  index: -1
+0004
+  rotate: false
+  xy: 53, 2
+  size: 49, 83
+  orig: 49, 83
+  offset: 0, 0
+  index: -1
+0003
+  rotate: false
+  xy: 104, 2
+  size: 49, 83
+  orig: 49, 83
+  offset: 0, 0
+  index: -1
+0006
+  rotate: false
+  xy: 155, 2
+  size: 49, 83
+  orig: 49, 83
+  offset: 0, 0
+  index: -1
+0008
+  rotate: false
+  xy: 155, 2
+  size: 49, 83
+  orig: 49, 83
+  offset: 0, 0
+  index: -1
+0007
+  rotate: false
+  xy: 206, 2
+  size: 49, 83
+  orig: 49, 83
+  offset: 0, 0
+  index: -1
