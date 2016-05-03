@@ -3,7 +3,6 @@ package com.lps.game;
 import java.util.*;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -23,7 +22,7 @@ public class Main extends ApplicationAdapter {
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
-		entities.add(new Entity(40, Gdx.graphics.getHeight() - 60));
+		entities.add(new Entity(1, 0));
 
 		foreground = new Texture("foreground.png");
 
@@ -31,7 +30,7 @@ public class Main extends ApplicationAdapter {
 		renderer = new IsometricTiledMapRenderer(map);
 
 		camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		camera.position.set(128 * 14f - 10, 107, 0);
+		camera.position.set(Utils.tileWidth * Utils.noHorizontalTile - 10, 107, 0);
 	}
 
 	@Override
@@ -46,7 +45,6 @@ public class Main extends ApplicationAdapter {
 
 	@Override
 	public void render() {
-		//elapsedTime += Gdx.graphics.getDeltaTime();
 
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -61,6 +59,7 @@ public class Main extends ApplicationAdapter {
 		for (Entity e: entities) {
 			e.draw(batch);
 		}
+
 		batch.draw(foreground, 0, 0);
 		batch.end();
 	}

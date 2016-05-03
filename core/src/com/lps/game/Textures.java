@@ -4,10 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 public enum Textures {
-    BOB_W_RIGHT ("bob/bob_walk_right", 1/17f),
-    BOB_W_DOWN ("bob/bob_walk_down", 1/17f),
-    BOB_W_LEFT ("bob/bob_walk_left", 1/17f),
-    BOB_W_UP ("bob/bob_walk_up", 1/17f),;
+    BOB_W_RIGHT ("bob/bob_walk_right", 1/24f),
+    BOB_W_DOWN ("bob/bob_walk_down", 1/24f),
+    BOB_W_LEFT ("bob/bob_walk_left", 1/24f),
+    BOB_W_UP ("bob/bob_walk_up", 1/24f),;
 
     private TextureAtlas texture;
     private float speed;
