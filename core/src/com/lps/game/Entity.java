@@ -12,11 +12,13 @@ public class Entity {
     private WorldCoordinates coord;
     private float stateTime;
     private State currentState;
+    private boolean isAlive;
 
     public Entity(float x, float y) {
         this.coord = new WorldCoordinates(x, y);
         this.stateTime = 0f;
-        currentState = State.IDLE_RIGHT;
+        this.currentState = State.IDLE_RIGHT;
+        this.isAlive = true;
     }
 
     public void draw(Batch batch) {
@@ -24,11 +26,13 @@ public class Entity {
         float deltaTime = Gdx.graphics.getDeltaTime();
         stateTime += deltaTime;
 
-        if (!currentState.isIDLE()) {
+        if (!this.isAlive) {
+
+        } else if (!currentState.isIDLE()) {
 
             if (stateTime >= Utils.roundDuration) {
 
-                //deltaTime -= (stateTime - Utils.roundDuration); // Correct if round duration is already gone
+                deltaTime -= (stateTime - Utils.roundDuration); // Correct if round duration is already gone
                 stateTime = 0;
 
                 if (currentState == State.WALK_RIGHT && !Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
@@ -44,8 +48,6 @@ public class Entity {
 
             this.coord.increaseX(currentState.getDx() * deltaTime/Utils.roundDuration);
             this.coord.increaseY(currentState.getDy() * deltaTime/Utils.roundDuration);
-
-            System.out.println(coord.getWorldX());
 
         } else {
             stateTime = 0;
@@ -72,7 +74,8 @@ public class Entity {
         WALK_RIGHT (Textures.BOB_W_RIGHT, false, 1, 0),
         WALK_DOWN (Textures.BOB_W_DOWN, false, 0, 1),
         WALK_LEFT (Textures.BOB_W_LEFT, false, -1, 0),
-        WALK_UP (Textures.BOB_W_UP, false, 0, -1);
+        WALK_UP (Textures.BOB_W_UP, false, 0, -1),
+        DEAD (Textures.BOB_BURNING, false, 0, 0);
 
         private Animation animation;
         private float dx;
