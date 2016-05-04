@@ -32,4 +32,9 @@ public class WorldCoordinates {
     public void increaseY(float dy) {
         this.y += dy;
     }
+
+    public void round() {
+        this.x = Math.round(this.x);
+        this.y = Math.round(this.y);
+    }
 }

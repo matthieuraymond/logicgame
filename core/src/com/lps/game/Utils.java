@@ -11,6 +11,12 @@ public final class Utils {
     public static int noVerticalTile = 12;
 
     /**
+     * TILE IDS
+     */
+    public static int floorID = 1;
+    public static int lavaID = 2;
+
+    /**
      * ANIMATIONS
      */
 

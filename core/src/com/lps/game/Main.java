@@ -3,6 +3,7 @@ package com.lps.game;
 import java.util.*;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -15,22 +16,18 @@ public class Main extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture foreground;
 	List<Entity> entities = new ArrayList<Entity>();
-	private TiledMap map;
-	private IsometricTiledMapRenderer renderer;
-	private OrthographicCamera camera;
+	MapManager mapManager;
+
 
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
-		entities.add(new Entity(1, 0));
 
 		foreground = new Texture("foreground.png");
 
-		map = new TmxMapLoader().load("maps/tmx/map1.tmx");
-		renderer = new IsometricTiledMapRenderer(map);
+		mapManager = new MapManager("maps/tmx/map1.tmx");
+		entities.add(new Entity(mapManager, 1, 0));
 
-		camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		camera.position.set(Utils.tileWidth * Utils.noHorizontalTile - 10, 107, 0);
 	}
 
 	@Override
@@ -41,6 +38,7 @@ public class Main extends ApplicationAdapter {
 			t.dispose();
 		}
 
+		foreground.dispose();
 	}
 
 	@Override
@@ -49,10 +47,18 @@ public class Main extends ApplicationAdapter {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		camera.update();
+		// QUIT
+		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
+			if (Gdx.input.getX() >= 10 && Gdx.input.getX() <= 70 && Gdx.input.getY() >= 1010 && Gdx.input.getY() <= 1070) {
+				Gdx.app.exit();
+			}
+		}
 
-		renderer.setView(camera);
-		renderer.render();
+		if (Gdx.input.isKeyPressed(Input.Keys.R)) {
+			entities.add(new Entity(mapManager, 1, 0));
+		}
+
+		mapManager.draw();
 
 		batch.begin();
 

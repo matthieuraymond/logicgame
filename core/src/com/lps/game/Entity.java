@@ -7,18 +7,21 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
+import com.sun.corba.se.impl.javax.rmi.CORBA.Util;
 
 public class Entity {
     private WorldCoordinates coord;
     private float stateTime;
     private State currentState;
     private boolean isAlive;
+    private MapManager map;
 
-    public Entity(float x, float y) {
+    public Entity(MapManager map, float x, float y) {
         this.coord = new WorldCoordinates(x, y);
         this.stateTime = 0f;
         this.currentState = State.IDLE_RIGHT;
         this.isAlive = true;
+        this.map = map;
     }
 
     public void draw(Batch batch) {
@@ -30,12 +33,21 @@ public class Entity {
 
         } else if (!currentState.isIDLE()) {
 
+            this.coord.increaseX(currentState.getDx() * deltaTime/Utils.roundDuration);
+            this.coord.increaseY(currentState.getDy() * deltaTime/Utils.roundDuration);
+
             if (stateTime >= Utils.roundDuration) {
 
-                deltaTime -= (stateTime - Utils.roundDuration); // Correct if round duration is already gone
                 stateTime = 0;
 
-                if (currentState == State.WALK_RIGHT && !Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+                //round coordinates as stateTime might be !=
+                coord.round();
+
+                int currentTile = map.getFloorType((int)coord.getWorldX(), (int)coord.getWorldY());
+                if (currentTile == Utils.lavaID) {
+                    this.isAlive = false;
+                    currentState = State.DEAD;
+                } else if (currentState == State.WALK_RIGHT && !Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
                     currentState = State.IDLE_RIGHT;
                 } else if (currentState == State.WALK_DOWN && !Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
                     currentState = State.IDLE_DOWN;
@@ -44,11 +56,8 @@ public class Entity {
                 } else if (currentState == State.WALK_UP && !Gdx.input.isKeyPressed(Input.Keys.UP)) {
                     currentState = State.IDLE_UP;
                 }
+
             }
-
-            this.coord.increaseX(currentState.getDx() * deltaTime/Utils.roundDuration);
-            this.coord.increaseY(currentState.getDy() * deltaTime/Utils.roundDuration);
-
         } else {
             stateTime = 0;
 
@@ -62,7 +71,7 @@ public class Entity {
                 currentState = State.WALK_LEFT;
             }
         }
-        TextureRegion currentFrame = currentState.getAnimation().getKeyFrame(stateTime, true);
+        TextureRegion currentFrame = currentState.getFrame(stateTime);
         batch.draw(currentFrame, this.coord.getScreenX() - currentFrame.getRegionWidth()/2, this.coord.getScreenY());
     }
 
@@ -89,8 +98,8 @@ public class Entity {
             this.isIDLE = isIDLE;
         }
 
-        public Animation getAnimation() {
-            return this.animation;
+        public TextureRegion getFrame(float stateTime) {
+            return this.animation.getKeyFrame(stateTime, true);
         }
 
         public float getDx() {
