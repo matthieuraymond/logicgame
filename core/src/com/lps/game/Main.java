@@ -20,6 +20,7 @@ public class Main extends ApplicationAdapter {
 	List<Entity> entities;
 	MapManager mapManager;
 	LPSHandler lpsHandler;
+	float roundTime;
 
 
 	@Override
@@ -34,6 +35,7 @@ public class Main extends ApplicationAdapter {
 		entities.add(new Entity(mapManager, 1, 0));
 
 		lpsHandler = new LPSHandler("bob");
+		roundTime = 0;
 	}
 
 	@Override
@@ -50,6 +52,11 @@ public class Main extends ApplicationAdapter {
 	@Override
 	public void render() {
 
+		float deltaTime = Gdx.graphics.getDeltaTime();
+		roundTime += deltaTime;
+
+        boolean endOfRound = roundTime >= Utils.roundDuration;
+
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -60,36 +67,44 @@ public class Main extends ApplicationAdapter {
 			}
 		}
 
-		if (Gdx.input.isKeyPressed(Input.Keys.R)) {
-			entities.add(new Entity(mapManager, 1, 0));
-		}
-
 		// LPS UPDATE TEMPORARY
 		Entity firstBob = entities.get(0);
-		if (firstBob.isUpdatable()) {
-			lpsHandler.update();
+
+		if (endOfRound) {
+            lpsHandler.update();
 			RuleSet instructions = lpsHandler.getEvents();
-			Rule nextRule = instructions.getRule(0);
-			int from = Integer.parseInt(nextRule.getHead().getTerm(1).toString());
-			int to = Integer.parseInt(nextRule.getHead().getTerm(2).toString());
-			if (to > from) {
-				firstBob.updateState(Entity.State.WALK_RIGHT);
-			} else if (to < from) {
-				firstBob.updateState(Entity.State.WALK_LEFT);
-			}
+            if (instructions.getRuleCount() > 0) {
+                Rule nextRule = instructions.getRule(0);
+                int from = Integer.parseInt(nextRule.getHead().getTerm(1).toString());
+                int to = Integer.parseInt(nextRule.getHead().getTerm(2).toString());
+                //System.out.println(to);
+                if (to > from) {
+                    firstBob.updateState(Entity.State.WALK_RIGHT);
+                } else if (to < from) {
+                    firstBob.updateState(Entity.State.WALK_LEFT);
+                }
+            }
 		}
 		// -----------
+
+        if (endOfRound) {
+            for (Entity e: entities) {
+                e.checkIfDead();
+            }
+        }
 
 		mapManager.draw();
 
 		batch.begin();
 
 		for (Entity e: entities) {
-			e.draw(batch);
+			e.draw(batch, deltaTime);
 		}
 
 		batch.draw(foreground, 0, 0);
 		batch.end();
+
+		if (endOfRound) roundTime = 0;
 	}
 
 }

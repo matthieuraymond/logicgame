@@ -3,7 +3,7 @@ Database {
 
 	// We are defining the Lext set of the LPS Framework
 	Facts {
-			isIn(1).
+		isIn(1).
 	}
 
 	// We are defining the Lint set of the LPS Framework

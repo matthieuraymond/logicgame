@@ -68,7 +68,7 @@ public final class CycleHandler {
 	 *            the name of the step. It has no use except to debug.
 	 */
 	public void handlerMethod(final String NAME) {
-		System.out.println(NAME);
+		//System.out.println(NAME);
 		myState.handlerMethod(this, NAME, events);
 	}
 

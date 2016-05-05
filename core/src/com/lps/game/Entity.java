@@ -15,7 +15,6 @@ public class Entity {
     private State currentState;
     private boolean isAlive;
     private MapManager map;
-    private boolean stateIsUpdatable;
 
     public Entity(MapManager map, float x, float y) {
         this.coord = new WorldCoordinates(x, y);
@@ -23,68 +22,39 @@ public class Entity {
         this.currentState = State.IDLE_RIGHT;
         this.isAlive = true;
         this.map = map;
-        this.stateIsUpdatable = true;
     }
 
-    public void draw(Batch batch) {
+    public void draw(Batch batch, float deltaTime) {
 
-        float deltaTime = Gdx.graphics.getDeltaTime();
+
         stateTime += deltaTime;
-        stateIsUpdatable = false;
 
-        if (!this.isAlive) {
 
-        } else if (!currentState.isIDLE()) {
+        this.coord.increaseX(currentState.getDx() * deltaTime/Utils.roundDuration);
+        this.coord.increaseY(currentState.getDy() * deltaTime/Utils.roundDuration);
+        /*
+        if (stateTime >= Utils.roundDuration) {
+            //round coordinates as stateTime might be !=
+            coord.round();
+        }*/
 
-            this.coord.increaseX(currentState.getDx() * deltaTime/Utils.roundDuration);
-            this.coord.increaseY(currentState.getDy() * deltaTime/Utils.roundDuration);
-
-            if (stateTime >= Utils.roundDuration) {
-                stateIsUpdatable = true;
-                stateTime = 0;
-
-                //round coordinates as stateTime might be !=
-                coord.round();
-
-                int currentTile = map.getFloorType((int)coord.getWorldX(), (int)coord.getWorldY());
-                if (currentTile == Utils.lavaID) {
-                    this.isAlive = false;
-                    currentState = State.DEAD;
-                } else if (currentState == State.WALK_RIGHT && !Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-                    currentState = State.IDLE_RIGHT;
-                } else if (currentState == State.WALK_DOWN && !Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-                    currentState = State.IDLE_DOWN;
-                } else if (currentState == State.WALK_LEFT && !Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-                    currentState = State.IDLE_LEFT;
-                } else if (currentState == State.WALK_UP && !Gdx.input.isKeyPressed(Input.Keys.UP)) {
-                    currentState = State.IDLE_UP;
-                }
-
-            }
-        } else {
-            stateTime = 0;
-
-            if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-                currentState = State.WALK_DOWN;
-            } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-                currentState = State.WALK_RIGHT;
-            } else if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-                currentState = State.WALK_UP;
-            } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-                currentState = State.WALK_LEFT;
-            }
-        }
         TextureRegion currentFrame = currentState.getFrame(stateTime);
         batch.draw(currentFrame, this.coord.getScreenX() - currentFrame.getRegionWidth()/2, this.coord.getScreenY());
     }
 
     public void updateState(State newState) {
-        this.currentState = newState;
-        stateTime = 0;
+        if (isAlive) {
+            this.currentState = newState;
+            stateTime = 0;
+        }
     }
 
-    public boolean isUpdatable() {
-        return this.stateIsUpdatable;
+    public void checkIfDead() {
+        int currentTile = map.getFloorType((int)coord.getWorldX(), (int)coord.getWorldY());
+        if (currentTile == Utils.lavaID) {
+            this.isAlive = false;
+            currentState = State.DEAD;
+        }
     }
 
     public enum State {

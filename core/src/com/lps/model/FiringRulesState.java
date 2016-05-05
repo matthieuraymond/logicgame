@@ -64,7 +64,7 @@ class FiringRulesState implements CycleState {
     	List<SimpleSentence> goals = ReactiveRuleSet.getInstance().fireRules(ruleSet, eventsName);
     	
     	// Show the goals fired in the console line.
-    	System.out.println(goals);
+    	// System.out.println(goals);
     	
     	// Add them in the goals list.
     	for(SimpleSentence goal : goals) {
