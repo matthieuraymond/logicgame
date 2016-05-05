@@ -15,6 +15,7 @@ public class Entity {
     private State currentState;
     private boolean isAlive;
     private MapManager map;
+    private boolean stateIsUpdatable;
 
     public Entity(MapManager map, float x, float y) {
         this.coord = new WorldCoordinates(x, y);
@@ -22,12 +23,14 @@ public class Entity {
         this.currentState = State.IDLE_RIGHT;
         this.isAlive = true;
         this.map = map;
+        this.stateIsUpdatable = true;
     }
 
     public void draw(Batch batch) {
 
         float deltaTime = Gdx.graphics.getDeltaTime();
         stateTime += deltaTime;
+        stateIsUpdatable = false;
 
         if (!this.isAlive) {
 
@@ -37,7 +40,7 @@ public class Entity {
             this.coord.increaseY(currentState.getDy() * deltaTime/Utils.roundDuration);
 
             if (stateTime >= Utils.roundDuration) {
-
+                stateIsUpdatable = true;
                 stateTime = 0;
 
                 //round coordinates as stateTime might be !=
@@ -73,6 +76,15 @@ public class Entity {
         }
         TextureRegion currentFrame = currentState.getFrame(stateTime);
         batch.draw(currentFrame, this.coord.getScreenX() - currentFrame.getRegionWidth()/2, this.coord.getScreenY());
+    }
+
+    public void updateState(State newState) {
+        this.currentState = newState;
+        stateTime = 0;
+    }
+
+    public boolean isUpdatable() {
+        return this.stateIsUpdatable;
     }
 
     public enum State {

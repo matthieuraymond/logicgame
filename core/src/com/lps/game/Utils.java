@@ -2,6 +2,7 @@ package com.lps.game;
 
 public final class Utils {
 
+
     /**
      * MAP CONFIG
      */
@@ -24,4 +25,10 @@ public final class Utils {
      * GENERAL LOGIC
      */
     public static float roundDuration = 0.5f;
+
+    /**
+     * LPS
+     */
+    public static boolean LPSDebug = false;
+    public static int LPSLimit = 2;
 }

@@ -1,0 +1,64 @@
+
+Database {
+
+	// We are defining the Lext set of the LPS Framework
+	Facts {
+			isIn(1).
+	}
+
+	// We are defining the Lint set of the LPS Framework
+	Rules {
+		floor(1).
+		floor(2).
+		floor(3).
+		floor(4).
+		floor(5).
+		floor(6).
+
+		adjacent(1, 2).
+		adjacent(2, 1).
+
+		adjacent(3, 2).
+		adjacent(2, 3).
+
+		adjacent(3, 4).
+		adjacent(4, 3).
+
+		adjacent(4, 5).
+		adjacent(5, 4).
+
+		adjacent(6, 5).
+		adjacent(5, 6).
+	}
+
+}
+
+// We are defining the domain theory of the LPS Framework
+DSet {
+	moveFromTo(X, Y) = {
+		Preconditions [
+			conditions: isIn(X).
+			conflicts: !moveFromTo(X, Z).
+		]
+		Postconditions [
+			initiates(moveFromTo(X, Y), isIn(Y)).
+			terminates(moveFromTo(X, Y), isIn(X)).
+		]
+	}
+
+}
+
+// We are defining the reactive rules of the LPS Framework
+ReactiveRules {
+  isIn(X) & floor(Y) & adjacent(X, Y) -> goFromTo(X, Y).
+}
+
+// We are defining the goals' definitions of the LPS Framework
+Goals {
+	goFromTo(X, Y) :- isIn(X) & moveFromTo(X, Y).
+}
+
+// We are defining the initial events of the LPS Framework
+Events {
+
+}

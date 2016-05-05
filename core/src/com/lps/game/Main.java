@@ -11,12 +11,15 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
+import com.lps.model.Rule;
+import com.lps.model.RuleSet;
 
 public class Main extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture foreground;
-	List<Entity> entities = new ArrayList<Entity>();
+	List<Entity> entities;
 	MapManager mapManager;
+	LPSHandler lpsHandler;
 
 
 	@Override
@@ -26,8 +29,11 @@ public class Main extends ApplicationAdapter {
 		foreground = new Texture("foreground.png");
 
 		mapManager = new MapManager("maps/tmx/map1.tmx");
+
+		entities = new ArrayList<Entity>();
 		entities.add(new Entity(mapManager, 1, 0));
 
+		lpsHandler = new LPSHandler("bob");
 	}
 
 	@Override
@@ -57,6 +63,22 @@ public class Main extends ApplicationAdapter {
 		if (Gdx.input.isKeyPressed(Input.Keys.R)) {
 			entities.add(new Entity(mapManager, 1, 0));
 		}
+
+		// LPS UPDATE TEMPORARY
+		Entity firstBob = entities.get(0);
+		if (firstBob.isUpdatable()) {
+			lpsHandler.update();
+			RuleSet instructions = lpsHandler.getEvents();
+			Rule nextRule = instructions.getRule(0);
+			int from = Integer.parseInt(nextRule.getHead().getTerm(1).toString());
+			int to = Integer.parseInt(nextRule.getHead().getTerm(2).toString());
+			if (to > from) {
+				firstBob.updateState(Entity.State.WALK_RIGHT);
+			} else if (to < from) {
+				firstBob.updateState(Entity.State.WALK_LEFT);
+			}
+		}
+		// -----------
 
 		mapManager.draw();
 
