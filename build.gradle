@@ -65,6 +65,7 @@ project(":core") {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         antlr "org.antlr:antlr:3.5.2"
+        testCompile 'junit:junit:4.12'
     }
 }
 

@@ -1,8 +1,9 @@
-// $ANTLR 3.5.2 JLPSSyntax.g 2016-04-26 12:20:08
+// $ANTLR 3.5.2 JLPSSyntax.g 2016-05-09 11:37:34
 
 package com.lps.controller.syntax;
 
 import com.lps.model.*;
+import com.lps.model.Terminator;
 import org.antlr.runtime.*;
 
 import java.util.ArrayList;
@@ -407,18 +408,18 @@ public class JLPSSyntaxParser extends Parser {
 			// JLPSSyntax.g:95:3: ( 'initiates' '(' event= simpleSentence ',' fact= simpleSentence ')' ( ':-' and )? )
 			// JLPSSyntax.g:95:7: 'initiates' '(' event= simpleSentence ',' fact= simpleSentence ')' ( ':-' and )?
 			{
-			match(input,50,FOLLOW_50_in_initiator268);
-			match(input,12,FOLLOW_12_in_initiator276);
+			match(input,50,FOLLOW_50_in_initiator268); 
+			match(input,12,FOLLOW_12_in_initiator276); 
 			pushFollow(FOLLOW_simpleSentence_in_initiator290);
 			event=simpleSentence();
 			state._fsp--;
 
-			match(input,14,FOLLOW_14_in_initiator292);
+			match(input,14,FOLLOW_14_in_initiator292); 
 			pushFollow(FOLLOW_simpleSentence_in_initiator298);
 			fact=simpleSentence();
 			state._fsp--;
 
-			match(input,13,FOLLOW_13_in_initiator306);
+			match(input,13,FOLLOW_13_in_initiator306); 
 			Clause body = null;
 			// JLPSSyntax.g:100:7: ( ':-' and )?
 			int alt4=2;
@@ -430,7 +431,7 @@ public class JLPSSyntaxParser extends Parser {
 				case 1 :
 					// JLPSSyntax.g:100:8: ':-' and
 					{
-					match(input,18,FOLLOW_18_in_initiator323);
+					match(input,18,FOLLOW_18_in_initiator323); 
 					pushFollow(FOLLOW_and_in_initiator325);
 					and8=and();
 					state._fsp--;
@@ -480,19 +481,19 @@ public class JLPSSyntaxParser extends Parser {
 			// JLPSSyntax.g:106:3: ( 'terminates' '(' event= simpleSentence ',' fact= simpleSentence ')' ( ':-' and )? )
 			// JLPSSyntax.g:106:7: 'terminates' '(' event= simpleSentence ',' fact= simpleSentence ')' ( ':-' and )?
 			{
-			match(input,59,FOLLOW_59_in_terminator364);
-			match(input,12,FOLLOW_12_in_terminator372);
+			match(input,59,FOLLOW_59_in_terminator364); 
+			match(input,12,FOLLOW_12_in_terminator372); 
 			pushFollow(FOLLOW_simpleSentence_in_terminator386);
 			event=simpleSentence();
 			state._fsp--;
 
-			match(input,14,FOLLOW_14_in_terminator388);
+			match(input,14,FOLLOW_14_in_terminator388); 
 			pushFollow(FOLLOW_simpleSentence_in_terminator394);
 			fact=simpleSentence();
 			state._fsp--;
 
 			Clause body = null;
-			match(input,13,FOLLOW_13_in_terminator412);
+			match(input,13,FOLLOW_13_in_terminator412); 
 			// JLPSSyntax.g:111:7: ( ':-' and )?
 			int alt5=2;
 			int LA5_0 = input.LA(1);
@@ -503,7 +504,7 @@ public class JLPSSyntaxParser extends Parser {
 				case 1 :
 					// JLPSSyntax.g:111:8: ':-' and
 					{
-					match(input,18,FOLLOW_18_in_terminator421);
+					match(input,18,FOLLOW_18_in_terminator421); 
 					pushFollow(FOLLOW_and_in_terminator423);
 					and9=and();
 					state._fsp--;
@@ -548,17 +549,17 @@ public class JLPSSyntaxParser extends Parser {
 			// JLPSSyntax.g:122:3: ( '{' op1= unifiable SYMBOL op2= unifiable '}' )
 			// JLPSSyntax.g:122:7: '{' op1= unifiable SYMBOL op2= unifiable '}'
 			{
-			match(input,61,FOLLOW_61_in_arithmetic464);
+			match(input,61,FOLLOW_61_in_arithmetic464); 
 			pushFollow(FOLLOW_unifiable_in_arithmetic470);
 			op1=unifiable();
 			state._fsp--;
 
-			SYMBOL10=(Token)match(input,SYMBOL,FOLLOW_SYMBOL_in_arithmetic472);
+			SYMBOL10=(Token)match(input,SYMBOL,FOLLOW_SYMBOL_in_arithmetic472); 
 			pushFollow(FOLLOW_unifiable_in_arithmetic478);
 			op2=unifiable();
 			state._fsp--;
 
-			match(input,62,FOLLOW_62_in_arithmetic480);
+			match(input,62,FOLLOW_62_in_arithmetic480); 
 			expr = new Arithmetic(op1, (SYMBOL10!=null?SYMBOL10.getText():null), op2);
 			}
 
@@ -593,7 +594,7 @@ public class JLPSSyntaxParser extends Parser {
 			op1=variable();
 			state._fsp--;
 
-			match(input,20,FOLLOW_20_in_equal513);
+			match(input,20,FOLLOW_20_in_equal513); 
 			pushFollow(FOLLOW_unifiable_in_equal519);
 			op2=unifiable();
 			state._fsp--;
@@ -689,12 +690,12 @@ public class JLPSSyntaxParser extends Parser {
 				case 4 :
 					// JLPSSyntax.g:135:7: '(' and ')'
 					{
-					match(input,12,FOLLOW_12_in_term576);
+					match(input,12,FOLLOW_12_in_term576); 
 					pushFollow(FOLLOW_and_in_term578);
 					and14=and();
 					state._fsp--;
 
-					match(input,13,FOLLOW_13_in_term580);
+					match(input,13,FOLLOW_13_in_term580); 
 					clause = and14;
 					}
 					break;
@@ -737,7 +738,7 @@ public class JLPSSyntaxParser extends Parser {
 				case 1 :
 					// JLPSSyntax.g:140:8: '!'
 					{
-					match(input,10,FOLLOW_10_in_negation610);
+					match(input,10,FOLLOW_10_in_negation610); 
 					flag = true;
 					}
 					break;
@@ -798,7 +799,7 @@ public class JLPSSyntaxParser extends Parser {
 				case 1 :
 					// JLPSSyntax.g:147:52: '&' op2= negation
 					{
-					match(input,11,FOLLOW_11_in_and660);
+					match(input,11,FOLLOW_11_in_and660); 
 					pushFollow(FOLLOW_negation_in_and666);
 					op2=negation();
 					state._fsp--;
@@ -839,7 +840,7 @@ public class JLPSSyntaxParser extends Parser {
 			// JLPSSyntax.g:152:3: ( 'true' )
 			// JLPSSyntax.g:152:7: 'true'
 			{
-			match(input,60,FOLLOW_60_in_truth697);
+			match(input,60,FOLLOW_60_in_truth697); 
 			}
 
 		}
@@ -907,12 +908,12 @@ public class JLPSSyntaxParser extends Parser {
 
 			}
 
-			match(input,15,FOLLOW_15_in_reactiveRule734);
+			match(input,15,FOLLOW_15_in_reactiveRule734); 
 			pushFollow(FOLLOW_simpleSentence_in_reactiveRule736);
 			simpleSentence16=simpleSentence();
 			state._fsp--;
 
-			match(input,16,FOLLOW_16_in_reactiveRule738);
+			match(input,16,FOLLOW_16_in_reactiveRule738); 
 			rule = new ReactiveRule(conditions, simpleSentence16);
 			}
 
@@ -958,7 +959,7 @@ public class JLPSSyntaxParser extends Parser {
 				case 1 :
 					// JLPSSyntax.g:167:23: ':-' and
 					{
-					match(input,18,FOLLOW_18_in_rule776);
+					match(input,18,FOLLOW_18_in_rule776); 
 					pushFollow(FOLLOW_and_in_rule778);
 					and17=and();
 					state._fsp--;
@@ -969,7 +970,7 @@ public class JLPSSyntaxParser extends Parser {
 
 			}
 
-			match(input,16,FOLLOW_16_in_rule784);
+			match(input,16,FOLLOW_16_in_rule784); 
 			rule = new Rule(simpleSentence18, body);
 			}
 
@@ -1003,7 +1004,7 @@ public class JLPSSyntaxParser extends Parser {
 			simpleSentence19=simpleSentence();
 			state._fsp--;
 
-			match(input,16,FOLLOW_16_in_fluent813);
+			match(input,16,FOLLOW_16_in_fluent813); 
 			rule = simpleSentence19;
 			}
 
@@ -1048,7 +1049,7 @@ public class JLPSSyntaxParser extends Parser {
 				MismatchedSetException mse = new MismatchedSetException(null,input);
 				throw mse;
 			}
-			match(input,61,FOLLOW_61_in_lext860);
+			match(input,61,FOLLOW_61_in_lext860); 
 			// JLPSSyntax.g:183:7: ( fluent )*
 			loop11:
 			while (true) {
@@ -1077,7 +1078,7 @@ public class JLPSSyntaxParser extends Parser {
 
 			this.variables = new HashMap<String, Variable>();
 			Database.getInstance().setFactsDatabase(retval.set);
-			match(input,62,FOLLOW_62_in_lext897);
+			match(input,62,FOLLOW_62_in_lext897); 
 			}
 
 			retval.stop = input.LT(-1);
@@ -1122,7 +1123,7 @@ public class JLPSSyntaxParser extends Parser {
 				MismatchedSetException mse = new MismatchedSetException(null,input);
 				throw mse;
 			}
-			match(input,61,FOLLOW_61_in_lint940);
+			match(input,61,FOLLOW_61_in_lint940); 
 			// JLPSSyntax.g:192:7: ( rule )*
 			loop12:
 			while (true) {
@@ -1150,7 +1151,7 @@ public class JLPSSyntaxParser extends Parser {
 			}
 
 			this.variables = new HashMap<String, Variable>();
-			match(input,62,FOLLOW_62_in_lint969);
+			match(input,62,FOLLOW_62_in_lint969); 
 			Database.getInstance().setRulesDatabase(retval.set);
 			}
 
@@ -1196,7 +1197,7 @@ public class JLPSSyntaxParser extends Parser {
 				MismatchedSetException mse = new MismatchedSetException(null,input);
 				throw mse;
 			}
-			match(input,38,FOLLOW_38_in_preconditions1004);
+			match(input,38,FOLLOW_38_in_preconditions1004); 
 			// JLPSSyntax.g:200:7: ( ( 'conditions' | 'Conditions' ) ':' (cond= and |cond= truth ) '.' )?
 			int alt14=2;
 			int LA14_0 = input.LA(1);
@@ -1215,7 +1216,7 @@ public class JLPSSyntaxParser extends Parser {
 						MismatchedSetException mse = new MismatchedSetException(null,input);
 						throw mse;
 					}
-					match(input,17,FOLLOW_17_in_preconditions1021);
+					match(input,17,FOLLOW_17_in_preconditions1021); 
 					// JLPSSyntax.g:200:42: (cond= and |cond= truth )
 					int alt13=2;
 					int LA13_0 = input.LA(1);
@@ -1254,7 +1255,7 @@ public class JLPSSyntaxParser extends Parser {
 
 					}
 
-					match(input,16,FOLLOW_16_in_preconditions1039);
+					match(input,16,FOLLOW_16_in_preconditions1039); 
 					retval.conditions = cond;
 					}
 					break;
@@ -1279,7 +1280,7 @@ public class JLPSSyntaxParser extends Parser {
 						MismatchedSetException mse = new MismatchedSetException(null,input);
 						throw mse;
 					}
-					match(input,17,FOLLOW_17_in_preconditions1060);
+					match(input,17,FOLLOW_17_in_preconditions1060); 
 					// JLPSSyntax.g:201:40: (conf= and |conf= truth )
 					int alt15=2;
 					int LA15_0 = input.LA(1);
@@ -1318,14 +1319,14 @@ public class JLPSSyntaxParser extends Parser {
 
 					}
 
-					match(input,16,FOLLOW_16_in_preconditions1078);
+					match(input,16,FOLLOW_16_in_preconditions1078); 
 					retval.conflicts = conf;
 					}
 					break;
 
 			}
 
-			match(input,39,FOLLOW_39_in_preconditions1090);
+			match(input,39,FOLLOW_39_in_preconditions1090); 
 			}
 
 			retval.stop = input.LT(-1);
@@ -1372,7 +1373,7 @@ public class JLPSSyntaxParser extends Parser {
 				MismatchedSetException mse = new MismatchedSetException(null,input);
 				throw mse;
 			}
-			match(input,38,FOLLOW_38_in_postconditions1125);
+			match(input,38,FOLLOW_38_in_postconditions1125); 
 			// JLPSSyntax.g:208:7: ( terminator '.' | initiator '.' )*
 			loop17:
 			while (true) {
@@ -1393,7 +1394,7 @@ public class JLPSSyntaxParser extends Parser {
 					terminator22=terminator();
 					state._fsp--;
 
-					match(input,16,FOLLOW_16_in_postconditions1136);
+					match(input,16,FOLLOW_16_in_postconditions1136); 
 					retval.terminators.add((terminator22!=null?((JLPSSyntaxParser.terminator_return)terminator22).terminator:null)); retval.facts.add((terminator22!=null?((JLPSSyntaxParser.terminator_return)terminator22).factName:null));
 					}
 					break;
@@ -1404,7 +1405,7 @@ public class JLPSSyntaxParser extends Parser {
 					initiator23=initiator();
 					state._fsp--;
 
-					match(input,16,FOLLOW_16_in_postconditions1150);
+					match(input,16,FOLLOW_16_in_postconditions1150); 
 					retval.initiators.add((initiator23!=null?((JLPSSyntaxParser.initiator_return)initiator23).initiator:null)); retval.facts.add((initiator23!=null?((JLPSSyntaxParser.initiator_return)initiator23).factName:null));
 					}
 					break;
@@ -1414,7 +1415,7 @@ public class JLPSSyntaxParser extends Parser {
 				}
 			}
 
-			match(input,39,FOLLOW_39_in_postconditions1161);
+			match(input,39,FOLLOW_39_in_postconditions1161); 
 			}
 
 			retval.stop = input.LT(-1);
@@ -1458,13 +1459,13 @@ public class JLPSSyntaxParser extends Parser {
 			      Clause conditions = null;
 			      Clause conflicts = null;
 			      retval.facts = new HashSet<String>();
-
+			      
 			pushFollow(FOLLOW_simpleSentence_in_action1188);
 			simpleSentence24=simpleSentence();
 			state._fsp--;
 
-			match(input,19,FOLLOW_19_in_action1190);
-			match(input,61,FOLLOW_61_in_action1192);
+			match(input,19,FOLLOW_19_in_action1190); 
+			match(input,61,FOLLOW_61_in_action1192); 
 			retval.actionName = simpleSentence24.getName();
 			// JLPSSyntax.g:221:7: ( preconditions )?
 			int alt18=2;
@@ -1506,7 +1507,7 @@ public class JLPSSyntaxParser extends Parser {
 
 			}
 
-			match(input,62,FOLLOW_62_in_action1228);
+			match(input,62,FOLLOW_62_in_action1228); 
 			retval.action = new Action(simpleSentence24, initiators, terminators, conditions, conflicts);
 			this.variables = new HashMap<String, Variable>();
 			}
@@ -1590,7 +1591,7 @@ public class JLPSSyntaxParser extends Parser {
 				MismatchedSetException mse = new MismatchedSetException(null,input);
 				throw mse;
 			}
-			match(input,61,FOLLOW_61_in_d1330);
+			match(input,61,FOLLOW_61_in_d1330); 
 			// JLPSSyntax.g:237:7: ( action )*
 			loop20:
 			while (true) {
@@ -1635,7 +1636,7 @@ public class JLPSSyntaxParser extends Parser {
 						MismatchedSetException mse = new MismatchedSetException(null,input);
 						throw mse;
 					}
-					match(input,61,FOLLOW_61_in_d1360);
+					match(input,61,FOLLOW_61_in_d1360); 
 					// JLPSSyntax.g:239:7: ( macroaction )*
 					loop21:
 					while (true) {
@@ -1662,13 +1663,13 @@ public class JLPSSyntaxParser extends Parser {
 						}
 					}
 
-					match(input,62,FOLLOW_62_in_d1381);
+					match(input,62,FOLLOW_62_in_d1381); 
 					}
 					break;
 
 			}
 
-			match(input,62,FOLLOW_62_in_d1391);
+			match(input,62,FOLLOW_62_in_d1391); 
 			Database.getInstance().setdSet(retval.set);
 			Database.getInstance().addRulesDatabase(macros);
 			}
@@ -1718,7 +1719,7 @@ public class JLPSSyntaxParser extends Parser {
 				MismatchedSetException mse = new MismatchedSetException(null,input);
 				throw mse;
 			}
-			match(input,61,FOLLOW_61_in_database1442);
+			match(input,61,FOLLOW_61_in_database1442); 
 			// JLPSSyntax.g:249:7: ( lext )?
 			int alt23=2;
 			int LA23_0 = input.LA(1);
@@ -1759,7 +1760,7 @@ public class JLPSSyntaxParser extends Parser {
 
 			}
 
-			match(input,62,FOLLOW_62_in_database1476);
+			match(input,62,FOLLOW_62_in_database1476); 
 			}
 
 			retval.stop = input.LT(-1);
@@ -1804,7 +1805,7 @@ public class JLPSSyntaxParser extends Parser {
 				MismatchedSetException mse = new MismatchedSetException(null,input);
 				throw mse;
 			}
-			match(input,61,FOLLOW_61_in_reactiveRules1515);
+			match(input,61,FOLLOW_61_in_reactiveRules1515); 
 			// JLPSSyntax.g:257:7: ( reactiveRule )*
 			loop25:
 			while (true) {
@@ -1832,7 +1833,7 @@ public class JLPSSyntaxParser extends Parser {
 			}
 
 			this.variables = new HashMap<String, Variable>();
-			match(input,62,FOLLOW_62_in_reactiveRules1544);
+			match(input,62,FOLLOW_62_in_reactiveRules1544); 
 			}
 
 			retval.stop = input.LT(-1);
@@ -1877,7 +1878,7 @@ public class JLPSSyntaxParser extends Parser {
 				MismatchedSetException mse = new MismatchedSetException(null,input);
 				throw mse;
 			}
-			match(input,61,FOLLOW_61_in_goals1579);
+			match(input,61,FOLLOW_61_in_goals1579); 
 			// JLPSSyntax.g:265:7: ( rule )*
 			loop26:
 			while (true) {
@@ -1905,7 +1906,7 @@ public class JLPSSyntaxParser extends Parser {
 			}
 
 			this.variables = new HashMap<String, Variable>();
-			match(input,62,FOLLOW_62_in_goals1608);
+			match(input,62,FOLLOW_62_in_goals1608); 
 			GoalsList.getInstance().setGoalsDefinitions(retval.set);
 			}
 
@@ -1951,7 +1952,7 @@ public class JLPSSyntaxParser extends Parser {
 				MismatchedSetException mse = new MismatchedSetException(null,input);
 				throw mse;
 			}
-			match(input,61,FOLLOW_61_in_events1651);
+			match(input,61,FOLLOW_61_in_events1651); 
 			// JLPSSyntax.g:274:7: ( fluent )*
 			loop27:
 			while (true) {
@@ -1979,7 +1980,7 @@ public class JLPSSyntaxParser extends Parser {
 			}
 
 			this.variables = new HashMap<String, Variable>();
-			match(input,62,FOLLOW_62_in_events1680);
+			match(input,62,FOLLOW_62_in_events1680); 
 			CycleHandler.getInstance().setEvents(retval.set);
 			}
 
@@ -2007,8 +2008,8 @@ public class JLPSSyntaxParser extends Parser {
 
 	// $ANTLR start "file"
 	// JLPSSyntax.g:280:1: file returns [boolean[] w, HashSet<String> facts, HashSet<String> actions] : ( database )? ( d )? ( reactiveRules )? ( goals )? ( events )? EOF ;
-	public final file_return file() throws RecognitionException {
-		file_return retval = new file_return();
+	public final JLPSSyntaxParser.file_return file() throws RecognitionException {
+		JLPSSyntaxParser.file_return retval = new JLPSSyntaxParser.file_return();
 		retval.start = input.LT(1);
 
 		ParserRuleReturnScope database35 =null;

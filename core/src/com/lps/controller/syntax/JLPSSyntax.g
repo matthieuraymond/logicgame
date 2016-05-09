@@ -8,38 +8,38 @@ options {
 }
 
 @header {
-package controller.syntax;
+package com.lps.controller.syntax;
 
 import java.util.HashMap;
 import java.util.HashSet;
 
-import Action;
-import And;
-import Arithmetic;
-import Clause;
-import Constant;
-import CycleHandler;
-import Database;
-import DPostDeclaration;
-import DSet;
-import Equal;
-import FactSet;
-import GoalSet;
-import GoalsList;
-import Initiator;
-import Not;
-import ReactiveRule;
-import ReactiveRuleSet;
-import Rule;
-import RuleSet;
-import SimpleSentence;
-import Terminator;
-import Unifiable;
-import Variable;
+import com.lps.model.Action;
+import com.lps.model.And;
+import com.lps.model.Arithmetic;
+import com.lps.model.Clause;
+import com.lps.model.Constant;
+import com.lps.model.CycleHandler;
+import com.lps.model.Database;
+import com.lps.model.DPostDeclaration;
+import com.lps.model.DSet;
+import com.lps.model.Equal;
+import com.lps.model.FactSet;
+import com.lps.model.GoalSet;
+import com.lps.model.GoalsList;
+import com.lps.model.Initiator;
+import com.lps.model.Not;
+import com.lps.model.ReactiveRule;
+import com.lps.model.ReactiveRuleSet;
+import com.lps.model.Rule;
+import com.lps.model.RuleSet;
+import com.lps.model.SimpleSentence;
+import com.lps.model.Terminator;
+import com.lps.model.Unifiable;
+import com.lps.model.Variable;
 }
 
 @lexer::header {
-package controller.syntax;
+package com.lps.controller.syntax;
 }
 
 @members {
@@ -293,7 +293,7 @@ file returns [boolean[\] w, HashSet<String> facts, HashSet<String> actions]
 * Tokens
 *
 **/
-SYMBOL : ('<' | '>' | '<=' | '>=' | '==' | '!=');
+SYMBOL : ('<' | '>' | '<=' | '>=' | '==' | '!=' | '+' | '-');
 CONSTANT : ('a'..'z' | '0'..'9') ('A'..'Z' | 'a'..'z' | '0'..'9' | '_' | '-' | '.')*;
 VARIABLE : ('A'..'Z') ('A'..'Z' | 'a'..'z' | '0'..'9' | '_' | '-' | '.')*;
 WS : (' ' | '\t' | '\n' | '\r' | '\f')+  {$channel = HIDDEN;};

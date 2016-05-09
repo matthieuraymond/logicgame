@@ -2,19 +2,22 @@ package test;
 
 import com.lps.game.LPSHandler;
 import org.junit.Test;
-import com.lps.model.*;
-
-import static org.junit.Assert.*;
 
 public class LPSHandlerTest {
 
     @Test
     public void testUpdate() throws Exception {
-        LPSHandler lps = new LPSHandler("bob");
+        LPSHandler lps = new LPSHandler("bob_test");
 
+        updateAndPrint(lps);
+        updateAndPrint(lps);
+        updateAndPrint(lps);
+
+    }
+
+    private void updateAndPrint(LPSHandler lps) {
         lps.update();
 
-        RuleSet event = lps.getEvents();
-        System.out.println(event.toString());
+        System.out.println(lps.getEvents().toString());
     }
 }

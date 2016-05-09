@@ -1,0 +1,64 @@
+/** @author Alexandre Camus
+*
+* The Mining Machines
+* This file is a complete example of the syntax used for input files.
+* It uses all the features of the syntax.
+*
+*/
+
+Database {
+
+	// No Lext set at the beginning
+	// No Lint set
+
+}
+
+// We are defining the domain theory of the LPS Framework
+DSet {
+
+	alarm(T,S) = {
+		Postconditions [
+			terminates(alarm(T,S), pump-active(T)).
+		]
+	}
+
+	pump(T,S) = {
+		Postconditions [
+			initiates(pump(T,S), pump-active(T)).
+		]
+	}
+
+	no-action(T,S) = {
+		Postconditions [
+			terminates(no-action(T,S), pump-active(T)).
+		]
+	}
+
+}
+
+// We are defining the reactive rules of the LPS Framework
+ReactiveRules {
+
+	observed(T,S) -> mine-pump(T,S).
+
+}
+
+// We are defining the goals' definitions of the LPS Framework
+Goals {
+
+	mine-pump(T,S) :- methane-level(M,T) & {100 <= M} & alarm(T,S).
+	mine-pump(T,S) :- methane-level(M,T) & {100 > M} & water-level(W,T) & {20 < W} & pump(T,S).
+	mine-pump(T,S) :- methane-level(M,T) & {100 > M} & water-level(W,T) & {10 < W} & pump-active(T) & pump(T,S).
+	mine-pump(T,S) :- methane-level(M,T) & {100 > M} & water-level(W,T) & {20 >= W} & {10 >= W} & no-action(T,S).
+	mine-pump(T,S) :- methane-level(M,T) & {100 > M} & water-level(W,T) & {20 >= W} & !pump-active(T,S).
+
+}
+
+// We are defining the initial events of the LPS Framework
+Events {
+
+	methane-level(66,1).
+	water-level(18,1).
+	observed(1,1).
+
+}

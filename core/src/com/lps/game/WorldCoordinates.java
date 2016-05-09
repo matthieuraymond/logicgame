@@ -18,11 +18,11 @@ public class WorldCoordinates {
     }
 
     public float getScreenX() {
-        return 10 + (this.x - this.y) * Utils.tileWidth / 2;
+        return 10 + (this.x - this.y) * Config.tileWidth / 2;
     }
 
     public float getScreenY() {
-        return 848 - (this.x + this.y) * Utils.tileHeight/2;
+        return 848 - (this.x + this.y) * Config.tileHeight/2;
     }
 
     public void increaseX(float dx) {

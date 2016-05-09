@@ -1,13 +1,8 @@
 package com.lps.game;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.utils.Array;
-import com.sun.corba.se.impl.javax.rmi.CORBA.Util;
 
 public class Entity {
     private WorldCoordinates coord;
@@ -30,10 +25,10 @@ public class Entity {
         stateTime += deltaTime;
 
 
-        this.coord.increaseX(currentState.getDx() * deltaTime/Utils.roundDuration);
-        this.coord.increaseY(currentState.getDy() * deltaTime/Utils.roundDuration);
+        this.coord.increaseX(currentState.getDx() * deltaTime/ Config.roundDuration);
+        this.coord.increaseY(currentState.getDy() * deltaTime/ Config.roundDuration);
         /*
-        if (stateTime >= Utils.roundDuration) {
+        if (stateTime >= Config.roundDuration) {
             //round coordinates as stateTime might be !=
             coord.round();
         }*/
@@ -51,7 +46,7 @@ public class Entity {
 
     public void checkIfDead() {
         int currentTile = map.getFloorType((int)coord.getWorldX(), (int)coord.getWorldY());
-        if (currentTile == Utils.lavaID) {
+        if (currentTile == Config.lavaID) {
             this.isAlive = false;
             currentState = State.DEAD;
         }

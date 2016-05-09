@@ -7,8 +7,10 @@ import com.lps.model.Database;
 import com.lps.model.RuleSet;
 import org.antlr.runtime.*;
 
-import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class LPSHandler {
 
@@ -36,7 +38,7 @@ public class LPSHandler {
         this.facts.addAll(returns.facts);
         this.actions.addAll(returns.actions);
 
-        if (Utils.LPSDebug) {
+        if (Config.LPSDebug) {
             if (warnings[0]) {
                 System.out.println("\u001B[33m" + "/!\\ No initial facts defined" + "\u001B[37m");
             }
@@ -62,7 +64,7 @@ public class LPSHandler {
         Map<String, Integer> limits = new HashMap<String, Integer>();
         if (this.facts != null) {
             for(String fact : this.facts) {
-                limits.put(fact, Utils.LPSLimit);
+                limits.put(fact, Config.LPSLimit);
             }
         }
 
