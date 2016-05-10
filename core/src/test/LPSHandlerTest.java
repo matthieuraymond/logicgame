@@ -7,7 +7,7 @@ public class LPSHandlerTest {
 
     @Test
     public void testUpdate() throws Exception {
-        LPSHandler lps = new LPSHandler("bob");
+        LPSHandler lps = new LPSHandler();
         int i = 0;
         boolean keepGoing = true;
         while (i < 10 && keepGoing) {

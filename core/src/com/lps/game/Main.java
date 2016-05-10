@@ -7,13 +7,10 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Main extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture foreground;
-	List<Entity> entities;
+	Entity bob;
 	MapManager mapManager;
 	LPSHandler lpsHandler;
 	float roundTime;
@@ -27,10 +24,9 @@ public class Main extends ApplicationAdapter {
 
 		mapManager = new MapManager("maps/tmx/map1.tmx");
 
-		entities = new ArrayList<Entity>();
-		entities.add(new Entity(mapManager, 2, 0));
+		bob = new Entity(mapManager, 2, 0);
 
-		lpsHandler = new LPSHandler("bob");
+		lpsHandler = new LPSHandler();
 		roundTime = 0;
 	}
 
@@ -64,33 +60,32 @@ public class Main extends ApplicationAdapter {
 		}
 
 		// LPS UPDATE TEMPORARY
-		Entity firstBob = entities.get(0);
 
 		if (endOfRound) {
             lpsHandler.update();
 			EntityState newState = lpsHandler.getNewState();
 
 			if (newState != null) {
-				firstBob.updateState(newState);
+				bob.updateState(newState);
 			} else {
-				firstBob.makeIDLE();
+				bob.makeIDLE();
 			}
 		}
 		// -----------
 
-        if (endOfRound) {
-            for (Entity e: entities) {
-                e.checkIfWet();
-            }
-        }
+        //if (endOfRound) {
+        //    for (Entity e: entities) {
+                bob.checkIfWet();
+            //}
+        //}
 
-		mapManager.draw();
+		mapManager.draw(deltaTime);
 
 		batch.begin();
 
-		for (Entity e: entities) {
-			e.draw(batch, deltaTime);
-		}
+		//for (Entity e: entities) {
+			bob.draw(batch, deltaTime);
+		//}
 
 		batch.draw(foreground, 0, 0);
 		batch.end();

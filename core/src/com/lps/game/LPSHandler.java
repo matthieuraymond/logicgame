@@ -1,5 +1,7 @@
 package com.lps.game;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.lps.controller.syntax.JLPSSyntaxLexer;
 import com.lps.controller.syntax.JLPSSyntaxParser;
 import com.lps.model.CycleHandler;
@@ -18,10 +20,19 @@ public class LPSHandler {
     private Set<String> facts = new HashSet<String>();
     private Set<String> actions  = new HashSet<String>();
 
-    public LPSHandler(String scriptName) {
+    public LPSHandler() {
         try {
-            ANTLRFileStream stream = new ANTLRFileStream("scripts/" + scriptName);
-            fileReader(stream);
+            StringBuilder lpsString = new StringBuilder();
+            FileHandle headScript = Gdx.files.internal("scripts/head");
+            FileHandle tailScript = Gdx.files.internal("scripts/tail");
+
+            lpsString.append(headScript.readString());
+
+            lpsString.append(tailScript.readString());
+
+            CharStream stream = new ANTLRStringStream(lpsString.toString());
+            streamReader(stream);
+            
         } catch (Exception e) {
             System.out.println("Unable to load script");
         }
@@ -29,7 +40,7 @@ public class LPSHandler {
         setLimit();
     }
 
-    public void fileReader(CharStream fileStream) throws RecognitionException {
+    public void streamReader(CharStream fileStream) throws RecognitionException {
         JLPSSyntaxLexer lexer = new JLPSSyntaxLexer(fileStream);
         TokenStream tokenStream = new CommonTokenStream(lexer);
         JLPSSyntaxParser parser = new JLPSSyntaxParser(tokenStream);

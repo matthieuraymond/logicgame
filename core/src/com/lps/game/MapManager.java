@@ -26,14 +26,14 @@ public class MapManager {
         camera.position.set(Config.tileWidth * Config.noHorizontalTile - 10, 107, 0);
     }
 
-    public void draw() {
+    public void draw(float deltaTime) {
 
         camera.update();
 
         renderer.setView(camera);
         renderer.render();
 
-        elapsedSinceAnimation += Gdx.graphics.getDeltaTime();
+        elapsedSinceAnimation += deltaTime;
         if(elapsedSinceAnimation > 1/30f){
             updateWaterAnimations();
             elapsedSinceAnimation = 0;

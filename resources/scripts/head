@@ -41,18 +41,4 @@ DSet {
 
 // We are defining the reactive rules of the LPS Framework
 ReactiveRules {
-  //isIn(X, Y) & grey(X, Y) -> goRight().
-}
-
-// We are defining the goals' definitions of the LPS Framework
-Goals {
-	goRight() :- isIn(X,Y) & isNext(X,Z)     & moveFromTo(X,Y,Z,Y).
-	goLeft()  :- isIn(X,Y) & isPrevious(X,Z) & moveFromTo(X,Y,Z,Y).
-	goUp()    :- isIn(X,Y) & isNext(Y,Z)     & moveFromTo(X,Y,X,Z).
-	goDown()  :- isIn(X,Y) & isPrevious(Y,Z) & moveFromTo(X,Y,X,Z).
-}
-
-// We are defining the initial events of the LPS Framework
-Events {
-
-}
+// RULES ARE DEFINED BY FINAL USER
