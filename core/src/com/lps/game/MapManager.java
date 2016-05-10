@@ -40,11 +40,11 @@ public class MapManager {
         }
     }
 
-    public int getFloorType(int x, int y) {
+    public boolean isWater(int x, int y) {
 
-        TiledMapTileLayer.Cell cell = floorLayer.getCell(x, y + Config.noVerticalTile);
+        TiledMapTileLayer.Cell cell = floorLayer.getCell(x, Config.noVerticalTile - y);
 
-        return cell.getTile().getId();
+        return cell.getTile().getProperties().get("isWater") != null;
     }
 
     private void updateWaterAnimations(){

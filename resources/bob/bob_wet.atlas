@@ -1,0 +1,13 @@
+
+bob_wet.png
+size: 64,128
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+0001
+  rotate: false
+  xy: 2, 2
+  size: 50, 84
+  orig: 50, 84
+  offset: 0, 0
+  index: -1

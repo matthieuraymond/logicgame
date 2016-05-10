@@ -1,14 +1,39 @@
-// $ANTLR 3.5.2 JLPSSyntax.g 2016-05-09 11:37:34
+// $ANTLR 3.5.2 JLPSSyntax.g 2016-05-10 16:23:26
 
 package com.lps.controller.syntax;
 
-import com.lps.model.*;
-import com.lps.model.Terminator;
-import org.antlr.runtime.*;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+
+import com.lps.model.Action;
+import com.lps.model.And;
+import com.lps.model.Arithmetic;
+import com.lps.model.Clause;
+import com.lps.model.Constant;
+import com.lps.model.CycleHandler;
+import com.lps.model.Database;
+import com.lps.model.DPostDeclaration;
+import com.lps.model.DSet;
+import com.lps.model.Equal;
+import com.lps.model.FactSet;
+import com.lps.model.GoalSet;
+import com.lps.model.GoalsList;
+import com.lps.model.Initiator;
+import com.lps.model.Not;
+import com.lps.model.ReactiveRule;
+import com.lps.model.ReactiveRuleSet;
+import com.lps.model.Rule;
+import com.lps.model.RuleSet;
+import com.lps.model.SimpleSentence;
+import com.lps.model.Terminator;
+import com.lps.model.Unifiable;
+import com.lps.model.Variable;
+
+
+import org.antlr.runtime.*;
+import java.util.Stack;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
 * @author Alexandre Camus

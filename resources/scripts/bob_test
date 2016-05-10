@@ -38,7 +38,7 @@ ReactiveRules {
 
 // We are defining the goals' definitions of the LPS Framework
 Goals {
-	goFromTo(X, Y) :- isIn(X) & {Y > X} & moveFromTo(X, Y).
+	goFromTo(X, Y) :- isIn(X) & {Y <= 3} & moveFromTo(X, Y).
 }
 
 // We are defining the initial events of the LPS Framework

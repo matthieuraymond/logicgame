@@ -293,7 +293,7 @@ file returns [boolean[\] w, HashSet<String> facts, HashSet<String> actions]
 * Tokens
 *
 **/
-SYMBOL : ('<' | '>' | '<=' | '>=' | '==' | '!=' | '+' | '-');
+SYMBOL : ('<' | '>' | '<=' | '>=' | '==' | '!=');
 CONSTANT : ('a'..'z' | '0'..'9') ('A'..'Z' | 'a'..'z' | '0'..'9' | '_' | '-' | '.')*;
 VARIABLE : ('A'..'Z') ('A'..'Z' | 'a'..'z' | '0'..'9' | '_' | '-' | '.')*;
 WS : (' ' | '\t' | '\n' | '\r' | '\f')+  {$channel = HIDDEN;};

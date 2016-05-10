@@ -30,7 +30,7 @@ public class Main extends ApplicationAdapter {
 		mapManager = new MapManager("maps/tmx/map1.tmx");
 
 		entities = new ArrayList<Entity>();
-		entities.add(new Entity(mapManager, 1, 0));
+		entities.add(new Entity(mapManager, 2, 0));
 
 		lpsHandler = new LPSHandler("bob");
 		roundTime = 0;
@@ -73,15 +73,23 @@ public class Main extends ApplicationAdapter {
 			RuleSet instructions = lpsHandler.getEvents();
             if (instructions.getRuleCount() > 0) {
                 Rule nextRule = instructions.getRule(0);
-                int from = Integer.parseInt(nextRule.getHead().getTerm(1).toString());
-                int to = Integer.parseInt(nextRule.getHead().getTerm(2).toString());
-                //System.out.println(to);
-                if (to > from) {
+				int fromX = lpsHandler.convertToInt(nextRule.getHead().getTerm(1).toString());
+				int fromY = lpsHandler.convertToInt(nextRule.getHead().getTerm(2).toString());
+                int toX = lpsHandler.convertToInt(nextRule.getHead().getTerm(3).toString());
+				int toY = lpsHandler.convertToInt(nextRule.getHead().getTerm(4).toString());
+
+                if (toX > fromX) {
                     firstBob.updateState(Entity.State.WALK_RIGHT);
-                } else if (to < from) {
+                } else if (toX < fromX) {
                     firstBob.updateState(Entity.State.WALK_LEFT);
-                }
-            }
+                } else if (toY > fromY) {
+					firstBob.updateState(Entity.State.WALK_UP);
+				} else if (toY < fromY) {
+					firstBob.updateState(Entity.State.WALK_DOWN);
+				}
+            } else {
+				firstBob.makeIDLE();
+			}
 		}
 		// -----------
 

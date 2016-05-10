@@ -27,11 +27,11 @@ public class Entity {
 
         this.coord.increaseX(currentState.getDx() * deltaTime/ Config.roundDuration);
         this.coord.increaseY(currentState.getDy() * deltaTime/ Config.roundDuration);
-        /*
+
         if (stateTime >= Config.roundDuration) {
             //round coordinates as stateTime might be !=
             coord.round();
-        }*/
+        }
 
         TextureRegion currentFrame = currentState.getFrame(stateTime);
         batch.draw(currentFrame, this.coord.getScreenX() - currentFrame.getRegionWidth()/2, this.coord.getScreenY());
@@ -44,11 +44,30 @@ public class Entity {
         }
     }
 
+    public void makeIDLE() {
+        if (isAlive) {
+            stateTime = 0;
+            switch (currentState) {
+                case WALK_RIGHT:
+                    currentState = State.IDLE_RIGHT;
+                    break;
+                case WALK_LEFT:
+                    currentState = State.IDLE_LEFT;
+                    break;
+                case WALK_UP:
+                    currentState = State.IDLE_UP;
+                    break;
+                case WALK_DOWN:
+                    currentState = State.IDLE_DOWN;
+                    break;
+            }
+        }
+    }
+
     public void checkIfDead() {
-        int currentTile = map.getFloorType((int)coord.getWorldX(), (int)coord.getWorldY());
-        if (currentTile == Config.lavaID) {
+        if (map.isWater((int)coord.getWorldX(), (int)coord.getWorldY())) {
             this.isAlive = false;
-            currentState = State.DEAD;
+            currentState = State.WET;
         }
     }
 
@@ -61,7 +80,7 @@ public class Entity {
         WALK_DOWN (Textures.BOB_W_DOWN, false, 0, 1),
         WALK_LEFT (Textures.BOB_W_LEFT, false, -1, 0),
         WALK_UP (Textures.BOB_W_UP, false, 0, -1),
-        DEAD (Textures.BOB_BURNING, false, 0, 0);
+        WET (Textures.BOB_WET, false, 0, 0);
 
         private Animation animation;
         private float dx;
