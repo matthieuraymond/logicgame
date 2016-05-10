@@ -7,17 +7,20 @@ public class LPSHandlerTest {
 
     @Test
     public void testUpdate() throws Exception {
-        LPSHandler lps = new LPSHandler("bob_test");
-
-        updateAndPrint(lps);
-        updateAndPrint(lps);
-        updateAndPrint(lps);
+        LPSHandler lps = new LPSHandler("bob");
+        int i = 0;
+        boolean keepGoing = true;
+        while (i < 10 && keepGoing) {
+            keepGoing = updateAndPrint(lps);
+            i++;
+        }
 
     }
 
-    private void updateAndPrint(LPSHandler lps) {
+    private boolean updateAndPrint(LPSHandler lps) {
         lps.update();
-
-        System.out.println(lps.getEvents().toString());
+        String res = lps.getEvents().toString();
+        System.out.println(res);
+        return res != "true.";
     }
 }

@@ -28,8 +28,9 @@ Database {
 		floor(15, m4).
 		floor(16, m4).
 
-        isNext(0,1).isNext(1,2).isNext(2,3).isNext(3,4).isNext(4,5).isNext(5,6).isNext(6,7).isNext(7,8).isNext(8,9).isNext(9,10).isNext(10,11).isNext(11,12).isNext(12,13).isNext(13,14).isNext(14,15).isNext(15,16).
-        isNext(0,m1).isNext(m1,m2).isNext(m2,m3).isNext(m3,m4).
+        isNext(m3,m4).isNext(m2,m3).isNext(m1,m2).isNext(0,m1).isNext(0,1).isNext(1,2).isNext(2,3).isNext(3,4).isNext(4,5).isNext(5,6).isNext(6,7).isNext(7,8).isNext(8,9).isNext(9,10).isNext(10,11).isNext(11,12).isNext(12,13).isNext(13,14).isNext(14,15).isNext(15,16).
+        isNext(m4,m3).isNext(m3,m2).isNext(m2,m1).isNext(m1,0).isNext(1,0).isNext(2,1).isNext(3,2).isNext(4,3).isNext(5,4).isNext(6,5).isNext(7,6).isNext(8,7).isNext(9,8).isNext(10,9).isNext(11,10).isNext(12,11).isNext(13,12).isNext(14,13).isNext(15,14).isNext(16,15).
+
 	}
 
 }
