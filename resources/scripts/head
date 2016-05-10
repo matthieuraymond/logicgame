@@ -42,3 +42,4 @@ DSet {
 // We are defining the reactive rules of the LPS Framework
 ReactiveRules {
 // RULES ARE DEFINED BY FINAL USER
+isIn(X, Y) & grey(X, Y) -> goRight().

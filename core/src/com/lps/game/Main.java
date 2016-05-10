@@ -14,6 +14,7 @@ public class Main extends ApplicationAdapter {
 	MapManager mapManager;
 	LPSHandler lpsHandler;
 	float roundTime;
+	GameState gameState = GameState.INPUT_HANDLING;
 
 
 	@Override
@@ -22,12 +23,7 @@ public class Main extends ApplicationAdapter {
 
 		foreground = new Texture("foreground.png");
 
-		mapManager = new MapManager("maps/tmx/map1.tmx");
-
-		bob = new Entity(mapManager, 2, 0);
-
-		lpsHandler = new LPSHandler();
-		roundTime = 0;
+		resetLevel();
 	}
 
 	@Override
@@ -44,7 +40,7 @@ public class Main extends ApplicationAdapter {
 	@Override
 	public void render() {
 
-		float deltaTime = Gdx.graphics.getDeltaTime();
+		float deltaTime = (gameState == GameState.ANIM_PLAYING) ? Gdx.graphics.getDeltaTime() : 0;
 		roundTime += deltaTime;
 
         boolean endOfRound = roundTime >= Config.roundDuration;
@@ -59,7 +55,13 @@ public class Main extends ApplicationAdapter {
 			}
 		}
 
-		// LPS UPDATE TEMPORARY
+		// SUBMIT
+		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
+			if (Gdx.input.getX() >= 1630 && Gdx.input.getX() <= 1835 && Gdx.input.getY() >= 1010 && Gdx.input.getY() <= 1070) {
+				resetLevel();
+				gameState = GameState.ANIM_PLAYING;
+			}
+		}
 
 		if (endOfRound) {
             lpsHandler.update();
@@ -71,26 +73,28 @@ public class Main extends ApplicationAdapter {
 				bob.makeIDLE();
 			}
 		}
-		// -----------
 
-        //if (endOfRound) {
-        //    for (Entity e: entities) {
-                bob.checkIfWet();
-            //}
-        //}
+        if (bob.checkIfWet()) {
+			gameState = GameState.INPUT_HANDLING;
+		}
 
 		mapManager.draw(deltaTime);
 
 		batch.begin();
 
-		//for (Entity e: entities) {
-			bob.draw(batch, deltaTime);
-		//}
+		bob.draw(batch, deltaTime);
 
 		batch.draw(foreground, 0, 0);
 		batch.end();
 
 		if (endOfRound) roundTime = 0;
+	}
+
+	private void resetLevel() {
+		mapManager = new MapManager("maps/tmx/map1.tmx");
+		bob = new Entity(mapManager, 2, 0);
+		lpsHandler = new LPSHandler();
+		roundTime = 0;
 	}
 
 }

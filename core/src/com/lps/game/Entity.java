@@ -63,11 +63,13 @@ public class Entity {
         }
     }
 
-    public void checkIfWet() {
+    public boolean checkIfWet() {
         if (map.isWater((int)coord.getWorldX(), (int)coord.getWorldY())) {
             this.isAlive = false;
             currentState = EntityState.WET;
+            return true;
         }
+        return false;
     }
 
     ;
