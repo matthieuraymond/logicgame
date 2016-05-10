@@ -6,8 +6,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.lps.model.Rule;
-import com.lps.model.RuleSet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,24 +68,11 @@ public class Main extends ApplicationAdapter {
 
 		if (endOfRound) {
             lpsHandler.update();
-			RuleSet instructions = lpsHandler.getEvents();
-            if (instructions.getRuleCount() > 0) {
-                Rule nextRule = instructions.getRule(0);
-				int fromX = lpsHandler.convertToInt(nextRule.getHead().getTerm(1).toString());
-				int fromY = lpsHandler.convertToInt(nextRule.getHead().getTerm(2).toString());
-                int toX = lpsHandler.convertToInt(nextRule.getHead().getTerm(3).toString());
-				int toY = lpsHandler.convertToInt(nextRule.getHead().getTerm(4).toString());
+			EntityState newState = lpsHandler.getNewState();
 
-                if (toX > fromX) {
-                    firstBob.updateState(Entity.State.WALK_RIGHT);
-                } else if (toX < fromX) {
-                    firstBob.updateState(Entity.State.WALK_LEFT);
-                } else if (toY > fromY) {
-					firstBob.updateState(Entity.State.WALK_UP);
-				} else if (toY < fromY) {
-					firstBob.updateState(Entity.State.WALK_DOWN);
-				}
-            } else {
+			if (newState != null) {
+				firstBob.updateState(newState);
+			} else {
 				firstBob.makeIDLE();
 			}
 		}
@@ -95,7 +80,7 @@ public class Main extends ApplicationAdapter {
 
         if (endOfRound) {
             for (Entity e: entities) {
-                e.checkIfDead();
+                e.checkIfWet();
             }
         }
 

@@ -1,20 +1,19 @@
 package com.lps.game;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Entity {
     private WorldCoordinates coord;
     private float stateTime;
-    private State currentState;
+    private EntityState currentState;
     private boolean isAlive;
     private MapManager map;
 
     public Entity(MapManager map, float x, float y) {
         this.coord = new WorldCoordinates(x, y);
         this.stateTime = 0f;
-        this.currentState = State.IDLE_RIGHT;
+        this.currentState = EntityState.IDLE_RIGHT;
         this.isAlive = true;
         this.map = map;
     }
@@ -37,7 +36,7 @@ public class Entity {
         batch.draw(currentFrame, this.coord.getScreenX() - currentFrame.getRegionWidth()/2, this.coord.getScreenY());
     }
 
-    public void updateState(State newState) {
+    public void updateState(EntityState newState) {
         if (isAlive) {
             this.currentState = newState;
             stateTime = 0;
@@ -49,65 +48,27 @@ public class Entity {
             stateTime = 0;
             switch (currentState) {
                 case WALK_RIGHT:
-                    currentState = State.IDLE_RIGHT;
+                    currentState = EntityState.IDLE_RIGHT;
                     break;
                 case WALK_LEFT:
-                    currentState = State.IDLE_LEFT;
+                    currentState = EntityState.IDLE_LEFT;
                     break;
                 case WALK_UP:
-                    currentState = State.IDLE_UP;
+                    currentState = EntityState.IDLE_UP;
                     break;
                 case WALK_DOWN:
-                    currentState = State.IDLE_DOWN;
+                    currentState = EntityState.IDLE_DOWN;
                     break;
             }
         }
     }
 
-    public void checkIfDead() {
+    public void checkIfWet() {
         if (map.isWater((int)coord.getWorldX(), (int)coord.getWorldY())) {
             this.isAlive = false;
-            currentState = State.WET;
+            currentState = EntityState.WET;
         }
     }
 
-    public enum State {
-        IDLE_RIGHT (Textures.BOB_W_RIGHT, true, 0, 0),
-        IDLE_DOWN (Textures.BOB_W_DOWN, true, 0, 0),
-        IDLE_LEFT (Textures.BOB_W_LEFT, true, 0, 0),
-        IDLE_UP (Textures.BOB_W_UP, true, 0, 0),
-        WALK_RIGHT (Textures.BOB_W_RIGHT, false, 1, 0),
-        WALK_DOWN (Textures.BOB_W_DOWN, false, 0, 1),
-        WALK_LEFT (Textures.BOB_W_LEFT, false, -1, 0),
-        WALK_UP (Textures.BOB_W_UP, false, 0, -1),
-        WET (Textures.BOB_WET, false, 0, 0);
-
-        private Animation animation;
-        private float dx;
-        private float dy;
-        private boolean isIDLE;
-
-        State(Textures text, boolean isIDLE, float dx, float dy) {
-            this.animation = new Animation(text.getSpeed(), isIDLE ? text.getTexture().findRegions("0001") : text.getTexture().getRegions());
-            this.dx = dx;
-            this.dy = dy;
-            this.isIDLE = isIDLE;
-        }
-
-        public TextureRegion getFrame(float stateTime) {
-            return this.animation.getKeyFrame(stateTime, true);
-        }
-
-        public float getDx() {
-            return this.dx;
-        }
-
-        public float getDy() {
-            return this.dy;
-        }
-
-        public boolean isIDLE() {
-            return this.isIDLE;
-        }
-    };
+    ;
 }

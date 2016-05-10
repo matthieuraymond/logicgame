@@ -5,6 +5,7 @@ import com.lps.controller.syntax.JLPSSyntaxParser;
 import com.lps.model.CycleHandler;
 import com.lps.model.Database;
 import com.lps.model.RuleSet;
+import com.lps.model.SimpleSentence;
 import org.antlr.runtime.*;
 
 import java.util.HashMap;
@@ -86,8 +87,32 @@ public class LPSHandler {
         return CycleHandler.getInstance().getEvents();
     }
 
-    public int convertToInt(String s) {
+    public EntityState getNewState() {
+        RuleSet instructions = getEvents();
+        if (instructions.getRuleCount() > 0) {
+            SimpleSentence nextRule = instructions.getRule(0).getHead();
+            int fromX = convertToInt(nextRule.getTerm(1).toString());
+            int fromY = convertToInt(nextRule.getTerm(2).toString());
+            int toX = convertToInt(nextRule.getTerm(3).toString());
+            int toY = convertToInt(nextRule.getTerm(4).toString());
+
+            if (toX > fromX) {
+                return EntityState.WALK_RIGHT;
+            } else if (toX < fromX) {
+                return EntityState.WALK_LEFT;
+            } else if (toY > fromY) {
+                return EntityState.WALK_UP;
+            } else if (toY < fromY) {
+                return EntityState.WALK_DOWN;
+            }
+        }
+        return null;
+    }
+
+    private int convertToInt(String s) {
         return Integer.parseInt(s.charAt(0) == 'm' ? "-" + s.substring(1) : s);
     }
+
+
 
 }
