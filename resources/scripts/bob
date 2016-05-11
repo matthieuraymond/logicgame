@@ -1,4 +1,3 @@
-
 Database {
 
 	// We are defining the Lext set of the LPS Framework
@@ -8,17 +7,28 @@ Database {
 
 	// We are defining the Lint set of the LPS Framework
 	Rules {
-		grey(2, 0).
-		grey(3, 0).
-		grey(4, 0).
-		grey(5, 0).
-		grey(6, 0).
-		grey(7, 0).
-		grey(8, 0).
-		grey(9, 0).
+		floor(2, 0).
+		floor(3, 0).
+		floor(4, 0).
+		floor(5, 0).
+		floor(6, 0).
+		floor(7, 0).
+		floor(8, 0).
+		floor(9, 0).
+		floor(9, m1).
+		floor(9, m2).
+		floor(9, m3).
+		floor(9, m4).
+		floor(10, m4).
+		floor(11, m4).
+		floor(12, m4).
+		floor(13, m4).
+		floor(14, m4).
+		floor(15, m4).
+		floor(16, m4).
 
-        isNext(m5,m4).isNext(m4,m3).isNext(m3,m2).isNext(m2,m1).isNext(m1,0).isNext(0,1).isNext(1,2).isNext(2,3).isNext(3,4).isNext(4,5).isNext(5,6).isNext(6,7).isNext(7,8).isNext(8,9).isNext(9,10).isNext(10,11).isNext(11,12).isNext(12,13).isNext(13,14).isNext(14,15).isNext(15,16).
-        isPrevious(m4,m5).isPrevious(m3,m4).isPrevious(m2,m3).isPrevious(m1,m2).isPrevious(0,m1).isPrevious(1,0).isPrevious(2,1).isPrevious(3,2).isPrevious(4,3).isPrevious(5,4).isPrevious(6,5).isPrevious(7,6).isPrevious(8,7).isPrevious(9,8).isPrevious(10,9).isPrevious(11,10).isPrevious(12,11).isPrevious(13,12).isPrevious(14,13).isPrevious(15,14).isPrevious(16,15).
+        isNext(m3,m4).isNext(m2,m3).isNext(m1,m2).isNext(0,m1).isNext(0,1).isNext(1,2).isNext(2,3).isNext(3,4).isNext(4,5).isNext(5,6).isNext(6,7).isNext(7,8).isNext(8,9).isNext(9,10).isNext(10,11).isNext(11,12).isNext(12,13).isNext(13,14).isNext(14,15).isNext(15,16).
+        //isNext(m4,m3).isNext(m3,m2).isNext(m2,m1).isNext(m1,0).isNext(1,0).isNext(2,1).isNext(3,2).isNext(4,3).isNext(5,4).isNext(6,5).isNext(7,6).isNext(8,7).isNext(9,8).isNext(10,9).isNext(11,10).isNext(12,11).isNext(13,12).isNext(14,13).isNext(15,14).isNext(16,15).
 
 	}
 
@@ -41,15 +51,13 @@ DSet {
 
 // We are defining the reactive rules of the LPS Framework
 ReactiveRules {
-  //isIn(X, Y) & grey(X, Y) -> goRight().
+  isIn(X, Y) & floor(X, Z) & isNext(Y,Z) -> goFromTo(X, Y, X, Z).
+  isIn(X, Y) & floor(Z, Y) & isNext(X,Z) -> goFromTo(X, Y, Z, Y).
 }
 
 // We are defining the goals' definitions of the LPS Framework
 Goals {
-	goRight() :- isIn(X,Y) & isNext(X,Z)     & moveFromTo(X,Y,Z,Y).
-	goLeft()  :- isIn(X,Y) & isPrevious(X,Z) & moveFromTo(X,Y,Z,Y).
-	goUp()    :- isIn(X,Y) & isNext(Y,Z)     & moveFromTo(X,Y,X,Z).
-	goDown()  :- isIn(X,Y) & isPrevious(Y,Z) & moveFromTo(X,Y,X,Z).
+	goFromTo(A, B, X, Y) :- moveFromTo(A, B, X, Y).
 }
 
 // We are defining the initial events of the LPS Framework

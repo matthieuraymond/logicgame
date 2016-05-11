@@ -40,11 +40,16 @@ public class MapManager {
         }
     }
 
-    public boolean isWater(int x, int y) {
+    public String getType(int x, int y) {
 
         TiledMapTileLayer.Cell cell = floorLayer.getCell(x, Config.noVerticalTile - y);
+        Object type = cell.getTile().getProperties().get("type");
 
-        return cell.getTile().getProperties().get("isWater") != null;
+        if (type != null) {
+            return (String)type;
+        } else {
+            return "";
+        }
     }
 
     private void updateWaterAnimations(){
@@ -56,11 +61,12 @@ public class MapManager {
 
         for(int x = 0; x < floorLayer.getWidth();x++){
             for(int y = 0; y < floorLayer.getHeight();y++){
-                TiledMapTileLayer.Cell cell = floorLayer.getCell(x,y);
-                Object prop = cell.getTile().getProperties().get("isWater");
 
-                if (prop != null){
-                    cell.setTile(newTile);
+                TiledMapTileLayer.Cell cell = floorLayer.getCell(x,y);
+                Object type = cell.getTile().getProperties().get("type");
+
+                if (type != null){
+                    if (type.equals("water")) cell.setTile(newTile);
                 }
             }
         }

@@ -74,9 +74,7 @@ public class Main extends ApplicationAdapter {
 			}
 		}
 
-        if (bob.checkIfWet()) {
-			gameState = GameState.INPUT_HANDLING;
-		}
+		boolean isWet = bob.checkIfWet();
 
 		mapManager.draw(deltaTime);
 
@@ -87,6 +85,7 @@ public class Main extends ApplicationAdapter {
 		batch.draw(foreground, 0, 0);
 		batch.end();
 
+		if (isWet) gameState = GameState.INPUT_HANDLING;
 		if (endOfRound) roundTime = 0;
 	}
 

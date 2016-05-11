@@ -64,7 +64,9 @@ public class Entity {
     }
 
     public boolean checkIfWet() {
-        if (map.isWater((int)coord.getWorldX(), (int)coord.getWorldY())) {
+        String type = map.getType((int)coord.getWorldX(), (int)coord.getWorldY());
+
+        if (type.equals("water")) {
             this.isAlive = false;
             currentState = EntityState.WET;
             return true;
