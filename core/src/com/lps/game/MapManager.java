@@ -26,7 +26,7 @@ public class MapManager {
         waterIterator = map.getTileSets().getTileSet("water").iterator();
 
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        camera.position.set(Config.tileWidth * Config.noHorizontalTile - 10, 107, 0);
+        camera.position.set(Config.tileWidth * Config.noHorizontalTile - 50, 67, 0);
     }
 
     public void draw(float deltaTime) {

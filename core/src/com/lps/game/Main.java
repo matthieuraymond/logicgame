@@ -124,7 +124,7 @@ public class Main extends ApplicationAdapter {
 
 	private void resetLevel() {
 		gameState = GameState.INPUT_HANDLING;
-		mapManager = new MapManager("maps/tmx/map3.tmx");
+		mapManager = new MapManager("maps/tmx/map2.tmx");
 		bob = new Entity(mapManager, 2, 0);
 		lpsHandler = new LPSHandler(mapManager);
 		roundTime = 0;
