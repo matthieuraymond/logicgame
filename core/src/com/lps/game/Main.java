@@ -3,25 +3,47 @@ package com.lps.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+
+import java.util.HashMap;
 
 public class Main extends ApplicationAdapter {
+	Stage stage;
 	SpriteBatch batch;
 	Texture foreground;
 	Entity bob;
+	HashMap<String, Brick> inputs;
 	MapManager mapManager;
 	LPSHandler lpsHandler;
 	float roundTime;
-	GameState gameState = GameState.INPUT_HANDLING;
+	GameState gameState;
+	Skin skin;
 
 
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
+		stage = new Stage();
+		Gdx.input.setInputProcessor(stage);
 
 		foreground = new Texture("foreground.png");
+
+
+		// DRAG N DROP STUFF
+		skin = new Skin();
+		skin.add("default", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+		skin.add("badlogic", new Texture("badlogic.jpg"));
+
+		inputs = new HashMap<>();
+
+		inputs.put("Red", new Brick(stage, skin, "", "badlogic"));
 
 		resetLevel();
 	}
@@ -29,12 +51,18 @@ public class Main extends ApplicationAdapter {
 	@Override
 	public void dispose() {
 		batch.dispose();
+		stage.dispose();
 
 		for (Textures t: Textures.values()) {
 			t.dispose();
 		}
 
 		foreground.dispose();
+	}
+
+	@Override
+	public void resize (int width, int height) {
+		stage.getViewport().update(width, height, true);
 	}
 
 	@Override
@@ -63,6 +91,9 @@ public class Main extends ApplicationAdapter {
 			}
 		}
 
+		// UPDATE OF ENTITY
+		boolean isWet = bob.checkIfWet();
+
 		if (endOfRound) {
             lpsHandler.update();
 			EntityState newState = lpsHandler.getNewState();
@@ -74,23 +105,26 @@ public class Main extends ApplicationAdapter {
 			}
 		}
 
-		boolean isWet = bob.checkIfWet();
-
+		//Map
 		mapManager.draw(deltaTime);
 
+		// Batch
 		batch.begin();
-
 		bob.draw(batch, deltaTime);
-
 		batch.draw(foreground, 0, 0);
 		batch.end();
+
+		// Stage
+		stage.act(deltaTime);
+		stage.draw();
 
 		if (isWet) gameState = GameState.INPUT_HANDLING;
 		if (endOfRound) roundTime = 0;
 	}
 
 	private void resetLevel() {
-		mapManager = new MapManager("maps/tmx/map1.tmx");
+		gameState = GameState.INPUT_HANDLING;
+		mapManager = new MapManager("maps/tmx/map3.tmx");
 		bob = new Entity(mapManager, 2, 0);
 		lpsHandler = new LPSHandler(mapManager);
 		roundTime = 0;

@@ -35,9 +35,9 @@ public class LPSHandler {
             lpsString.append(headScript.readString());
             lpsString.append(map.getLPSDescription());
             lpsString.append(middleScript.readString());
+            //append drag'n'drop rules
             lpsString.append(tailScript.readString());
 
-            System.out.println(lpsString.toString());
 
             CharStream stream = new ANTLRStringStream(lpsString.toString());
             streamReader(stream);

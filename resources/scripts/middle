@@ -1,7 +1,7 @@
         //WORLD DESC ADDED PROGRAMATICALLY
 
-        isNext(m5,m4).isNext(m4,m3).isNext(m3,m2).isNext(m2,m1).isNext(m1,0).isNext(0,1).isNext(1,2).isNext(2,3).isNext(3,4).isNext(4,5).isNext(5,6).isNext(6,7).isNext(7,8).isNext(8,9).isNext(9,10).isNext(10,11).isNext(11,12).isNext(12,13).isNext(13,14).isNext(14,15).isNext(15,16).isNext(16,17).isNext(17,18).isNext(18,19).isNext(19.20).
-        isPrevious(m4,m5).isPrevious(m3,m4).isPrevious(m2,m3).isPrevious(m1,m2).isPrevious(0,m1).isPrevious(1,0).isPrevious(2,1).isPrevious(3,2).isPrevious(4,3).isPrevious(5,4).isPrevious(6,5).isPrevious(7,6).isPrevious(8,7).isPrevious(9,8).isPrevious(10,9).isPrevious(11,10).isPrevious(12,11).isPrevious(13,12).isPrevious(14,13).isPrevious(15,14).isPrevious(16,15).
+        isNext(m12,m11).isNext(m11,m10).isNext(m10,m9).isNext(m9,m8).isNext(m8,m7).isNext(m7,m6).isNext(m6,m5).isNext(m5,m4).isNext(m4,m3).isNext(m3,m2).isNext(m2,m1).isNext(m1,0).isNext(0,1).isNext(1,2).isNext(2,3).isNext(3,4).isNext(4,5).isNext(5,6).isNext(6,7).isNext(7,8).isNext(8,9).isNext(9,10).isNext(10,11).isNext(11,12).isNext(12,13).isNext(13,14).isNext(14,15).isNext(15,16).isNext(16,17).isNext(17,18).isNext(18,19).isNext(19.20).isNext(20,21).isNext(21,22).
+        isPrevious(m11,m12).isPrevious(m10,m11).isPrevious(m9,m10).isPrevious(m8,m9).isPrevious(m7,m8).isPrevious(m6,m7).isPrevious(m5,m6).isPrevious(m4,m5).isPrevious(m3,m4).isPrevious(m2,m3).isPrevious(m1,m2).isPrevious(0,m1).isPrevious(1,0).isPrevious(2,1).isPrevious(3,2).isPrevious(4,3).isPrevious(5,4).isPrevious(6,5).isPrevious(7,6).isPrevious(8,7).isPrevious(9,8).isPrevious(10,9).isPrevious(11,10).isPrevious(12,11).isPrevious(13,12).isPrevious(14,13).isPrevious(15,14).isPrevious(16,15).isPrevious(17,16).isPrevious(18,17).isPrevious(19,18).isPrevious(20,19).isPrevious(21,20).isPrevious(22,21).
 
 	}
 
@@ -27,3 +27,6 @@ ReactiveRules {
 // RULES ARE DEFINED BY FINAL USER
 isIn(X, Y) & grey(X, Y) -> goRight().
 isIn(X, Y) & red(X, Y) -> goDown().
+isIn(X, Y) & yellow(X, Y) -> goUp().
+isIn(X, Y) & green(X, Y) -> goLeft().
+isIn(X,  Y) & red(X, Y) & isNext(Z, X) & green(Z, Y) -> goLeft().
