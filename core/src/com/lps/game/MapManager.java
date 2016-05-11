@@ -2,7 +2,10 @@ package com.lps.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.maps.tiled.*;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 
 import java.util.Iterator;
@@ -70,5 +73,25 @@ public class MapManager {
                 }
             }
         }
+    }
+
+    public String getLPSDescription() {
+
+        StringBuilder sb = new StringBuilder();
+
+        for(int x = 0; x < floorLayer.getWidth();x++) {
+            for (int y = 0; y < floorLayer.getHeight(); y++) {
+                TiledMapTileLayer.Cell cell = floorLayer.getCell(x,y);
+                Object type = cell.getTile().getProperties().get("type");
+
+                int newY = -(Config.noVerticalTile - y);
+
+                if (type != null){
+                    if (!type.equals("water")) sb.append(type + "(" + ((x < 0) ? "m" : "") + Math.abs(x) + "," + ((newY < 0) ? "m" : "") + Math.abs(newY) + ")." );
+                }
+            }
+        }
+
+        return sb.toString();
     }
 }

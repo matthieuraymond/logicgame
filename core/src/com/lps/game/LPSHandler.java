@@ -21,14 +21,23 @@ public class LPSHandler {
     private Set<String> actions  = new HashSet<String>();
 
     public LPSHandler() {
+
+
+    }
+
+    public LPSHandler(MapManager map) {
         try {
             StringBuilder lpsString = new StringBuilder();
             FileHandle headScript = Gdx.files.internal("scripts/head");
+            FileHandle middleScript = Gdx.files.internal("scripts/middle");
             FileHandle tailScript = Gdx.files.internal("scripts/tail");
 
             lpsString.append(headScript.readString());
-
+            lpsString.append(map.getLPSDescription());
+            lpsString.append(middleScript.readString());
             lpsString.append(tailScript.readString());
+
+            System.out.println(lpsString.toString());
 
             CharStream stream = new ANTLRStringStream(lpsString.toString());
             streamReader(stream);

@@ -92,7 +92,7 @@ public class Main extends ApplicationAdapter {
 	private void resetLevel() {
 		mapManager = new MapManager("maps/tmx/map1.tmx");
 		bob = new Entity(mapManager, 2, 0);
-		lpsHandler = new LPSHandler();
+		lpsHandler = new LPSHandler(mapManager);
 		roundTime = 0;
 	}
 

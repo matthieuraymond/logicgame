@@ -8,38 +8,4 @@ Database {
 
 	// We are defining the Lint set of the LPS Framework
 	Rules {
-		grey(2, 0).
-		grey(3, 0).
-		grey(4, 0).
-		grey(5, 0).
-		grey(6, 0).
-		grey(7, 0).
-		grey(8, 0).
-		grey(9, 0).
-
-        isNext(m5,m4).isNext(m4,m3).isNext(m3,m2).isNext(m2,m1).isNext(m1,0).isNext(0,1).isNext(1,2).isNext(2,3).isNext(3,4).isNext(4,5).isNext(5,6).isNext(6,7).isNext(7,8).isNext(8,9).isNext(9,10).isNext(10,11).isNext(11,12).isNext(12,13).isNext(13,14).isNext(14,15).isNext(15,16).
-        isPrevious(m4,m5).isPrevious(m3,m4).isPrevious(m2,m3).isPrevious(m1,m2).isPrevious(0,m1).isPrevious(1,0).isPrevious(2,1).isPrevious(3,2).isPrevious(4,3).isPrevious(5,4).isPrevious(6,5).isPrevious(7,6).isPrevious(8,7).isPrevious(9,8).isPrevious(10,9).isPrevious(11,10).isPrevious(12,11).isPrevious(13,12).isPrevious(14,13).isPrevious(15,14).isPrevious(16,15).
-
-	}
-
-}
-
-// We are defining the domain theory of the LPS Framework
-DSet {
-	moveFromTo(A, B, X, Y) = {
-		Preconditions [
-			conditions: isIn(A, B).
-			conflicts: !moveFromTo(A, B, A, Z) & !moveFromTo(A, B, R, Y) & !moveFromTo(A, B, S, T).
-		]
-		Postconditions [
-			initiates(moveFromTo(A, B, X, Y), isIn(X, Y)).
-			terminates(moveFromTo(A, B, X, Y), isIn(A, B)).
-		]
-	}
-
-}
-
-// We are defining the reactive rules of the LPS Framework
-ReactiveRules {
-// RULES ARE DEFINED BY FINAL USER
-isIn(X, Y) & grey(X, Y) -> goRight().
+        //addWorld desc here
