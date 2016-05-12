@@ -4,41 +4,38 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 
 public class Brick {
     private String LPSString;
+    private static int currentX = 1415;
+    private static int currentY = 1080 - 165;
 
-    public Brick(Stage stage, final Skin skin, String LPSString, String image) {
-        Image sourceImage = new Image(skin, image);
-        sourceImage.setBounds(50, 125, 100, 100);
+    public Brick(Stage stage, final Skin skin, String LPSString, final String image) {
+        final Image sourceImage = new Image(skin, image);
+        final Image dragImage = new Image(skin, image);
+        sourceImage.setBounds(currentX, currentY, 50, 50);
+
+        increaseCoords();
+
         stage.addActor(sourceImage);
 
         Image validTargetImage = new Image(skin, image);
-        validTargetImage.setBounds(200, 50, 100, 100);
+        validTargetImage.setBounds(200, 50, 50, 50);
         stage.addActor(validTargetImage);
-
-        Image invalidTargetImage = new Image(skin, image);
-        invalidTargetImage.setBounds(200, 200, 100, 100);
-        stage.addActor(invalidTargetImage);
 
         DragAndDrop dragAndDrop = new DragAndDrop();
         dragAndDrop.addSource(new DragAndDrop.Source(sourceImage) {
             public DragAndDrop.Payload dragStart (InputEvent event, float x, float y, int pointer) {
                 DragAndDrop.Payload payload = new DragAndDrop.Payload();
-                payload.setObject("Some payload!");
+                payload.setObject(dragImage);
 
-                payload.setDragActor(new Label("Some payload!", skin));
+                payload.setDragActor(dragImage);
 
-                Label validLabel = new Label("Some payload!", skin);
-                validLabel.setColor(0, 1, 0, 1);
-                payload.setValidDragActor(validLabel);
-
-                Label invalidLabel = new Label("Some payload!", skin);
-                invalidLabel.setColor(1, 0, 0, 1);
-                payload.setInvalidDragActor(invalidLabel);
+                Image validImage = new Image(skin, image);
+                validImage.setColor(0, 1, 0, 1);
+                payload.setValidDragActor(validImage);
 
                 return payload;
             }
@@ -57,18 +54,14 @@ public class Brick {
                 System.out.println("Accepted: " + payload.getObject() + " " + x + ", " + y);
             }
         });
-        dragAndDrop.addTarget(new DragAndDrop.Target(invalidTargetImage) {
-            public boolean drag (DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
-                getActor().setColor(Color.RED);
-                return false;
-            }
+    }
 
-            public void reset (DragAndDrop.Source source, DragAndDrop.Payload payload) {
-                getActor().setColor(Color.WHITE);
-            }
-
-            public void drop (DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
-            }
-        });
+    private static void increaseCoords() {
+        if (currentX < 1835) {
+            currentX += 60;
+        } else {
+            currentX = 1415;
+            currentY -= 60;
+        }
     }
 }

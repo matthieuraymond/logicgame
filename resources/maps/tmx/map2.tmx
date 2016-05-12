@@ -4,7 +4,7 @@
   <image source="../tiles.png" width="768" height="64"/>
   <tile id="0">
    <properties>
-    <property name="type" value="grey"/>
+    <property name="type" value="white"/>
    </properties>
   </tile>
   <tile id="1">
@@ -24,7 +24,7 @@
   </tile>
   <tile id="4">
    <properties>
-    <property name="type" value="blue"/>
+    <property name="type" value="purple"/>
    </properties>
   </tile>
   <tile id="5">

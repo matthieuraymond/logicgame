@@ -35,15 +35,19 @@ public class Main extends ApplicationAdapter {
 
 		foreground = new Texture("foreground.png");
 
+		inputs = new HashMap<>();
 
 		// DRAG N DROP STUFF
 		skin = new Skin();
 		skin.add("default", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-		skin.add("badlogic", new Texture("badlogic.jpg"));
 
-		inputs = new HashMap<>();
+		String[] colors = {"red", "orange", "yellow", "green", "purple"};
 
-		inputs.put("Red", new Brick(stage, skin, "", "badlogic"));
+
+		for (String color : colors) {
+			skin.add(color, new Texture("inputs/"+color+".png"));
+			inputs.put(color, new Brick(stage, skin, "isIn(X, Y) & "+color+"(X,Y)", color));
+		}
 
 		resetLevel();
 	}
