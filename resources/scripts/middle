@@ -25,8 +25,7 @@ DSet {
 // We are defining the reactive rules of the LPS Framework
 ReactiveRules {
 // RULES ARE DEFINED BY FINAL USER
-isIn(X, Y) & white(X, Y) -> goRight().
-isIn(X, Y) & red(X, Y) -> goDown().
-isIn(X, Y) & yellow(X, Y) -> goUp().
-isIn(X, Y) & green(X, Y) -> goLeft().
-isIn(X,  Y) & red(X, Y) & isNext(Z, X) & green(Z, Y) -> goLeft().
+//isIn(X, Y) & white(X, Y) -> goRight().
+//isIn(X, Y) & red(X, Y) -> goDown().
+//isIn(X, Y) & yellow(X, Y) -> goUp().
+//isIn(X, Y) & green(X, Y) -> goLeft().

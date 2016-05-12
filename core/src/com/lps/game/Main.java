@@ -11,7 +11,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Main extends ApplicationAdapter {
@@ -25,6 +27,8 @@ public class Main extends ApplicationAdapter {
 	float roundTime;
 	GameState gameState;
 	Skin skin;
+	Rule[] rules;
+	ArrayList<DragAndDrop.Target> targets;
 
 
 	@Override
@@ -36,18 +40,43 @@ public class Main extends ApplicationAdapter {
 		foreground = new Texture("foreground.png");
 
 		inputs = new HashMap<>();
+		targets = new ArrayList<>(80);
 
 		// DRAG N DROP STUFF
 		skin = new Skin();
 		skin.add("default", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+		skin.add("target", new Texture("inputs/target.png"));
+		skin.add("imply", new Texture("inputs/imply.png"));
 
-		String[] colors = {"red", "orange", "yellow", "green", "purple"};
-
+		String[] colors = {"red", "orange", "yellow", "green", "purple", "white"};
+		String[] directions = {"Left", "Right", "Up", "Down"};
 
 		for (String color : colors) {
-			skin.add(color, new Texture("inputs/"+color+".png"));
-			inputs.put(color, new Brick(stage, skin, "isIn(X, Y) & "+color+"(X,Y)", color));
+			skin.add(color, new Texture("inputs/" + color + ".png"));
 		}
+		for (String direction : directions) {
+			skin.add(direction, new Texture("inputs/" + direction.toLowerCase() + ".png"));
+		}
+
+
+		rules = new Rule[10];
+		for (int i = 0; i < 10; i++) {
+			rules[i] = new Rule(stage, skin);
+			DragAndDrop.Target[] targets = rules[i].getTargets();
+			for (DragAndDrop.Target t: targets) {
+				this.targets.add(t);
+			}
+		}
+
+		for (String color : colors) {
+			addInput("isIn(X, Y) & " + color + "(X,Y)", color);
+		}
+
+		for (String direction : directions) {
+			addInput("go" + direction + "()", direction);
+		}
+
+		addInput("->", "imply");
 
 		resetLevel();
 	}
@@ -130,8 +159,22 @@ public class Main extends ApplicationAdapter {
 		gameState = GameState.INPUT_HANDLING;
 		mapManager = new MapManager("maps/tmx/map2.tmx");
 		bob = new Entity(mapManager, 2, 0);
-		lpsHandler = new LPSHandler(mapManager);
+
+		StringBuilder inputs = new StringBuilder();
+		for (Rule r: rules) {
+			inputs.append(r.getString());
+		}
+
+		lpsHandler = new LPSHandler(mapManager, inputs.toString());
 		roundTime = 0;
+	}
+
+	private void addInput(String lps, String name) {
+		Brick brick = new Brick(stage, skin, lps, name);
+		for (DragAndDrop.Target t: this.targets) {
+			brick.addTarget(t);
+		}
+		inputs.put(name, brick);
 	}
 
 }

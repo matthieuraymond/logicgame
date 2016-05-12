@@ -25,7 +25,7 @@ public class LPSHandler {
 
     }
 
-    public LPSHandler(MapManager map) {
+    public LPSHandler(MapManager map, String inputs) {
         try {
             StringBuilder lpsString = new StringBuilder();
             FileHandle headScript = Gdx.files.internal("scripts/head");
@@ -35,9 +35,8 @@ public class LPSHandler {
             lpsString.append(headScript.readString());
             lpsString.append(map.getLPSDescription());
             lpsString.append(middleScript.readString());
-            //append drag'n'drop rules
+            lpsString.append(inputs);
             lpsString.append(tailScript.readString());
-
 
             CharStream stream = new ANTLRStringStream(lpsString.toString());
             streamReader(stream);
