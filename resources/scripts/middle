@@ -1,3 +1,4 @@
+
         //WORLD DESC ADDED PROGRAMATICALLY
 
         isNext(m12,m11).isNext(m11,m10).isNext(m10,m9).isNext(m9,m8).isNext(m8,m7).isNext(m7,m6).isNext(m6,m5).isNext(m5,m4).isNext(m4,m3).isNext(m3,m2).isNext(m2,m1).isNext(m1,0).isNext(0,1).isNext(1,2).isNext(2,3).isNext(3,4).isNext(4,5).isNext(5,6).isNext(6,7).isNext(7,8).isNext(8,9).isNext(9,10).isNext(10,11).isNext(11,12).isNext(12,13).isNext(13,14).isNext(14,15).isNext(15,16).isNext(16,17).isNext(17,18).isNext(18,19).isNext(19.20).isNext(20,21).isNext(21,22).
@@ -7,7 +8,6 @@
 
 }
 
-// We are defining the domain theory of the LPS Framework
 DSet {
 	moveFromTo(A, B, X, Y) = {
 		Preconditions [
@@ -22,10 +22,6 @@ DSet {
 
 }
 
-// We are defining the reactive rules of the LPS Framework
 ReactiveRules {
 // RULES ARE DEFINED BY FINAL USER
-//isIn(X, Y) & white(X, Y) -> goRight().
-//isIn(X, Y) & red(X, Y) -> goDown().
-//isIn(X, Y) & yellow(X, Y) -> goUp().
-//isIn(X, Y) & green(X, Y) -> goLeft().
+

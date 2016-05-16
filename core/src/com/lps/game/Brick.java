@@ -7,22 +7,27 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 
 public class Brick {
-    private static int currentX = 1415;
-    private static int currentY = 1080 - 165;
+    private static final int refXFluent = 1415;
+    private static final int refXLogic = refXFluent + 270;
+    private static final int refXConsequent = refXLogic + 90;
+    private static final int refY = 1080 - 165;
+    private static int noFluent = 0;
+    private static int noLogic = 0;
+    private static int noConsequent = 0;
 
     private LogicBrick logicBrick;
     private DragAndDrop dragAndDrop;
 
-    public Brick(Stage stage, final Skin skin, String LPSString, String image) {
+    public Brick(Stage stage, final Skin skin, String LPSString, String image, LogicBrick.Type type) {
 
-        logicBrick = new LogicBrick(LPSString, image);
+        logicBrick = new LogicBrick(LPSString, image, type);
 
         final Image sourceImage = new Image(skin, image);
         final Image dragImage = new Image(skin, image);
 
-        sourceImage.setBounds(currentX, currentY, 50, 50);
+        int[] coord = getCoordinates(type);
 
-        increaseCoords();
+        sourceImage.setBounds(coord[0], coord[1], 50, 50);
 
         stage.addActor(sourceImage);
 
@@ -39,16 +44,29 @@ public class Brick {
         });
     }
 
-    public void addTarget(DragAndDrop.Target target) {
-        dragAndDrop.addTarget(target);
+    private int[] getCoordinates(LogicBrick.Type type) {
+        int[] res = new int[2];
+        if (type == LogicBrick.Type.FLUENT) {
+            res[0] = refXFluent + (noFluent % 4) * 60;
+            res[1] = refY - (noFluent / 4) * 60;
+
+            noFluent++;
+        } else if (type == LogicBrick.Type.CONSEQUENT) {
+            res[0] = refXConsequent + (noConsequent % 2) * 60;
+            res[1] = refY - (noConsequent / 2) * 60;
+
+            noConsequent++;
+        } else {
+            res[0] = refXLogic;
+            res[1] = refY - noLogic * 60;
+
+            noLogic++;
+        }
+
+        return res;
     }
 
-    private static void increaseCoords() {
-        if (currentX < 1835) {
-            currentX += 60;
-        } else {
-            currentX = 1415;
-            currentY -= 60;
-        }
+    public void addTarget(DragAndDrop.Target target) {
+        dragAndDrop.addTarget(target);
     }
 }

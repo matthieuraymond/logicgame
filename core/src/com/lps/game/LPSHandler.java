@@ -38,6 +38,10 @@ public class LPSHandler {
             lpsString.append(inputs);
             lpsString.append(tailScript.readString());
 
+            if (Config.printLPS) {
+                System.out.println(lpsString.toString());
+            }
+
             CharStream stream = new ANTLRStringStream(lpsString.toString());
             streamReader(stream);
             

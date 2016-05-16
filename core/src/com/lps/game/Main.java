@@ -2,15 +2,17 @@ package com.lps.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 
 import java.util.ArrayList;
@@ -47,6 +49,8 @@ public class Main extends ApplicationAdapter {
 		skin.add("default", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 		skin.add("target", new Texture("inputs/target.png"));
 		skin.add("imply", new Texture("inputs/imply.png"));
+		skin.add("and", new Texture("inputs/and.png"));
+		skin.add("not", new Texture("inputs/not.png"));
 
 		String[] colors = {"red", "orange", "yellow", "green", "purple", "white"};
 		String[] directions = {"Left", "Right", "Up", "Down"};
@@ -69,14 +73,58 @@ public class Main extends ApplicationAdapter {
 		}
 
 		for (String color : colors) {
-			addInput("isIn(X, Y) & " + color + "(X,Y)", color);
+			addInput(color + "(X,Y)" + "& isIn(X,Y)", LogicBrick.Type.FLUENT, color);
 		}
 
 		for (String direction : directions) {
-			addInput("go" + direction + "()", direction);
+			addInput("go" + direction + "()", LogicBrick.Type.CONSEQUENT, direction);
 		}
 
-		addInput("->", "imply");
+		addInput("&", LogicBrick.Type.AND,  "and");
+		addInput("->", LogicBrick.Type.IMPLY,  "imply");
+		addInput("!", LogicBrick.Type.NOT,  "not");
+
+		// Buttons
+
+		// QUIT BUTTON
+		skin.add("quit", new Texture("buttons/quit.png"));
+		skin.add("quit_clicked", new Texture("buttons/quit_clicked.png"));
+
+		Button.ButtonStyle quitStyle = new Button.ButtonStyle();
+		quitStyle.up = skin.getDrawable("quit");
+		quitStyle.down = skin.getDrawable("quit_clicked");
+
+		Button quitButton = new Button(quitStyle);
+		quitButton.setBounds(10, 10, 60, 60);
+		quitButton.addListener(new ClickListener() {
+			public void clicked(InputEvent ie, float x, float y) {
+				Gdx.app.exit();
+			}
+		});
+
+		stage.addActor(quitButton);
+		// ----------
+		// SUBMIT BUTTON
+		skin.add("submit", new Texture("buttons/submit.png"));
+		skin.add("submit_clicked", new Texture("buttons/submit_clicked.png"));
+
+		final Button.ButtonStyle submitStyle = new Button.ButtonStyle();
+		submitStyle.up = skin.getDrawable("submit");
+		submitStyle.down = skin.getDrawable("submit_clicked");
+
+		final Button submitButton = new Button(submitStyle);
+		submitButton.setBounds(1700, 10, 200, 60);
+		submitButton.addListener(new ClickListener() {
+			public void clicked(InputEvent ie, float x, float y) {
+				resetLevel();
+				gameState = GameState.ANIM_PLAYING;
+			}
+		});
+
+		stage.addActor(submitButton);
+
+		// ----------
+
 
 		resetLevel();
 	}
@@ -109,24 +157,7 @@ public class Main extends ApplicationAdapter {
 		Gdx.gl.glClearColor(39, 156, 255, 1); //for water
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		// QUIT
-		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
-			if (Gdx.input.getX() >= 10 && Gdx.input.getX() <= 70 && Gdx.input.getY() >= 1010 && Gdx.input.getY() <= 1070) {
-				Gdx.app.exit();
-			}
-		}
-
-		// SUBMIT
-		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
-			if (Gdx.input.getX() >= 1630 && Gdx.input.getX() <= 1835 && Gdx.input.getY() >= 1010 && Gdx.input.getY() <= 1070) {
-				resetLevel();
-				gameState = GameState.ANIM_PLAYING;
-			}
-		}
-
 		// UPDATE OF ENTITY
-		boolean isWet = bob.checkIfWet();
-
 		if (endOfRound) {
             lpsHandler.update();
 			EntityState newState = lpsHandler.getNewState();
@@ -135,6 +166,10 @@ public class Main extends ApplicationAdapter {
 				bob.updateState(newState);
 			} else {
 				bob.makeIDLE();
+			}
+
+			if (bob.checkIfWet()) {
+				gameState = GameState.INPUT_HANDLING;
 			}
 		}
 
@@ -151,13 +186,12 @@ public class Main extends ApplicationAdapter {
 		stage.act(deltaTime);
 		stage.draw();
 
-		if (isWet) gameState = GameState.INPUT_HANDLING;
 		if (endOfRound) roundTime = 0;
 	}
 
 	private void resetLevel() {
 		gameState = GameState.INPUT_HANDLING;
-		mapManager = new MapManager("maps/tmx/map2.tmx");
+		mapManager = new MapManager("maps/tmx/map3.tmx");
 		bob = new Entity(mapManager, 2, 0);
 
 		StringBuilder inputs = new StringBuilder();
@@ -169,11 +203,12 @@ public class Main extends ApplicationAdapter {
 		roundTime = 0;
 	}
 
-	private void addInput(String lps, String name) {
-		Brick brick = new Brick(stage, skin, lps, name);
+	private void addInput(String lps, LogicBrick.Type type, String name) {
+		Brick brick = new Brick(stage, skin, lps, name, type);
 		for (DragAndDrop.Target t: this.targets) {
 			brick.addTarget(t);
 		}
+
 		inputs.put(name, brick);
 	}
 

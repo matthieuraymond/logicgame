@@ -1,7 +1,7 @@
+
 //RULES ARE DEFINED HERE BY FINAL USER
 }
 
-// We are defining the goals' definitions of the LPS Framework
 Goals {
 	goRight() :- isIn(X,Y) & isNext(X,Z)     & moveFromTo(X,Y,Z,Y).
 	goLeft()  :- isIn(X,Y) & isPrevious(X,Z) & moveFromTo(X,Y,Z,Y).
@@ -9,7 +9,6 @@ Goals {
 	goDown()  :- isIn(X,Y) & isPrevious(Y,Z) & moveFromTo(X,Y,X,Z).
 }
 
-// We are defining the initial events of the LPS Framework
 Events {
 
 }

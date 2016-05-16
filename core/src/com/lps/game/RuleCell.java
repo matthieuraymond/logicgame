@@ -21,7 +21,7 @@ public class RuleCell {
         bkgImage = new Image(skin, "target");
         LPSString = "";
 
-        targetX = 1415 + index * 60;
+        targetX = 1475 + index * 60;
         targetY = startingY;
         bkgImage.setBounds(targetX, targetY, 50, 50);
 
