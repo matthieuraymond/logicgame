@@ -23,6 +23,10 @@ public final class CycleHandler {
 	private CycleHandler() {
         setState(new DatabaseUpdateState());
     }
+
+	public static void reset() {
+		instance = null;
+	}
 	
 	/**
 	 * Gets the only object of this singleton class. Use it as a static method.

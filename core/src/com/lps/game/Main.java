@@ -177,9 +177,7 @@ public class Main extends ApplicationAdapter {
 				gameState = GameState.INPUT_HANDLING;
 			}
 
-			if (bob.chekIfWon()) {
-				System.out.println("WIN");
-			}
+			bob.chekIfWon();
 		}
 
 		//Map
@@ -211,8 +209,7 @@ public class Main extends ApplicationAdapter {
 	}
 
 	private void resetLevel() {
-		gameState = GameState.INPUT_HANDLING;
-		mapManager = new MapManager("maps/tmx/map2.tmx");
+		mapManager = new MapManager("maps/tmx/map1.tmx");
 		bob = new Entity(mapManager, 2, 0);
 
 		StringBuilder inputs = new StringBuilder();
@@ -222,6 +219,8 @@ public class Main extends ApplicationAdapter {
 
 		lpsHandler = new LPSHandler(mapManager, inputs.toString());
 		roundTime = 0;
+		gameState = GameState.INPUT_HANDLING;
+
 	}
 
 	private void addInput(String lps, Type type, String name) {

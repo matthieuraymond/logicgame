@@ -23,6 +23,10 @@ public class Database {
 	private Map<String, Integer> limits;
 	private static volatile Database instance = null;
 
+	public static void reset() {
+		instance = null;
+	}
+
 	/**
 	 * Constructor of the class. It is private as it must not be
 	 * called. Use the method {@code getInstance()} instead.

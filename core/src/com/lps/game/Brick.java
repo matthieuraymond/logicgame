@@ -32,6 +32,7 @@ public class Brick {
         stage.addActor(sourceImage);
 
         dragAndDrop = new DragAndDrop();
+        dragAndDrop.setDragActorPosition(-(sourceImage.getWidth()/2), sourceImage.getHeight()/2);
         dragAndDrop.addSource(new DragAndDrop.Source(sourceImage) {
             public DragAndDrop.Payload dragStart (InputEvent event, float x, float y, int pointer) {
                 DragAndDrop.Payload payload = new DragAndDrop.Payload();

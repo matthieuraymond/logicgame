@@ -25,6 +25,10 @@ public class ReactiveRuleSet {
 	List<ReactiveRule> reactiveRules;
 	private static volatile ReactiveRuleSet instance = null;
 
+	public static void reset() {
+		instance = null;
+	}
+
 	/**
 	 * Constructor of the class. It is private as it must not be
 	 * called. Use the method {@code getInstance()} instead.
@@ -50,7 +54,7 @@ public class ReactiveRuleSet {
 
 		return ReactiveRuleSet.instance;
 	}
-	
+
 	/**
 	 * Adds the specified reactive rule.
 	 * 

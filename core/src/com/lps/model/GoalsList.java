@@ -26,6 +26,10 @@ public class GoalsList {
 	private Map<Goal, AbstractSolutionNode> goalsList;
 	private static volatile GoalsList instance = null;
 
+	public static void reset() {
+		instance = null;
+	}
+
 	/**
 	 * Constructor of the class.
 	 */

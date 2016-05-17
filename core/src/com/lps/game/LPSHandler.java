@@ -4,10 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.lps.controller.syntax.JLPSSyntaxLexer;
 import com.lps.controller.syntax.JLPSSyntaxParser;
-import com.lps.model.CycleHandler;
-import com.lps.model.Database;
-import com.lps.model.RuleSet;
-import com.lps.model.SimpleSentence;
+import com.lps.model.*;
 import org.antlr.runtime.*;
 
 import java.util.HashMap;
@@ -27,6 +24,7 @@ public class LPSHandler {
 
     public LPSHandler(MapManager map, String inputs) {
         try {
+            resetLPS();
             StringBuilder lpsString = new StringBuilder();
             FileHandle headScript = Gdx.files.internal("scripts/head");
             FileHandle middleScript = Gdx.files.internal("scripts/middle");
@@ -50,6 +48,13 @@ public class LPSHandler {
         }
 
         setLimit();
+    }
+
+    private void resetLPS() {
+        CycleHandler.reset();
+        Database.reset();
+        GoalsList.reset();
+        ReactiveRuleSet.reset();
     }
 
     public void streamReader(CharStream fileStream) throws RecognitionException {
