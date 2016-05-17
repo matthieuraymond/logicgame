@@ -14,6 +14,7 @@ public class RuleCell {
     private Image containImage;
     private String LPSString;
     private DragAndDrop.Target target;
+    private Type type;
     private int targetX;
     private int targetY;
 
@@ -51,9 +52,11 @@ public class RuleCell {
             containImage.remove();
         }
 
+        //TODO refactor to keep logicBrick
         LPSString = logicBrick.getLPSString();
         containImage = new Image(skin, logicBrick.getImageName());
         containImage.setBounds(targetX, targetY, 50, 50);
+        type = logicBrick.getType();
 
         containImage.addListener(new ClickListener() {
             @Override
@@ -61,6 +64,7 @@ public class RuleCell {
                 if( getTapCount() == 2) {
                     containImage.remove();
                     LPSString = "";
+                    type = null;
                 }
             };
         });
@@ -74,5 +78,9 @@ public class RuleCell {
 
     public DragAndDrop.Target getTarget() {
         return target;
+    }
+
+    public Type getType() {
+        return type;
     }
 }

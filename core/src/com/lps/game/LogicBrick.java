@@ -20,5 +20,7 @@ public class LogicBrick {
         return imageName;
     }
 
-    enum Type {FLUENT, AND, NOT, IMPLY, CONSEQUENT}
+    public Type getType() {
+        return type;
+    }
 }

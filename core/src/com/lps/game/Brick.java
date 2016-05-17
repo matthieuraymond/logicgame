@@ -18,7 +18,7 @@ public class Brick {
     private LogicBrick logicBrick;
     private DragAndDrop dragAndDrop;
 
-    public Brick(Stage stage, final Skin skin, String LPSString, String image, LogicBrick.Type type) {
+    public Brick(Stage stage, final Skin skin, String LPSString, String image, Type type) {
 
         logicBrick = new LogicBrick(LPSString, image, type);
 
@@ -44,14 +44,14 @@ public class Brick {
         });
     }
 
-    private int[] getCoordinates(LogicBrick.Type type) {
+    private int[] getCoordinates(Type type) {
         int[] res = new int[2];
-        if (type == LogicBrick.Type.FLUENT) {
+        if (type == Type.FLUENT) {
             res[0] = refXFluent + (noFluent % 4) * 60;
             res[1] = refY - (noFluent / 4) * 60;
 
             noFluent++;
-        } else if (type == LogicBrick.Type.CONSEQUENT) {
+        } else if (type == Type.CONSEQUENT) {
             res[0] = refXConsequent + (noConsequent % 2) * 60;
             res[1] = refY - (noConsequent / 2) * 60;
 

@@ -73,16 +73,16 @@ public class Main extends ApplicationAdapter {
 		}
 
 		for (String color : colors) {
-			addInput(color + "(X,Y)", LogicBrick.Type.FLUENT, color);
+			addInput(color + "(X,Y)", Type.FLUENT, color);
 		}
 
 		for (String direction : directions) {
-			addInput("go" + direction + "()", LogicBrick.Type.CONSEQUENT, direction);
+			addInput("go" + direction + "()", Type.CONSEQUENT, direction);
 		}
 
-		addInput("&", LogicBrick.Type.AND,  "and");
-		addInput("->", LogicBrick.Type.IMPLY,  "imply");
-		addInput("!", LogicBrick.Type.NOT,  "not");
+		addInput("&", Type.AND,  "and");
+		addInput("->", Type.IMPLY,  "imply");
+		addInput("!", Type.NOT,  "not");
 
 		// Buttons
 
@@ -213,7 +213,7 @@ public class Main extends ApplicationAdapter {
 		roundTime = 0;
 	}
 
-	private void addInput(String lps, LogicBrick.Type type, String name) {
+	private void addInput(String lps, Type type, String name) {
 		Brick brick = new Brick(stage, skin, lps, name, type);
 		for (DragAndDrop.Target t: this.targets) {
 			brick.addTarget(t);
