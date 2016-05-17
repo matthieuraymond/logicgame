@@ -31,6 +31,7 @@ public class Main extends ApplicationAdapter {
 	Skin skin;
 	Rule[] rules;
 	ArrayList<DragAndDrop.Target> targets;
+	Button submitButton;
 
 
 	@Override
@@ -107,18 +108,22 @@ public class Main extends ApplicationAdapter {
 		// SUBMIT BUTTON
 		skin.add("submit", new Texture("buttons/submit.png"));
 		skin.add("submit_clicked", new Texture("buttons/submit_clicked.png"));
+		skin.add("submit_disabled", new Texture("buttons/submit_disabled.png"));
 
 		final Button.ButtonStyle submitStyle = new Button.ButtonStyle();
+		submitStyle.disabled = skin.getDrawable("submit_disabled");
 		submitStyle.up = skin.getDrawable("submit");
 		submitStyle.down = skin.getDrawable("submit_clicked");
 
-		final Button submitButton = new Button(submitStyle);
+		submitButton = new Button(submitStyle);
 		submitButton.setBounds(1700, 10, 200, 60);
 		submitButton.addListener(new ClickListener() {
 			public void clicked(InputEvent ie, float x, float y) {
-				resetLevel();
-				gameState = GameState.ANIM_PLAYING;
-			}
+				if (!submitButton.isDisabled()) {
+					resetLevel();
+					gameState = GameState.ANIM_PLAYING;
+				}
+				}
 		});
 
 		stage.addActor(submitButton);
@@ -174,7 +179,6 @@ public class Main extends ApplicationAdapter {
 
 			if (bob.chekIfWon()) {
 				System.out.println("WIN");
-				//gameState = GameState.INPUT_HANDLING;
 			}
 		}
 
@@ -186,8 +190,15 @@ public class Main extends ApplicationAdapter {
 		bob.draw(batch, deltaTime);
 		batch.draw(foreground, 0, 0);
 
+		boolean allValid = true;
 		for (int i = 0; i < rules.length; ++i) {
 			rules[i].drawLight(batch, i);
+			allValid &= (rules[i].isValid());
+		}
+		if (!allValid) {
+			submitButton.setDisabled(true);
+		} else {
+			submitButton.setDisabled(false);
 		}
 
 		batch.end();

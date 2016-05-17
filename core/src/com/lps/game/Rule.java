@@ -50,10 +50,10 @@ public class Rule {
     }
 
     public void drawLight(SpriteBatch batch, int i) {
-        batch.draw(validRule() ? greenLight : redLight, 1450, 27 + (8 - i) * 70);
+        batch.draw(isValid() ? greenLight : redLight, 1450, 27 + (8 - i) * 70);
     }
 
-    private boolean validRule() {
+    public boolean isValid() {
         Type[] types = new Type[cells.length];
 
         for(int i=0; i < cells.length; i++) {
