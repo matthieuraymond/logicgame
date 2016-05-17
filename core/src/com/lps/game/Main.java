@@ -63,8 +63,8 @@ public class Main extends ApplicationAdapter {
 		}
 
 
-		rules = new Rule[10];
-		for (int i = 0; i < 10; i++) {
+		rules = new Rule[8];
+		for (int i = 0; i < 8; i++) {
 			rules[i] = new Rule(stage, skin);
 			DragAndDrop.Target[] targets = rules[i].getTargets();
 			for (DragAndDrop.Target t: targets) {
@@ -73,7 +73,7 @@ public class Main extends ApplicationAdapter {
 		}
 
 		for (String color : colors) {
-			addInput(color + "(X,Y)" + "& isIn(X,Y)", LogicBrick.Type.FLUENT, color);
+			addInput(color + "(X,Y)", LogicBrick.Type.FLUENT, color);
 		}
 
 		for (String direction : directions) {
@@ -171,6 +171,11 @@ public class Main extends ApplicationAdapter {
 			if (bob.checkIfWet()) {
 				gameState = GameState.INPUT_HANDLING;
 			}
+
+			if (bob.chekIfWon()) {
+				System.out.println("WIN");
+				//gameState = GameState.INPUT_HANDLING;
+			}
 		}
 
 		//Map
@@ -180,6 +185,11 @@ public class Main extends ApplicationAdapter {
 		batch.begin();
 		bob.draw(batch, deltaTime);
 		batch.draw(foreground, 0, 0);
+
+		for (int i = 0; i < rules.length; ++i) {
+			rules[i].drawLight(batch, i);
+		}
+
 		batch.end();
 
 		// Stage
@@ -191,7 +201,7 @@ public class Main extends ApplicationAdapter {
 
 	private void resetLevel() {
 		gameState = GameState.INPUT_HANDLING;
-		mapManager = new MapManager("maps/tmx/map3.tmx");
+		mapManager = new MapManager("maps/tmx/map2.tmx");
 		bob = new Entity(mapManager, 2, 0);
 
 		StringBuilder inputs = new StringBuilder();

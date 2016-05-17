@@ -74,5 +74,17 @@ public class Entity {
         return false;
     }
 
+    public boolean chekIfWon() {
+        String type = map.getType((int)coord.getWorldX(), (int)coord.getWorldY());
+
+        if (type.equals("gold")) {
+            this.isAlive = true;
+            currentState = EntityState.DANCE;
+            return true;
+        }
+
+        return false;
+    }
+
     ;
 }

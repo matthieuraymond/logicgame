@@ -1,10 +1,15 @@
 package com.lps.game;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 
 public class Rule {
+
+    private static final Texture greenLight = new Texture("lights/green.png");
+    private static final Texture redLight = new Texture("lights/red.png");
     private static int startingY = 1080 - 495;
     private RuleCell[] cells;
 
@@ -29,7 +34,7 @@ public class Rule {
 
     public String getString() {
 
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder("isIn(X,Y)&");
         boolean notEmpty = false;
 
         for (RuleCell c: cells) {
@@ -42,5 +47,9 @@ public class Rule {
         sb.append(".");
 
         return notEmpty ? sb.toString() : "";
+    }
+
+    public void drawLight(SpriteBatch batch, int i) {
+        batch.draw(greenLight, 1450, 27 + (8 - i) * 70);
     }
 }
