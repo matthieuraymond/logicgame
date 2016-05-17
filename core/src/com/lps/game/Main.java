@@ -32,6 +32,8 @@ public class Main extends ApplicationAdapter {
 	Rule[] rules;
 	ArrayList<DragAndDrop.Target> targets;
 	Button submitButton;
+	HashMap<String, Texture> images;
+	Texture currentThumb;
 
 
 	@Override
@@ -43,7 +45,12 @@ public class Main extends ApplicationAdapter {
 		foreground = new Texture("foreground.png");
 
 		inputs = new HashMap<>();
+		images = new HashMap<>();
 		targets = new ArrayList<>(80);
+
+		// Thumbs
+		images.put("bob", new Texture("thumbs/bob.png"));
+		currentThumb = images.get("bob");
 
 		// DRAG N DROP STUFF
 		skin = new Skin();
@@ -187,6 +194,7 @@ public class Main extends ApplicationAdapter {
 		batch.begin();
 		bob.draw(batch, deltaTime);
 		batch.draw(foreground, 0, 0);
+		batch.draw(currentThumb, 25, 1080 - 148);
 
 		boolean allValid = true;
 		for (int i = 0; i < rules.length; ++i) {
@@ -210,7 +218,7 @@ public class Main extends ApplicationAdapter {
 
 	private void resetLevel() {
 		mapManager = new MapManager("maps/tmx/map1.tmx");
-		bob = new Entity(mapManager, 2, 0);
+		bob = new Entity(mapManager, 2, 1);
 
 		StringBuilder inputs = new StringBuilder();
 		for (Rule r: rules) {

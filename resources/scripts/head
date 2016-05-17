@@ -1,7 +1,7 @@
 
 Database {
 	Facts {
-		isIn(2, 0).
+		isIn(2, m1).
 	}
 
 	Rules {

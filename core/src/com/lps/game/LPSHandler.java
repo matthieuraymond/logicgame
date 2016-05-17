@@ -50,6 +50,7 @@ public class LPSHandler {
         setLimit();
     }
 
+    // TODO - optimize LPS usage
     private void resetLPS() {
         CycleHandler.reset();
         Database.reset();
