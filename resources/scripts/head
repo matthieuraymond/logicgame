@@ -2,6 +2,7 @@
 Database {
 	Facts {
 		isIn(2, m1).
+		wasIn(2, m1).
 	}
 
 	Rules {

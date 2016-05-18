@@ -15,8 +15,10 @@ DSet {
 			conflicts: !moveFromTo(A, B, A, Z) & !moveFromTo(A, B, R, Y) & !moveFromTo(A, B, S, T).
 		]
 		Postconditions [
-			initiates(moveFromTo(A, B, X, Y), isIn(X, Y)).
-			terminates(moveFromTo(A, B, X, Y), isIn(A, B)).
+		    initiates(moveFromTo(A, B, X, Y), wasIn(A, B)).
+            initiates(moveFromTo(A, B, X, Y), isIn(X, Y)).
+            terminates(moveFromTo(A, B, X, Y), isIn(A, B)).
+            terminates(moveFromTo(A, B, X, Y), wasIn(V,W)).
 		]
 	}
 

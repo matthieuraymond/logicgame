@@ -81,7 +81,8 @@ public class Main extends ApplicationAdapter {
 		}
 
 		for (String color : colors) {
-			addInput(color + "(X,Y)", Type.FLUENT, color);
+			addInput(color + "(X,Y) & isIn(X,Y)", Type.FLUENT, color);
+			addInput(color + "(U,V) & wasIn(U,V)", Type.FLUENT, color);
 		}
 
 		for (String direction : directions) {
@@ -217,7 +218,7 @@ public class Main extends ApplicationAdapter {
 	}
 
 	private void resetLevel() {
-		mapManager = new MapManager("maps/tmx/map1.tmx");
+		mapManager = new MapManager("maps/tmx/map3.tmx");
 		bob = new Entity(mapManager, 2, 1);
 
 		StringBuilder inputs = new StringBuilder();
