@@ -65,6 +65,7 @@ public class Main extends ApplicationAdapter {
 
 		for (String color : colors) {
 			skin.add(color, new Texture("inputs/" + color + ".png"));
+			skin.add(color + "_prev", new Texture("inputs/" + color + "_prev.png"));
 		}
 		for (String direction : directions) {
 			skin.add(direction, new Texture("inputs/" + direction.toLowerCase() + ".png"));
@@ -82,7 +83,7 @@ public class Main extends ApplicationAdapter {
 
 		for (String color : colors) {
 			addInput(color + "(X,Y) & isIn(X,Y)", Type.FLUENT, color);
-			addInput(color + "(U,V) & wasIn(U,V)", Type.FLUENT, color);
+			addInput(color + "(U,V) & wasIn(U,V)", Type.FLUENT, color + "_prev");
 		}
 
 		for (String direction : directions) {
