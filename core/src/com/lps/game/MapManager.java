@@ -45,7 +45,7 @@ public class MapManager {
 
     public String getType(int x, int y) {
 
-        TiledMapTileLayer.Cell cell = floorLayer.getCell(x, Config.noVerticalTile - y);
+        TiledMapTileLayer.Cell cell = floorLayer.getCell(x, Config.noVerticalTile + y);
         Object type = cell.getTile().getProperties().get("type");
 
         if (type != null) {

@@ -66,7 +66,7 @@ public class RuleCell {
                     LPSString = "";
                     type = null;
                 }
-            };
+            }
         });
 
         stage.addActor(containImage);

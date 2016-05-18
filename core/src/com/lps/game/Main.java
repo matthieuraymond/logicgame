@@ -14,6 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.utils.ObjectMap;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,10 +36,12 @@ public class Main extends ApplicationAdapter {
 	Button submitButton;
 	HashMap<String, Texture> images;
 	Texture currentThumb;
+	BitmapFont font;
 
 
 	@Override
 	public void create() {
+		font = new BitmapFont();
 		batch = new SpriteBatch();
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
@@ -153,6 +157,7 @@ public class Main extends ApplicationAdapter {
 		}
 
 		foreground.dispose();
+		font.dispose();
 	}
 
 	@Override
@@ -197,6 +202,7 @@ public class Main extends ApplicationAdapter {
 		bob.draw(batch, deltaTime);
 		batch.draw(foreground, 0, 0);
 		batch.draw(currentThumb, 25, 1080 - 148);
+		font.draw(batch, "Hi, my name is Bob!\n\nI am quite a simple robot and I am lost. Can you help me to reach the golden platform?\n\nTo do so, write rules I can follow in the box on the right!\nThanks for your help!", 250, 1080 - 25);
 
 		boolean allValid = true;
 		for (int i = 0; i < rules.length; ++i) {
@@ -219,8 +225,9 @@ public class Main extends ApplicationAdapter {
 	}
 
 	private void resetLevel() {
+
 		mapManager = new MapManager("maps/tmx/map3.tmx");
-		bob = new Entity(mapManager, 2, 1);
+		bob = new Entity(mapManager, 2, -1);
 
 		StringBuilder inputs = new StringBuilder();
 		for (Rule r: rules) {

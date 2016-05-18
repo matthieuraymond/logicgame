@@ -9,9 +9,9 @@ public enum EntityState {
     IDLE_LEFT (Textures.BOB_W_LEFT, true, 0, 0),
     IDLE_UP (Textures.BOB_W_UP, true, 0, 0),
     WALK_RIGHT (Textures.BOB_W_RIGHT, false, 1, 0),
-    WALK_DOWN (Textures.BOB_W_DOWN, false, 0, 1),
+    WALK_DOWN (Textures.BOB_W_DOWN, false, 0, -1),
     WALK_LEFT (Textures.BOB_W_LEFT, false, -1, 0),
-    WALK_UP (Textures.BOB_W_UP, false, 0, -1),
+    WALK_UP (Textures.BOB_W_UP, false, 0, 1),
     WET (Textures.BOB_WET, false, 0, 0),
     DANCE (Textures.BOB_DANCE , false, 0, 0);
 

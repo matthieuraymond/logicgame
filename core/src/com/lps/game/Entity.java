@@ -85,6 +85,4 @@ public class Entity {
 
         return false;
     }
-
-    ;
 }
