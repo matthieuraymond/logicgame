@@ -62,9 +62,7 @@ public class RuleCell {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if( getTapCount() == 2) {
-                    containImage.remove();
-                    LPSString = "";
-                    type = null;
+                    reset();
                 }
             }
         });
@@ -82,5 +80,13 @@ public class RuleCell {
 
     public Type getType() {
         return type;
+    }
+
+    public void reset() {
+        if (containImage != null) {
+            containImage.remove();
+        }
+        LPSString = "";
+        type = null;
     }
 }

@@ -32,5 +32,5 @@ public final class Config {
      */
     public static final boolean LPSDebug = false;
     public static final int LPSLimit = 2;
-    public static boolean printLPS = true;
+    public static boolean printLPS = false;
 }

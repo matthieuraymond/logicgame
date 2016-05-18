@@ -62,4 +62,10 @@ public class Rule {
 
         return Type.isValid(types);
     }
+
+    public void reset() {
+        for(int i=0; i < cells.length; i++) {
+            cells[i].reset();
+        }
+    }
 }

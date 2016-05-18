@@ -37,6 +37,7 @@ public class Main extends ApplicationAdapter {
 	HashMap<String, Texture> images;
 	Texture currentThumb;
 	BitmapFont font;
+	Level currentLevel;
 
 
 	@Override
@@ -46,6 +47,7 @@ public class Main extends ApplicationAdapter {
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 
+		currentLevel = Level.level1;
 		foreground = new Texture("foreground.png");
 
 		inputs = new HashMap<>();
@@ -140,8 +142,20 @@ public class Main extends ApplicationAdapter {
 		});
 
 		stage.addActor(submitButton);
-
 		// ----------
+		// RESET BUTTON
+
+		/*/ SUBMIT BUTTON
+		Button resetButton = new Button(submitStyle);
+		resetButton.setBounds(1450, 10, 200, 60);
+		resetButton.addListener(new ClickListener() {
+			public void clicked(InputEvent ie, float x, float y) {
+				resetRules();
+			}
+		});
+
+		stage.addActor(resetButton);
+		/*/// ----------
 
 
 		resetLevel();
@@ -191,7 +205,12 @@ public class Main extends ApplicationAdapter {
 				gameState = GameState.INPUT_HANDLING;
 			}
 
-			bob.chekIfWon();
+			if (bob.chekIfWon()) {
+				currentLevel = currentLevel.next();
+				gameState = GameState.INPUT_HANDLING;
+				resetLevel();
+				resetRules();
+			}
 		}
 
 		//Map
@@ -202,7 +221,7 @@ public class Main extends ApplicationAdapter {
 		bob.draw(batch, deltaTime);
 		batch.draw(foreground, 0, 0);
 		batch.draw(currentThumb, 25, 1080 - 148);
-		font.draw(batch, "Hi, my name is Bob!\n\nI am quite a simple robot and I am lost. Can you help me to reach the golden platform?\n\nTo do so, write rules I can follow in the box on the right!\nThanks for your help!", 250, 1080 - 25);
+		font.draw(batch, currentLevel.getText(), 250, 1080 - 25);
 
 		boolean allValid = true;
 		for (int i = 0; i < rules.length; ++i) {
@@ -226,15 +245,15 @@ public class Main extends ApplicationAdapter {
 
 	private void resetLevel() {
 
-		mapManager = new MapManager("maps/tmx/map3.tmx");
-		bob = new Entity(mapManager, 2, -1);
+		mapManager = new MapManager(currentLevel.getMap());
+		bob = new Entity(mapManager, currentLevel.getX(), currentLevel.getY());
 
 		StringBuilder inputs = new StringBuilder();
 		for (Rule r: rules) {
 			inputs.append(r.getString());
 		}
 
-		lpsHandler = new LPSHandler(mapManager, inputs.toString());
+		lpsHandler = new LPSHandler(mapManager, inputs.toString(), currentLevel.getX(), currentLevel.getY());
 		roundTime = 0;
 		gameState = GameState.INPUT_HANDLING;
 
@@ -247,6 +266,12 @@ public class Main extends ApplicationAdapter {
 		}
 
 		inputs.put(name, brick);
+	}
+
+	private void resetRules() {
+		for (Rule r: rules) {
+			r.reset();
+		}
 	}
 
 }
