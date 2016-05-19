@@ -10,10 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Slider;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
@@ -32,34 +29,35 @@ public class Main extends ApplicationAdapter {
     Stage stage;
     Skin skin;
     BitmapFont font;
+	ArrayList<Actor> winningActors;
     Button submitButton;
 
-    // Thumb image
+	// Thumb image
     HashMap<String, Texture> images;
     Texture currentThumb;
 
-    // Rules
+	// Rules
     HashMap<String, Brick> inputs;
-    ArrayList<DragAndDrop.Target> targets;
+	ArrayList<DragAndDrop.Target> targets;
     Rule[] rules;
 
-    // Map and LPS
+	// Map and LPS
     MapManager mapManager;
     LPSHandler lpsHandler;
 
-    // Levels and counters
+	// Levels and counters
     float roundTime;
-    Level currentLevel;
-    GameState gameState;
-    float roundDuration;
-    int roundWithoutMove;
+	Level currentLevel;
+	GameState gameState;
+	float roundDuration;
+	float gameStateTime;
 
 	@Override
 	public void create() {
 
         // Initialisations
         batch = new SpriteBatch();
-        foreground = new Texture("foreground.png");
+        foreground = new Texture("screens/foreground.png");
         stage = new Stage();
         skin = new Skin();
         font = new BitmapFont();
@@ -67,7 +65,10 @@ public class Main extends ApplicationAdapter {
         inputs = new HashMap<>();
         targets = new ArrayList<>(80);
         rules = new Rule[8];
+		winningActors = new ArrayList<>();
+
         currentLevel = Level.level1;
+        gameStateTime = 0;
 
 		Gdx.input.setInputProcessor(stage);
 
@@ -197,6 +198,33 @@ public class Main extends ApplicationAdapter {
         stage.addActor(slider);
         // -------
 
+		// Winning screen
+		skin.add("winning_screen", new Texture("screens/winning.png"));
+		Image winningScreen = new Image(skin.getDrawable("winning_screen"));
+		winningActors.add(winningScreen);
+
+		stage.addActor(winningScreen);
+
+		skin.add("next", new Texture("buttons/next.png"));
+		skin.add("next_clicked", new Texture("buttons/next_clicked.png"));
+		final Button.ButtonStyle nextStyle = new Button.ButtonStyle();
+		nextStyle.up = skin.getDrawable("next");
+		nextStyle.down = skin.getDrawable("next_clicked");
+		Button nextButton = new Button(nextStyle);
+		nextButton.setBounds(860, 400, 200, 60);
+		nextButton.addListener(new ClickListener() {
+			public void clicked(InputEvent ie, float x, float y) {
+				currentLevel = currentLevel.next();
+				resetLevel();
+				resetRules();
+				showWinningScreen(false);
+			}
+		});
+
+		winningActors.add(nextButton);
+		stage.addActor(nextButton);
+
+		showWinningScreen(false);
 		resetLevel();
 	}
 
@@ -221,8 +249,9 @@ public class Main extends ApplicationAdapter {
 	@Override
 	public void render() {
 
-		float deltaTime = (gameState == GameState.ANIM_PLAYING) ? Gdx.graphics.getDeltaTime() : 0;
+		float deltaTime = (gameState != GameState.INPUT_HANDLING) ? Gdx.graphics.getDeltaTime() : 0;
 		roundTime += deltaTime;
+        gameStateTime += deltaTime;
 
         boolean endOfRound = roundTime >= roundDuration;
 
@@ -260,6 +289,7 @@ public class Main extends ApplicationAdapter {
 		if (endOfRound) roundTime = 0;
 	}
 
+
     private void checkRules() {
         boolean allValid = true;
 
@@ -275,28 +305,41 @@ public class Main extends ApplicationAdapter {
     }
 
     private void updateEntity() {
-            lpsHandler.update();
-            EntityState newState = lpsHandler.getNewState();
+		lpsHandler.update();
+		EntityState newState = lpsHandler.getNewState();
 
-            if (newState != null) {
-                bob.updateState(newState);
-            } else {
-                bob.makeIDLE();
-            }
+		if (newState != null) {
+			bob.updateState(newState);
+		} else {
+			bob.makeIDLE();
+		}
 
-            if (bob.checkIfWet()) {
-                gameState = GameState.INPUT_HANDLING;
-            }
+		if (bob.checkIfWet()) {
+			changeGameState(GameState.INPUT_HANDLING);
+		}
 
-            if (bob.chekIfWon()) {
-                currentLevel = currentLevel.next();
-                gameState = GameState.INPUT_HANDLING;
-                resetLevel();
-                resetRules();
-            }
+		if (bob.chekIfWon()) {
+			changeGameState(GameState.WINNING_SCREEN);
+			if (gameStateTime > 1) {
+				showWinningScreen(true);
+			}
+		}
     }
 
-    private void resetLevel() {
+	private void showWinningScreen(boolean visible) {
+		for(Actor a: winningActors) {
+			a.setVisible(visible);
+		}
+	}
+
+	private void changeGameState(GameState newState) {
+		if (gameState != newState) {
+			gameStateTime = 0;
+		}
+		gameState = newState;
+	}
+
+	private void resetLevel() {
 
 		mapManager = new MapManager(currentLevel.getMap());
 		bob = new Entity(mapManager, currentLevel.getX(), currentLevel.getY());
