@@ -7,37 +7,40 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Slider;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.utils.ObjectMap;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Main extends ApplicationAdapter {
-	Stage stage;
-	SpriteBatch batch;
-	Texture foreground;
-	Entity bob;
-	HashMap<String, Brick> inputs;
-	MapManager mapManager;
-	LPSHandler lpsHandler;
-	float roundTime;
-	GameState gameState;
-	Skin skin;
-	Rule[] rules;
-	ArrayList<DragAndDrop.Target> targets;
-	Button submitButton;
-	HashMap<String, Texture> images;
-	Texture currentThumb;
-	BitmapFont font;
-	Level currentLevel;
+
+    Stage stage;
+    SpriteBatch batch;
+    Texture foreground;
+    Entity bob;
+    HashMap<String, Brick> inputs;
+    MapManager mapManager;
+    LPSHandler lpsHandler;
+    float roundTime;
+    GameState gameState;
+    Skin skin;
+    Rule[] rules;
+    ArrayList<DragAndDrop.Target> targets;
+    Button submitButton;
+    HashMap<String, Texture> images;
+    Texture currentThumb;
+    BitmapFont font;
+    Level currentLevel;
+    float roundDuration;
 
 
 	@Override
@@ -47,7 +50,7 @@ public class Main extends ApplicationAdapter {
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
 
-		currentLevel = Level.level1;
+		currentLevel = Level.level2;
 		foreground = new Texture("foreground.png");
 
 		inputs = new HashMap<>();
@@ -145,8 +148,13 @@ public class Main extends ApplicationAdapter {
 		// ----------
 		// RESET BUTTON
 
-		/*/ SUBMIT BUTTON
-		Button resetButton = new Button(submitStyle);
+		// SUBMIT BUTTON
+		skin.add("reset", new Texture("buttons/reset.png"));
+		skin.add("reset_clicked", new Texture("buttons/reset_clicked.png"));
+		final Button.ButtonStyle resetStyle = new Button.ButtonStyle();
+		resetStyle.up = skin.getDrawable("reset");
+		resetStyle.down = skin.getDrawable("reset_clicked");
+		Button resetButton = new Button(resetStyle);
 		resetButton.setBounds(1450, 10, 200, 60);
 		resetButton.addListener(new ClickListener() {
 			public void clicked(InputEvent ie, float x, float y) {
@@ -155,8 +163,27 @@ public class Main extends ApplicationAdapter {
 		});
 
 		stage.addActor(resetButton);
-		/*/// ----------
+		// ----------
 
+        // SLIDER
+        skin.add("slider_bkg", new Texture("buttons/slider_bkg.png"));
+        skin.add("slider_knob", new Texture("buttons/slider_knob.png"));
+        Slider.SliderStyle sliderStyle = new Slider.SliderStyle();
+        sliderStyle.knob = skin.getDrawable("slider_knob");
+        sliderStyle.background = skin.getDrawable("slider_bkg");
+        final Slider slider = new Slider(0, 2, 0.01f, false, sliderStyle);
+        slider.setBounds(100, 30, 200, 25);
+
+        slider.addListener(new ChangeListener() {
+            public void changed (ChangeEvent event, Actor actor) {
+                roundDuration = 2.1f - slider.getValue();
+            }
+        });
+        slider.setValue(1.5f);
+
+        //roundDuration = slider.getValue();
+        stage.addActor(slider);
+        // -------
 
 		resetLevel();
 	}
@@ -185,7 +212,7 @@ public class Main extends ApplicationAdapter {
 		float deltaTime = (gameState == GameState.ANIM_PLAYING) ? Gdx.graphics.getDeltaTime() : 0;
 		roundTime += deltaTime;
 
-        boolean endOfRound = roundTime >= Config.roundDuration;
+        boolean endOfRound = roundTime >= roundDuration;
 
 		Gdx.gl.glClearColor(39, 156, 255, 1); //for water
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -218,7 +245,7 @@ public class Main extends ApplicationAdapter {
 
 		// Batch
 		batch.begin();
-		bob.draw(batch, deltaTime);
+		bob.draw(batch, deltaTime, roundDuration);
 		batch.draw(foreground, 0, 0);
 		batch.draw(currentThumb, 25, 1080 - 148);
 		font.draw(batch, currentLevel.getText(), 250, 1080 - 25);
