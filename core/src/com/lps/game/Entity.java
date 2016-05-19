@@ -20,12 +20,10 @@ public class Entity {
 
     public void draw(Batch batch, float deltaTime, float roundDuration) {
 
-
         stateTime += deltaTime;
 
-
-        this.coord.increaseX(currentState.getDx() * deltaTime/ roundDuration);
-        this.coord.increaseY(currentState.getDy() * deltaTime/ roundDuration);
+        this.coord.increaseX(currentState.getDx() * deltaTime / roundDuration);
+        this.coord.increaseY(currentState.getDy() * deltaTime / roundDuration);
 
         if (stateTime >= roundDuration) {
             //round coordinates as stateTime might be !=
@@ -33,7 +31,10 @@ public class Entity {
         }
 
         TextureRegion currentFrame = currentState.getFrame(stateTime);
-        batch.draw(currentFrame, this.coord.getScreenX() - currentFrame.getRegionWidth()/2, this.coord.getScreenY());
+        float drawingX = this.coord.getScreenX() - currentFrame.getRegionWidth()/2;
+        float drawingY = this.coord.getScreenY() + (currentState == EntityState.WON ? (float)Math.sin(3.1415f*stateTime/roundDuration) * 50: 0);
+
+        batch.draw(currentFrame, drawingX, drawingY);
     }
 
     public void updateState(EntityState newState) {
@@ -79,7 +80,7 @@ public class Entity {
 
         if (type.equals("gold")) {
             this.isAlive = true;
-            currentState = EntityState.DANCE;
+            currentState = EntityState.WON;
             return true;
         }
 

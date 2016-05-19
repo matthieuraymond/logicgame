@@ -23,46 +23,47 @@ import java.util.HashMap;
 
 public class Main extends ApplicationAdapter {
 
-    Stage stage;
-    SpriteBatch batch;
-    Texture foreground;
+    // BOB
+    SpriteBatch batch = new SpriteBatch();
     Entity bob;
-    HashMap<String, Brick> inputs;
+    Texture foreground = new Texture("foreground.png");
+
+    // UI
+    Stage stage = new Stage();
+    Skin skin = new Skin();
+    BitmapFont font = new BitmapFont();
+    Button submitButton;
+
+    // Thumb image
+    HashMap<String, Texture> images = new HashMap<>();
+    Texture currentThumb;
+
+    // Rules
+    HashMap<String, Brick> inputs = new HashMap<>();
+    ArrayList<DragAndDrop.Target> targets = new ArrayList<>(80);
+    Rule[] rules = new Rule[8];
+
+    // Map and LPS
     MapManager mapManager;
     LPSHandler lpsHandler;
-    float roundTime;
-    GameState gameState;
-    Skin skin;
-    Rule[] rules;
-    ArrayList<DragAndDrop.Target> targets;
-    Button submitButton;
-    HashMap<String, Texture> images;
-    Texture currentThumb;
-    BitmapFont font;
-    Level currentLevel;
-    float roundDuration;
 
+    // Levels and counters
+    float roundTime;
+    Level currentLevel = Level.level1;
+    GameState gameState;
+    float roundDuration;
+    int roundWithoutMove;
 
 	@Override
 	public void create() {
-		font = new BitmapFont();
-		batch = new SpriteBatch();
-		stage = new Stage();
+
 		Gdx.input.setInputProcessor(stage);
-
-		currentLevel = Level.level2;
-		foreground = new Texture("foreground.png");
-
-		inputs = new HashMap<>();
-		images = new HashMap<>();
-		targets = new ArrayList<>(80);
 
 		// Thumbs
 		images.put("bob", new Texture("thumbs/bob.png"));
 		currentThumb = images.get("bob");
 
-		// DRAG N DROP STUFF
-		skin = new Skin();
+		// DRAG N DROP
 		skin.add("default", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 		skin.add("target", new Texture("inputs/target.png"));
 		skin.add("imply", new Texture("inputs/imply.png"));
@@ -80,9 +81,7 @@ public class Main extends ApplicationAdapter {
 			skin.add(direction, new Texture("inputs/" + direction.toLowerCase() + ".png"));
 		}
 
-
-		rules = new Rule[8];
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < rules.length; i++) {
 			rules[i] = new Rule(stage, skin);
 			DragAndDrop.Target[] targets = rules[i].getTargets();
 			for (DragAndDrop.Target t: targets) {
@@ -122,6 +121,7 @@ public class Main extends ApplicationAdapter {
 		});
 
 		stage.addActor(quitButton);
+
 		// ----------
 		// SUBMIT BUTTON
 		skin.add("submit", new Texture("buttons/submit.png"));
@@ -176,12 +176,12 @@ public class Main extends ApplicationAdapter {
 
         slider.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
-                roundDuration = 2.1f - slider.getValue();
+                roundDuration = 2.2f - slider.getValue();
             }
         });
         slider.setValue(1.5f);
 
-        //roundDuration = slider.getValue();
+        roundDuration = 2.2f - slider.getValue();
         stage.addActor(slider);
         // -------
 
@@ -218,27 +218,12 @@ public class Main extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		// UPDATE OF ENTITY
-		if (endOfRound) {
-            lpsHandler.update();
-			EntityState newState = lpsHandler.getNewState();
+        if (endOfRound) {
+            updateEntity();
+        }
 
-			if (newState != null) {
-				bob.updateState(newState);
-			} else {
-				bob.makeIDLE();
-			}
-
-			if (bob.checkIfWet()) {
-				gameState = GameState.INPUT_HANDLING;
-			}
-
-			if (bob.chekIfWon()) {
-				currentLevel = currentLevel.next();
-				gameState = GameState.INPUT_HANDLING;
-				resetLevel();
-				resetRules();
-			}
-		}
+        // Update of rules
+        checkRules();
 
 		//Map
 		mapManager.draw(deltaTime);
@@ -250,16 +235,9 @@ public class Main extends ApplicationAdapter {
 		batch.draw(currentThumb, 25, 1080 - 148);
 		font.draw(batch, currentLevel.getText(), 250, 1080 - 25);
 
-		boolean allValid = true;
-		for (int i = 0; i < rules.length; ++i) {
-			rules[i].drawLight(batch, i);
-			allValid &= (rules[i].isValid());
-		}
-		if (!allValid) {
-			submitButton.setDisabled(true);
-		} else {
-			submitButton.setDisabled(false);
-		}
+        for (int i = 0; i < rules.length; ++i) {
+            rules[i].drawLight(batch, i);
+        }
 
 		batch.end();
 
@@ -270,7 +248,43 @@ public class Main extends ApplicationAdapter {
 		if (endOfRound) roundTime = 0;
 	}
 
-	private void resetLevel() {
+    private void checkRules() {
+        boolean allValid = true;
+
+        for (int i = 0; i < rules.length; ++i) {
+            allValid &= (rules[i].isValid());
+        }
+
+        if (!allValid) {
+            submitButton.setDisabled(true);
+        } else {
+            submitButton.setDisabled(false);
+        }
+    }
+
+    private void updateEntity() {
+            lpsHandler.update();
+            EntityState newState = lpsHandler.getNewState();
+
+            if (newState != null) {
+                bob.updateState(newState);
+            } else {
+                bob.makeIDLE();
+            }
+
+            if (bob.checkIfWet()) {
+                gameState = GameState.INPUT_HANDLING;
+            }
+
+            if (bob.chekIfWon()) {
+                //currentLevel = currentLevel.next();
+                //gameState = GameState.INPUT_HANDLING;
+                //resetLevel();
+                resetRules();
+            }
+    }
+
+    private void resetLevel() {
 
 		mapManager = new MapManager(currentLevel.getMap());
 		bob = new Entity(mapManager, currentLevel.getX(), currentLevel.getY());
@@ -300,5 +314,4 @@ public class Main extends ApplicationAdapter {
 			r.reset();
 		}
 	}
-
 }
