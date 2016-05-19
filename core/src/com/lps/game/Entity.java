@@ -18,16 +18,16 @@ public class Entity {
         this.map = map;
     }
 
-    public void draw(Batch batch, float deltaTime) {
+    public void draw(Batch batch, float deltaTime, float roundDuration) {
 
 
         stateTime += deltaTime;
 
 
-        this.coord.increaseX(currentState.getDx() * deltaTime/ Config.roundDuration);
-        this.coord.increaseY(currentState.getDy() * deltaTime/ Config.roundDuration);
+        this.coord.increaseX(currentState.getDx() * deltaTime/ roundDuration);
+        this.coord.increaseY(currentState.getDy() * deltaTime/ roundDuration);
 
-        if (stateTime >= Config.roundDuration) {
+        if (stateTime >= roundDuration) {
             //round coordinates as stateTime might be !=
             coord.round();
         }

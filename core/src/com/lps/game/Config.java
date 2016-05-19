@@ -23,11 +23,6 @@ public final class Config {
      */
 
     /**
-     * GENERAL LOGIC
-     */
-    public static final float roundDuration = 0.5f;
-
-    /**
      * LPS
      */
     public static final boolean LPSDebug = false;
