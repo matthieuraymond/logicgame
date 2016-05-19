@@ -24,24 +24,24 @@ import java.util.HashMap;
 public class Main extends ApplicationAdapter {
 
     // BOB
-    SpriteBatch batch = new SpriteBatch();
+    SpriteBatch batch;
     Entity bob;
-    Texture foreground = new Texture("foreground.png");
+    Texture foreground;
 
     // UI
-    Stage stage = new Stage();
-    Skin skin = new Skin();
-    BitmapFont font = new BitmapFont();
+    Stage stage;
+    Skin skin;
+    BitmapFont font;
     Button submitButton;
 
     // Thumb image
-    HashMap<String, Texture> images = new HashMap<>();
+    HashMap<String, Texture> images;
     Texture currentThumb;
 
     // Rules
-    HashMap<String, Brick> inputs = new HashMap<>();
-    ArrayList<DragAndDrop.Target> targets = new ArrayList<>(80);
-    Rule[] rules = new Rule[8];
+    HashMap<String, Brick> inputs;
+    ArrayList<DragAndDrop.Target> targets;
+    Rule[] rules;
 
     // Map and LPS
     MapManager mapManager;
@@ -49,13 +49,25 @@ public class Main extends ApplicationAdapter {
 
     // Levels and counters
     float roundTime;
-    Level currentLevel = Level.level1;
+    Level currentLevel;
     GameState gameState;
     float roundDuration;
     int roundWithoutMove;
 
 	@Override
 	public void create() {
+
+        // Initialisations
+        batch = new SpriteBatch();
+        foreground = new Texture("foreground.png");
+        stage = new Stage();
+        skin = new Skin();
+        font = new BitmapFont();
+        images = new HashMap<>();
+        inputs = new HashMap<>();
+        targets = new ArrayList<>(80);
+        rules = new Rule[8];
+        currentLevel = Level.level1;
 
 		Gdx.input.setInputProcessor(stage);
 
@@ -90,8 +102,8 @@ public class Main extends ApplicationAdapter {
 		}
 
 		for (String color : colors) {
-			addInput(color + "(X,Y) & isIn(X,Y)", Type.FLUENT, color);
-			addInput(color + "(U,V) & wasIn(U,V)", Type.FLUENT, color + "_prev");
+			addInput(color + "(X,Y)", Type.FLUENT, color);
+			addInput(color + "(U,V)", Type.FLUENT, color + "_prev");
 		}
 
 		for (String direction : directions) {
@@ -277,9 +289,9 @@ public class Main extends ApplicationAdapter {
             }
 
             if (bob.chekIfWon()) {
-                //currentLevel = currentLevel.next();
-                //gameState = GameState.INPUT_HANDLING;
-                //resetLevel();
+                currentLevel = currentLevel.next();
+                gameState = GameState.INPUT_HANDLING;
+                resetLevel();
                 resetRules();
             }
     }

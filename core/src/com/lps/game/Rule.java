@@ -34,7 +34,7 @@ public class Rule {
 
     public String getString() {
 
-        StringBuilder sb = new StringBuilder("");
+        StringBuilder sb = new StringBuilder("isIn(X,Y) & wasIn(U,V) & ");
         boolean notEmpty = false;
 
         for (RuleCell c: cells) {

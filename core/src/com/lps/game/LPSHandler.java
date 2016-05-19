@@ -27,7 +27,7 @@ public class LPSHandler {
             resetLPS();
             StringBuilder lpsString = new StringBuilder("Database {\n\tFacts {\n\t\t");
 
-            lpsString.append("isIn(" + ((x < 0) ? "m" : "") + Math.abs(x) + "," + ((y < 0) ? "m" : "") + Math.abs(y) + "). wasIn(" + ((x < 0) ? "m" : "") + Math.abs(x) + "," + ((y < 0) ? "m" : "") + Math.abs(y) + ").\n");
+            lpsString.append("isIn(" + ((x < 0) ? "m" : "") + Math.abs(x) + "," + ((y < 0) ? "m" : "") + Math.abs(y) + ").\n\twasIn(" + ((x < 0) ? "m" : "") + Math.abs(x) + "," + ((y < 0) ? "m" : "") + Math.abs(y) + ").\n");
 
             lpsString.append("\t}\n\nRules {\n\t\t");
 
