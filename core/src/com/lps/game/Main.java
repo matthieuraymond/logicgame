@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -23,7 +24,6 @@ public class Main extends ApplicationAdapter {
     // BOB
     SpriteBatch batch;
     Entity bob;
-    Texture foreground;
 
     // UI
     Stage stage;
@@ -31,10 +31,6 @@ public class Main extends ApplicationAdapter {
     BitmapFont font;
 	ArrayList<Actor> winningActors;
     Button submitButton;
-
-	// Thumb image
-    HashMap<String, Texture> images;
-    Texture currentThumb;
 
 	// Rules
     HashMap<String, Brick> inputs;
@@ -52,39 +48,70 @@ public class Main extends ApplicationAdapter {
 	float roundDuration;
 	float gameStateTime;
 
+	//Groups
+	Group backgroundGroup;
+	Group levelUIGroup;
+	Group winningGroup;
+	Group menuGroup;
+
+
+
 	@Override
 	public void create() {
 
         // Initialisations
         batch = new SpriteBatch();
-        foreground = new Texture("screens/foreground.png");
         stage = new Stage();
         skin = new Skin();
         font = new BitmapFont();
-        images = new HashMap<>();
         inputs = new HashMap<>();
         targets = new ArrayList<>(80);
         rules = new Rule[8];
-		winningActors = new ArrayList<>();
+		backgroundGroup = new Group();
+		levelUIGroup = new Group();
+		winningGroup = new Group();
+		menuGroup = new Group();
 
-        currentLevel = Level.level1;
-        gameStateTime = 0;
+		stage.addActor(backgroundGroup);
+		stage.addActor(levelUIGroup);
+		stage.addActor(winningGroup);
+		stage.addActor(menuGroup);
+
+		currentLevel = Level.level1;
+		gameStateTime = 0;
 
 		Gdx.input.setInputProcessor(stage);
 
+		// Bkg
+		Image foreground = new Image(new Texture("screens/foreground.png"));
+		backgroundGroup.addActor(foreground);
+
 		// Thumbs
-		images.put("bob", new Texture("thumbs/bob.png"));
-		currentThumb = images.get("bob");
+		Image currentThumb = new Image(new Texture("thumbs/bob.png"));
+		currentThumb.setBounds(25, 1080 - 148, currentThumb.getWidth(), currentThumb.getHeight());
+		backgroundGroup.addActor(currentThumb);
 
-        // DRAG N DROP
-        TextTooltip.TextTooltipStyle tooltipStyle = new TextTooltip.TextTooltipStyle();
-        tooltipStyle.label = new Label.LabelStyle();
-        tooltipStyle.label.font = font;
+		// Rules
+		skin.add("red_light", new Texture("lights/red.png"));
+		skin.add("green_light", new Texture("lights/green.png"));
+		skin.add("target", new Texture("inputs/target.png"));
 
-        skin.add("tooltipStyle", tooltipStyle);
+		for (int i = 0; i < rules.length; i++) {
+			rules[i] = new Rule(levelUIGroup, skin);
+			DragAndDrop.Target[] targets = rules[i].getTargets();
+			for (DragAndDrop.Target t: targets) {
+				this.targets.add(t);
+			}
+		}
+
+		// DRAG N DROP
+		TextTooltip.TextTooltipStyle tooltipStyle = new TextTooltip.TextTooltipStyle();
+		tooltipStyle.label = new Label.LabelStyle();
+		tooltipStyle.label.font = font;
+
+		skin.add("tooltipStyle", tooltipStyle);
 
 		skin.add("default", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-		skin.add("target", new Texture("inputs/target.png"));
 		skin.add("imply", new Texture("inputs/imply.png"));
 		skin.add("and", new Texture("inputs/and.png"));
 		skin.add("not", new Texture("inputs/not.png"));
@@ -100,13 +127,6 @@ public class Main extends ApplicationAdapter {
 			skin.add(direction, new Texture("inputs/" + direction.toLowerCase() + ".png"));
 		}
 
-		for (int i = 0; i < rules.length; i++) {
-			rules[i] = new Rule(stage, skin);
-			DragAndDrop.Target[] targets = rules[i].getTargets();
-			for (DragAndDrop.Target t: targets) {
-				this.targets.add(t);
-			}
-		}
 
 		for (String color : colors) {
 			addInput(color + "(X,Y)", Type.FLUENT, color, "If Bob is on a " + color + " cell");
@@ -120,6 +140,7 @@ public class Main extends ApplicationAdapter {
 		addInput("&", Type.AND,  "and", "AND, to be used in: if a AND b");
 		addInput("->", Type.IMPLY,  "imply", "IMPLY/THEN, to be used in: if a THEN b");
 		addInput("!", Type.NOT,  "not", "NOT, to be used in: NOT a");
+
 
 		// Buttons
 
@@ -139,7 +160,7 @@ public class Main extends ApplicationAdapter {
 			}
 		});
 
-		stage.addActor(quitButton);
+		levelUIGroup.addActor(quitButton);
 
 		// ----------
 		// SUBMIT BUTTON
@@ -163,7 +184,7 @@ public class Main extends ApplicationAdapter {
 				}
 		});
 
-		stage.addActor(submitButton);
+		levelUIGroup.addActor(submitButton);
 		// ----------
 		// RESET BUTTON
 
@@ -181,7 +202,7 @@ public class Main extends ApplicationAdapter {
 			}
 		});
 
-		stage.addActor(resetButton);
+		levelUIGroup.addActor(resetButton);
 		// ----------
 
         // SLIDER
@@ -201,16 +222,14 @@ public class Main extends ApplicationAdapter {
         slider.setValue(1.5f);
 
         roundDuration = 2.2f - slider.getValue();
-        stage.addActor(slider);
+        levelUIGroup.addActor(slider);
         // -------
 
 
         // Winning screen
-		skin.add("winning_screen", new Texture("screens/winning.png"));
-		Image winningScreen = new Image(skin.getDrawable("winning_screen"));
-		winningActors.add(winningScreen);
+		Image winningScreen = new Image(new Texture("screens/winning.png"));
 
-		stage.addActor(winningScreen);
+		winningGroup.addActor(winningScreen);
 
 		skin.add("next", new Texture("buttons/next.png"));
 		skin.add("next_clicked", new Texture("buttons/next_clicked.png"));
@@ -228,8 +247,7 @@ public class Main extends ApplicationAdapter {
 			}
 		});
 
-		winningActors.add(nextButton);
-		stage.addActor(nextButton);
+		winningGroup.addActor(nextButton);
 
 		showWinningScreen(false);
 		resetLevel();
@@ -244,7 +262,6 @@ public class Main extends ApplicationAdapter {
 			t.dispose();
 		}
 
-		foreground.dispose();
 		font.dispose();
 	}
 
@@ -279,19 +296,12 @@ public class Main extends ApplicationAdapter {
 		// Batch
 		batch.begin();
 		bob.draw(batch, (gameState != GameState.INPUT_HANDLING) ? deltaTime : 0, roundDuration);
-		batch.draw(foreground, 0, 0);
-		batch.draw(currentThumb, 25, 1080 - 148);
-		font.draw(batch, currentLevel.getText(), 250, 1080 - 25);
-
-        for (int i = 0; i < rules.length; ++i) {
-            rules[i].drawLight(batch, i);
-        }
-
 		batch.end();
 
 		// Stage
 		stage.act(deltaTime);
 		stage.draw();
+		//stage.setDebugAll(true);
 
 		if (endOfRound) roundTime = 0;
 	}
@@ -301,7 +311,7 @@ public class Main extends ApplicationAdapter {
         boolean allValid = true;
 
         for (int i = 0; i < rules.length; ++i) {
-            allValid &= (rules[i].isValid());
+            allValid &= (rules[i].isValid(skin));
         }
 
         if (!allValid) {
@@ -334,9 +344,7 @@ public class Main extends ApplicationAdapter {
     }
 
 	private void showWinningScreen(boolean visible) {
-		for(Actor a: winningActors) {
-			a.setVisible(visible);
-		}
+		winningGroup.setVisible(visible);
 	}
 
 	private void changeGameState(GameState newState) {
@@ -363,7 +371,7 @@ public class Main extends ApplicationAdapter {
 	}
 
 	private void addInput(String lps, Type type, String name, String tooltip) {
-		Brick brick = new Brick(stage, skin, lps, name, type, tooltip);
+		Brick brick = new Brick(levelUIGroup, skin, lps, name, type, tooltip);
 		for (DragAndDrop.Target t: this.targets) {
 			brick.addTarget(t);
 		}

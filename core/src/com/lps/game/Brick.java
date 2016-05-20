@@ -2,6 +2,7 @@ package com.lps.game;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -22,7 +23,7 @@ public class Brick {
     private LogicBrick logicBrick;
     private DragAndDrop dragAndDrop;
 
-    public Brick(Stage stage, final Skin skin, String LPSString, String image, Type type, String tooltipText) {
+    public Brick(Group group, final Skin skin, String LPSString, String image, Type type, String tooltipText) {
 
         logicBrick = new LogicBrick(LPSString, image, type);
 
@@ -36,7 +37,7 @@ public class Brick {
         sourceImage.setBounds(coord[0], coord[1], 50, 50);
         sourceImage.addListener(tooltip);
 
-        stage.addActor(sourceImage);
+        group.addActor(sourceImage);
 
 
         dragAndDrop = new DragAndDrop();

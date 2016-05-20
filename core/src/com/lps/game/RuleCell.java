@@ -1,6 +1,7 @@
 package com.lps.game;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -18,7 +19,8 @@ public class RuleCell {
     private int targetX;
     private int targetY;
 
-    public RuleCell (final Stage stage, int startingY, int index, final Skin skin) {
+    public RuleCell (final Group group, int startingY, int index, final Skin skin) {
+
         bkgImage = new Image(skin, "target");
         LPSString = "";
 
@@ -26,7 +28,7 @@ public class RuleCell {
         targetY = startingY;
         bkgImage.setBounds(targetX, targetY, 50, 50);
 
-        stage.addActor(bkgImage);
+        group.addActor(bkgImage);
 
         target = new DragAndDrop.Target(bkgImage) {
             public boolean drag (DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
@@ -39,14 +41,14 @@ public class RuleCell {
             }
 
             public void drop (DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
-                updateContainImage(stage, skin, (LogicBrick)payload.getObject());
+                updateContainImage(group, skin, (LogicBrick)payload.getObject());
             }
         };
 
         target.getActor().setColor(Color.CLEAR);
     }
 
-    public void updateContainImage(Stage stage, Skin skin, LogicBrick logicBrick) {
+    public void updateContainImage(Group group, Skin skin, LogicBrick logicBrick) {
 
         if (containImage != null) {
             containImage.remove();
@@ -67,7 +69,7 @@ public class RuleCell {
             }
         });
 
-        stage.addActor(containImage);
+        group.addActor(containImage);
     }
 
     public String getLPSString() {
