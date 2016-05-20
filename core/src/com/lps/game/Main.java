@@ -106,8 +106,10 @@ public class Main extends ApplicationAdapter {
 
 		// DRAG N DROP
 		TextTooltip.TextTooltipStyle tooltipStyle = new TextTooltip.TextTooltipStyle();
+		skin.add("tooltip_bkg", new Texture("inputs/tooltip.png"));
 		tooltipStyle.label = new Label.LabelStyle();
 		tooltipStyle.label.font = font;
+		tooltipStyle.background = skin.getDrawable("tooltip_bkg");
 
 		skin.add("tooltipStyle", tooltipStyle);
 
@@ -216,7 +218,9 @@ public class Main extends ApplicationAdapter {
 
         slider.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
+				float previousTime = roundTime/roundDuration; // to avoid jump
                 roundDuration = 2.2f - slider.getValue();
+				roundTime = previousTime * roundDuration;
             }
         });
         slider.setValue(1.5f);

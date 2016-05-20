@@ -30,7 +30,7 @@ public class Entity {
             coord.round();
         }
 
-        TextureRegion currentFrame = currentState.getFrame(stateTime);
+        TextureRegion currentFrame = currentState.getFrame(stateTime/roundDuration);
         float drawingX = this.coord.getScreenX() - currentFrame.getRegionWidth()/2;
         float drawingY = this.coord.getScreenY() + (currentState == EntityState.WON ? (float)Math.sin(3.1415f*stateTime/roundDuration) * 50: 0);
 

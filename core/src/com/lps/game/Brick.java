@@ -29,7 +29,7 @@ public class Brick {
 
         final Image sourceImage = new Image(skin, image);
         final Image dragImage = new Image(skin, image);
-        TextTooltip tooltip = new TextTooltip(tooltipText, skin, "tooltipStyle");
+        TextTooltip tooltip = new TextTooltip("  " + tooltipText + "  ", skin, "tooltipStyle");
         tooltip.setInstant(true);
 
         int[] coord = getCoordinates(type);
