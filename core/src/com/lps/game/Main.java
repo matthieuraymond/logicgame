@@ -76,7 +76,13 @@ public class Main extends ApplicationAdapter {
 		images.put("bob", new Texture("thumbs/bob.png"));
 		currentThumb = images.get("bob");
 
-		// DRAG N DROP
+        // DRAG N DROP
+        TextTooltip.TextTooltipStyle tooltipStyle = new TextTooltip.TextTooltipStyle();
+        tooltipStyle.label = new Label.LabelStyle();
+        tooltipStyle.label.font = font;
+
+        skin.add("tooltipStyle", tooltipStyle);
+
 		skin.add("default", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 		skin.add("target", new Texture("inputs/target.png"));
 		skin.add("imply", new Texture("inputs/imply.png"));
@@ -103,17 +109,17 @@ public class Main extends ApplicationAdapter {
 		}
 
 		for (String color : colors) {
-			addInput(color + "(X,Y)", Type.FLUENT, color);
-			addInput(color + "(U,V)", Type.FLUENT, color + "_prev");
+			addInput(color + "(X,Y)", Type.FLUENT, color, "If Bob is on a " + color + " cell");
+			addInput(color + "(U,V)", Type.FLUENT, color + "_prev", "If Bob was previously on a " + color + " cell");
 		}
 
 		for (String direction : directions) {
-			addInput("go" + direction + "()", Type.CONSEQUENT, direction);
+			addInput("go" + direction + "()", Type.CONSEQUENT, direction, "Bob should go " + direction);
 		}
 
-		addInput("&", Type.AND,  "and");
-		addInput("->", Type.IMPLY,  "imply");
-		addInput("!", Type.NOT,  "not");
+		addInput("&", Type.AND,  "and", "AND, to be used in: if a AND b");
+		addInput("->", Type.IMPLY,  "imply", "IMPLY/THEN, to be used in: if a THEN b");
+		addInput("!", Type.NOT,  "not", "NOT, to be used in: NOT a");
 
 		// Buttons
 
@@ -198,7 +204,8 @@ public class Main extends ApplicationAdapter {
         stage.addActor(slider);
         // -------
 
-		// Winning screen
+
+        // Winning screen
 		skin.add("winning_screen", new Texture("screens/winning.png"));
 		Image winningScreen = new Image(skin.getDrawable("winning_screen"));
 		winningActors.add(winningScreen);
@@ -249,7 +256,7 @@ public class Main extends ApplicationAdapter {
 	@Override
 	public void render() {
 
-		float deltaTime = (gameState != GameState.INPUT_HANDLING) ? Gdx.graphics.getDeltaTime() : 0;
+		float deltaTime = Gdx.graphics.getDeltaTime();
 		roundTime += deltaTime;
         gameStateTime += deltaTime;
 
@@ -267,11 +274,11 @@ public class Main extends ApplicationAdapter {
         checkRules();
 
 		//Map
-		mapManager.draw(deltaTime);
+		mapManager.draw((gameState != GameState.INPUT_HANDLING) ? deltaTime : 0);
 
 		// Batch
 		batch.begin();
-		bob.draw(batch, deltaTime, roundDuration);
+		bob.draw(batch, (gameState != GameState.INPUT_HANDLING) ? deltaTime : 0, roundDuration);
 		batch.draw(foreground, 0, 0);
 		batch.draw(currentThumb, 25, 1080 - 148);
 		font.draw(batch, currentLevel.getText(), 250, 1080 - 25);
@@ -355,8 +362,8 @@ public class Main extends ApplicationAdapter {
 
 	}
 
-	private void addInput(String lps, Type type, String name) {
-		Brick brick = new Brick(stage, skin, lps, name, type);
+	private void addInput(String lps, Type type, String name, String tooltip) {
+		Brick brick = new Brick(stage, skin, lps, name, type, tooltip);
 		for (DragAndDrop.Target t: this.targets) {
 			brick.addTarget(t);
 		}
