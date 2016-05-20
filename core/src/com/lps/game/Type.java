@@ -4,17 +4,19 @@ public enum Type {
     FLUENT, AND, NOT, IMPLY, CONSEQUENT;
 
     public static boolean isValid(Type[] types) {
-        Type previous = null;
+        Type last = null;
         boolean implied = false;
+        boolean oneFluent = false;
 
         for (int i = 0; i < types.length; ++i) {
 
             if (types[i] == null) continue;
 
-            if (previous != null) {
-                switch(previous) {
+            if (last != null) {
+                switch(last) {
                     case FLUENT:
                         if (types[i] != AND && types[i] != IMPLY) return false;
+                        oneFluent = true;
                         break;
                     case AND:
                         if (types[i] != FLUENT && types[i] != NOT) return false;
@@ -31,13 +33,12 @@ public enum Type {
                 }
             }
 
-            previous = types[i];
+            last = types[i];
         }
 
-        if (previous != null) {
-            return implied && previous == CONSEQUENT;
+        if (last != null) {
+            return implied && last == CONSEQUENT && oneFluent;
         } else {
-
             return true;
         }
     }
