@@ -36,6 +36,7 @@ public class Main extends ApplicationAdapter {
     HashMap<String, Brick> inputs;
 	ArrayList<DragAndDrop.Target> targets;
     Rule[] rules;
+	Image[] locking;
 
 	// Map and LPS
     MapManager mapManager;
@@ -70,6 +71,7 @@ public class Main extends ApplicationAdapter {
         inputs = new HashMap<>();
         targets = new ArrayList<>(80);
         rules = new Rule[8];
+		locking = new Image[8];
 		backgroundGroup = new Group();
 		levelUIGroup = new Group();
 		winningGroup = new Group();
@@ -219,6 +221,10 @@ public class Main extends ApplicationAdapter {
 			for (DragAndDrop.Target t: targets) {
 				this.targets.add(t);
 			}
+
+			locking[i] = new Image(new Texture("inputs/locked.png"));
+			locking[i].setBounds(1400, 573 - i * 70, 500, 70);
+			levelUIGroup.addActor(locking[i]);
 		}
 
 		// DRAG N DROP
@@ -480,8 +486,14 @@ public class Main extends ApplicationAdapter {
 		bob = new Entity(mapManager, currentLevel.getX(), currentLevel.getY());
 
 		StringBuilder inputs = new StringBuilder();
-		for (Rule r: rules) {
-			inputs.append(r.getString());
+		for (int i = 0; i < rules.length; i++) {
+			inputs.append(rules[i].getString());
+
+			if (i >= currentLevel.getNoRules()) {
+				locking[i].setVisible(true);
+			} else {
+				locking[i].setVisible(false);
+			}
 		}
 
 		lpsHandler = new LPSHandler(mapManager, inputs.toString(), currentLevel.getX(), currentLevel.getY());
