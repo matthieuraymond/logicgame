@@ -29,7 +29,6 @@ public class Main extends ApplicationAdapter {
     Stage stage;
     Skin skin;
     BitmapFont font;
-	ArrayList<Actor> winningActors;
     Button submitButton;
 
 	// Rules
@@ -81,6 +80,11 @@ public class Main extends ApplicationAdapter {
 		gameStateTime = 0;
 
 		Gdx.input.setInputProcessor(stage);
+
+		// Menu
+		Image menuBkg = new Image(new Texture("screens/menu.png"));
+		menuBkg.setBounds(0,0,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		menuGroup.addActor(menuBkg);
 
 		// Bkg
 		Image foreground = new Image(new Texture("screens/foreground.png"));
