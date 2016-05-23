@@ -28,7 +28,8 @@ public class Main extends ApplicationAdapter {
     // UI
     Stage stage;
     Skin skin;
-    BitmapFont font;
+	BitmapFont font;
+	BitmapFont impactFont;
     Button submitButton;
 
 	// Rules
@@ -52,6 +53,8 @@ public class Main extends ApplicationAdapter {
 	Group levelUIGroup;
 	Group winningGroup;
 	Group menuGroup;
+	Group levelsGroup;
+	Group settingsGroup;
 
 
 
@@ -63,6 +66,7 @@ public class Main extends ApplicationAdapter {
         stage = new Stage();
         skin = new Skin();
         font = new BitmapFont();
+		impactFont = new BitmapFont();
         inputs = new HashMap<>();
         targets = new ArrayList<>(80);
         rules = new Rule[8];
@@ -70,11 +74,18 @@ public class Main extends ApplicationAdapter {
 		levelUIGroup = new Group();
 		winningGroup = new Group();
 		menuGroup = new Group();
+		settingsGroup = new Group();
+		levelsGroup = new Group();
 
 		stage.addActor(backgroundGroup);
 		stage.addActor(levelUIGroup);
 		stage.addActor(winningGroup);
 		stage.addActor(menuGroup);
+		stage.addActor(settingsGroup);
+		stage.addActor(levelsGroup);
+
+		levelsGroup.setVisible(false);
+		settingsGroup.setVisible(false);
 
 		currentLevel = Level.level1;
 		gameStateTime = 0;
@@ -120,7 +131,73 @@ public class Main extends ApplicationAdapter {
 			}
 		});
 
+		menuButtons.get("levels").addListener(new ClickListener() {
+			public void clicked(InputEvent ie, float x, float y) {
+				levelsGroup.setVisible(true);
+			}
+		});
 
+		// Levels Menu
+		Image levelsBkg = new Image(new Texture("screens/menu.png"));
+		levelsBkg.setBounds(0,0,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		levelsGroup.addActor(levelsBkg);
+
+		skin.add("level", new Texture("menu_buttons/level.png"));
+		skin.add("level_clicked", new Texture("menu_buttons/level_clicked.png"));
+
+		TextButton.TextButtonStyle levelButtonStyle = new TextButton.TextButtonStyle();
+		levelButtonStyle.up = skin.getDrawable("level");
+		levelButtonStyle.down = skin.getDrawable("level_clicked");
+		levelButtonStyle.font = new BitmapFont();
+		levelButtonStyle.font.getData().scale(4f);
+
+		int noLevels = Level.values().length;
+		int levelsButtonX = 660;
+		int levelsButtonY = 430;
+
+		for (int i = 0; i < noLevels; i++) {
+			final int j = i;
+			TextButton button = new TextButton(Integer.toString(i + 1), levelButtonStyle);
+			button.setBounds(levelsButtonX, levelsButtonY, 100, 100);
+
+			button.setName(Integer.toString(i));
+
+			button.addListener(new ClickListener() {
+				public void clicked(InputEvent ie, float x, float y) {
+					currentLevel = Level.values()[j];
+					resetLevel();
+					menuGroup.setVisible(false);
+					levelsGroup.setVisible(false);
+				}
+			});
+
+
+			levelsGroup.addActor(button);
+
+			levelsButtonX += 125;
+
+			if (levelsButtonX >= 1360) {
+				levelsButtonY -= 125;
+				levelsButtonX = 560;
+			}
+		}
+
+		skin.add("back", new Texture("menu_buttons/back.png"));
+		skin.add("back_clicked", new Texture("menu_buttons/back_clicked.png"));
+
+		Button.ButtonStyle backStyle = new Button.ButtonStyle();
+		backStyle.up = skin.getDrawable("back");
+		backStyle.down = skin.getDrawable("back_clicked");
+
+		Button backButton = new Button(backStyle);
+		backButton.setBounds(10, 15, 200, 50);
+		backButton.addListener(new ClickListener() {
+			public void clicked(InputEvent ie, float x, float y) {
+				levelsGroup.setVisible(false);
+			}
+		});
+
+		levelsGroup.addActor(backButton);
 
 		// Bkg
 		Image foreground = new Image(new Texture("screens/foreground.png"));
@@ -187,18 +264,18 @@ public class Main extends ApplicationAdapter {
 		// Buttons
 
 		// QUIT BUTTON
-		skin.add("red_quit", new Texture("buttons/quit.png"));
-		skin.add("red_quit_clicked", new Texture("buttons/quit_clicked.png"));
+		skin.add("menu", new Texture("buttons/menu.png"));
+		skin.add("menu_clicked", new Texture("buttons/menu_clicked.png"));
 
 		Button.ButtonStyle quitStyle = new Button.ButtonStyle();
-		quitStyle.up = skin.getDrawable("red_quit");
-		quitStyle.down = skin.getDrawable("red_quit_clicked");
+		quitStyle.up = skin.getDrawable("menu");
+		quitStyle.down = skin.getDrawable("menu_clicked");
 
 		Button quitButton = new Button(quitStyle);
-		quitButton.setBounds(10, 10, 60, 60);
+		quitButton.setBounds(10, 15, 120, 50);
 		quitButton.addListener(new ClickListener() {
 			public void clicked(InputEvent ie, float x, float y) {
-				Gdx.app.exit();
+				menuGroup.setVisible(true);
 			}
 		});
 
@@ -254,7 +331,7 @@ public class Main extends ApplicationAdapter {
         sliderStyle.knob = skin.getDrawable("slider_knob");
         sliderStyle.background = skin.getDrawable("slider_bkg");
         final Slider slider = new Slider(0, 2, 0.01f, false, sliderStyle);
-        slider.setBounds(100, 30, 200, 25);
+        slider.setBounds(150, 30, 200, 25);
 
         slider.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
