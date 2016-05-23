@@ -86,6 +86,42 @@ public class Main extends ApplicationAdapter {
 		menuBkg.setBounds(0,0,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		menuGroup.addActor(menuBkg);
 
+		// Menu button
+		String[] menu = {"new_game", "levels", "settings", "quit"};
+		HashMap<String, Button> menuButtons = new HashMap<>();
+		int menuButtonY = 430;
+
+		for (int i = 0; i < menu.length; i++) {
+			skin.add(menu[i], new Texture("menu_buttons/" + menu[i] + ".png"));
+			skin.add(menu[i] + "_clicked", new Texture("menu_buttons/" + menu[i] + "_clicked.png"));
+
+			Button.ButtonStyle buttonStyle = new Button.ButtonStyle();
+			buttonStyle.up = skin.getDrawable(menu[i]);
+			buttonStyle.down = skin.getDrawable(menu[i] + "_clicked");
+
+			Button button = new Button(buttonStyle);
+			button.setBounds(760, menuButtonY, 400, 100);
+
+			menuButtons.put(menu[i], button);
+			menuGroup.addActor(button);
+
+			menuButtonY -= 125;
+		}
+
+		menuButtons.get("new_game").addListener(new ClickListener() {
+			public void clicked(InputEvent ie, float x, float y) {
+				menuGroup.setVisible(false);
+			}
+		});
+
+		menuButtons.get("quit").addListener(new ClickListener() {
+			public void clicked(InputEvent ie, float x, float y) {
+				Gdx.app.exit();
+			}
+		});
+
+
+
 		// Bkg
 		Image foreground = new Image(new Texture("screens/foreground.png"));
 		backgroundGroup.addActor(foreground);
@@ -151,12 +187,12 @@ public class Main extends ApplicationAdapter {
 		// Buttons
 
 		// QUIT BUTTON
-		skin.add("quit", new Texture("buttons/quit.png"));
-		skin.add("quit_clicked", new Texture("buttons/quit_clicked.png"));
+		skin.add("red_quit", new Texture("buttons/quit.png"));
+		skin.add("red_quit_clicked", new Texture("buttons/quit_clicked.png"));
 
 		Button.ButtonStyle quitStyle = new Button.ButtonStyle();
-		quitStyle.up = skin.getDrawable("quit");
-		quitStyle.down = skin.getDrawable("quit_clicked");
+		quitStyle.up = skin.getDrawable("red_quit");
+		quitStyle.down = skin.getDrawable("red_quit_clicked");
 
 		Button quitButton = new Button(quitStyle);
 		quitButton.setBounds(10, 10, 60, 60);
@@ -313,7 +349,6 @@ public class Main extends ApplicationAdapter {
 
 		if (endOfRound) roundTime = 0;
 	}
-
 
     private void checkRules() {
         boolean allValid = true;
