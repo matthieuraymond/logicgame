@@ -30,7 +30,10 @@ public class Main extends ApplicationAdapter {
     Skin skin;
 	BitmapFont font;
 	BitmapFont impactFont;
+	Label.LabelStyle labelStyle;
     Button submitButton;
+	Label text;
+
 
 	// Rules
     HashMap<String, Brick> inputs;
@@ -68,9 +71,10 @@ public class Main extends ApplicationAdapter {
         skin = new Skin();
         font = new BitmapFont();
 		impactFont = new BitmapFont();
+		labelStyle = new Label.LabelStyle();
         inputs = new HashMap<>();
-        targets = new ArrayList<>(80);
-        rules = new Rule[8];
+		targets = new ArrayList<>(80);
+		rules = new Rule[8];
 		locking = new Image[8];
 		backgroundGroup = new Group();
 		levelUIGroup = new Group();
@@ -78,6 +82,7 @@ public class Main extends ApplicationAdapter {
 		menuGroup = new Group();
 		settingsGroup = new Group();
 		levelsGroup = new Group();
+
 
 		stage.addActor(backgroundGroup);
 		stage.addActor(levelUIGroup);
@@ -93,6 +98,12 @@ public class Main extends ApplicationAdapter {
 		gameStateTime = 0;
 
 		Gdx.input.setInputProcessor(stage);
+
+		// Label
+		labelStyle.font = font;
+		text = new Label("", labelStyle);
+		text.setBounds(240, 945, 575, 125);
+		levelUIGroup.addActor(text);
 
 		// Menu
 		Image menuBkg = new Image(new Texture("screens/menu.png"));
@@ -230,8 +241,7 @@ public class Main extends ApplicationAdapter {
 		// DRAG N DROP
 		TextTooltip.TextTooltipStyle tooltipStyle = new TextTooltip.TextTooltipStyle();
 		skin.add("tooltip_bkg", new Texture("inputs/tooltip.png"));
-		tooltipStyle.label = new Label.LabelStyle();
-		tooltipStyle.label.font = font;
+		tooltipStyle.label = labelStyle;
 		tooltipStyle.background = skin.getDrawable("tooltip_bkg");
 
 		skin.add("tooltipStyle", tooltipStyle);
@@ -495,6 +505,8 @@ public class Main extends ApplicationAdapter {
 				locking[i].setVisible(false);
 			}
 		}
+
+		text.setText(currentLevel.getText());
 
 		lpsHandler = new LPSHandler(mapManager, inputs.toString(), currentLevel.getX(), currentLevel.getY());
 		roundTime = 0;
