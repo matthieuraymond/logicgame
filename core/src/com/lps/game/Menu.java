@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -159,19 +160,17 @@ public class Menu {
         isVisible = false;
     }
 
-    public Group getMenuGroup() {
-        return menuGroup;
-    }
-
-    public Group getLevelsGroup() {
-        return levelsGroup;
-    }
-
     public boolean isVisible() {
         return isVisible;
     }
 
     public Level getLevelSelected() {
         return levelSelected;
+    }
+
+    public void setStage(Stage stage) {
+        stage.addActor(menuGroup);
+        stage.addActor(levelsGroup);
+        //stage.addActor(settingsGroup);
     }
 }
