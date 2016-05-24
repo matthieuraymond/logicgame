@@ -57,9 +57,9 @@ public class Main extends ApplicationAdapter {
 	Group backgroundGroup;
 	Group levelUIGroup;
 	Group winningGroup;
-	Group menuGroup;
-	Group levelsGroup;
 	Group settingsGroup;
+
+	Menu menu;
 
 
 
@@ -80,22 +80,18 @@ public class Main extends ApplicationAdapter {
 		backgroundGroup = new Group();
 		levelUIGroup = new Group();
 		winningGroup = new Group();
-		menuGroup = new Group();
 		settingsGroup = new Group();
-		levelsGroup = new Group();
-
+		menu = new Menu(skin);
 
 		stage.addActor(backgroundGroup);
 		stage.addActor(levelUIGroup);
 		stage.addActor(winningGroup);
-		stage.addActor(menuGroup);
+		stage.addActor(menu.getMenuGroup());
+		stage.addActor(menu.getLevelsGroup());
 		stage.addActor(settingsGroup);
-		stage.addActor(levelsGroup);
-
-		levelsGroup.setVisible(false);
-		settingsGroup.setVisible(false);
 
 		gameStateTime = 0;
+		gameState = GameState.MENU;
 
 		Gdx.input.setInputProcessor(stage);
 
@@ -105,114 +101,7 @@ public class Main extends ApplicationAdapter {
 		text.setBounds(240, 945, 575, 125);
 		levelUIGroup.addActor(text);
 
-		// Menu
-		Image menuBkg = new Image(new Texture("screens/menu.png"));
-		menuBkg.setBounds(0,0,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		menuGroup.addActor(menuBkg);
 
-		// Menu button
-		String[] menu = {"new_game", "levels", "settings", "quit"};
-		HashMap<String, Button> menuButtons = new HashMap<>();
-		int menuButtonY = 430;
-
-		for (int i = 0; i < menu.length; i++) {
-			skin.add(menu[i], new Texture("menu_buttons/" + menu[i] + ".png"));
-			skin.add(menu[i] + "_clicked", new Texture("menu_buttons/" + menu[i] + "_clicked.png"));
-
-			Button.ButtonStyle buttonStyle = new Button.ButtonStyle();
-			buttonStyle.up = skin.getDrawable(menu[i]);
-			buttonStyle.down = skin.getDrawable(menu[i] + "_clicked");
-
-			Button button = new Button(buttonStyle);
-			button.setBounds(760, menuButtonY, 400, 100);
-
-			menuButtons.put(menu[i], button);
-			menuGroup.addActor(button);
-
-			menuButtonY -= 125;
-		}
-
-		menuButtons.get("new_game").addListener(new ClickListener() {
-			public void clicked(InputEvent ie, float x, float y) {
-				currentLevel = Level.level1;
-				resetLevel();
-				menuGroup.setVisible(false);
-			}
-		});
-
-		menuButtons.get("quit").addListener(new ClickListener() {
-			public void clicked(InputEvent ie, float x, float y) {
-				Gdx.app.exit();
-			}
-		});
-
-		menuButtons.get("levels").addListener(new ClickListener() {
-			public void clicked(InputEvent ie, float x, float y) {
-				levelsGroup.setVisible(true);
-			}
-		});
-
-		// Levels Menu
-		Image levelsBkg = new Image(new Texture("screens/menu.png"));
-		levelsBkg.setBounds(0,0,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		levelsGroup.addActor(levelsBkg);
-
-		skin.add("level", new Texture("menu_buttons/level.png"));
-		skin.add("level_clicked", new Texture("menu_buttons/level_clicked.png"));
-
-		TextButton.TextButtonStyle levelButtonStyle = new TextButton.TextButtonStyle();
-		levelButtonStyle.up = skin.getDrawable("level");
-		levelButtonStyle.down = skin.getDrawable("level_clicked");
-		levelButtonStyle.font = new BitmapFont();
-		levelButtonStyle.font.getData().scale(4f);
-
-		int noLevels = Level.values().length;
-		int levelsButtonX = 660;
-		int levelsButtonY = 430;
-
-		for (int i = 0; i < noLevels; i++) {
-			final int j = i;
-			TextButton button = new TextButton(Integer.toString(i + 1), levelButtonStyle);
-			button.setBounds(levelsButtonX, levelsButtonY, 100, 100);
-
-			button.setName(Integer.toString(i));
-
-			button.addListener(new ClickListener() {
-				public void clicked(InputEvent ie, float x, float y) {
-					currentLevel = Level.values()[j];
-					resetLevel();
-					menuGroup.setVisible(false);
-					levelsGroup.setVisible(false);
-				}
-			});
-
-
-			levelsGroup.addActor(button);
-
-			levelsButtonX += 125;
-
-			if (levelsButtonX >= 1360) {
-				levelsButtonY -= 125;
-				levelsButtonX = 560;
-			}
-		}
-
-		skin.add("back", new Texture("menu_buttons/back.png"));
-		skin.add("back_clicked", new Texture("menu_buttons/back_clicked.png"));
-
-		Button.ButtonStyle backStyle = new Button.ButtonStyle();
-		backStyle.up = skin.getDrawable("back");
-		backStyle.down = skin.getDrawable("back_clicked");
-
-		Button backButton = new Button(backStyle);
-		backButton.setBounds(10, 15, 200, 50);
-		backButton.addListener(new ClickListener() {
-			public void clicked(InputEvent ie, float x, float y) {
-				levelsGroup.setVisible(false);
-			}
-		});
-
-		levelsGroup.addActor(backButton);
 
 		// Bkg
 		Image foreground = new Image(new Texture("screens/foreground.png"));
@@ -286,7 +175,8 @@ public class Main extends ApplicationAdapter {
 		quitButton.setBounds(10, 15, 120, 50);
 		quitButton.addListener(new ClickListener() {
 			public void clicked(InputEvent ie, float x, float y) {
-				menuGroup.setVisible(true);
+				gameState = GameState.MENU;
+				menu.show();
 			}
 		});
 
@@ -311,7 +201,7 @@ public class Main extends ApplicationAdapter {
 					resetLevel();
 					gameState = GameState.ANIM_PLAYING;
 				}
-				}
+			}
 		});
 
 		levelUIGroup.addActor(submitButton);
@@ -380,7 +270,6 @@ public class Main extends ApplicationAdapter {
 		winningGroup.addActor(nextButton);
 
 		showWinningScreen(false);
-		//resetLevel();
 	}
 
 	@Override
@@ -411,6 +300,13 @@ public class Main extends ApplicationAdapter {
 
 		Gdx.gl.glClearColor(39, 156, 255, 1); //for water
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+		if (gameState == GameState.MENU) {
+			if (!menu.isVisible()) {
+				currentLevel = menu.getLevelSelected();
+				resetLevel();
+			}
+		}
 
 		// UPDATE OF ENTITY
         if (endOfRound) {
