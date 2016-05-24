@@ -38,7 +38,7 @@ public class Main extends ApplicationAdapter {
 
 	// Rules
     HashMap<String, Brick> inputs;
-	ArrayList<DragAndDrop.Target> targets;
+	static ArrayList<DragAndDrop.Target> targets;
     Rule[] rules;
 	Image[] locking;
 
@@ -95,7 +95,6 @@ public class Main extends ApplicationAdapter {
 		levelsGroup.setVisible(false);
 		settingsGroup.setVisible(false);
 
-		currentLevel = Level.level1;
 		gameStateTime = 0;
 
 		Gdx.input.setInputProcessor(stage);
@@ -135,6 +134,8 @@ public class Main extends ApplicationAdapter {
 
 		menuButtons.get("new_game").addListener(new ClickListener() {
 			public void clicked(InputEvent ie, float x, float y) {
+				currentLevel = Level.level1;
+				resetLevel();
 				menuGroup.setVisible(false);
 			}
 		});
@@ -271,7 +272,6 @@ public class Main extends ApplicationAdapter {
 		addInput("->", Type.IMPLY,  "imply", "IMPLY/THEN, to be used in: if a THEN b");
 		addInput("!", Type.NOT,  "not", "NOT, to be used in: NOT a");
 
-
 		// Buttons
 
 		// QUIT BUTTON
@@ -317,8 +317,6 @@ public class Main extends ApplicationAdapter {
 		levelUIGroup.addActor(submitButton);
 		// ----------
 		// RESET BUTTON
-
-		// SUBMIT BUTTON
 		skin.add("reset", new Texture("buttons/reset.png"));
 		skin.add("reset_clicked", new Texture("buttons/reset_clicked.png"));
 		final Button.ButtonStyle resetStyle = new Button.ButtonStyle();
@@ -382,7 +380,7 @@ public class Main extends ApplicationAdapter {
 		winningGroup.addActor(nextButton);
 
 		showWinningScreen(false);
-		resetLevel();
+		//resetLevel();
 	}
 
 	@Override
@@ -423,11 +421,11 @@ public class Main extends ApplicationAdapter {
         checkRules();
 
 		//Map
-		mapManager.draw((gameState != GameState.INPUT_HANDLING) ? deltaTime : 0);
+		if (mapManager != null) mapManager.draw((gameState != GameState.INPUT_HANDLING) ? deltaTime : 0);
 
 		// Batch
 		batch.begin();
-		bob.draw(batch, (gameState != GameState.INPUT_HANDLING) ? deltaTime : 0, roundDuration);
+		if (bob != null) bob.draw(batch, (gameState != GameState.INPUT_HANDLING) ? deltaTime : 0, roundDuration);
 		batch.end();
 
 		// Stage
@@ -507,7 +505,7 @@ public class Main extends ApplicationAdapter {
 		roundTime = 0;
 		gameState = GameState.INPUT_HANDLING;
 
-		addInputs(new String[]{"white", "red"}, false);
+		addInputs(currentLevel.getColors(), currentLevel.isPrevAuthorised());
 
 	}
 
@@ -543,7 +541,4 @@ public class Main extends ApplicationAdapter {
 			}
 		}
 	}
-
-	//private inputs
-
 }

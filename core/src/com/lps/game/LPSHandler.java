@@ -145,6 +145,4 @@ public class LPSHandler {
         return Integer.parseInt(s.charAt(0) == 'm' ? "-" + s.substring(1) : s);
     }
 
-
-
 }

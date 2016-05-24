@@ -48,7 +48,7 @@ public class RuleCell {
         target.getActor().setColor(Color.CLEAR);
     }
 
-    public void updateContainImage(Group group, Skin skin, LogicBrick logicBrick) {
+    public void updateContainImage(Group group, Skin skin, final LogicBrick logicBrick) {
 
         if (containImage != null) {
             containImage.remove();
@@ -68,6 +68,26 @@ public class RuleCell {
                 }
             }
         });
+
+
+        DragAndDrop dragAndDrop = new DragAndDrop();
+        dragAndDrop.setDragActorPosition(-(containImage.getWidth()/2), containImage.getHeight()/2);
+        dragAndDrop.addSource(new DragAndDrop.Source(containImage) {
+            public DragAndDrop.Payload dragStart (InputEvent event, float x, float y, int pointer) {
+                DragAndDrop.Payload payload = new DragAndDrop.Payload();
+                payload.setObject(logicBrick);
+                payload.setDragActor(containImage);
+
+                LPSString = "";
+                type = null;
+
+                return payload;
+            }
+        });
+
+        for (DragAndDrop.Target t: Main.targets) {
+            dragAndDrop.addTarget(t);
+        }
 
         group.addActor(containImage);
     }
