@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Main extends ApplicationAdapter {
 
@@ -262,12 +263,6 @@ public class Main extends ApplicationAdapter {
 			skin.add(direction, new Texture("inputs/" + direction.toLowerCase() + ".png"));
 		}
 
-
-		for (String color : colors) {
-			addInput(color + "(X,Y)", Type.FLUENT, color, "If Bob is on a " + color + " cell");
-			addInput(color + "(U,V)", Type.FLUENT, color + "_prev", "If Bob was previously on a " + color + " cell");
-		}
-
 		for (String direction : directions) {
 			addInput("go" + direction + "()", Type.CONSEQUENT, direction, "Bob should go " + direction);
 		}
@@ -346,19 +341,19 @@ public class Main extends ApplicationAdapter {
         Slider.SliderStyle sliderStyle = new Slider.SliderStyle();
         sliderStyle.knob = skin.getDrawable("slider_knob");
         sliderStyle.background = skin.getDrawable("slider_bkg");
-        final Slider slider = new Slider(0, 2, 0.01f, false, sliderStyle);
+        final Slider slider = new Slider(0, 1, 0.01f, false, sliderStyle);
         slider.setBounds(150, 30, 200, 25);
 
         slider.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
 				float previousTime = roundTime/roundDuration; // to avoid jump
-                roundDuration = 2.2f - slider.getValue();
+                roundDuration = 1.2f - slider.getValue();
 				roundTime = previousTime * roundDuration;
             }
         });
-        slider.setValue(1.5f);
+        slider.setValue(0.7f);
 
-        roundDuration = 2.2f - slider.getValue();
+        roundDuration = 1.2f - slider.getValue();
         levelUIGroup.addActor(slider);
         // -------
 
@@ -512,6 +507,8 @@ public class Main extends ApplicationAdapter {
 		roundTime = 0;
 		gameState = GameState.INPUT_HANDLING;
 
+		addInputs(new String[]{"white", "red"}, false);
+
 	}
 
 	private void addInput(String lps, Type type, String name, String tooltip) {
@@ -528,4 +525,25 @@ public class Main extends ApplicationAdapter {
 			r.reset();
 		}
 	}
+
+	private void resetInputs() {
+		for (Map.Entry<String, Brick> i : inputs.entrySet()) {
+			i.getValue().deleteFluent();
+		}
+	}
+
+	private void addInputs(String[] colors, boolean prevAuthorised) {
+
+		resetInputs();
+
+		for (String color : colors) {
+			addInput(color + "(X,Y)", Type.FLUENT, color, "If Bob is on a " + color + " cell");
+			if (prevAuthorised) {
+				addInput(color + "(U,V)", Type.FLUENT, color + "_prev", "If Bob was previously on a " + color + " cell");
+			}
+		}
+	}
+
+	//private inputs
+
 }

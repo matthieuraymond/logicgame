@@ -1,12 +1,8 @@
 package com.lps.game;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
@@ -19,6 +15,7 @@ public class Brick {
     private static int noFluent = 0;
     private static int noLogic = 0;
     private static int noConsequent = 0;
+    private Image sourceImage;
 
     private LogicBrick logicBrick;
     private DragAndDrop dragAndDrop;
@@ -27,7 +24,7 @@ public class Brick {
 
         logicBrick = new LogicBrick(LPSString, image, type);
 
-        final Image sourceImage = new Image(skin, image);
+        sourceImage = new Image(skin, image);
         final Image dragImage = new Image(skin, image);
         TextTooltip tooltip = new TextTooltip("  " + tooltipText + "  ", skin, "tooltipStyle");
         tooltip.setInstant(true);
@@ -78,5 +75,12 @@ public class Brick {
 
     public void addTarget(DragAndDrop.Target target) {
         dragAndDrop.addTarget(target);
+    }
+
+    public void deleteFluent() {
+        if (logicBrick.getType() == Type.FLUENT) {
+            sourceImage.remove();
+            noFluent--;
+        }
     }
 }
