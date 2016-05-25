@@ -13,10 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class PlayingInterface {
 
@@ -33,7 +30,7 @@ public class PlayingInterface {
     // Map and LPS
     MapManager mapManager;
     LPSHandler lpsHandler;
-    HashMap<String, Brick> inputs;
+    HashMap<String, Input> inputs;
 
     static ArrayList<DragAndDrop.Target> targets;
     Rule[] rules;
@@ -236,8 +233,7 @@ public class PlayingInterface {
         nextButton.addListener(new ClickListener() {
             public void clicked(InputEvent ie, float x, float y) {
                 currentLevel = currentLevel.next();
-                resetWorld();
-                resetRules();
+                startNewLevel();
                 showWinningScreen(false);
             }
         });
@@ -284,30 +280,37 @@ public class PlayingInterface {
 
 
     private void addInput(String lps, Type type, String name, String tooltip) {
-        Brick brick = new Brick(levelUIGroup, skin, lps, name, type, tooltip);
+        Input input = new Input(levelUIGroup, skin, lps, name, type, tooltip);
         for (DragAndDrop.Target t: targets) {
-            brick.addTarget(t);
+            input.addTarget(t);
         }
 
-        inputs.put(name, brick);
+        inputs.put(name, input);
     }
 
-    private void resetRules() {
+    public void resetRules() {
         for (Rule r: rules) {
             r.reset();
         }
     }
 
-    private void resetInputs() {
-        for (Map.Entry<String, Brick> i : inputs.entrySet()) {
-            i.getValue().deleteFluent();
+    public void resetInputs() {
+
+        Iterator<Map.Entry<String,Input>> it = inputs.entrySet().iterator();
+
+        while (it.hasNext()) {
+            Map.Entry<String,Input> e = it.next();
+            if (e.getValue().isFluent()) {
+                e.getValue().clear();
+                it.remove();
+            }
+
         }
+
+        addInputs(currentLevel.getColors(), currentLevel.isPrevAuthorised());
     }
 
     private void addInputs(String[] colors, boolean prevAuthorised) {
-
-        resetInputs();
-
         for (String color : colors) {
             addInput(color + "(X,Y)", Type.FLUENT, color, "If Bob is on a " + color + " cell");
             if (prevAuthorised) {
@@ -338,9 +341,12 @@ public class PlayingInterface {
         lpsHandler = new LPSHandler(mapManager, inputs.toString(), currentLevel.getX(), currentLevel.getY());
         roundTime = 0;
         isAnimPlaying = false;
+    }
 
-        addInputs(currentLevel.getColors(), currentLevel.isPrevAuthorised());
-
+    public void startNewLevel() {
+        resetWorld();
+        resetInputs();
+        resetRules();
     }
 
     public void drawWorld(float deltaTime) {

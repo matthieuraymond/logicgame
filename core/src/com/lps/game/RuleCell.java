@@ -3,7 +3,6 @@ package com.lps.game;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -41,24 +40,24 @@ public class RuleCell {
             }
 
             public void drop (DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
-                updateContainImage(group, skin, (LogicBrick)payload.getObject());
+                updateContainImage(group, skin, (InputLogic)payload.getObject());
             }
         };
 
         target.getActor().setColor(Color.CLEAR);
     }
 
-    public void updateContainImage(Group group, Skin skin, final LogicBrick logicBrick) {
+    public void updateContainImage(Group group, Skin skin, final InputLogic inputLogic) {
 
         if (containImage != null) {
             containImage.remove();
         }
 
-        //TODO refactor to keep logicBrick
-        LPSString = logicBrick.getLPSString();
-        containImage = new Image(skin, logicBrick.getImageName());
+        //TODO refactor to keep inputLogic
+        LPSString = inputLogic.getLPSString();
+        containImage = new Image(skin, inputLogic.getImageName());
         containImage.setBounds(targetX, targetY, 50, 50);
-        type = logicBrick.getType();
+        type = inputLogic.getType();
 
         containImage.addListener(new ClickListener() {
             @Override
@@ -75,7 +74,7 @@ public class RuleCell {
         dragAndDrop.addSource(new DragAndDrop.Source(containImage) {
             public DragAndDrop.Payload dragStart (InputEvent event, float x, float y, int pointer) {
                 DragAndDrop.Payload payload = new DragAndDrop.Payload();
-                payload.setObject(logicBrick);
+                payload.setObject(inputLogic);
                 payload.setDragActor(containImage);
 
                 LPSString = "";

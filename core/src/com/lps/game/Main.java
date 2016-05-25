@@ -80,7 +80,7 @@ public class Main extends ApplicationAdapter {
 		if (gameState == GameState.MENU) {
 			if (!menu.isVisible()) {
 				playingInterface.setLevel(menu.getLevelSelected());
-				playingInterface.resetWorld();
+				playingInterface.startNewLevel();
 				gameState = GameState.PLAYING;
 				playingInterface.show();
 			}

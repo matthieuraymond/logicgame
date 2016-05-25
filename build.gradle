@@ -59,7 +59,7 @@ project(":html") {
 
 project(":core") {
     apply plugin: "java"
-    apply plugin: 'antlr'
+    apply plugin: "antlr"
 
     dependencies {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"

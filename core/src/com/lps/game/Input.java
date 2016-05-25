@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 
-public class Brick {
+public class Input {
     private static final int refXFluent = 1415;
     private static final int refXLogic = refXFluent + 270;
     private static final int refXConsequent = refXLogic + 90;
@@ -17,12 +17,12 @@ public class Brick {
     private static int noConsequent = 0;
     private Image sourceImage;
 
-    private LogicBrick logicBrick;
+    private InputLogic inputLogic;
     private DragAndDrop dragAndDrop;
 
-    public Brick(Group group, final Skin skin, String LPSString, String image, Type type, String tooltipText) {
+    public Input(Group group, final Skin skin, String LPSString, String image, Type type, String tooltipText) {
 
-        logicBrick = new LogicBrick(LPSString, image, type);
+        inputLogic = new InputLogic(LPSString, image, type);
 
         sourceImage = new Image(skin, image);
         final Image dragImage = new Image(skin, image);
@@ -42,7 +42,7 @@ public class Brick {
         dragAndDrop.addSource(new DragAndDrop.Source(sourceImage) {
             public DragAndDrop.Payload dragStart (InputEvent event, float x, float y, int pointer) {
                 DragAndDrop.Payload payload = new DragAndDrop.Payload();
-                payload.setObject(logicBrick);
+                payload.setObject(inputLogic);
 
                 payload.setDragActor(dragImage);
 
@@ -77,10 +77,20 @@ public class Brick {
         dragAndDrop.addTarget(target);
     }
 
-    public void deleteFluent() {
-        if (logicBrick.getType() == Type.FLUENT) {
-            sourceImage.remove();
-            noFluent--;
+    public void clear() {
+        sourceImage.remove();
+        if (inputLogic != null) {
+            if (inputLogic.getType() == Type.FLUENT) {
+                noFluent--;
+            } else if (inputLogic.getType() == Type.CONSEQUENT) {
+                noConsequent--;
+            } else {
+                noLogic--;
+            }
         }
+    }
+
+    public boolean isFluent() {
+        return inputLogic != null ? inputLogic.getType() == Type.FLUENT : false;
     }
 }
