@@ -138,35 +138,18 @@ public class PlayInterface {
         // Buttons
 
         // QUIT BUTTON
-        skin.add("menu", new Texture("buttons/menu.png"));
-        skin.add("menu_clicked", new Texture("buttons/menu_clicked.png"));
-
-        Button.ButtonStyle quitStyle = new Button.ButtonStyle();
-        quitStyle.up = skin.getDrawable("menu");
-        quitStyle.down = skin.getDrawable("menu_clicked");
-
-        Button quitButton = new Button(quitStyle);
-        quitButton.setBounds(10, 15, 120, 50);
+        TextButton quitButton = new TextButton("MENU", skin, "blue_button");
+        quitButton.setBounds(10, 15, 200, 50);
         quitButton.addListener(new ClickListener() {
             public void clicked(InputEvent ie, float x, float y) {
                 hide();
             }
         });
-
         levelUIGroup.addActor(quitButton);
 
         // ----------
         // SUBMIT BUTTON
-        skin.add("submit", new Texture("buttons/submit.png"));
-        skin.add("submit_clicked", new Texture("buttons/submit_clicked.png"));
-        skin.add("submit_disabled", new Texture("buttons/submit_disabled.png"));
-
-        final Button.ButtonStyle submitStyle = new Button.ButtonStyle();
-        submitStyle.disabled = skin.getDrawable("submit_disabled");
-        submitStyle.up = skin.getDrawable("submit");
-        submitStyle.down = skin.getDrawable("submit_clicked");
-
-        submitButton = new Button(submitStyle);
+        submitButton = new TextButton("SUBMIT", skin, "green_button");
         submitButton.setBounds(1700, 10, 200, 60);
         submitButton.addListener(new ClickListener() {
             public void clicked(InputEvent ie, float x, float y) {
@@ -176,17 +159,11 @@ public class PlayInterface {
                 }
             }
         });
-
         levelUIGroup.addActor(submitButton);
 
         // ----------
         // RESET BUTTON
-        skin.add("reset", new Texture("buttons/reset.png"));
-        skin.add("reset_clicked", new Texture("buttons/reset_clicked.png"));
-        final Button.ButtonStyle resetStyle = new Button.ButtonStyle();
-        resetStyle.up = skin.getDrawable("reset");
-        resetStyle.down = skin.getDrawable("reset_clicked");
-        Button resetButton = new Button(resetStyle);
+        TextButton resetButton = new TextButton("RESET", skin, "blue_button");
         resetButton.setBounds(1450, 10, 200, 60);
         resetButton.addListener(new ClickListener() {
             public void clicked(InputEvent ie, float x, float y) {
@@ -204,7 +181,7 @@ public class PlayInterface {
         sliderStyle.knob = skin.getDrawable("slider_knob");
         sliderStyle.background = skin.getDrawable("slider_bkg");
         final Slider slider = new Slider(0, 1, 0.01f, false, sliderStyle);
-        slider.setBounds(150, 30, 200, 25);
+        slider.setBounds(250, 30, 200, 25);
 
         slider.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
@@ -223,12 +200,7 @@ public class PlayInterface {
         // Winning screen
         winningGroup.addActor(new Image(new Texture("screens/winning.png")));
 
-        skin.add("next", new Texture("buttons/next.png"));
-        skin.add("next_clicked", new Texture("buttons/next_clicked.png"));
-        final Button.ButtonStyle nextStyle = new Button.ButtonStyle();
-        nextStyle.up = skin.getDrawable("next");
-        nextStyle.down = skin.getDrawable("next_clicked");
-        Button nextButton = new Button(nextStyle);
+        TextButton nextButton = new TextButton("NEXT LEVEL", skin, "blue_button");
         nextButton.setBounds(860, 400, 200, 60);
         nextButton.addListener(new ClickListener() {
             public void clicked(InputEvent ie, float x, float y) {
