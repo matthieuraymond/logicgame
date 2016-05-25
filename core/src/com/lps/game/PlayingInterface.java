@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,10 +40,10 @@ public class PlayingInterface {
     Image[] locking;
 
 
-    float roundTime;
-    float roundDuration;
+    private float roundTime;
+    private float roundDuration;
+    private int wonRound;
     private boolean isVisible;
-    private boolean isWon;
     private boolean isAnimPlaying;
     private Level currentLevel;
     private Skin skin;
@@ -53,6 +54,7 @@ public class PlayingInterface {
         hide();
         isAnimPlaying = false;
         currentLevel = Level.level1;
+        wonRound = 0;
     }
 
     private void initInterface(Skin skin) {
@@ -83,10 +85,9 @@ public class PlayingInterface {
 
         for (int i = 0; i < rules.length; i++) {
             rules[i] = new Rule(levelUIGroup, skin);
-            DragAndDrop.Target[] targets = rules[i].getTargets();
-            for (DragAndDrop.Target t: targets) {
-                this.targets.add(t);
-            }
+            DragAndDrop.Target[] rules_targets = rules[i].getTargets();
+
+            Collections.addAll(targets, rules_targets);
 
             locking[i] = new Image(new Texture("inputs/locked.png"));
             locking[i].setBounds(1400, 573 - i * 70, 500, 70);
@@ -171,7 +172,7 @@ public class PlayingInterface {
         submitButton.addListener(new ClickListener() {
             public void clicked(InputEvent ie, float x, float y) {
                 if (!submitButton.isDisabled()) {
-                    resetLevel();
+                    resetWorld();
                     isAnimPlaying = true;
                 }
             }
@@ -235,7 +236,7 @@ public class PlayingInterface {
         nextButton.addListener(new ClickListener() {
             public void clicked(InputEvent ie, float x, float y) {
                 currentLevel = currentLevel.next();
-                resetLevel();
+                resetWorld();
                 resetRules();
                 showWinningScreen(false);
             }
@@ -247,10 +248,16 @@ public class PlayingInterface {
     }
 
     public void show() {
+        backgroundGroup.setVisible(true);
+        levelUIGroup.setVisible(true);
+        winningGroup.setVisible(false);
         isVisible = true;
     }
 
     public void hide() {
+        backgroundGroup.setVisible(false);
+        levelUIGroup.setVisible(false);
+        winningGroup.setVisible(false);
         isVisible = false;
     }
 
@@ -264,8 +271,8 @@ public class PlayingInterface {
     private void checkRules() {
         boolean allValid = true;
 
-        for (int i = 0; i < rules.length; ++i) {
-            allValid &= (rules[i].isValid(skin));
+        for (Rule rule : rules) {
+            allValid &= (rule.isValid(skin));
         }
 
         if (!allValid) {
@@ -278,7 +285,7 @@ public class PlayingInterface {
 
     private void addInput(String lps, Type type, String name, String tooltip) {
         Brick brick = new Brick(levelUIGroup, skin, lps, name, type, tooltip);
-        for (DragAndDrop.Target t: this.targets) {
+        for (DragAndDrop.Target t: targets) {
             brick.addTarget(t);
         }
 
@@ -310,7 +317,7 @@ public class PlayingInterface {
     }
 
 
-    public void resetLevel() {
+    public void resetWorld() {
 
         mapManager = new MapManager(currentLevel.getMap());
         bob = new Entity(mapManager, currentLevel.getX(), currentLevel.getY());
@@ -331,7 +338,6 @@ public class PlayingInterface {
         lpsHandler = new LPSHandler(mapManager, inputs.toString(), currentLevel.getX(), currentLevel.getY());
         roundTime = 0;
         isAnimPlaying = false;
-        isWon = false;
 
         addInputs(currentLevel.getColors(), currentLevel.isPrevAuthorised());
 
@@ -361,7 +367,6 @@ public class PlayingInterface {
         if (endOfRound) roundTime = 0;
     }
 
-    private int wonRound = 0;
     private void updateEntity() {
         lpsHandler.update();
         EntityState newState = lpsHandler.getNewState();
@@ -386,11 +391,14 @@ public class PlayingInterface {
     }
 
     private void showWinningScreen(boolean visible) {
-        isWon = true;
         winningGroup.setVisible(visible);
     }
 
     public boolean isVisible() {
         return isVisible;
+    }
+
+    public void setLevel(Level level) {
+        this.currentLevel = level;
     }
 }

@@ -2,7 +2,6 @@ package com.lps.game;
 
 public final class Config {
 
-
     /**
      * MAP CONFIG
      */
@@ -27,5 +26,5 @@ public final class Config {
      */
     public static final boolean LPSDebug = false;
     public static final int LPSLimit = 2;
-    public static boolean printLPS = false;
+    public static final boolean printLPS = false;
 }

@@ -22,8 +22,7 @@ import java.util.Map;
 
 public class Main extends ApplicationAdapter {
 
-	// Levels and counters
-	Level currentLevel;
+	// Game State
 	GameState gameState;
 	float gameStateTime;
 
@@ -75,13 +74,13 @@ public class Main extends ApplicationAdapter {
 		float deltaTime = Gdx.graphics.getDeltaTime();
         gameStateTime += deltaTime;
 
-		Gdx.gl.glClearColor(39, 156, 255, 1); //for water
+		Gdx.gl.glClearColor(39, 156, 255, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		if (gameState == GameState.MENU) {
 			if (!menu.isVisible()) {
-				currentLevel = menu.getLevelSelected();
-				playingInterface.resetLevel();
+				playingInterface.setLevel(menu.getLevelSelected());
+				playingInterface.resetWorld();
 				gameState = GameState.PLAYING;
 				playingInterface.show();
 			}
