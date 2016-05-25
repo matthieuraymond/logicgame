@@ -20,6 +20,7 @@ public class PlayInterface {
     private final Group backgroundGroup = new Group();
     private final Group levelUIGroup = new Group();
     private final Group winningGroup = new Group();
+    private final Group tutorialGroup = new Group();
 
     SpriteBatch batch;
     Entity bob;
@@ -219,9 +220,7 @@ public class PlayInterface {
 
 
         // Winning screen
-        Image winningScreen = new Image(new Texture("screens/winning.png"));
-
-        winningGroup.addActor(winningScreen);
+        winningGroup.addActor(new Image(new Texture("screens/winning.png"));
 
         skin.add("next", new Texture("buttons/next.png"));
         skin.add("next_clicked", new Texture("buttons/next_clicked.png"));
@@ -241,12 +240,33 @@ public class PlayInterface {
         winningGroup.addActor(nextButton);
 
         showWinningScreen(false);
+
+        // Tutorial
+        tutorialGroup.addActor(new Image(new Texture("screens/tuto.png")));
+
+        skin.add("start", new Texture("buttons/start.png"));
+        skin.add("start_clicked", new Texture("buttons/start_clicked.png"));
+        final Button.ButtonStyle startStyle = new Button.ButtonStyle();
+        startStyle.up = skin.getDrawable("next");
+        startStyle.down = skin.getDrawable("next_clicked");
+        Button startButton = new Button(startStyle);
+        startButton.setBounds(860, 400, 200, 60);
+        startButton.addListener(new ClickListener() {
+            public void clicked(InputEvent ie, float x, float y) {
+                tutorialGroup.setVisible(false);
+            }
+        });
+
+        tutorialGroup.addActor(nextButton);
+
+        tutorialGroup.setVisible(false);
     }
 
     public void show() {
         backgroundGroup.setVisible(true);
         levelUIGroup.setVisible(true);
         winningGroup.setVisible(false);
+        tutorialGroup.setVisible(false);
         isVisible = true;
     }
 
@@ -254,6 +274,7 @@ public class PlayInterface {
         backgroundGroup.setVisible(false);
         levelUIGroup.setVisible(false);
         winningGroup.setVisible(false);
+        tutorialGroup.setVisible(false);
         isVisible = false;
     }
 
@@ -261,6 +282,7 @@ public class PlayInterface {
         stage.addActor(backgroundGroup);
         stage.addActor(levelUIGroup);
         stage.addActor(winningGroup);
+        stage.addActor(tutorialGroup);
     }
 
 
@@ -344,6 +366,13 @@ public class PlayInterface {
     }
 
     public void startNewLevel() {
+        if (currentLevel == Level.values()[0]) {
+            tutorialGroup.setVisible(true);
+        } else {
+            tutorialGroup.setVisible(false);
+        }
+
+
         resetWorld();
         resetInputs();
         resetRules();
@@ -357,7 +386,9 @@ public class PlayInterface {
         // UPDATE OF ENTITY
         if (endOfRound) {
             updateEntity();
+            updateGameState();
         }
+
 
         // Update of rules
         checkRules();
@@ -375,13 +406,10 @@ public class PlayInterface {
 
     private void updateEntity() {
         lpsHandler.update();
-        EntityState newState = lpsHandler.getNewState();
+        bob.updateState(lpsHandler.getNewState());
+    }
 
-        if (newState != null) {
-            bob.updateState(newState);
-        } else {
-            bob.makeIDLE();
-        }
+    private void updateGameState() {
 
         if (bob.checkIfWet()) {
             isAnimPlaying = false;

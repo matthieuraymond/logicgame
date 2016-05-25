@@ -39,8 +39,12 @@ public class Entity {
 
     public void updateState(EntityState newState) {
         if (isAlive) {
-            this.currentState = newState;
-            stateTime = 0;
+            if (newState != null) {
+                this.currentState = newState;
+                stateTime = 0;
+            } else {
+                makeIDLE();
+            }
         }
     }
 
