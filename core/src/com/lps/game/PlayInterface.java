@@ -15,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 
 import java.util.*;
 
-public class PlayingInterface {
+public class PlayInterface {
 
     private final Group backgroundGroup = new Group();
     private final Group levelUIGroup = new Group();
@@ -46,7 +46,7 @@ public class PlayingInterface {
     private Skin skin;
 
 
-    public PlayingInterface(Skin skin) {
+    public PlayInterface(Skin skin) {
         initInterface(skin);
         hide();
         isAnimPlaying = false;

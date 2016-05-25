@@ -84,7 +84,7 @@ public class RuleCell {
             }
         });
 
-        for (DragAndDrop.Target t: PlayingInterface.targets) {
+        for (DragAndDrop.Target t: PlayInterface.targets) {
             dragAndDrop.addTarget(t);
         }
 

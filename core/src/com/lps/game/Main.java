@@ -2,23 +2,10 @@ package com.lps.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Main extends ApplicationAdapter {
 
@@ -30,7 +17,7 @@ public class Main extends ApplicationAdapter {
 	Stage stage;
 
 	Menu menu;
-	PlayingInterface playingInterface;
+	PlayInterface playInterface;
 
 
 	@Override
@@ -39,12 +26,12 @@ public class Main extends ApplicationAdapter {
         skin = new Skin();
 		stage = new Stage();
 
-		playingInterface = new PlayingInterface(skin);
+		playInterface = new PlayInterface(skin);
 		menu = new Menu(skin);
 
 		skin.add("font", new BitmapFont());
 
-		playingInterface.setStage(stage);
+		playInterface.setStage(stage);
 		menu.setStage(stage);
 
 		gameStateTime = 0;
@@ -79,17 +66,17 @@ public class Main extends ApplicationAdapter {
 
 		if (gameState == GameState.MENU) {
 			if (!menu.isVisible()) {
-				playingInterface.setLevel(menu.getLevelSelected());
-				playingInterface.startNewLevel();
+				playInterface.setLevel(menu.getLevelSelected());
+				playInterface.startNewLevel();
 				gameState = GameState.PLAYING;
-				playingInterface.show();
+				playInterface.show();
 			}
 		}
 
 		if (gameState == GameState.PLAYING) {
-			playingInterface.drawWorld(deltaTime);
+			playInterface.drawWorld(deltaTime);
 
-			if (!playingInterface.isVisible()) {
+			if (!playInterface.isVisible()) {
 				menu.show();
 				gameState = GameState.MENU;
 			}
