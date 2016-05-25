@@ -1,8 +1,8 @@
 package test;
 
+import com.lps.game.Type;
 import org.junit.Assert;
 import org.junit.Test;
-import com.lps.game.Type;
 public class TypeTest {
 
     @Test
