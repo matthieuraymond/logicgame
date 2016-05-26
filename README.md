@@ -11,3 +11,9 @@ This game is developed as my master thesis project. It uses the LPS Framework fo
 # Updates of the game
 
 - **The beta 0.1 is available.** The game is fully playable. 4 levels are available for the moment! Enjoy.
+
+# Cool, how do I try it?
+
+For the moment you can import the project using gradle. The only things to do is to make the resource folder the working directory.
+
+ An executable version will soon be available
