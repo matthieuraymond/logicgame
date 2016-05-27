@@ -19,7 +19,7 @@ public class Main extends ApplicationAdapter {
 	Stage stage;
 
 	Menu menu;
-	PlayInterface playInterface;
+	PlayController playController;
 
 
 	@Override
@@ -32,10 +32,10 @@ public class Main extends ApplicationAdapter {
 
 		addButtonStyle();
 
-		playInterface = new PlayInterface(skin);
+		playController = new PlayController(skin);
 		menu = new Menu(skin);
 
-		playInterface.setStage(stage);
+		playController.linkStage(stage);
 		menu.setStage(stage);
 
 		gameStateTime = 0;
@@ -70,17 +70,17 @@ public class Main extends ApplicationAdapter {
 
 		if (gameState == GameState.MENU) {
 			if (!menu.isVisible()) {
-				playInterface.setLevel(menu.getLevelSelected());
-				playInterface.startNewLevel();
+				playController.setLevel(menu.getLevelSelected());
+				playController.startNewLevel();
 				gameState = GameState.PLAYING;
-				playInterface.show();
+				playController.show();
 			}
 		}
 
 		if (gameState == GameState.PLAYING) {
-			playInterface.drawWorld(deltaTime);
+			playController.render(deltaTime);
 
-			if (!playInterface.isVisible()) {
+			if (!playController.isVisible()) {
 				menu.show();
 				gameState = GameState.MENU;
 			}

@@ -7,15 +7,21 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
 public class Rule {
 
     private static int startingY = 1080 - 495;
     private Image light;
     private RuleCell[] cells;
+    private Drawable greenLight;
+    private Drawable redLight;
 
     public Rule(Group group, Skin skin) {
-        light = new Image(skin.getDrawable("green_light"));
+        greenLight = skin.getDrawable("green_light");
+        redLight = skin.getDrawable("green_light");
+
+        light = new Image(greenLight);
         light.setBounds(1450, startingY, light.getWidth(), light.getHeight());
         group.addActor(light);
 
@@ -56,21 +62,26 @@ public class Rule {
         return notEmpty ? sb.toString() : "";
     }
 
-    public boolean isValid(Skin skin) {
+    public boolean isValid() {
         Type[] types = new Type[cells.length];
 
-        for(int i=0; i < cells.length; i++) {
+        for (int i = 0; i < cells.length; i++) {
             types[i] = cells[i].getType();
         }
 
         boolean isValid = Type.isValid(types);
-        if (isValid) {
-            light.setDrawable(skin, "green_light");
-        } else {
-            light.setDrawable(skin, "red_light");
-        }
+
+        setLightOn(isValid);
 
         return isValid;
+    }
+
+    public void setLightOn(boolean isOn) {
+        if (isOn) {
+            light.setDrawable(greenLight);
+        } else {
+            light.setDrawable(redLight);
+        }
     }
 
     public void reset() {
