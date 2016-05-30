@@ -22,7 +22,7 @@ public class WorldCoordinates {
     }
 
     public float getScreenY() {
-        return 495 - (this.x - this.y) * Config.tileHeight/2;
+        return 500 - (this.x - this.y) * Config.tileHeight/2;
     }
 
     public void increaseX(float dx) {

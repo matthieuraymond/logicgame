@@ -12,6 +12,7 @@ public class Entity {
     private MapManager map;
     private float movedX;
     private float movedY;
+    private float roundTime;
     private boolean firstUpdateRequired;
 
     public Entity(MapManager map, float x, float y) {
@@ -38,6 +39,7 @@ public class Entity {
     public void updatePosition(float deltaTime) {
         movedX += currentState.getDx() * deltaTime;
         movedY += currentState.getDy() * deltaTime;
+        roundTime += deltaTime;
 
         this.coord.increaseX(currentState.getDx() * deltaTime);
         this.coord.increaseY(currentState.getDy() * deltaTime);
@@ -104,7 +106,13 @@ public class Entity {
         if (Math.abs(movedX) >= 1 || Math.abs(movedY) >= 1) {
             movedX = Math.signum(movedX) * (Math.abs(movedX) - (int)Math.abs(movedX));
             movedY = Math.signum(movedY) * (Math.abs(movedY) - (int)Math.abs(movedY));
+            roundTime = 0;
+            return true;
+        }
 
+        // Todo: Need to be seperated into an idle class to stop anim
+        if (roundTime > 3) {
+            roundTime = 0;
             return true;
         }
 

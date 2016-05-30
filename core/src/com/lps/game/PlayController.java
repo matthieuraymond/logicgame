@@ -22,10 +22,12 @@ public class PlayController {
 
     Rule[] rules;
     Image[] locking;
+    private float timer;
 
     private Level currentLevel;
     private PlayView view;
-    private float speedFactor = 1f;
+    private float speedFactor = 2f;
+    private int nbWon = 0;
 
     public PlayController(Skin skin) {
 
@@ -133,6 +135,13 @@ public class PlayController {
         view.changeText(currentLevel.getText());
 
         lpsHandler = new LPSHandler(mapManager, inputs.toString(), currentLevel.getX(), currentLevel.getY());
+        nbWon = 0;
+    }
+
+
+    public void resetLevel() {
+        resetRules();
+        resetWorld();
     }
 
     public void startNewLevel() {
@@ -181,7 +190,10 @@ public class PlayController {
         }
 
         if (bob.chekIfWon()) {
-            view.showWinningScreen(true);
+            nbWon++;
+            if (nbWon > 2){
+                view.showWinningScreen(true);
+            }
         }
     }
 

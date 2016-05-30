@@ -109,7 +109,7 @@ public class PlayView {
         resetButton.setBounds(1450, 10, 200, 60);
         resetButton.addListener(new ClickListener() {
             public void clicked(InputEvent ie, float x, float y) {
-                playController.resetRules();
+                playController.resetLevel();
             }
         });
 
@@ -122,9 +122,9 @@ public class PlayView {
         Slider.SliderStyle sliderStyle = new Slider.SliderStyle();
         sliderStyle.knob = skin.getDrawable("slider_knob");
         sliderStyle.background = skin.getDrawable("slider_bkg");
-        final Slider slider = new Slider(0, 3, 0.01f, false, sliderStyle);
+        final Slider slider = new Slider(0, 4, 0.01f, false, sliderStyle);
         slider.setBounds(250, 30, 200, 25);
-        slider.setValue(1);
+        slider.setValue(2);
 
         slider.addListener(new ChangeListener() {
             public void changed (ChangeEvent event, Actor actor) {
