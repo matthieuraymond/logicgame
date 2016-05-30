@@ -18,11 +18,11 @@ public class WorldCoordinates {
     }
 
     public float getScreenX() {
-        return 50 + (this.x + this.y) * Config.tileWidth / 2;
+        return -720 + (this.x + this.y) * Config.tileWidth/2;
     }
 
     public float getScreenY() {
-        return 888 - (this.x - this.y) * Config.tileHeight/2;
+        return 495 - (this.x - this.y) * Config.tileHeight/2;
     }
 
     public void increaseX(float dx) {
@@ -36,5 +36,9 @@ public class WorldCoordinates {
     public void round() {
         this.x = Math.round(this.x);
         this.y = Math.round(this.y);
+    }
+
+    public boolean areDifferentCell(int x, int y) {
+        return Math.abs(x - (int)this.x) > 0 || Math.abs(y - (int)this.y) > 0;
     }
 }

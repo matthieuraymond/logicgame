@@ -1,0 +1,206 @@
+package com.lps.game;
+
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class PlayView {
+
+    private final Group backgroundGroup = new Group();
+    private final Group levelUIGroup = new Group();
+    private final Group winningGroup = new Group();
+    static ArrayList<DragAndDrop.Target> targets;
+    private boolean isVisible;
+    private Tutorial tutorial;
+
+    Button submitButton;
+    Label text;
+    Skin skin;
+
+    void initInterface(Skin skin, final PlayController playController) {
+
+        // Todo : try to remove
+        this.skin = skin;
+
+        tutorial = new Tutorial(skin);
+        targets = new ArrayList<>();
+
+        // Bkg
+        Image foreground = new Image(new Texture("screens/foreground.png"));
+        backgroundGroup.addActor(foreground);
+
+        // Thumbs
+        Image currentThumb = new Image(new Texture("thumbs/bob.png"));
+        currentThumb.setBounds(25, 1080 - 148, currentThumb.getWidth(), currentThumb.getHeight());
+        backgroundGroup.addActor(currentThumb);
+
+        // Rules
+        skin.add("red_light", new Texture("lights/red.png"));
+        skin.add("green_light", new Texture("lights/green.png"));
+        skin.add("target", new Texture("inputs/target.png"));
+
+        for (int i = 0; i < playController.rules.length; i++) {
+            playController.rules[i] = new Rule(levelUIGroup, skin);
+            DragAndDrop.Target[] rules_targets = playController.rules[i].getTargets();
+
+            Collections.addAll(targets, rules_targets);
+
+            playController.locking[i] = new Image(new Texture("inputs/locked.png"));
+            playController.locking[i].setBounds(1400, 573 - i * 70, 500, 70);
+            levelUIGroup.addActor(playController.locking[i]);
+        }
+
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = new BitmapFont();
+
+
+        // DRAG N DROP
+        TextTooltip.TextTooltipStyle tooltipStyle = new TextTooltip.TextTooltipStyle();
+        skin.add("tooltip_bkg", new Texture("inputs/tooltip.png"));
+        tooltipStyle.label = labelStyle;
+
+        tooltipStyle.background = skin.getDrawable("tooltip_bkg");
+
+        skin.add("tooltipStyle", tooltipStyle);
+
+        // Label
+        text = new Label("", labelStyle);
+        text.setBounds(240, 945, 575, 125);
+        levelUIGroup.addActor(text);
+
+        // Buttons
+
+        // QUIT BUTTON
+        TextButton quitButton = new TextButton("MENU", skin, "blue_button");
+        quitButton.setBounds(10, 15, 200, 50);
+        quitButton.addListener(new ClickListener() {
+            public void clicked(InputEvent ie, float x, float y) {
+                hide();
+            }
+        });
+        levelUIGroup.addActor(quitButton);
+
+        // ----------
+        // SUBMIT BUTTON
+        submitButton = new TextButton("SUBMIT", skin, "green_button");
+        submitButton.setBounds(1700, 10, 200, 60);
+        submitButton.addListener(new ClickListener() {
+            public void clicked(InputEvent ie, float x, float y) {
+                if (!submitButton.isDisabled()) {
+                    playController.submit();
+                }
+            }
+        });
+        levelUIGroup.addActor(submitButton);
+
+        // ----------
+        // RESET BUTTON
+        TextButton resetButton = new TextButton("RESET", skin, "blue_button");
+        resetButton.setBounds(1450, 10, 200, 60);
+        resetButton.addListener(new ClickListener() {
+            public void clicked(InputEvent ie, float x, float y) {
+                playController.resetRules();
+            }
+        });
+
+        levelUIGroup.addActor(resetButton);
+        // ----------
+
+        // SLIDER
+        skin.add("slider_bkg", new Texture("buttons/slider_bkg.png"));
+        skin.add("slider_knob", new Texture("buttons/slider_knob.png"));
+        Slider.SliderStyle sliderStyle = new Slider.SliderStyle();
+        sliderStyle.knob = skin.getDrawable("slider_knob");
+        sliderStyle.background = skin.getDrawable("slider_bkg");
+        final Slider slider = new Slider(0, 3, 0.01f, false, sliderStyle);
+        slider.setBounds(250, 30, 200, 25);
+        slider.setValue(1);
+
+        slider.addListener(new ChangeListener() {
+            public void changed (ChangeEvent event, Actor actor) {
+                playController.updateSpeed(slider.getValue());
+            }
+        });
+
+        levelUIGroup.addActor(slider);
+        // -------
+
+
+        // Winning screen
+        winningGroup.addActor(new Image(new Texture("screens/winning.png")));
+
+        TextButton nextButton = new TextButton("NEXT LEVEL", skin, "blue_button");
+        nextButton.setBounds(860, 400, 200, 60);
+        nextButton.addListener(new ClickListener() {
+            public void clicked(InputEvent ie, float x, float y) {
+                playController.loadNextLevel();
+            }
+        });
+
+        winningGroup.addActor(nextButton);
+
+        showWinningScreen(false);
+    }
+
+    public void show() {
+        backgroundGroup.setVisible(true);
+        levelUIGroup.setVisible(true);
+        winningGroup.setVisible(false);
+        isVisible = true;
+    }
+
+    public void hide() {
+        backgroundGroup.setVisible(false);
+        levelUIGroup.setVisible(false);
+        winningGroup.setVisible(false);
+        isVisible = false;
+    }
+
+    public void setStage(Stage stage) {
+        stage.addActor(backgroundGroup);
+        stage.addActor(levelUIGroup);
+        stage.addActor(winningGroup);
+        tutorial.setStage(stage);
+    }
+
+    public void showWinningScreen(boolean visible) {
+        winningGroup.setVisible(visible);
+    }
+
+    public boolean isVisible() {
+        return isVisible;
+    }
+
+    public void showTutorial() {
+        tutorial.show();
+    }
+
+    public void changeText(String text) {
+        this.text.setText(text);
+    }
+
+    public void disableSubmit(boolean disabled) {
+        this.submitButton.setDisabled(disabled);
+    }
+
+    public Input createInput(String lps, String name, Type type, String tooltip) {
+        Input input = new Input(levelUIGroup, skin, lps, name, type, tooltip);
+
+        for (DragAndDrop.Target t: targets) {
+            input.addTarget(t);
+        }
+
+        return input;
+    }
+}
+

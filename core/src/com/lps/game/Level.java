@@ -2,10 +2,10 @@ package com.lps.game;
 
 public enum Level {
     // map, startX, startY, noRules, inputs, prevAuthorised, field)
-    level1("maps/tmx/straight.tmx",2,-1,1, new String[]{"white", "red"}, false, "Hi, my name is Bob!\n\nI am quite a simple robot and I am lost. Can you help me to reach the golden platform?\n\nTo do so, write rules I can follow in the box on the right!\nThanks for your help!"),
-    level3("maps/tmx/turn.tmx",2,-1,2, new String[]{"white", "red"}, false, "WOW! That was amazing!\n\nHowever I still have a little problem:\n\tI don't know how to cross that one, can you help me again?\n\nThanks!"),
-    level4("maps/tmx/not.tmx",2,-1,4, new String[]{"white", "red", "yellow", "green", "orange", "purple"}, false, "Be careful, this one is tricky!\n\nLet's see if you can riddle me this."),
-    level5("maps/tmx/loop.tmx",7,-1,5, new String[]{"white", "red", "yellow", "green"}, true, "Be careful, this one is tricky!\n\nYou'll have to make good use of the \"previous\" block.\nThanks for your help.");
+    level1("maps/tmx/straight.tmx",2,11,1, new String[]{"white", "red"}, false, "Hi, my name is Bob!\n\nI am quite a simple robot and I am lost. Can you help me to reach the golden platform?\n\nTo do so, write rules I can follow in the box on the right!\nThanks for your help!"),
+    level3("maps/tmx/turn.tmx",2,11,2, new String[]{"white", "red"}, false, "WOW! That was amazing!\n\nHowever I still have a little problem:\n\tI don't know how to cross that one, can you help me again?\n\nThanks!"),
+    level4("maps/tmx/not.tmx",2,11,4, new String[]{"white", "red", "yellow", "green", "orange", "purple"}, false, "Be careful, this one is tricky!\n\nLet's see if you can riddle me this."),
+    level5("maps/tmx/loop.tmx",7,11,5, new String[]{"white", "red", "yellow", "green"}, true, "Be careful, this one is tricky!\n\nYou'll have to make good use of the \"previous\" block.\nThanks for your help.");
 
 
     private String map;

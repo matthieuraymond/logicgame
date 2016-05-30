@@ -19,7 +19,7 @@ public class Rule {
 
     public Rule(Group group, Skin skin) {
         greenLight = skin.getDrawable("green_light");
-        redLight = skin.getDrawable("green_light");
+        redLight = skin.getDrawable("red_light");
 
         light = new Image(greenLight);
         light.setBounds(1450, startingY, light.getWidth(), light.getHeight());

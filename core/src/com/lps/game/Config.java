@@ -11,17 +11,6 @@ public final class Config {
     public static final int noVerticalTile = 12;
 
     /**
-     * TILE IDS
-     */
-    public static final int floorID = 1;
-    public static final int lavaID = 2;
-    public static final int waterID = 3;
-
-    /**
-     * ANIMATIONS
-     */
-
-    /**
      * LPS
      */
     public static final boolean LPSDebug = false;

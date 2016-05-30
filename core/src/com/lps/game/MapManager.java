@@ -19,14 +19,19 @@ public class MapManager {
     private float elapsedSinceAnimation;
 
     public MapManager(String path) {
+
+        setMap(path);
+
+        camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        camera.position.set(Config.tileWidth * Config.noHorizontalTile - 50, 67, 0);
+    }
+
+    private void setMap(String path) {
         map = new TmxMapLoader().load(path);
         floorLayer = (TiledMapTileLayer)map.getLayers().get("Floor");
         renderer = new IsometricTiledMapRenderer(map);
         elapsedSinceAnimation = 0;
         waterIterator = map.getTileSets().getTileSet("water").iterator();
-
-        camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        camera.position.set(Config.tileWidth * Config.noHorizontalTile - 50, 67, 0);
     }
 
     public void draw(float deltaTime) {
@@ -37,7 +42,8 @@ public class MapManager {
         renderer.render();
 
         elapsedSinceAnimation += deltaTime;
-        if(elapsedSinceAnimation > 1/30f){
+
+        if(elapsedSinceAnimation > 1/24f){
             updateWaterAnimations();
             elapsedSinceAnimation = 0;
         }
@@ -45,7 +51,7 @@ public class MapManager {
 
     public String getType(int x, int y) {
 
-        TiledMapTileLayer.Cell cell = floorLayer.getCell(x, Config.noVerticalTile + y);
+        TiledMapTileLayer.Cell cell = floorLayer.getCell(x, y);//  Config.noVerticalTile + y);
         Object type = cell.getTile().getProperties().get("type");
 
         if (type != null) {
@@ -84,10 +90,10 @@ public class MapManager {
                 TiledMapTileLayer.Cell cell = floorLayer.getCell(x,y);
                 Object type = cell.getTile().getProperties().get("type");
 
-                int newY = -(Config.noVerticalTile - y);
+                //int newY = -(Config.noVerticalTile - y);
 
                 if (type != null){
-                    if (!type.equals("water")) sb.append(type + "(" + ((x < 0) ? "m" : "") + Math.abs(x) + "," + ((newY < 0) ? "m" : "") + Math.abs(newY) + ")." );
+                    if (!type.equals("water")) sb.append(type + "(" + x + "," + y + ")." );
                 }
             }
         }

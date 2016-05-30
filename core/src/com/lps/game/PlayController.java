@@ -23,12 +23,9 @@ public class PlayController {
     Rule[] rules;
     Image[] locking;
 
-
-    private float roundTime;
-    private int wonRound;
     private Level currentLevel;
     private PlayView view;
-    private float roundDuration = 0.5f;
+    private float speedFactor = 1f;
 
     public PlayController(Skin skin) {
 
@@ -40,7 +37,6 @@ public class PlayController {
         view.initInterface(skin, this);
         view.hide();
         currentLevel = Level.level1;
-        wonRound = 0;
         batch = new SpriteBatch();
 
         skin.add("default", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
@@ -137,7 +133,6 @@ public class PlayController {
         view.changeText(currentLevel.getText());
 
         lpsHandler = new LPSHandler(mapManager, inputs.toString(), currentLevel.getX(), currentLevel.getY());
-        roundTime = 0;
     }
 
     public void startNewLevel() {
@@ -145,35 +140,36 @@ public class PlayController {
             view.showTutorial();
         }
 
-        resetWorld();
         resetInputs();
         resetRules();
+        resetWorld();
+
+        isAnimPlaying = false;
     }
     
     public void render(float deltaTime) {
-        roundTime += deltaTime;
-        boolean endOfRound = (roundTime >= roundDuration);
 
-        view.disableSubmit(checkRules());
+        // Inputs
+        view.disableSubmit(!checkRules());
 
         // UPDATE OF ENTITY
-        if (endOfRound) {
-            updateEntity();
+        bob.increaseTime(deltaTime * speedFactor);
+
+        if (bob.needInstructions()) {
+            retrieveInstructions();
             updateGameState();
         }
 
         //Map
-        if (mapManager != null) mapManager.draw(isAnimPlaying ? deltaTime : 0);
+        if (mapManager != null) mapManager.draw(isAnimPlaying ? deltaTime * speedFactor : 0);
 
         // Batch
         batch.begin();
-        if (bob != null) bob.draw(batch, (isAnimPlaying? deltaTime : 0), roundDuration);
+        if (bob != null) bob.draw(batch);
         batch.end();
-
-        if (endOfRound) roundTime = 0;
     }
         
-    private void updateEntity() {
+    private void retrieveInstructions() {
         lpsHandler.update();
         bob.updateState(lpsHandler.getNewState());
     }
@@ -185,11 +181,7 @@ public class PlayController {
         }
 
         if (bob.chekIfWon()) {
-            wonRound++;
-            if (wonRound > 2) {
-                wonRound = 0;
-                view.showWinningScreen(true);
-            }
+            view.showWinningScreen(true);
         }
     }
 
@@ -198,9 +190,7 @@ public class PlayController {
     }
 
     public void updateSpeed(float newValue) {
-        float previousTime = roundTime/roundDuration; // to avoid jump
-        roundDuration = 1.2f - newValue;
-        roundTime = previousTime * roundDuration;
+        speedFactor = newValue;
     }
 
     public void loadNextLevel() {
