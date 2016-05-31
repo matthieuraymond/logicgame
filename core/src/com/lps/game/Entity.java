@@ -4,26 +4,26 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Entity {
+
     private WorldCoordinates coord;
     private float stateTime;
-    private float globalTime;
     private EntityState currentState;
-    private boolean isAlive;
-    private MapManager map;
     private float movedX;
     private float movedY;
     private float roundTime;
     private boolean firstUpdateRequired;
 
-    public Entity(MapManager map, float x, float y) {
+    public Entity(float x, float y) {
         this.coord = new WorldCoordinates(x, y);
         this.movedX = 0;
         this.movedY = 0;
         this.stateTime = 0;
         this.firstUpdateRequired = true;
         this.currentState = EntityState.IDLE_RIGHT;
-        this.isAlive = true;
-        this.map = map;
+    }
+
+    public WorldCoordinates getCoord() {
+        return coord;
     }
 
     public void draw(Batch batch) {
@@ -46,13 +46,11 @@ public class Entity {
     }
 
     public void updateState(EntityState newState) {
-        if (isAlive) {
-            stateTime = 0;
-            if (newState != null) {
-                this.currentState = newState;
-            } else {
-                makeIDLE();
-            }
+        stateTime = 0;
+        if (newState != null) {
+            this.currentState = newState;
+        } else {
+            makeIDLE();
         }
     }
 
@@ -71,29 +69,6 @@ public class Entity {
                 currentState = EntityState.IDLE_DOWN;
                 break;
         }
-    }
-
-    public boolean checkIfWet() {
-        String type = map.getType(Math.round(coord.getWorldX()), Math.round(coord.getWorldY()));
-
-        if (type.equals("water")) {
-            this.isAlive = false;
-            currentState = EntityState.WET;
-            return true;
-        }
-        return false;
-    }
-
-    public boolean chekIfWon() {
-        String type = map.getType(Math.round(coord.getWorldX()), Math.round(coord.getWorldY()));
-
-        if (type.equals("gold")) {
-            this.isAlive = true;
-            currentState = EntityState.WON;
-            return true;
-        }
-
-        return false;
     }
 
     public void increaseTime(float deltaTime) {

@@ -119,7 +119,8 @@ public class PlayController {
     public void resetWorld() {
 
         mapManager = new MapManager(currentLevel.getMap());
-        bob = new Entity(mapManager, currentLevel.getX(), currentLevel.getY());
+
+        bob = new Entity(currentLevel.getX(), currentLevel.getY());
 
         StringBuilder inputs = new StringBuilder();
         for (int i = 0; i < rules.length; i++) {
@@ -185,11 +186,15 @@ public class PlayController {
 
     private void updateGameState() {
 
-        if (bob.checkIfWet()) {
+        WorldCoordinates coord = bob.getCoord();
+
+        if (mapManager.checkIfWet(coord)) {
+            bob.updateState(EntityState.WET);
             isAnimPlaying = false;
         }
 
-        if (bob.chekIfWon()) {
+        if (mapManager.chekIfWon(coord)) {
+            bob.updateState(EntityState.WON);
             nbWon++;
             if (nbWon > 2){
                 view.showWinningScreen(true);

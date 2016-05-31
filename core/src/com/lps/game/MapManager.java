@@ -7,6 +7,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
+import com.badlogic.gdx.physics.box2d.World;
 
 import java.util.Iterator;
 
@@ -99,5 +100,17 @@ public class MapManager {
         }
 
         return sb.toString();
+    }
+
+    public boolean checkIfWet(WorldCoordinates coord) {
+        String type = this.getType(Math.round(coord.getWorldX()), Math.round(coord.getWorldY()));
+
+        return type.equals("water");
+    }
+
+    public boolean chekIfWon(WorldCoordinates coord) {
+        String type = this.getType(Math.round(coord.getWorldX()), Math.round(coord.getWorldY()));
+
+        return type.equals("gold");
     }
 }
