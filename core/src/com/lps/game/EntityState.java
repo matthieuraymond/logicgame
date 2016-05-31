@@ -4,27 +4,31 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public enum EntityState {
-    IDLE_RIGHT (Textures.BOB_W_RIGHT, true, 0, 0),
-    IDLE_DOWN (Textures.BOB_W_DOWN, true, 0, 0),
-    IDLE_LEFT (Textures.BOB_W_LEFT, true, 0, 0),
-    IDLE_UP (Textures.BOB_W_UP, true, 0, 0),
-    WALK_RIGHT (Textures.BOB_W_RIGHT, false, 1, 0),
-    WALK_DOWN (Textures.BOB_W_DOWN, false, 0, -1),
-    WALK_LEFT (Textures.BOB_W_LEFT, false, -1, 0),
-    WALK_UP (Textures.BOB_W_UP, false, 0, 1),
-    WET (Textures.BOB_WET, false, 0, 0),
-    WON (Textures.BOB_WON , false, 0, 0);
+    IDLE_RIGHT (Textures.BOB_W_RIGHT),
+    IDLE_DOWN (Textures.BOB_W_DOWN),
+    IDLE_LEFT (Textures.BOB_W_LEFT),
+    IDLE_UP (Textures.BOB_W_UP),
+    WALK_RIGHT (Textures.BOB_W_RIGHT, 1, 0),
+    WALK_DOWN (Textures.BOB_W_DOWN, 0, -1),
+    WALK_LEFT (Textures.BOB_W_LEFT, -1, 0),
+    WALK_UP (Textures.BOB_W_UP, 0, 1),
+    WET (Textures.BOB_WET),
+    WON (Textures.BOB_WON);
 
     private Animation animation;
     private float dx;
     private float dy;
-    private boolean isIDLE;
 
-    EntityState(Textures text, boolean isIDLE, float dx, float dy) {
-        this.animation = new Animation(text.getSpeed(), isIDLE ? text.getTexture().findRegions("0001") : text.getTexture().getRegions());
+    EntityState(Textures text) {
+        this.animation = new Animation(text.getSpeed(), text.getTexture().findRegions("0001"));
+        this.dx = 0;
+        this.dy = 0;
+    }
+
+    EntityState(Textures text, float dx, float dy) {
+        this.animation = new Animation(text.getSpeed(), text.getTexture().getRegions());
         this.dx = dx;
         this.dy = dy;
-        this.isIDLE = isIDLE;
     }
 
     public TextureRegion getFrame(float stateTime) {
@@ -39,7 +43,4 @@ public enum EntityState {
         return this.dy;
     }
 
-    public boolean isIDLE() {
-        return this.isIDLE;
-    }
 }

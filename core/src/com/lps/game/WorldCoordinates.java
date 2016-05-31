@@ -32,13 +32,4 @@ public class WorldCoordinates {
     public void increaseY(float dy) {
         this.y += dy;
     }
-
-    public void round() {
-        this.x = Math.round(this.x);
-        this.y = Math.round(this.y);
-    }
-
-    public boolean areDifferentCell(int x, int y) {
-        return Math.abs(x - (int)this.x) > 0 || Math.abs(y - (int)this.y) > 0;
-    }
 }
