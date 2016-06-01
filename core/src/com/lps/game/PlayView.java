@@ -21,7 +21,7 @@ public class PlayView {
     private final Group backgroundGroup = new Group();
     private final Group levelUIGroup = new Group();
     private final Group winningGroup = new Group();
-    private List<DragAndDrop.Target> targets;
+    public static List<DragAndDrop.Target> targets; // todo fix public
     private List<Input> inputs;
     Image[] locking;
 
@@ -230,6 +230,19 @@ public class PlayView {
     }
 
     public void clearInputs() {
+        for (Input i: inputs) {
+            i.clear();
+        }
         inputs.clear();
+    }
+
+    public void lockRules(int noRules) {
+        for (int i = 0; i < locking.length; ++i) {
+            if (i >= noRules) {
+                locking[i].setVisible(true);
+            } else {
+                locking[i].setVisible(false);
+            }
+        }
     }
 }

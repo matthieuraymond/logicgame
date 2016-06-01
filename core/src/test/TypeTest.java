@@ -3,6 +3,7 @@ package test;
 import com.lps.game.Type;
 import org.junit.Assert;
 import org.junit.Test;
+
 public class TypeTest {
 
     @Test

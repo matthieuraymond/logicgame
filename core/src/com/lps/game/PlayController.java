@@ -20,7 +20,6 @@ public class PlayController {
     private boolean isAnimPlaying = false;
 
     Rule[] rules;
-    Image[] locking;
 
     private Level currentLevel;
     private PlayView view;
@@ -30,7 +29,6 @@ public class PlayController {
     public PlayController(Skin skin) {
 
         rules = new Rule[8];
-        locking = new Image[rules.length];
 
         view = new PlayView();
         view.initInterface(skin, this);
@@ -84,13 +82,9 @@ public class PlayController {
         StringBuilder inputs = new StringBuilder();
         for (int i = 0; i < rules.length; i++) {
             inputs.append(rules[i].getString());
-
-            if (i >= currentLevel.getNoRules()) {
-                locking[i].setVisible(true);
-            } else {
-                locking[i].setVisible(false);
-            }
         }
+
+        view.lockRules(currentLevel.getNoRules());
 
         view.changeText(currentLevel.getText());
 

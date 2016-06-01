@@ -11,14 +11,12 @@ public class Entity {
     private float movedX;
     private float movedY;
     private float roundTime;
-    private boolean firstUpdateRequired;
 
     public Entity(float x, float y) {
         this.coord = new WorldCoordinates(x, y);
         this.movedX = 0;
         this.movedY = 0;
         this.stateTime = 0;
-        this.firstUpdateRequired = true;
         this.currentState = EntityState.IDLE_RIGHT;
     }
 
@@ -78,7 +76,7 @@ public class Entity {
 
     public boolean needInstructions() {
 
-        //
+        // Movement induced update
         if (Math.abs(movedX) >= 1 || Math.abs(movedY) >= 1) {
             movedX = Math.signum(movedX) * (Math.abs(movedX) - (int)Math.abs(movedX));
             movedY = Math.signum(movedY) * (Math.abs(movedY) - (int)Math.abs(movedY));
@@ -86,14 +84,9 @@ public class Entity {
             return true;
         }
 
-        //
-        if (roundTime > 1) {
+        // Time induced update IF NOT CLOSE TO MOVEMENT INDUCED ONE
+        if (roundTime > 1 && Math.round(Math.abs(movedX)) != 1 && Math.round(Math.abs(movedY)) != 1) {
             roundTime = 0;
-            return true;
-        }
-
-        if (firstUpdateRequired) {
-            firstUpdateRequired = false;
             return true;
         }
 
