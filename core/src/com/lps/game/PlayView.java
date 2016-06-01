@@ -1,5 +1,6 @@
 package com.lps.game;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -13,13 +14,17 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class PlayView {
 
     private final Group backgroundGroup = new Group();
     private final Group levelUIGroup = new Group();
     private final Group winningGroup = new Group();
-    static ArrayList<DragAndDrop.Target> targets;
+    private List<DragAndDrop.Target> targets;
+    private List<Input> inputs;
+    Image[] locking;
+
     private boolean isVisible;
     private Tutorial tutorial;
 
@@ -44,10 +49,31 @@ public class PlayView {
         currentThumb.setBounds(25, 1080 - 148, currentThumb.getWidth(), currentThumb.getHeight());
         backgroundGroup.addActor(currentThumb);
 
+        //Inputs
+        inputs = new ArrayList<>();
+
+        skin.add("default", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        skin.add("imply", new Texture("inputs/imply.png"));
+        skin.add("and", new Texture("inputs/and.png"));
+        skin.add("not", new Texture("inputs/not.png"));
+
+        String[] colors = {"red", "orange", "yellow", "green", "purple", "white"};
+        String[] directions = {"Left", "Right", "Up", "Down"};
+
+        for (String color : colors) {
+            skin.add(color, new Texture("inputs/" + color + ".png"));
+            skin.add(color + "_prev", new Texture("inputs/" + color + "_prev.png"));
+        }
+        for (String direction : directions) {
+            skin.add(direction, new Texture("inputs/" + direction.toLowerCase() + ".png"));
+        }
+
         // Rules
         skin.add("red_light", new Texture("lights/red.png"));
         skin.add("green_light", new Texture("lights/green.png"));
         skin.add("target", new Texture("inputs/target.png"));
+
+        locking = new Image[playController.rules.length];
 
         for (int i = 0; i < playController.rules.length; i++) {
             playController.rules[i] = new Rule(levelUIGroup, skin);
@@ -55,9 +81,9 @@ public class PlayView {
 
             Collections.addAll(targets, rules_targets);
 
-            playController.locking[i] = new Image(new Texture("inputs/locked.png"));
-            playController.locking[i].setBounds(1400, 573 - i * 70, 500, 70);
-            levelUIGroup.addActor(playController.locking[i]);
+            locking[i] = new Image(new Texture("inputs/locked.png"));
+            locking[i].setBounds(1400, 573 - i * 70, 500, 70);
+            levelUIGroup.addActor(locking[i]);
         }
 
         Label.LabelStyle labelStyle = new Label.LabelStyle();
@@ -193,14 +219,17 @@ public class PlayView {
         this.submitButton.setDisabled(disabled);
     }
 
-    public Input createInput(String lps, String name, Type type, String tooltip) {
+    public void createInput(String lps, String name, Type type, String tooltip) {
         Input input = new Input(levelUIGroup, skin, lps, name, type, tooltip);
 
         for (DragAndDrop.Target t: targets) {
             input.addTarget(t);
         }
 
-        return input;
+        inputs.add(input);
+    }
+
+    public void clearInputs() {
+        inputs.clear();
     }
 }
-

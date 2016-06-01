@@ -17,7 +17,6 @@ public class PlayController {
     // Map and LPS
     MapManager mapManager;
     LPSHandler lpsHandler;
-    HashMap<String, Input> inputs;
     private boolean isAnimPlaying = false;
 
     Rule[] rules;
@@ -32,38 +31,12 @@ public class PlayController {
 
         rules = new Rule[8];
         locking = new Image[rules.length];
-        inputs = new HashMap<>();
 
         view = new PlayView();
         view.initInterface(skin, this);
         view.hide();
         currentLevel = Level.level1;
         batch = new SpriteBatch();
-
-        skin.add("default", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        skin.add("imply", new Texture("inputs/imply.png"));
-        skin.add("and", new Texture("inputs/and.png"));
-        skin.add("not", new Texture("inputs/not.png"));
-
-        String[] colors = {"red", "orange", "yellow", "green", "purple", "white"};
-        String[] directions = {"Left", "Right", "Up", "Down"};
-
-        for (String color : colors) {
-            skin.add(color, new Texture("inputs/" + color + ".png"));
-            skin.add(color + "_prev", new Texture("inputs/" + color + "_prev.png"));
-        }
-        for (String direction : directions) {
-            skin.add(direction, new Texture("inputs/" + direction.toLowerCase() + ".png"));
-        }
-
-        for (String direction : directions) {
-            addInput("go" + direction + "()", Type.CONSEQUENT, direction, "Bob should go " + direction);
-        }
-
-        addInput("&", Type.AND,  "and", "AND, to be used in: if a AND b");
-        addInput("->", Type.IMPLY,  "imply", "IMPLY/THEN, to be used in: if a THEN b");
-        addInput("!", Type.NOT,  "not", "NOT, to be used in: NOT a");
-
     }
 
     private boolean checkRules() {
@@ -76,42 +49,29 @@ public class PlayController {
         return allValid;
     }
 
-
-    private void addInput(String lps, Type type, String name, String tooltip) {
-        Input input = view.createInput(lps, name, type, tooltip);
-
-        inputs.put(name, input);
-    }
-
     public void resetRules() {
         for (Rule r: rules) {
             r.reset();
         }
     }
 
-    public void resetInputs() {
+    private void resetInputs(String[] colors, boolean prevAuthorised) {
+        view.clearInputs();
 
-        Iterator<Map.Entry<String,Input>> it = inputs.entrySet().iterator();
-
-        while (it.hasNext()) {
-            Map.Entry<String,Input> e = it.next();
-            if (e.getValue().isFluent()) {
-                e.getValue().clear();
-                it.remove();
-            }
-
-        }
-
-        addInputs(currentLevel.getColors(), currentLevel.isPrevAuthorised());
-    }
-
-    private void addInputs(String[] colors, boolean prevAuthorised) {
         for (String color : colors) {
-            addInput(color + "(X,Y)", Type.FLUENT, color, "If Bob is on a " + color + " cell");
+            view.createInput(color + "(X,Y)", color, Type.FLUENT, "If Bob is on a " + color + " cell");
             if (prevAuthorised) {
-                addInput(color + "(U,V)", Type.FLUENT, color + "_prev", "If Bob was previously on a " + color + " cell");
+                view.createInput(color + "(U,V)", color + "_prev", Type.FLUENT, "If Bob was previously on a " + color + " cell");
             }
         }
+
+        for (String direction : new String[]{"Left", "Right", "Up", "Down"}) {
+            view.createInput("go" + direction + "()", direction, Type.CONSEQUENT, "Bob should go " + direction);
+        }
+
+        view.createInput("&", "and", Type.AND, "AND, to be used in: if a AND b");
+        view.createInput("->", "imply", Type.IMPLY, "IMPLY/THEN, to be used in: if a THEN b");
+        view.createInput("!", "not", Type.NOT, "NOT, to be used in: NOT a");
     }
 
 
@@ -149,7 +109,7 @@ public class PlayController {
             view.showTutorial();
         }
 
-        resetInputs();
+        resetInputs(currentLevel.getColors(), currentLevel.isPrevAuthorised());
         resetRules();
         resetWorld();
 
