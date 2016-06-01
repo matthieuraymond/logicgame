@@ -38,12 +38,12 @@ public class Menu {
         HashMap<String, Button> menuButtons = new HashMap<>();
         int menuButtonY = 430;
 
-        for (int i = 0; i < menu.length; i++) {
+        for (String buttonName : menu) {
 
-            TextButton button = new TextButton(menu[i], skin, "big_grey_button");
+            TextButton button = new TextButton(buttonName, skin, "big_grey_button");
             button.setBounds(760, menuButtonY, 400, 100);
 
-            menuButtons.put(menu[i], button);
+            menuButtons.put(buttonName, button);
             menuGroup.addActor(button);
 
             menuButtonY -= 125;

@@ -1,9 +1,6 @@
 package com.lps.game;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
@@ -85,8 +82,8 @@ public class Rule {
     }
 
     public void reset() {
-        for(int i=0; i < cells.length; i++) {
-            cells[i].reset();
+        for (RuleCell cell : cells) {
+            cell.reset();
         }
     }
 }

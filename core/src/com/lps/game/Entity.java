@@ -78,6 +78,7 @@ public class Entity {
 
     public boolean needInstructions() {
 
+        //
         if (Math.abs(movedX) >= 1 || Math.abs(movedY) >= 1) {
             movedX = Math.signum(movedX) * (Math.abs(movedX) - (int)Math.abs(movedX));
             movedY = Math.signum(movedY) * (Math.abs(movedY) - (int)Math.abs(movedY));
@@ -85,8 +86,8 @@ public class Entity {
             return true;
         }
 
-        // Todo: Need to be seperated into an idle class to stop anim
-        if (roundTime > 3) {
+        //
+        if (roundTime > 1) {
             roundTime = 0;
             return true;
         }

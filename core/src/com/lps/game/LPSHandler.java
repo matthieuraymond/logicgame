@@ -14,8 +14,8 @@ import java.util.Set;
 
 public class LPSHandler {
 
-    private Set<String> facts = new HashSet<String>();
-    private Set<String> actions  = new HashSet<String>();
+    private Set<String> facts = new HashSet<>();
+    private Set<String> actions  = new HashSet<>();
 
     public LPSHandler() {
 
@@ -94,7 +94,7 @@ public class LPSHandler {
     }
 
     private void setLimit() {
-        Map<String, Integer> limits = new HashMap<String, Integer>();
+        Map<String, Integer> limits = new HashMap<>();
         if (this.facts != null) {
             for(String fact : this.facts) {
                 limits.put(fact, Config.LPSLimit);

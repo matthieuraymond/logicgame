@@ -10,7 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 
 public class RuleCell {
 
-    private Image bkgImage;
     private Image containImage;
     private String LPSString;
     private DragAndDrop.Target target;
@@ -20,7 +19,7 @@ public class RuleCell {
 
     public RuleCell (final Group group, int startingY, int index, final Skin skin) {
 
-        bkgImage = new Image(skin, "target");
+        Image bkgImage = new Image(skin, "target");
         LPSString = "";
 
         targetX = 1475 + index * 60;

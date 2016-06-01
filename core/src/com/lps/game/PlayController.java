@@ -22,7 +22,6 @@ public class PlayController {
 
     Rule[] rules;
     Image[] locking;
-    private float timer;
 
     private Level currentLevel;
     private PlayView view;

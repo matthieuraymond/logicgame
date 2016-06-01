@@ -8,32 +8,32 @@ public enum Type {
         boolean implied = false;
         boolean oneFluent = false;
 
-        for (int i = 0; i < types.length; ++i) {
+        for (Type type : types) {
 
-            if (types[i] == null) continue;
+            if (type == null) continue;
 
             if (last != null) {
-                switch(last) {
+                switch (last) {
                     case FLUENT:
-                        if (types[i] != AND && types[i] != IMPLY) return false;
+                        if (type != AND && type != IMPLY) return false;
                         oneFluent = true;
                         break;
                     case AND:
-                        if (types[i] != FLUENT && types[i] != NOT) return false;
+                        if (type != FLUENT && type != NOT) return false;
                         break;
                     case NOT:
-                        if (types[i] != FLUENT && types[i] != NOT) return false;
+                        if (type != FLUENT && type != NOT) return false;
                         break;
                     case IMPLY:
                         implied = true;
-                        if (types[i] != CONSEQUENT) return false;
+                        if (type != CONSEQUENT) return false;
                         break;
                     case CONSEQUENT:
                         return false;
                 }
             }
 
-            last = types[i];
+            last = type;
         }
 
         if (last != null) {
