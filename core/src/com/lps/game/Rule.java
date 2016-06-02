@@ -27,7 +27,6 @@ public class Rule {
             cells[i] = new RuleCell(group, startingY, i, skin);
         }
 
-
         startingY -= 70;
 
     }

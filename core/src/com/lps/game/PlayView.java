@@ -165,8 +165,8 @@ public class PlayView {
         // Winning screen
         winningGroup.addActor(new Image(new Texture("screens/winning.png")));
 
-        TextButton nextButton = new TextButton("NEXT LEVEL", skin, "blue_button");
-        nextButton.setBounds(860, 400, 200, 60);
+        TextButton nextButton = new TextButton("NEXT LEVEL", skin, "big_grey_button");
+        nextButton.setBounds(760, 380, 400, 100);
         nextButton.addListener(new ClickListener() {
             public void clicked(InputEvent ie, float x, float y) {
                 playController.loadNextLevel();

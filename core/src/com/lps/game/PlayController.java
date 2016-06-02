@@ -1,13 +1,8 @@
 package com.lps.game;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-
-import java.util.*;
 
 public class PlayController {
 
@@ -21,7 +16,7 @@ public class PlayController {
 
     Rule[] rules;
 
-    private Level currentLevel;
+    private WriteLevel currentLevel;
     private PlayView view;
     private float speedFactor = 2f;
     private int nbWon = 0;
@@ -33,7 +28,7 @@ public class PlayController {
         view = new PlayView();
         view.initInterface(skin, this);
         view.hide();
-        currentLevel = Level.level1;
+        currentLevel = WriteLevel.level1;
         batch = new SpriteBatch();
     }
 
@@ -99,7 +94,7 @@ public class PlayController {
     }
 
     public void startNewLevel() {
-        if (currentLevel == Level.values()[0]) {
+        if (currentLevel == WriteLevel.values()[0]) {
             view.showTutorial();
         }
 
@@ -155,7 +150,7 @@ public class PlayController {
         }
     }
 
-    public void setLevel(Level level) {
+    public void setLevel(WriteLevel level) {
         this.currentLevel = level;
     }
 

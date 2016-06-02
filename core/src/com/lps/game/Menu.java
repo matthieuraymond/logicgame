@@ -12,19 +12,22 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class Menu {
 
     private final Group menuGroup = new Group();
-
+    private final Group modeGroup = new Group();
     private final Group levelsGroup = new Group();
     private boolean isVisible = true;
-    private Level levelSelected;
+    private WriteLevel levelSelected;
+    private Mode modeSelected;
+
     public Menu(Skin skin) {
 
         initMenu(skin);
         initLevels(skin);
-
+        initMode(skin);
     }
 
     private void initMenu(Skin skin) {
@@ -35,39 +38,76 @@ public class Menu {
 
         // Menu button
         String[] menu = {"NEW GAME", "LEVELS", "SETTINGS", "QUIT"};
-        HashMap<String, Button> menuButtons = new HashMap<>();
-        int menuButtonY = 430;
 
-        for (String buttonName : menu) {
+        Map<String, Button> buttons = addButtons(menuGroup, skin, menu);
 
-            TextButton button = new TextButton(buttonName, skin, "big_grey_button");
-            button.setBounds(760, menuButtonY, 400, 100);
-
-            menuButtons.put(buttonName, button);
-            menuGroup.addActor(button);
-
-            menuButtonY -= 125;
-        }
-
-        menuButtons.get("NEW GAME").addListener(new ClickListener() {
+        buttons.get("NEW GAME").addListener(new ClickListener() {
             public void clicked(InputEvent ie, float x, float y) {
-                levelSelected = Level.level1;
-                hide();
+                modeGroup.setVisible(true);
             }
         });
 
-        menuButtons.get("QUIT").addListener(new ClickListener() {
+        buttons.get("QUIT").addListener(new ClickListener() {
             public void clicked(InputEvent ie, float x, float y) {
                 Gdx.app.exit();
             }
         });
 
-        menuButtons.get("LEVELS").addListener(new ClickListener() {
+        buttons.get("LEVELS").addListener(new ClickListener() {
             public void clicked(InputEvent ie, float x, float y) {
-                showLevels();
+                levelsGroup.setVisible(true);
             }
         });
 
+    }
+
+    private Map<String,Button> addButtons(Group group, Skin skin, String[] names) {
+        Map<String, Button> buttons = new HashMap<>();
+        int menuButtonY = 430;
+
+        for (String buttonName : names) {
+
+            TextButton button = new TextButton(buttonName, skin, "big_grey_button");
+            button.setBounds(760, menuButtonY, 400, 100);
+
+            buttons.put(buttonName, button);
+            group.addActor(button);
+
+            menuButtonY -= 125;
+        }
+
+        return buttons;
+    }
+
+    private void initMode(Skin skin) {
+
+        Image levelsBkg = new Image(new Texture("screens/menu.png"));
+        levelsBkg.setBounds(0,0,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
+        modeGroup.addActor(levelsBkg);
+
+        String[] menu = {"WRITER", "READER"};
+        Map<String, Button> buttons = addButtons(modeGroup, skin, menu);
+
+        buttons.get("WRITER").addListener(new ClickListener() {
+            public void clicked(InputEvent ie, float x, float y) {launchLevel(WriteLevel.level1, Mode.WRITER);
+            }
+        });
+
+        buttons.get("READER").addListener(new ClickListener() {
+            public void clicked(InputEvent ie, float x, float y) {launchLevel(WriteLevel.level1, Mode.READER);
+            }
+        });
+
+        addBackButton(skin, modeGroup);
+
+        modeGroup.setVisible(false);
+    }
+
+    private void launchLevel(WriteLevel level, Mode mode) {
+        levelSelected = level;
+        modeSelected = mode;
+        hide();
     }
 
     private void initLevels(Skin skin) {
@@ -76,7 +116,7 @@ public class Menu {
         levelsBkg.setBounds(0,0,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         levelsGroup.addActor(levelsBkg);
 
-        int noLevels = Level.values().length;
+        int noLevels = WriteLevel.values().length;
         int levelsButtonX = 660;
         int levelsButtonY = 430;
 
@@ -87,8 +127,7 @@ public class Menu {
 
             button.addListener(new ClickListener() {
                 public void clicked(InputEvent ie, float x, float y) {
-                    levelSelected = Level.values()[j];
-                    hide();
+                    launchLevel(WriteLevel.values()[j], Mode.WRITER);
                 }
             });
 
@@ -103,25 +142,21 @@ public class Menu {
             }
         }
 
+        addBackButton(skin, levelsGroup);
+
+        levelsGroup.setVisible(false);
+    }
+
+    private void addBackButton(Skin skin, final Group group) {
         TextButton backButton = new TextButton("BACK", skin, "grey_button");
         backButton.setBounds(10, 15, 200, 60);
         backButton.addListener(new ClickListener() {
             public void clicked(InputEvent ie, float x, float y) {
-                hideLevels();
+                group.setVisible(false);
             }
         });
 
-        levelsGroup.addActor(backButton);
-
-        hideLevels();
-    }
-
-    private void showLevels() {
-        levelsGroup.setVisible(true);
-    }
-
-    private void hideLevels() {
-        levelsGroup.setVisible(false);
+        group.addActor(backButton);
     }
 
     public void show() {
@@ -131,6 +166,7 @@ public class Menu {
 
     public void hide() {
         menuGroup.setVisible(false);
+        modeGroup.setVisible(false);
         levelsGroup.setVisible(false);
         isVisible = false;
     }
@@ -139,13 +175,14 @@ public class Menu {
         return isVisible;
     }
 
-    public Level getLevelSelected() {
+    public WriteLevel getLevelSelected() {
         return levelSelected;
     }
 
     public void setStage(Stage stage) {
         stage.addActor(menuGroup);
         stage.addActor(levelsGroup);
+        stage.addActor(modeGroup);
         //stage.addActor(settingsGroup);
     }
 }

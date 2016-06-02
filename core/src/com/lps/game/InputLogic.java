@@ -5,7 +5,6 @@ public class InputLogic {
     private String imageName;
     private Type type;
 
-
     public InputLogic(String lps, String image, Type type) {
         this.LPSString = lps;
         this.imageName = image;

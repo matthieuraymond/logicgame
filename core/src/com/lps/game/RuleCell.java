@@ -11,16 +11,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 public class RuleCell {
 
     private Image containImage;
-    private String LPSString;
+    private InputLogic inputLogic;
     private DragAndDrop.Target target;
-    private Type type;
     private int targetX;
     private int targetY;
 
     public RuleCell (final Group group, int startingY, int index, final Skin skin) {
 
         Image bkgImage = new Image(skin, "target");
-        LPSString = "";
 
         targetX = 1475 + index * 60;
         targetY = startingY;
@@ -39,24 +37,22 @@ public class RuleCell {
             }
 
             public void drop (DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
-                updateContainImage(group, skin, (InputLogic)payload.getObject());
+                inputLogic = (InputLogic)payload.getObject();
+                updateDisplay(group, skin);
             }
         };
 
         target.getActor().setColor(Color.CLEAR);
     }
 
-    public void updateContainImage(Group group, Skin skin, final InputLogic inputLogic) {
+    public void updateDisplay(Group group, Skin skin) {
 
         if (containImage != null) {
             containImage.remove();
         }
 
-        //TODO refactor to keep inputLogic
-        LPSString = inputLogic.getLPSString();
         containImage = new Image(skin, inputLogic.getImageName());
         containImage.setBounds(targetX, targetY, 50, 50);
-        type = inputLogic.getType();
 
         containImage.addListener(new ClickListener() {
             @Override
@@ -75,9 +71,7 @@ public class RuleCell {
                 DragAndDrop.Payload payload = new DragAndDrop.Payload();
                 payload.setObject(inputLogic);
                 payload.setDragActor(containImage);
-
-                LPSString = "";
-                type = null;
+                inputLogic = null;
 
                 return payload;
             }
@@ -91,7 +85,7 @@ public class RuleCell {
     }
 
     public String getLPSString() {
-        return LPSString;
+        return inputLogic != null ? inputLogic.getLPSString() : "";
     }
 
     public DragAndDrop.Target getTarget() {
@@ -99,14 +93,13 @@ public class RuleCell {
     }
 
     public Type getType() {
-        return type;
+        return inputLogic != null ? inputLogic.getType() : null;
     }
 
     public void reset() {
         if (containImage != null) {
             containImage.remove();
         }
-        LPSString = "";
-        type = null;
+        inputLogic = null;
     }
 }
