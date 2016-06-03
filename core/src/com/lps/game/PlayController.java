@@ -16,7 +16,7 @@ public class PlayController {
 
     Rule[] rules;
 
-    private WriteLevel currentLevel;
+    private Level currentLevel;
     private PlayView view;
     private float speedFactor = 2f;
     private int nbWon = 0;
@@ -48,8 +48,19 @@ public class PlayController {
         }
     }
 
-    private void resetInputs(String[] colors, boolean prevAuthorised) {
+    public void resetRules(Rule[] newRules) {
+        resetRules();
+
+        for (int i = 0; i < newRules.length && i < rules.length; i++) {
+            rules[i] = newRules[i];
+        }
+    }
+
+    private void resetInputs() {
         view.clearInputs();
+    }
+
+    private void resetInputs(String[] colors, boolean prevAuthorised) {
 
         for (String color : colors) {
             view.createInput(color + "(X,Y)", color, Type.FLUENT, "If Bob is on a " + color + " cell");
@@ -98,13 +109,20 @@ public class PlayController {
             view.showTutorial();
         }
 
-        resetInputs(currentLevel.getColors(), currentLevel.isPrevAuthorised());
-        resetRules();
+        // Strategy ?
+        if (currentLevel instanceof WriteLevel) {
+            resetInputs(((WriteLevel)currentLevel).getColors(), ((WriteLevel)currentLevel).isPrevAuthorised());
+            resetRules(); //((ReadLevel)currentLevel).getRules());
+        } else {
+            resetInputs();
+            resetRules(); //((ReadLevel)currentLevel).getRules());
+        }
+
         resetWorld();
 
         isAnimPlaying = false;
     }
-    
+
     public void render(float deltaTime) {
 
         // Inputs
@@ -126,7 +144,7 @@ public class PlayController {
         if (bob != null) bob.draw(batch);
         batch.end();
     }
-        
+
     private void retrieveInstructions() {
         lpsHandler.update();
         bob.updateState(lpsHandler.getNewState());

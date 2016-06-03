@@ -9,6 +9,7 @@ public enum ReadLevel implements Level {
     private int coordY;
     private int noRules;
     private String text;
+    private Object rules;
 
     ReadLevel(String map, int x, int y, int noRules, String text) {
         this.map = map;
@@ -57,5 +58,9 @@ public enum ReadLevel implements Level {
     @Override
     public int getNoRules() {
         return noRules;
+    }
+
+    public Object getRules() {
+        return rules;
     }
 }
