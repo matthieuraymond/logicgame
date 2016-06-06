@@ -1,7 +1,6 @@
 package com.bob.game;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -12,7 +11,7 @@ public class ControlsLayer extends Layer {
 
     Button submitButton;
 
-    public ControlsLayer(Skin skin, final PlayController controller) {
+    public ControlsLayer(Skin skin, final GameController controller) {
         TextButton quitButton = new TextButton("MENU", skin, "blue_button");
         quitButton.setBounds(10, 15, 200, 50);
         quitButton.addListener(new ClickListener() {

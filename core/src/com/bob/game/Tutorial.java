@@ -11,8 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-public class Tutorial {
-    private final Group group = new Group();
+public class Tutorial extends Layer {
     private final Image[] images = new Image[4];
     private int current = 0;
 
@@ -65,14 +64,10 @@ public class Tutorial {
         });
     }
 
-    public void show() {
-        group.setVisible(true);
-    }
-
-    public void hide() {
+    private void hide() {
         current = 0;
         images[images.length - 1].setVisible(false);
         images[0].setVisible(true);
-        group.setVisible(false);
+        setVisibility(false);
     }
 }

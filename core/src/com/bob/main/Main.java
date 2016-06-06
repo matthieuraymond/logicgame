@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.bob.game.PlayController;
+import com.bob.game.GameController;
 import com.bob.game.world.Textures;
 
 public class Main extends ApplicationAdapter {
@@ -21,7 +21,7 @@ public class Main extends ApplicationAdapter {
 	Stage stage;
 
 	Menu menu;
-	PlayController playController;
+	GameController gameController;
 
 
 	@Override
@@ -34,10 +34,10 @@ public class Main extends ApplicationAdapter {
 
 		addButtonStyle();
 
-		playController = new PlayController(skin);
+		gameController = new GameController(skin);
 		menu = new Menu(skin);
 
-		playController.linkStage(stage);
+		gameController.linkStage(stage);
 		menu.setStage(stage);
 
 		gameStateTime = 0;
@@ -72,17 +72,17 @@ public class Main extends ApplicationAdapter {
 
 		if (gameState == GameState.MENU) {
 			if (!menu.isVisible()) {
-				playController.setLevel(menu.getLevelSelected());
-				playController.startNewLevel();
+				gameController.setLevel(menu.getLevelSelected());
+				gameController.startNewLevel();
 				gameState = GameState.PLAYING;
-				playController.show();
+				gameController.show();
 			}
 		}
 
 		if (gameState == GameState.PLAYING) {
-			playController.render(deltaTime);
+			gameController.render(deltaTime);
 
-			if (!playController.isVisible()) {
+			if (!gameController.isVisible()) {
 				menu.show();
 				gameState = GameState.MENU;
 			}

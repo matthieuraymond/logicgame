@@ -2,26 +2,32 @@ package com.bob.game;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.bob.game.inputs.InputsLayer;
 import com.bob.game.inputs.InputsManager;
 import com.bob.game.levels.Level;
 import com.bob.game.levels.WriteLevel;
 import com.bob.game.world.WorldManager;
 
-public class PlayController {
+public class GameController {
 
-    private PlayView view;
+    private LayerGroup layerGroup;
 
-    // Level
     private Level currentLevel;
+
     private InputsManager inputsManager;
     private WorldManager worldManager;
 
-    public PlayController(Skin skin) {
+    public GameController(Skin skin) {
 
-        view = new PlayView(skin, this);
-        view.hide();
+        layerGroup = new LayerGroup();
 
-        inputsManager = new InputsManager(view.getInputsLayer());
+        layerGroup.add("background", new BackgroundLayer());
+        layerGroup.add("controls", new ControlsLayer(skin, this));
+        layerGroup.add("inputs", new InputsLayer(skin));
+        layerGroup.add("winning", new WinningLayer(skin, this));
+        layerGroup.add("tutorial", new Tutorial(skin));
+
+        inputsManager = new InputsManager((InputsLayer)layerGroup.get("inputs"));
         worldManager = new WorldManager();
     }
 
@@ -32,23 +38,23 @@ public class PlayController {
 
     public void startNewLevel() {
         if (currentLevel == WriteLevel.values()[0]) {
-            view.showTutorial();
+            layerGroup.setVisibility("tutorial", true);
         }
 
         inputsManager.setupInputs(currentLevel);
         worldManager.setupWorld(currentLevel);
 
-        view.changeText(currentLevel.getText());
+        ((BackgroundLayer)layerGroup.get("background")).changeText(currentLevel.getText());
     }
 
     public void render(float deltaTime) {
 
-        view.disableSubmit(!inputsManager.checkRules());
+        ((ControlsLayer)layerGroup.get("controls")).disableSubmit(!inputsManager.checkRules());
 
         worldManager.render(deltaTime);
 
         if (worldManager.isLevelWon()) {
-            view.showWinningScreen(true);
+            layerGroup.setVisibility("winning", true);
         }
 
     }
@@ -60,30 +66,30 @@ public class PlayController {
     public void loadNextLevel() {
         currentLevel = currentLevel.next();
         startNewLevel();
-        view.showWinningScreen(false);
+        layerGroup.setVisibility("winning", false);
     }
 
     public void submit() {
         worldManager.startAnimation(currentLevel, inputsManager.getRulesString());
     }
 
+    public void updateSpeed(float value) {
+        worldManager.updateSpeed(value);
+    }
+
     public void linkStage(Stage stage) {
-        view.setStage(stage);
+        layerGroup.setStage(stage);
     }
 
     public void show() {
-        view.show();
+        layerGroup.show();
     }
 
     public void hide() {
-        view.hide();
+        layerGroup.hide();
     }
 
     public boolean isVisible() {
-        return view.isVisible();
-    }
-
-    public void updateSpeed(float value) {
-        worldManager.updateSpeed(value);
+        return layerGroup.isVisible();
     }
 }

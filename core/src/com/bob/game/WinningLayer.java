@@ -1,7 +1,6 @@
 package com.bob.game;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -10,7 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class WinningLayer extends Layer {
 
-    public WinningLayer(Skin skin, final PlayController controller) {
+    public WinningLayer(Skin skin, final GameController controller) {
+        initialVisibility = false;
 
         group.addActor(new Image(new Texture("screens/winning.png")));
 
@@ -23,8 +23,6 @@ public class WinningLayer extends Layer {
         });
 
         group.addActor(nextButton);
-
-        setVisibility(false);
     }
 
 }
