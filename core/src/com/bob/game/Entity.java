@@ -13,6 +13,10 @@ public class Entity {
     private float roundTime;
 
     public Entity(float x, float y) {
+        setPosition(x, y);
+    }
+
+    public void setPosition(float x, float y) {
         this.coord = new WorldCoordinates(x, y);
         this.movedX = 0;
         this.movedY = 0;

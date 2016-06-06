@@ -22,7 +22,7 @@ public class PlayView {
     private final Group levelUIGroup = new Group();
     private final Group winningGroup = new Group();
     public static List<DragAndDrop.Target> targets; // todo fix public
-    private List<Input> inputs;
+    private List<Block> blocks;
     Image[] locking;
 
     private boolean isVisible;
@@ -49,28 +49,28 @@ public class PlayView {
         backgroundGroup.addActor(currentThumb);
 
         //Inputs
-        inputs = new ArrayList<>();
+        blocks = new ArrayList<>();
 
         skin.add("default", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        skin.add("imply", new Texture("inputs/imply.png"));
-        skin.add("and", new Texture("inputs/and.png"));
-        skin.add("not", new Texture("inputs/not.png"));
+        skin.add("imply", new Texture("blocks/imply.png"));
+        skin.add("and", new Texture("blocks/and.png"));
+        skin.add("not", new Texture("blocks/not.png"));
 
         String[] colors = {"red", "orange", "yellow", "green", "purple", "white"};
         String[] directions = {"Left", "Right", "Up", "Down"};
 
         for (String color : colors) {
-            skin.add(color, new Texture("inputs/" + color + ".png"));
-            skin.add(color + "_prev", new Texture("inputs/" + color + "_prev.png"));
+            skin.add(color, new Texture("blocks/" + color + ".png"));
+            skin.add(color + "_prev", new Texture("blocks/" + color + "_prev.png"));
         }
         for (String direction : directions) {
-            skin.add(direction, new Texture("inputs/" + direction.toLowerCase() + ".png"));
+            skin.add(direction, new Texture("blocks/" + direction.toLowerCase() + ".png"));
         }
 
         // Rules
         skin.add("red_light", new Texture("lights/red.png"));
         skin.add("green_light", new Texture("lights/green.png"));
-        skin.add("target", new Texture("inputs/target.png"));
+        skin.add("target", new Texture("blocks/target.png"));
 
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = new BitmapFont();
@@ -78,7 +78,7 @@ public class PlayView {
 
         // DRAG N DROP
         TextTooltip.TextTooltipStyle tooltipStyle = new TextTooltip.TextTooltipStyle();
-        skin.add("tooltip_bkg", new Texture("inputs/tooltip.png"));
+        skin.add("tooltip_bkg", new Texture("blocks/tooltip.png"));
         tooltipStyle.label = labelStyle;
 
         tooltipStyle.background = skin.getDrawable("tooltip_bkg");
@@ -121,7 +121,7 @@ public class PlayView {
         resetButton.setBounds(1450, 10, 200, 60);
         resetButton.addListener(new ClickListener() {
             public void clicked(InputEvent ie, float x, float y) {
-                playController.resetLevel();
+                playController.reset();
             }
         });
 
@@ -173,7 +173,7 @@ public class PlayView {
 
             Collections.addAll(targets, rules_targets);
 
-            locking[i] = new Image(new Texture("inputs/locked.png"));
+            locking[i] = new Image(new Texture("blocks/locked.png"));
             locking[i].setBounds(1400, 573 - i * 70, 500, 70);
             levelUIGroup.addActor(locking[i]);
         }
@@ -221,20 +221,20 @@ public class PlayView {
     }
 
     public void createInput(String lps, String name, Type type, String tooltip) {
-        Input input = new Input(levelUIGroup, skin, lps, name, type, tooltip);
+        Block block = new Block(levelUIGroup, skin, lps, name, type, tooltip);
 
         for (DragAndDrop.Target t: targets) {
-            input.addTarget(t);
+            block.addTarget(t);
         }
 
-        inputs.add(input);
+        blocks.add(block);
     }
 
     public void clearInputs() {
-        for (Input i: inputs) {
+        for (Block i: blocks) {
             i.clear();
         }
-        inputs.clear();
+        blocks.clear();
     }
 
     public void lockRules(int noRules) {

@@ -73,4 +73,16 @@ public class InputsManager {
     public void lockRules(Level level) {
         view.lockRules(((WriteLevel)level).getNoRules());
     }
+
+    public void setupInputs(Level level) {
+        // Strategy ?
+        if (level instanceof WriteLevel) {
+            resetInputs(((WriteLevel)level).getColors(), ((WriteLevel)level).isPrevAuthorised());
+            lockRules(level);
+            resetRules();
+        } else {
+            resetInputs();
+            //resetRules(((ReadLevel)currentLevel).getRules());
+        }
+    }
 }

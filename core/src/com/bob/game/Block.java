@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 
-public class Input {
+public class Block {
     private static final int refXFluent = 1415;
     private static final int refXLogic = refXFluent + 270;
     private static final int refXConsequent = refXLogic + 90;
@@ -20,7 +20,7 @@ public class Input {
     private InputLogic inputLogic;
     private DragAndDrop dragAndDrop;
 
-    public Input(Group group, final Skin skin, String LPSString, String image, Type type, String tooltipText) {
+    public Block(Group group, final Skin skin, String LPSString, String image, Type type, String tooltipText) {
 
         inputLogic = new InputLogic(LPSString, image, type);
 
