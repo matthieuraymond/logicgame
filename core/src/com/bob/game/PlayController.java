@@ -18,8 +18,7 @@ public class PlayController {
 
     public PlayController(Skin skin) {
 
-        view = new PlayView();
-        view.initInterface(skin, this);
+        view = new PlayView(skin, this);
         view.hide();
 
         inputsManager = new InputsManager(view);

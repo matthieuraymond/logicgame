@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
+
 import com.bob.game.inputs.Block;
 import com.bob.game.inputs.Rule;
 import com.bob.game.inputs.Type;
@@ -21,9 +22,9 @@ import java.util.List;
 
 public class PlayView {
 
+    private Layer winningLayer;
     private final Group backgroundGroup = new Group();
     private final Group levelUIGroup = new Group();
-    private final Group winningGroup = new Group();
     public static List<DragAndDrop.Target> targets; // todo fix public
     private List<Block> blocks;
     Image[] locking;
@@ -35,9 +36,11 @@ public class PlayView {
     Label text;
     Skin skin;
 
-    void initInterface(Skin skin, final PlayController playController) {
+    public PlayView(Skin skin, final PlayController playController) {
 
         this.skin = skin;
+
+        this.winningLayer = new WinningLayer(skin, playController);
 
         tutorial = new Tutorial(skin);
         targets = new ArrayList<>();
@@ -149,22 +152,6 @@ public class PlayView {
 
         levelUIGroup.addActor(slider);
         // -------
-
-
-        // Winning screen
-        winningGroup.addActor(new Image(new Texture("screens/winning.png")));
-
-        TextButton nextButton = new TextButton("NEXT LEVEL", skin, "big_grey_button");
-        nextButton.setBounds(760, 380, 400, 100);
-        nextButton.addListener(new ClickListener() {
-            public void clicked(InputEvent ie, float x, float y) {
-                playController.loadNextLevel();
-            }
-        });
-
-        winningGroup.addActor(nextButton);
-
-        showWinningScreen(false);
     }
 
     public void initRules(Rule[] rules) {
@@ -185,26 +172,22 @@ public class PlayView {
     public void show() {
         backgroundGroup.setVisible(true);
         levelUIGroup.setVisible(true);
-        winningGroup.setVisible(false);
+        winningLayer.setVisibility(false);
         isVisible = true;
     }
 
     public void hide() {
         backgroundGroup.setVisible(false);
         levelUIGroup.setVisible(false);
-        winningGroup.setVisible(false);
+        winningLayer.setVisibility(false);
         isVisible = false;
     }
 
     public void setStage(Stage stage) {
         stage.addActor(backgroundGroup);
         stage.addActor(levelUIGroup);
-        stage.addActor(winningGroup);
+        winningLayer.setStage(stage);
         tutorial.setStage(stage);
-    }
-
-    public void showWinningScreen(boolean visible) {
-        winningGroup.setVisible(visible);
     }
 
     public boolean isVisible() {
@@ -248,5 +231,9 @@ public class PlayView {
                 locking[i].setVisible(false);
             }
         }
+    }
+
+    public void showWinningScreen(boolean visible) {
+        winningLayer.setVisibility(visible);
     }
 }
