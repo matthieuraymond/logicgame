@@ -11,6 +11,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
+import com.bob.game.inputs.Block;
+import com.bob.game.inputs.Rule;
+import com.bob.game.inputs.Type;
 
 import java.util.ArrayList;
 import java.util.Collections;

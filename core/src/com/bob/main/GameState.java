@@ -1,4 +1,4 @@
-package com.bob.game;
+package com.bob.main;
 
 public enum GameState {
     PLAYING,

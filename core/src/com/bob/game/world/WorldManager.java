@@ -1,6 +1,7 @@
-package com.bob.game;
+package com.bob.game.world;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.bob.game.levels.Level;
 
 public class WorldManager {
 

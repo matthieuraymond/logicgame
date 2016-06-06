@@ -1,4 +1,4 @@
-package com.bob.game;
+package com.bob.game.inputs;
 
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -17,12 +17,12 @@ public class Block {
     private static int noConsequent = 0;
     private Image sourceImage;
 
-    private InputLogic inputLogic;
+    private BlockLogic blockLogic;
     private DragAndDrop dragAndDrop;
 
     public Block(Group group, final Skin skin, String LPSString, String image, Type type, String tooltipText) {
 
-        inputLogic = new InputLogic(LPSString, image, type);
+        blockLogic = new BlockLogic(LPSString, image, type);
 
         sourceImage = new Image(skin, image);
         final Image dragImage = new Image(skin, image);
@@ -42,7 +42,7 @@ public class Block {
         dragAndDrop.addSource(new DragAndDrop.Source(sourceImage) {
             public DragAndDrop.Payload dragStart (InputEvent event, float x, float y, int pointer) {
                 DragAndDrop.Payload payload = new DragAndDrop.Payload();
-                payload.setObject(inputLogic);
+                payload.setObject(blockLogic);
 
                 payload.setDragActor(dragImage);
 
@@ -79,10 +79,10 @@ public class Block {
 
     public void clear() {
         sourceImage.remove();
-        if (inputLogic != null) {
-            if (inputLogic.getType() == Type.FLUENT) {
+        if (blockLogic != null) {
+            if (blockLogic.getType() == Type.FLUENT) {
                 noFluent--;
-            } else if (inputLogic.getType() == Type.CONSEQUENT) {
+            } else if (blockLogic.getType() == Type.CONSEQUENT) {
                 noConsequent--;
             } else {
                 noLogic--;
@@ -91,6 +91,6 @@ public class Block {
     }
 
     public boolean isFluent() {
-        return inputLogic != null ? inputLogic.getType() == Type.FLUENT : false;
+        return blockLogic != null ? blockLogic.getType() == Type.FLUENT : false;
     }
 }

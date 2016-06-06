@@ -1,4 +1,4 @@
-package com.bob.game;
+package com.bob.game.world;
 
 public class WorldCoordinates {
     private float x;

@@ -1,4 +1,4 @@
-package com.bob.game;
+package com.bob.game.inputs;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -7,11 +7,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
+import com.bob.game.PlayView;
 
 public class RuleCell {
 
     private Image containImage;
-    private InputLogic inputLogic;
+    private BlockLogic blockLogic;
     private DragAndDrop.Target target;
     private int targetX;
     private int targetY;
@@ -37,7 +38,7 @@ public class RuleCell {
             }
 
             public void drop (DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
-                inputLogic = (InputLogic)payload.getObject();
+                blockLogic = (BlockLogic)payload.getObject();
                 updateDisplay(group, skin);
             }
         };
@@ -51,7 +52,7 @@ public class RuleCell {
             containImage.remove();
         }
 
-        containImage = new Image(skin, inputLogic.getImageName());
+        containImage = new Image(skin, blockLogic.getImageName());
         containImage.setBounds(targetX, targetY, 50, 50);
 
         containImage.addListener(new ClickListener() {
@@ -69,9 +70,9 @@ public class RuleCell {
         dragAndDrop.addSource(new DragAndDrop.Source(containImage) {
             public DragAndDrop.Payload dragStart (InputEvent event, float x, float y, int pointer) {
                 DragAndDrop.Payload payload = new DragAndDrop.Payload();
-                payload.setObject(inputLogic);
+                payload.setObject(blockLogic);
                 payload.setDragActor(containImage);
-                inputLogic = null;
+                blockLogic = null;
 
                 return payload;
             }
@@ -85,7 +86,7 @@ public class RuleCell {
     }
 
     public String getLPSString() {
-        return inputLogic != null ? inputLogic.getLPSString() : "";
+        return blockLogic != null ? blockLogic.getLPSString() : "";
     }
 
     public DragAndDrop.Target getTarget() {
@@ -93,13 +94,13 @@ public class RuleCell {
     }
 
     public Type getType() {
-        return inputLogic != null ? inputLogic.getType() : null;
+        return blockLogic != null ? blockLogic.getType() : null;
     }
 
     public void reset() {
         if (containImage != null) {
             containImage.remove();
         }
-        inputLogic = null;
+        blockLogic = null;
     }
 }

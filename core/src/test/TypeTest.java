@@ -1,6 +1,6 @@
 package test;
 
-import com.bob.game.Type;
+import com.bob.game.inputs.Type;
 import org.junit.Assert;
 import org.junit.Test;
 

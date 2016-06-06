@@ -1,4 +1,4 @@
-package com.bob.game;
+package com.bob.main;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.bob.game.PlayController;
+import com.bob.game.world.Textures;
 
 public class Main extends ApplicationAdapter {
 

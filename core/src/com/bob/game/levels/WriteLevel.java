@@ -1,4 +1,4 @@
-package com.bob.game;
+package com.bob.game.levels;
 
 public enum WriteLevel implements Level {
     // map, startX, startY, noRules, inputs, prevAuthorised, field)

@@ -1,4 +1,4 @@
-package com.bob.game;
+package com.bob.game.levels;
 
 public enum ReadLevel implements Level {
 

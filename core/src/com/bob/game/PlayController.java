@@ -2,6 +2,10 @@ package com.bob.game;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.bob.game.inputs.InputsManager;
+import com.bob.game.levels.Level;
+import com.bob.game.levels.WriteLevel;
+import com.bob.game.world.WorldManager;
 
 public class PlayController {
 

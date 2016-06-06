@@ -1,4 +1,4 @@
-package com.bob.game;
+package com.bob.game.world;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;

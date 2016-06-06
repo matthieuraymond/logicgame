@@ -1,4 +1,4 @@
-package com.bob.game;
+package com.bob.game.world;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;

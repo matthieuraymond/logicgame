@@ -1,4 +1,4 @@
-package com.bob.game;
+package com.bob.game.inputs;
 
 public enum Type {
     FLUENT, AND, NOT, IMPLY, CONSEQUENT;

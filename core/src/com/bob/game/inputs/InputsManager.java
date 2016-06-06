@@ -1,4 +1,8 @@
-package com.bob.game;
+package com.bob.game.inputs;
+
+import com.bob.game.levels.Level;
+import com.bob.game.PlayView;
+import com.bob.game.levels.WriteLevel;
 
 public class InputsManager {
 

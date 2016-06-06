@@ -1,4 +1,4 @@
-package com.bob.game;
+package com.bob.game.inputs;
 
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
