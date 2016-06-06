@@ -1,6 +1,6 @@
 package test;
 
-import com.lps.game.Type;
+import com.bob.game.Type;
 import org.junit.Assert;
 import org.junit.Test;
 

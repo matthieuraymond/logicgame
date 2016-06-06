@@ -1,6 +1,6 @@
 package test;
 
-import com.lps.game.LPSHandler;
+import com.bob.game.LPSHandler;
 import org.junit.Test;
 
 public class LPSHandlerTest {
