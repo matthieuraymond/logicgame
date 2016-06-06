@@ -23,7 +23,8 @@ import java.util.List;
 public class PlayView {
 
     private Layer winningLayer;
-    private final Group backgroundGroup = new Group();
+    private Layer backgroundLayer;
+
     private final Group levelUIGroup = new Group();
     public static List<DragAndDrop.Target> targets; // todo fix public
     private List<Block> blocks;
@@ -41,18 +42,10 @@ public class PlayView {
         this.skin = skin;
 
         this.winningLayer = new WinningLayer(skin, playController);
+        this.backgroundLayer = new BackgroundLayer();
 
         tutorial = new Tutorial(skin);
         targets = new ArrayList<>();
-
-        // Bkg
-        Image foreground = new Image(new Texture("screens/foreground.png"));
-        backgroundGroup.addActor(foreground);
-
-        // Thumbs
-        Image currentThumb = new Image(new Texture("thumbs/bob.png"));
-        currentThumb.setBounds(25, 1080 - 148, currentThumb.getWidth(), currentThumb.getHeight());
-        backgroundGroup.addActor(currentThumb);
 
         //Inputs
         blocks = new ArrayList<>();
@@ -170,21 +163,21 @@ public class PlayView {
     }
 
     public void show() {
-        backgroundGroup.setVisible(true);
+        backgroundLayer.setVisibility(true);
         levelUIGroup.setVisible(true);
         winningLayer.setVisibility(false);
         isVisible = true;
     }
 
     public void hide() {
-        backgroundGroup.setVisible(false);
+        backgroundLayer.setVisibility(false);
         levelUIGroup.setVisible(false);
         winningLayer.setVisibility(false);
         isVisible = false;
     }
 
     public void setStage(Stage stage) {
-        stage.addActor(backgroundGroup);
+        backgroundLayer.setStage(stage);
         stage.addActor(levelUIGroup);
         winningLayer.setStage(stage);
         tutorial.setStage(stage);
