@@ -21,7 +21,7 @@ public class PlayController {
         view = new PlayView(skin, this);
         view.hide();
 
-        inputsManager = new InputsManager(view);
+        inputsManager = new InputsManager(view.getInputsLayer());
         worldManager = new WorldManager();
     }
 
@@ -73,6 +73,10 @@ public class PlayController {
 
     public void show() {
         view.show();
+    }
+
+    public void hide() {
+        view.hide();
     }
 
     public boolean isVisible() {

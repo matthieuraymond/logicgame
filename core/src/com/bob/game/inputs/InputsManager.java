@@ -1,19 +1,17 @@
 package com.bob.game.inputs;
 
 import com.bob.game.levels.Level;
-import com.bob.game.PlayView;
 import com.bob.game.levels.WriteLevel;
 
 public class InputsManager {
 
     Rule[] rules;
-    PlayView view;
+    InputsLayer view;
 
-    public InputsManager(PlayView view) {
+    public InputsManager(InputsLayer view) {
         this.rules = new Rule[8];
         this.view = view;
 
-        // Todo put in strat pattern
         view.initRules(rules);
     }
 
