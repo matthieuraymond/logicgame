@@ -35,7 +35,7 @@ public class GameController {
     }
 
     public void startNewLevel() {
-        if (currentLevel == Level.values()[0]) {
+        if (currentLevel == WriteLevel.values()[0].getLevel()) {
             layerGroup.setVisibility("tutorial", true);
         }
 
