@@ -1,10 +1,10 @@
 package com.bob.game.inputs;
 
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.bob.game.Layer;
 
 public class Rule {
 
@@ -14,17 +14,17 @@ public class Rule {
     private Drawable greenLight;
     private Drawable redLight;
 
-    public Rule(Group group, Skin skin) {
+    public Rule(Layer layer, Skin skin) {
         greenLight = skin.getDrawable("green_light");
         redLight = skin.getDrawable("red_light");
 
         light = new Image(greenLight);
         light.setBounds(1450, startingY, light.getWidth(), light.getHeight());
-        group.addActor(light);
+        layer.addActor(light);
 
         cells = new RuleCell[7];
         for (int i=0; i < 7; ++i) {
-            cells[i] = new RuleCell(group, startingY, i, skin);
+            cells[i] = new RuleCell(layer, startingY, i, skin);
         }
 
         startingY -= 70;
@@ -82,6 +82,12 @@ public class Rule {
     public void reset() {
         for (RuleCell cell : cells) {
             cell.reset();
+        }
+    }
+
+    public void setRuleCells(Block[] newRule, boolean isDragable) {
+        for (int i = 0; i < newRule.length && i < cells.length; ++i) {
+            cells[i].setBlock(newRule[i], isDragable);
         }
     }
 }

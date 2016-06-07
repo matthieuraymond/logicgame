@@ -17,7 +17,7 @@ import java.util.List;
 
 public class InputsLayer extends Layer {
 
-    public static List<DragAndDrop.Target> targets;
+    private List<DragAndDrop.Target> targets;
     private List<InputView> inputViews;
     private Image[] locking;
     private Skin skin;
@@ -53,11 +53,15 @@ public class InputsLayer extends Layer {
         skin.add("tooltipStyle", tooltipStyle);
     }
 
+    public List<DragAndDrop.Target> getTargets() {
+        return targets;
+    }
+
     public void initRules(Rule[] rules) {
         locking = new Image[rules.length];
 
         for (int i = 0; i < rules.length; i++) {
-            rules[i] = new Rule(group, skin);
+            rules[i] = new Rule(this, skin);
             DragAndDrop.Target[] rules_targets = rules[i].getTargets();
 
             Collections.addAll(targets, rules_targets);

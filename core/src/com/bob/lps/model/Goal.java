@@ -74,7 +74,7 @@ public class Goal {
 	 * This method should be used only while creating the {@code Goal} object.
 	 * 
 	 * @param rule
-	 *            the {@code Rule} object representing the definition to add.
+	 *            the {@code Rule} object representing the definition to addActor.
 	 */
 	public void addDefinition(Rule rule) {
 		SubstitutionSet s = rule.getHead().unify(this.goal, new SubstitutionSet());

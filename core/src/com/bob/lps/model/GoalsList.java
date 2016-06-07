@@ -81,7 +81,7 @@ public class GoalsList {
 	 * during the next cycle.
 	 * 
 	 * @param event
-	 *            the event to add.
+	 *            the event to addActor.
 	 */
 	public void addNextEvent(SimpleSentence event) {
 		if (event.getSolver(this.nextEvents, new SubstitutionSet(), null).nextSolution() == null) {
@@ -93,7 +93,7 @@ public class GoalsList {
 	 * Adds the specified goal to the list of goals.
 	 * 
 	 * @param goal
-	 *            the goal to add.
+	 *            the goal to addActor.
 	 * @param ruleSet
 	 *            the rules to use to build the tree of proof.
 	 */
@@ -205,7 +205,7 @@ public class GoalsList {
 				// Get the corresponding action
 				Action action = Database.getInstance().getDSet().getAction(simpleSentence.getName());
 				
-				// If it is an action add it to the next action to do
+				// If it is an action addActor it to the next action to do
 				if (action != null) {
 					RuleSet rulesAndNextEvents = new RuleSet(ruleSet.getRules());
 					rulesAndNextEvents.addRules(this.nextEvents.getRules());

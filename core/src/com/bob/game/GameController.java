@@ -35,9 +35,9 @@ public class GameController {
     }
 
     public void startNewLevel() {
-        if (currentLevel == WriteLevel.values()[0].getLevel()) {
+        /*if (currentLevel == WriteLevel.values()[0].getLevel()) {
             layerGroup.setVisibility("tutorial", true);
-        }
+        }*/
 
         inputsManager.setupInputs(currentLevel);
         worldManager.setupWorld(currentLevel);

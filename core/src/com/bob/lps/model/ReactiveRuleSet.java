@@ -60,7 +60,7 @@ public class ReactiveRuleSet {
 	 * 
 	 * @param rule
 	 *            the {@code ReactiveRule} object representing the reactive rule
-	 *            to add.
+	 *            to addActor.
 	 */
 	public void addRule(ReactiveRule rule) {
 		this.reactiveRules.add(rule);

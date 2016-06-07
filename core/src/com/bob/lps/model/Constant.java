@@ -90,7 +90,7 @@ public class Constant implements Unifiable {
 
 	/**
 	 * Unifies the constant with the specified {@code expr} expression
-	 * given the bindings {@code s}. This tries to get or add bindings in order
+	 * given the bindings {@code s}. This tries to get or addActor bindings in order
 	 * to make logically equivalent the constant and the specified
 	 * expression.
 	 * <p>

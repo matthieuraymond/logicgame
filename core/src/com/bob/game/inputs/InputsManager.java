@@ -30,11 +30,11 @@ public class InputsManager {
         }
     }
 
-    public void resetRules(Rule[] newRules) {
+    public void resetRules(Block[][] newRules) {
         resetRules();
 
         for (int i = 0; i < newRules.length && i < rules.length; i++) {
-            rules[i] = newRules[i];
+            rules[i].setRuleCells(newRules[i], false);
         }
     }
 
@@ -67,6 +67,6 @@ public class InputsManager {
     public void setupInputs(Level level) {
         resetInputs(level.getInputs());
         lockRules(level);
-        resetRules();
+        resetRules(level.getRules());
     }
 }

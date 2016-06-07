@@ -165,7 +165,7 @@ public class SimpleSentence implements Unifiable, Clause {
 
 	/**
 	 * Unifies the simple sentence with the specified {@code expr} expression
-	 * given the bindings {@code s}. This tries to get or add bindings in order
+	 * given the bindings {@code s}. This tries to get or addActor bindings in order
 	 * to make logically equivalent the simple sentence and the specified
 	 * expression.
 	 * <p>

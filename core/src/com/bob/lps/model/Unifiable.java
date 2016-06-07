@@ -23,7 +23,7 @@ public interface Unifiable extends PCExpression {
 
 	/**
 	 * Unifies the expression with the specified {@code expr} expression
-	 * given the bindings {@code s}. This tries to get or add bindings in order
+	 * given the bindings {@code s}. This tries to get or addActor bindings in order
 	 * to make logically equivalent the expression and the specified
 	 * expression.
 	 * <p>

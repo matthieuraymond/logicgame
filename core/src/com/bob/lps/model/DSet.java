@@ -46,7 +46,7 @@ public class DSet {
 	 * Adds the specified action to the set.
 	 * 
 	 * @param action
-	 *            to add in the set.
+	 *            to addActor in the set.
 	 */
 	public void addAction(Action action) {
 		this.actions.add(action);

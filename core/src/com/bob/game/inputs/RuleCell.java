@@ -1,12 +1,12 @@
 package com.bob.game.inputs;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
+import com.bob.game.Layer;
 
 public class RuleCell {
 
@@ -15,8 +15,13 @@ public class RuleCell {
     private DragAndDrop.Target target;
     private int targetX;
     private int targetY;
+    private InputsLayer layer;
+    private Skin skin;
 
-    public RuleCell (final Group group, int startingY, int index, final Skin skin) {
+    public RuleCell (Layer layer, int startingY, int index, final Skin skin) {
+
+        this.layer = (InputsLayer)layer;
+        this.skin = skin;
 
         Image bkgImage = new Image(skin, "target");
 
@@ -24,7 +29,7 @@ public class RuleCell {
         targetY = startingY;
         bkgImage.setBounds(targetX, targetY, 50, 50);
 
-        group.addActor(bkgImage);
+        layer.addActor(bkgImage);
 
         target = new DragAndDrop.Target(bkgImage) {
             public boolean drag (DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
@@ -37,51 +42,11 @@ public class RuleCell {
             }
 
             public void drop (DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
-                block = (Block)payload.getObject();
-                updateDisplay(group, skin);
+                setBlock((Block)payload.getObject(), true);
             }
         };
 
         target.getActor().setColor(Color.CLEAR);
-    }
-
-    public void updateDisplay(Group group, Skin skin) {
-
-        if (containImage != null) {
-            containImage.remove();
-        }
-
-        containImage = new Image(skin, block.getImageName());
-        containImage.setBounds(targetX, targetY, 50, 50);
-
-        containImage.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if( getTapCount() == 2) {
-                    reset();
-                }
-            }
-        });
-
-
-        DragAndDrop dragAndDrop = new DragAndDrop();
-        dragAndDrop.setDragActorPosition(-(containImage.getWidth()/2), containImage.getHeight()/2);
-        dragAndDrop.addSource(new DragAndDrop.Source(containImage) {
-            public DragAndDrop.Payload dragStart (InputEvent event, float x, float y, int pointer) {
-                DragAndDrop.Payload payload = new DragAndDrop.Payload();
-                payload.setObject(block);
-                payload.setDragActor(containImage);
-                block = null;
-
-                return payload;
-            }
-        });
-
-        for (DragAndDrop.Target t: InputsLayer.targets) {
-            dragAndDrop.addTarget(t);
-        }
-
-        group.addActor(containImage);
     }
 
     public String getLPSString() {
@@ -101,5 +66,46 @@ public class RuleCell {
             containImage.remove();
         }
         block = null;
+    }
+
+    public void setBlock(Block block, boolean isDragable) {
+        reset();
+        this.block = block;
+
+        containImage = new Image(skin, block.getImageName());
+        containImage.setBounds(targetX, targetY, 50, 50);
+        layer.addActor(containImage);
+
+        if (isDragable) {
+            setMoveAbility();
+        }
+    }
+
+    private void setMoveAbility() {
+        containImage.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if( getTapCount() == 2) {
+                    reset();
+                }
+            }
+        });
+
+        DragAndDrop dragAndDrop = new DragAndDrop();
+        dragAndDrop.setDragActorPosition(-(containImage.getWidth()/2), containImage.getHeight()/2);
+        dragAndDrop.addSource(new DragAndDrop.Source(containImage) {
+            public DragAndDrop.Payload dragStart (InputEvent event, float x, float y, int pointer) {
+                DragAndDrop.Payload payload = new DragAndDrop.Payload();
+                payload.setObject(block);
+                payload.setDragActor(containImage);
+                block = null;
+
+                return payload;
+            }
+        });
+
+        for (DragAndDrop.Target t: layer.getTargets()) {
+            dragAndDrop.addTarget(t);
+        }
     }
 }

@@ -6,7 +6,7 @@ public enum ReadLevel {
 
     level1("maps/tmx/straight.tmx",
             2,11,
-            new Block[][]{{}},
+            new Block[][]{{Block.WHITE, Block.IMPLY, Block.RIGHT}},
             "Hi, my name is Bob!\n\nI am quite a simple robot and I am lost. Can you help me to reach the golden platform?\n\nTo do so, write rules I can follow in the box on the right!\nThanks for your help!"
     ),
     level3("maps/tmx/turn.tmx",
@@ -31,7 +31,7 @@ public enum ReadLevel {
 
         final int ordinal = this.ordinal();
 
-        this.level = new Level(map, x, y, 0, new Block[]{}, rules, text) {
+        this.level = new Level(map, x, y, 8, new Block[]{}, rules, text) {
 
             @Override
             public Level next() {

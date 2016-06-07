@@ -54,7 +54,7 @@ List<Goal> goals;
 	 * object.
 	 * 
 	 * @param rule
-	 *            the {@code Rule} object representing the rule to add.
+	 *            the {@code Rule} object representing the rule to addActor.
 	 */
 	public void addDefinition(Rule rule) {
 		Goal goal = getGoal(rule.getHead().getName());

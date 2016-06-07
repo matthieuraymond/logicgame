@@ -102,7 +102,7 @@ public class Database {
 	 * Adds rules to the database.
 	 * 
 	 * @param rules
-	 *            the rules to add to the database.
+	 *            the rules to addActor to the database.
 	 */
 	public void addRulesDatabase(List<Rule> rules) {
 		this.rulesDatabase.addRules(rules);

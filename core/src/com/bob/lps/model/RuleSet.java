@@ -130,7 +130,7 @@ public class RuleSet {
 	 * Adds all the rules that are in the specified {@code List}.
 	 * 
 	 * @param rules
-	 *            the {@code List} object containing the rules to add.
+	 *            the {@code List} object containing the rules to addActor.
 	 */
 	public void addRules(List<Rule> rules) {
 		for(Rule rule : rules) {
@@ -142,7 +142,7 @@ public class RuleSet {
 	 * Adds the specified rule.
 	 * 
 	 * @param rule
-	 *            the {@code Rule} object representing the rule to add.
+	 *            the {@code Rule} object representing the rule to addActor.
 	 */
 	public void addRule(Rule rule) {
 		this.rules.add(rule);

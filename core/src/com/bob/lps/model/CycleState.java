@@ -1,7 +1,7 @@
 package com.bob.lps.model;
 
 /**
- * This is the interface to implement in order to add steps to the cycle.
+ * This is the interface to implement in order to addActor steps to the cycle.
  * Currently there are three steps: {@link DatabaseUpdateState},
  * {@link FiringRulesState} and {@link SolvingGoalState}.
  * 

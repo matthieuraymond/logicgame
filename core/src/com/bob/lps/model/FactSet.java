@@ -118,7 +118,7 @@ public class FactSet {
 	 * according to the method {@link #isTrue(Unifiable) isTrue()}.
 	 * 
 	 * @param fact
-	 *            to add in the set.
+	 *            to addActor in the set.
 	 */
 	public void addFact(SimpleSentence fact) {
 		if (!this.facts.containsKey(fact.getName())) {
