@@ -10,9 +10,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.bob.game.Level;
-import com.bob.game.ReadLevel;
-import com.bob.game.WriteLevel;
+import com.bob.game.levels.Level;
+import com.bob.game.levels.ReadLevel;
+import com.bob.game.levels.WriteLevel;
 
 import java.util.HashMap;
 import java.util.Map;

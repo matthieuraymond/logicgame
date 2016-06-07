@@ -29,7 +29,6 @@ public enum Block {
     IMPLY("->", "imply", Type.IMPLY, "IMPLY/THEN, to be used in: if a THEN b"),
     NOT("!", "not", Type.NOT, "NOT, to be used in: NOT a");
 
-
     private String LPSString;
     private String imageName;
     private Type type;

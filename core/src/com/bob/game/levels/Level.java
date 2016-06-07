@@ -1,4 +1,4 @@
-package com.bob.game;
+package com.bob.game.levels;
 
 import com.bob.game.inputs.Block;
 

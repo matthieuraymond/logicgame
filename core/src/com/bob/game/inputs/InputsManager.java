@@ -1,6 +1,6 @@
 package com.bob.game.inputs;
 
-import com.bob.game.Level;
+import com.bob.game.levels.Level;
 
 public class InputsManager {
 

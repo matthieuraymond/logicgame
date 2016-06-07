@@ -4,6 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.bob.game.inputs.InputsLayer;
 import com.bob.game.inputs.InputsManager;
+import com.bob.game.levels.Level;
 import com.bob.game.world.WorldManager;
 
 public class GameController {
@@ -77,6 +78,7 @@ public class GameController {
 
     public void linkStage(Stage stage) {
         layerGroup.setStage(stage);
+        worldManager.setStage(stage);
     }
 
     public void show() {

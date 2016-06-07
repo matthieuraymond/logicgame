@@ -9,6 +9,8 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 public class MapManager {
     private TiledMap map;
@@ -90,8 +92,6 @@ public class MapManager {
                 TiledMapTileLayer.Cell cell = floorLayer.getCell(x,y);
                 Object type = cell.getTile().getProperties().get("type");
 
-                //int newY = -(Config.noVerticalTile - y);
-
                 if (type != null){
                     if (!type.equals("water")) sb.append(type + "(" + x + "," + y + ")." );
                 }
@@ -99,6 +99,26 @@ public class MapManager {
         }
 
         return sb.toString();
+    }
+
+    public List<WorldCoordinates> getQuestionCoordinates() {
+        List<WorldCoordinates> res = new LinkedList<>();
+
+        for(int x = 0; x < floorLayer.getWidth();x++){
+            for(int y = 0; y < floorLayer.getHeight();y++){
+
+                TiledMapTileLayer.Cell cell = floorLayer.getCell(x,y);
+                Object type = cell.getTile().getProperties().get("type");
+
+                if (type != null){
+                    if (type.equals("question")) {
+                        res.add(new WorldCoordinates(x, y));
+                    }
+                }
+            }
+        }
+
+        return res;
     }
 
     public boolean checkIfWet(WorldCoordinates coord) {

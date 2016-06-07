@@ -1,28 +1,13 @@
-package com.bob.game;
+package com.bob.game.levels;
 
 import com.bob.game.inputs.Block;
 
 public enum ReadLevel {
 
-    level1("maps/tmx/straight.tmx",
+    level1("maps/tmx/guess.tmx",
             2,11,
             new Block[][]{{Block.WHITE, Block.IMPLY, Block.RIGHT}},
             "Hi, my name is Bob!\n\nI am quite a simple robot and I am lost. Can you help me to reach the golden platform?\n\nTo do so, write rules I can follow in the box on the right!\nThanks for your help!"
-    ),
-    level3("maps/tmx/turn.tmx",
-            2,11,
-            new Block[][]{{}},
-            "WOW! That was amazing!\n\nHowever I still have a little problem:\n\tI don't know how to cross that one, can you help me again?\n\nThanks!"
-    ),
-    level4("maps/tmx/not.tmx",
-            2,11,
-            new Block[][]{{}},
-            "Be careful, this one is tricky!\n\nLet's see if you can riddle me this."
-    ),
-    level5("maps/tmx/loop.tmx",
-            7,11,
-            new Block[][]{{}},
-            "Be careful, this one is tricky!\n\nYou'll have to make good use of the \"previous\" block.\nThanks for your help."
     );
 
     private Level level;
