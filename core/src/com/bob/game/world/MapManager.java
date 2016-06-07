@@ -2,10 +2,7 @@ package com.bob.game.world;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 
 import java.util.Iterator;
@@ -119,6 +116,43 @@ public class MapManager {
         }
 
         return res;
+    }
+
+    public void setGold(int i, int j) {
+
+        TiledMapTileSet tileSet = map.getTileSets().getTileSet("floor");
+
+        TiledMapTile goldTile = tileSet.getTile(6);
+        TiledMapTile questionTile = tileSet.getTile(7);
+
+        Iterator<TiledMapTile> it = tileSet.iterator();
+
+        while(it.hasNext()) {
+            TiledMapTile t = it.next();
+            if (t.getProperties().get("type").equals("gold")) {
+                goldTile = t;
+            }
+
+            if (t.getProperties().get("type").equals("question")) {
+                questionTile = t;
+            }
+        }
+
+        for(int x = 0; x < floorLayer.getWidth();x++){
+            for(int y = 0; y < floorLayer.getHeight();y++){
+
+                TiledMapTileLayer.Cell cell = floorLayer.getCell(x,y);
+                Object type = cell.getTile().getProperties().get("type");
+
+                if (type != null){
+                    if (type.equals("gold")) {
+                        cell.setTile(questionTile);
+                    }
+                }
+            }
+        }
+
+        floorLayer.getCell(i, j).setTile(goldTile);
     }
 
     public boolean checkIfWet(WorldCoordinates coord) {

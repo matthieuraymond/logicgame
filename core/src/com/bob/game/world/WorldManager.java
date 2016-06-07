@@ -1,6 +1,5 @@
 package com.bob.game.world;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -129,7 +128,7 @@ public class WorldManager {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (Math.abs(x - coord.getScreenX()) < 50 && Math.abs(y - coord.getScreenY()) < 30) {
-                    Gdx.app.exit();
+                    mapManager.setGold((int)coord.getWorldX(), (int)coord.getWorldY());
                 }
             }
         };
