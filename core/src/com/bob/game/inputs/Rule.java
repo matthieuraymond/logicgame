@@ -28,7 +28,6 @@ public class Rule {
         }
 
         startingY -= 70;
-
     }
 
     public DragAndDrop.Target[] getTargets() {

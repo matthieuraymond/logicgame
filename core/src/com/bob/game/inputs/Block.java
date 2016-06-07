@@ -1,96 +1,60 @@
 package com.bob.game.inputs;
 
-import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip;
-import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
+public enum Block {
 
-public class Block {
-    private static final int refXFluent = 1415;
-    private static final int refXLogic = refXFluent + 270;
-    private static final int refXConsequent = refXLogic + 90;
-    private static final int refY = 1080 - 165;
-    private static int noFluent = 0;
-    private static int noLogic = 0;
-    private static int noConsequent = 0;
-    private Image sourceImage;
+    // Colors
+    WHITE("white(X,Y)", "white", Type.FLUENT, "If Bob is on a white cell"),
+    RED("red(X,Y)", "red", Type.FLUENT, "If Bob is on a red cell"),
+    YELLOW("yellow(X,Y)", "yellow", Type.FLUENT, "If Bob is on a yellow cell"),
+    GREEN("green(X,Y)", "green", Type.FLUENT, "If Bob is on a green cell"),
+    ORANGE("orange(X,Y)", "orange", Type.FLUENT, "If Bob is on a orange cell"),
+    PURPLE("purple(X,Y)", "purple", Type.FLUENT, "If Bob is on a purple cell"),
 
-    private BlockLogic blockLogic;
-    private DragAndDrop dragAndDrop;
+    //Colors PREV
+    WHITE_PREV("white(U,V)", "white_prev", Type.FLUENT, "If Bob was previously on a white cell"),
+    RED_PREV("red(U,V)", "red_prev", Type.FLUENT, "If Bob was previously on a red cell"),
+    YELLOW_PREV("yellow(U,V)", "yellow_prev", Type.FLUENT, "If Bob was previously on a yellow cell"),
+    GREEN_PREV("green(U,V)", "green_prev", Type.FLUENT, "If Bob was previously on a green cell"),
+    ORANGE_PREV("orange(U,V)", "orange_prev", Type.FLUENT, "If Bob was previously on a orange cell"),
+    PURPLE_PREV("purple(U,V)", "purple_prev", Type.FLUENT, "If Bob was previously on a purple cell"),
 
-    public Block(Group group, final Skin skin, String LPSString, String image, Type type, String tooltipText) {
+    // Directions
+    LEFT("goLeft()", "left", Type.CONSEQUENT, "Bob should go left"),
+    RIGHT("goRight()", "right", Type.CONSEQUENT, "Bob should go right"),
+    UP("goUp()", "up", Type.CONSEQUENT, "Bob should go up"),
+    DOWN("goDown()", "down", Type.CONSEQUENT, "Bob should go down"),
 
-        blockLogic = new BlockLogic(LPSString, image, type);
-
-        sourceImage = new Image(skin, image);
-        final Image dragImage = new Image(skin, image);
-        TextTooltip tooltip = new TextTooltip("  " + tooltipText + "  ", skin, "tooltipStyle");
-        tooltip.setInstant(true);
-
-        int[] coord = getCoordinates(type);
-
-        sourceImage.setBounds(coord[0], coord[1], 50, 50);
-        sourceImage.addListener(tooltip);
-
-        group.addActor(sourceImage);
+    // Connectors
+    AND("&", "and", Type.AND, "AND, to be used in: if a AND b"),
+    IMPLY("->", "imply", Type.IMPLY, "IMPLY/THEN, to be used in: if a THEN b"),
+    NOT("!", "not", Type.NOT, "NOT, to be used in: NOT a");
 
 
-        dragAndDrop = new DragAndDrop();
-        dragAndDrop.setDragActorPosition(-(sourceImage.getWidth()/2), sourceImage.getHeight()/2);
-        dragAndDrop.addSource(new DragAndDrop.Source(sourceImage) {
-            public DragAndDrop.Payload dragStart (InputEvent event, float x, float y, int pointer) {
-                DragAndDrop.Payload payload = new DragAndDrop.Payload();
-                payload.setObject(blockLogic);
+    private String LPSString;
+    private String imageName;
+    private Type type;
+    private String tooltip;
 
-                payload.setDragActor(dragImage);
-
-                return payload;
-            }
-        });
+    Block(String lps, String image, Type type, String tooltip) {
+        this.LPSString = lps;
+        this.imageName = image;
+        this.type = type;
+        this.tooltip = tooltip;
     }
 
-    private int[] getCoordinates(Type type) {
-        int[] res = new int[2];
-        if (type == Type.FLUENT) {
-            res[0] = refXFluent + (noFluent % 4) * 60;
-            res[1] = refY - (noFluent / 4) * 60;
-
-            noFluent++;
-        } else if (type == Type.CONSEQUENT) {
-            res[0] = refXConsequent + (noConsequent % 2) * 60;
-            res[1] = refY - (noConsequent / 2) * 60;
-
-            noConsequent++;
-        } else {
-            res[0] = refXLogic;
-            res[1] = refY - noLogic * 60;
-
-            noLogic++;
-        }
-
-        return res;
+    public String getLPSString() {
+        return LPSString;
     }
 
-    public void addTarget(DragAndDrop.Target target) {
-        dragAndDrop.addTarget(target);
+    public String getImageName() {
+        return imageName;
     }
 
-    public void clear() {
-        sourceImage.remove();
-        if (blockLogic != null) {
-            if (blockLogic.getType() == Type.FLUENT) {
-                noFluent--;
-            } else if (blockLogic.getType() == Type.CONSEQUENT) {
-                noConsequent--;
-            } else {
-                noLogic--;
-            }
-        }
+    public Type getType() {
+        return type;
     }
 
-    public boolean isFluent() {
-        return blockLogic != null ? blockLogic.getType() == Type.FLUENT : false;
+    public String getTooltip() {
+        return tooltip;
     }
 }

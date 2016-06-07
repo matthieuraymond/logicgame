@@ -17,10 +17,7 @@ public class LPSHandler {
     private Set<String> facts = new HashSet<>();
     private Set<String> actions  = new HashSet<>();
 
-    public LPSHandler() {
-
-
-    }
+    public LPSHandler() {}
 
     public LPSHandler(MapManager map, String inputs, int x, int y) {
         try {
@@ -66,31 +63,9 @@ public class LPSHandler {
         TokenStream tokenStream = new CommonTokenStream(lexer);
         JLPSSyntaxParser parser = new JLPSSyntaxParser(tokenStream);
         JLPSSyntaxParser.file_return returns = parser.file();
-        boolean[] warnings = returns.w;
 
         this.facts.addAll(returns.facts);
         this.actions.addAll(returns.actions);
-
-        if (Config.LPSDebug) {
-            if (warnings[0]) {
-                System.out.println("\u001B[33m" + "/!\\ No initial facts defined" + "\u001B[37m");
-            }
-            if (warnings[1]) {
-                System.out.println("\u001B[33m" + "/!\\ No intensional rules defined" + "\u001B[37m");
-            }
-            if (warnings[2]) {
-                System.out.println("\u001B[33m" + "/!\\ No domain theory defined" + "\u001B[37m");
-            }
-            if (warnings[3]) {
-                System.out.println("\u001B[33m" + "/!\\ No reactive rules defined" + "\u001B[37m");
-            }
-            if (warnings[4]) {
-                System.out.println("\u001B[33m" + "/!\\ No goals defined" + "\u001B[37m");
-            }
-            if (warnings[5]) {
-                System.out.println("\u001B[33m" + "/!\\ No initial events defined" + "\u001B[37m");
-            }
-        }
     }
 
     private void setLimit() {
@@ -102,7 +77,6 @@ public class LPSHandler {
         }
 
         if (this.actions != null) {
-
             for(String action : this.actions) {
                 limits.put(action, 2);
             }

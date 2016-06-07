@@ -4,8 +4,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.bob.game.inputs.InputsLayer;
 import com.bob.game.inputs.InputsManager;
-import com.bob.game.levels.Level;
-import com.bob.game.levels.WriteLevel;
 import com.bob.game.world.WorldManager;
 
 public class GameController {
@@ -37,7 +35,7 @@ public class GameController {
     }
 
     public void startNewLevel() {
-        if (currentLevel == WriteLevel.values()[0]) {
+        if (currentLevel == Level.values()[0]) {
             layerGroup.setVisibility("tutorial", true);
         }
 
@@ -59,7 +57,7 @@ public class GameController {
 
     }
 
-    public void setLevel(WriteLevel level) {
+    public void setLevel(Level level) {
         this.currentLevel = level;
     }
 

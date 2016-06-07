@@ -10,9 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 
 import com.bob.game.Layer;
-import com.bob.game.inputs.Block;
-import com.bob.game.inputs.Rule;
-import com.bob.game.inputs.Type;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,30 +18,21 @@ import java.util.List;
 public class InputsLayer extends Layer {
 
     public static List<DragAndDrop.Target> targets;
-    private List<Block> blocks;
+    private List<InputView> inputViews;
     private Image[] locking;
     private Skin skin;
 
     public InputsLayer(Skin skin) {
         targets = new ArrayList<>();
-        blocks = new ArrayList<>();
+        inputViews = new ArrayList<>();
 
         this.skin = skin;
 
         skin.add("default", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        skin.add("imply", new Texture("blocks/imply.png"));
-        skin.add("and", new Texture("blocks/and.png"));
-        skin.add("not", new Texture("blocks/not.png"));
 
-        String[] colors = {"red", "orange", "yellow", "green", "purple", "white"};
-        String[] directions = {"Left", "Right", "Up", "Down"};
-
-        for (String color : colors) {
-            skin.add(color, new Texture("blocks/" + color + ".png"));
-            skin.add(color + "_prev", new Texture("blocks/" + color + "_prev.png"));
-        }
-        for (String direction : directions) {
-            skin.add(direction, new Texture("blocks/" + direction.toLowerCase() + ".png"));
+        // Inputs
+        for (Block b: Block.values()) {
+            skin.add(b.getImageName(), new Texture("blocks/"+ b.getImageName() +".png"));
         }
 
         // Rules
@@ -80,21 +68,21 @@ public class InputsLayer extends Layer {
         }
     }
 
-    public void createInput(String lps, String name, Type type, String tooltip) {
-        Block block = new Block(group, skin, lps, name, type, tooltip);
+    public void createInput(Block block) {
+        InputView inputView = new InputView(group, skin, block);
 
         for (DragAndDrop.Target t: targets) {
-            block.addTarget(t);
+            inputView.addTarget(t);
         }
 
-        blocks.add(block);
+        inputViews.add(inputView);
     }
 
     public void clearInputs() {
-        for (Block i: blocks) {
+        for (InputView i: inputViews) {
             i.clear();
         }
-        blocks.clear();
+        inputViews.clear();
     }
 
     public void lockRules(int noRules) {
@@ -106,5 +94,4 @@ public class InputsLayer extends Layer {
             }
         }
     }
-
 }

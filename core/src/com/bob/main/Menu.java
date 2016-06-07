@@ -10,8 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.bob.game.Level;
 import com.bob.game.Mode;
-import com.bob.game.levels.WriteLevel;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +22,7 @@ public class Menu {
     private final Group modeGroup = new Group();
     private final Group levelsGroup = new Group();
     private boolean isVisible = true;
-    private WriteLevel levelSelected;
+    private Level levelSelected;
     private Mode modeSelected;
 
     public Menu(Skin skin) {
@@ -92,12 +92,12 @@ public class Menu {
         Map<String, Button> buttons = addButtons(modeGroup, skin, menu);
 
         buttons.get("WRITER").addListener(new ClickListener() {
-            public void clicked(InputEvent ie, float x, float y) {launchLevel(WriteLevel.level1, Mode.WRITER);
+            public void clicked(InputEvent ie, float x, float y) {launchLevel(Level.level1, Mode.WRITER);
             }
         });
 
         buttons.get("READER").addListener(new ClickListener() {
-            public void clicked(InputEvent ie, float x, float y) {launchLevel(WriteLevel.level1, Mode.READER);
+            public void clicked(InputEvent ie, float x, float y) {launchLevel(Level.level1, Mode.READER);
             }
         });
 
@@ -106,7 +106,7 @@ public class Menu {
         modeGroup.setVisible(false);
     }
 
-    private void launchLevel(WriteLevel level, Mode mode) {
+    private void launchLevel(Level level, Mode mode) {
         levelSelected = level;
         modeSelected = mode;
         hide();
@@ -118,7 +118,7 @@ public class Menu {
         levelsBkg.setBounds(0,0,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         levelsGroup.addActor(levelsBkg);
 
-        int noLevels = WriteLevel.values().length;
+        int noLevels = Level.values().length;
         int levelsButtonX = 660;
         int levelsButtonY = 430;
 
@@ -129,7 +129,7 @@ public class Menu {
 
             button.addListener(new ClickListener() {
                 public void clicked(InputEvent ie, float x, float y) {
-                    launchLevel(WriteLevel.values()[j], Mode.WRITER);
+                    launchLevel(Level.values()[j], Mode.WRITER);
                 }
             });
 
@@ -177,7 +177,7 @@ public class Menu {
         return isVisible;
     }
 
-    public WriteLevel getLevelSelected() {
+    public Level getLevelSelected() {
         return levelSelected;
     }
 

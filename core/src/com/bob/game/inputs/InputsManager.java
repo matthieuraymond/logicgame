@@ -1,18 +1,17 @@
 package com.bob.game.inputs;
 
-import com.bob.game.levels.Level;
-import com.bob.game.levels.WriteLevel;
+import com.bob.game.Level;
 
 public class InputsManager {
 
-    Rule[] rules;
-    InputsLayer view;
+    private Rule[] rules;
+    private InputsLayer layer;
 
-    public InputsManager(InputsLayer view) {
+    public InputsManager(InputsLayer layer) {
         this.rules = new Rule[8];
-        this.view = view;
+        this.layer = layer;
 
-        view.initRules(rules);
+        layer.initRules(rules);
     }
 
     public boolean checkRules() {
@@ -40,27 +39,16 @@ public class InputsManager {
     }
 
     public void resetInputs() {
-        view.clearInputs();
+        layer.clearInputs();
     }
 
-    public void resetInputs(String[] colors, boolean prevAuthorised) {
+    public void resetInputs(Block[] blocks) {
 
         resetInputs();
 
-        for (String color : colors) {
-            view.createInput(color + "(X,Y)", color, Type.FLUENT, "If Bob is on a " + color + " cell");
-            if (prevAuthorised) {
-                view.createInput(color + "(U,V)", color + "_prev", Type.FLUENT, "If Bob was previously on a " + color + " cell");
-            }
+        for (Block b: blocks) {
+            layer.createInput(b);
         }
-
-        for (String direction : new String[]{"Left", "Right", "Up", "Down"}) {
-            view.createInput("go" + direction + "()", direction, Type.CONSEQUENT, "Bob should go " + direction);
-        }
-
-        view.createInput("&", "and", Type.AND, "AND, to be used in: if a AND b");
-        view.createInput("->", "imply", Type.IMPLY, "IMPLY/THEN, to be used in: if a THEN b");
-        view.createInput("!", "not", Type.NOT, "NOT, to be used in: NOT a");
     }
 
     public String getRulesString() {
@@ -73,18 +61,12 @@ public class InputsManager {
     }
 
     public void lockRules(Level level) {
-        view.lockRules(((WriteLevel)level).getNoRules());
+        layer.lockRules(level.getNoRules());
     }
 
     public void setupInputs(Level level) {
-        // Strategy ?
-        if (level instanceof WriteLevel) {
-            resetInputs(((WriteLevel)level).getColors(), ((WriteLevel)level).isPrevAuthorised());
-            lockRules(level);
-            resetRules();
-        } else {
-            resetInputs();
-            //resetRules(((ReadLevel)currentLevel).getRules());
-        }
+        resetInputs(level.getInputs());
+        lockRules(level);
+        resetRules();
     }
 }
