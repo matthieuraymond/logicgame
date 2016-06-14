@@ -7,11 +7,17 @@ public class InputsManager {
     private Rule[] rules;
     private InputsLayer layer;
 
-    public InputsManager(InputsLayer layer) {
+    public InputsManager() {
         this.rules = new Rule[8];
-        this.layer = layer;
 
-        layer.initRules(rules);
+        for (int i = 0; i < rules.length; i++) {
+            rules[i] = new Rule();
+        }
+    }
+
+    public void initView(InputsLayer layer) {
+        this.layer = layer;
+        layer.initRulesView(rules);
     }
 
     public boolean checkRules() {
@@ -34,7 +40,7 @@ public class InputsManager {
         resetRules();
 
         for (int i = 0; i < newRules.length && i < rules.length; i++) {
-            rules[i].setRuleCells(newRules[i], false);
+            rules[i].setRuleBlocks(newRules[i]);
         }
     }
 
@@ -68,5 +74,22 @@ public class InputsManager {
         resetInputs(level.getInputs());
         lockRules(level);
         resetRules(level.getRules());
+        updateRulesView();
+    }
+
+    private void updateRulesView() {
+        for (int i = 0; i < rules.length; i++) {
+            rules[i].initView(layer);
+        }
+    }
+
+    public Rule[] getRules() {
+        return rules;
+    }
+
+    public void toggleLights() {
+        for (Rule rule : rules) {
+            rule.toggleLights();
+        }
     }
 }

@@ -26,8 +26,10 @@ public class GameController {
         layerGroup.add("winning", new WinningLayer(skin, this));
         layerGroup.add("tutorial", new Tutorial(skin));
 
-        inputsManager = new InputsManager((InputsLayer)layerGroup.get("inputs"));
+        inputsManager = new InputsManager();
         worldManager = new WorldManager();
+
+        inputsManager.initView((InputsLayer)layerGroup.get("inputs"));
     }
 
     public void reset() {
@@ -49,6 +51,8 @@ public class GameController {
     public void render(float deltaTime) {
 
         ((ControlsLayer)layerGroup.get("controls")).disableSubmit(!inputsManager.checkRules());
+
+        inputsManager.toggleLights();
 
         worldManager.render(deltaTime);
 

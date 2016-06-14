@@ -18,7 +18,11 @@ public class RuleCell {
     private InputsLayer layer;
     private Skin skin;
 
-    public RuleCell (Layer layer, int startingY, int index, final Skin skin) {
+    public RuleCell() {
+
+    }
+
+    public void initView(Layer layer, int startingY, int index, final Skin skin) {
 
         this.layer = (InputsLayer)layer;
         this.skin = skin;
@@ -42,7 +46,8 @@ public class RuleCell {
             }
 
             public void drop (DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
-                setBlock((Block)payload.getObject(), true);
+                setBlock((Block)payload.getObject());
+                setImage(true);
             }
         };
 
@@ -68,9 +73,13 @@ public class RuleCell {
         block = null;
     }
 
-    public void setBlock(Block block, boolean isDragable) {
+    public void setBlock(Block block) {
         reset();
         this.block = block;
+    }
+
+    public void setImage(boolean isDragable) {
+        assert(block != null); //set block called before
 
         containImage = new Image(skin, block.getImageName());
         containImage.setBounds(targetX, targetY, 50, 50);

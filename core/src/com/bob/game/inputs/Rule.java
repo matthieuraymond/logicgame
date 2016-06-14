@@ -14,7 +14,16 @@ public class Rule {
     private Drawable greenLight;
     private Drawable redLight;
 
-    public Rule(Layer layer, Skin skin) {
+    public Rule() {
+        cells = new RuleCell[7];
+        for (int i=0; i < cells.length; ++i) {
+            cells[i] = new RuleCell();
+        }
+    }
+
+    public void initView(InputsLayer layer){
+        Skin skin = layer.getSkin();
+
         greenLight = skin.getDrawable("green_light");
         redLight = skin.getDrawable("red_light");
 
@@ -22,9 +31,8 @@ public class Rule {
         light.setBounds(1450, startingY, light.getWidth(), light.getHeight());
         layer.addActor(light);
 
-        cells = new RuleCell[7];
-        for (int i=0; i < 7; ++i) {
-            cells[i] = new RuleCell(layer, startingY, i, skin);
+        for (int i=0; i < cells.length; ++i) {
+            cells[i].initView(layer, startingY, i, skin);
         }
 
         startingY -= 70;
@@ -64,19 +72,7 @@ public class Rule {
             types[i] = cells[i].getType();
         }
 
-        boolean isValid = Type.isValid(types);
-
-        setLightOn(isValid);
-
-        return isValid;
-    }
-
-    public void setLightOn(boolean isOn) {
-        if (isOn) {
-            light.setDrawable(greenLight);
-        } else {
-            light.setDrawable(redLight);
-        }
+        return Type.isValid(types);
     }
 
     public void reset() {
@@ -85,9 +81,13 @@ public class Rule {
         }
     }
 
-    public void setRuleCells(Block[] newRule, boolean isDragable) {
+    public void setRuleBlocks(Block[] newRule) {
         for (int i = 0; i < newRule.length && i < cells.length; ++i) {
-            cells[i].setBlock(newRule[i], isDragable);
+            cells[i].setBlock(newRule[i]);
         }
+    }
+
+    public void toggleLights() { //Duplication of verification, could be cached if needed
+        light.setDrawable(isValid() ? greenLight : redLight);
     }
 }

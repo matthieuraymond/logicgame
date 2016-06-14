@@ -22,10 +22,13 @@ public class InputsLayer extends Layer {
     private Image[] locking;
     private Skin skin;
 
-    public InputsLayer(Skin skin) {
+    public InputsLayer(){
         targets = new ArrayList<>();
         inputViews = new ArrayList<>();
+    }
 
+    public InputsLayer(Skin skin) {
+        this();
         this.skin = skin;
 
         skin.add("default", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
@@ -57,11 +60,10 @@ public class InputsLayer extends Layer {
         return targets;
     }
 
-    public void initRules(Rule[] rules) {
+    public void initRulesView(Rule[] rules) {
         locking = new Image[rules.length];
 
         for (int i = 0; i < rules.length; i++) {
-            rules[i] = new Rule(this, skin);
             DragAndDrop.Target[] rules_targets = rules[i].getTargets();
 
             Collections.addAll(targets, rules_targets);
@@ -97,5 +99,9 @@ public class InputsLayer extends Layer {
                 locking[i].setVisible(false);
             }
         }
+    }
+
+    public Skin getSkin() {
+        return skin;
     }
 }
