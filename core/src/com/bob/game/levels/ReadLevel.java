@@ -5,8 +5,13 @@ import com.bob.game.inputs.Block;
 public enum ReadLevel {
 
     level1("maps/tmx/guess.tmx",
-            2,11,
-            new Block[][]{{Block.WHITE, Block.IMPLY, Block.RIGHT}},
+            11,11,
+            new Block[][]{
+                    {Block.RED, Block.IMPLY, Block.DOWN},
+                    {Block.PURPLE, Block.IMPLY, Block.RIGHT},
+                    {Block.YELLOW, Block.IMPLY, Block.DOWN},
+                    {Block.GREEN, Block.IMPLY, Block.LEFT}
+            },
             "Hi, my name is Bob!\n\nI am quite a simple robot and I am lost. Can you help me to reach the golden platform?\n\nTo do so, write rules I can follow in the box on the right!\nThanks for your help!"
     );
 

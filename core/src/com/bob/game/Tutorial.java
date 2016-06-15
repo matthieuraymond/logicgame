@@ -2,7 +2,6 @@ package com.bob.game;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -17,6 +16,7 @@ public class Tutorial extends Layer {
 
 
     public Tutorial(Skin skin) {
+        initialVisibility = false;
 
         for (int i = 0; i < images.length; i++) {
             images[i] = new Image(new Texture("screens/tut" + Integer.toString(1 + i) + ".png"));
