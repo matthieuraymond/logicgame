@@ -1,5 +1,6 @@
 package com.bob.game.inputs;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
@@ -10,6 +11,7 @@ public class Rule {
 
     private static int startingY = 1080 - 495;
     private Image light;
+    private Image lock;
     private RuleCell[] cells;
     private Drawable greenLight;
     private Drawable redLight;
@@ -30,6 +32,12 @@ public class Rule {
         light = new Image(greenLight);
         light.setBounds(1450, startingY, light.getWidth(), light.getHeight());
         layer.addActor(light);
+
+        lock = new Image(new Texture("blocks/locked.png"));
+        lock.setBounds(1400, startingY - 12, 500, 70);
+        lock.setVisible(false);
+        layer.addActor(lock);
+
 
         for (int i=0; i < cells.length; ++i) {
             cells[i].initView(layer, startingY, i, skin);
@@ -89,5 +97,9 @@ public class Rule {
 
     public void toggleLights() { //Duplication of verification, could be cached if needed
         light.setDrawable(isValid() ? greenLight : redLight);
+    }
+
+    public void lock() {
+        lock.setVisible(true);
     }
 }

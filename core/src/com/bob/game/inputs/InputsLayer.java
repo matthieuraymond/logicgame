@@ -19,7 +19,6 @@ public class InputsLayer extends Layer {
 
     private List<DragAndDrop.Target> targets;
     private List<InputView> inputViews;
-    private Image[] locking;
     private Skin skin;
 
     public InputsLayer(){
@@ -60,18 +59,9 @@ public class InputsLayer extends Layer {
         return targets;
     }
 
-    public void initRulesView(Rule[] rules) {
-        locking = new Image[rules.length];
-
-        for (int i = 0; i < rules.length; i++) {
-            DragAndDrop.Target[] rules_targets = rules[i].getTargets();
-
-            Collections.addAll(targets, rules_targets);
-
-            locking[i] = new Image(new Texture("blocks/locked.png"));
-            locking[i].setBounds(1400, 573 - i * 70, 500, 70);
-            group.addActor(locking[i]);
-        }
+    public void initRuleTargets(Rule rule) {
+        DragAndDrop.Target[] rules_targets = rule.getTargets();
+        Collections.addAll(targets, rules_targets);
     }
 
     public void createInput(Block block) {
@@ -89,16 +79,6 @@ public class InputsLayer extends Layer {
             i.clear();
         }
         inputViews.clear();
-    }
-
-    public void lockRules(int noRules) {
-        for (int i = 0; i < locking.length; ++i) {
-            if (i >= noRules) {
-                locking[i].setVisible(true);
-            } else {
-                locking[i].setVisible(false);
-            }
-        }
     }
 
     public Skin getSkin() {

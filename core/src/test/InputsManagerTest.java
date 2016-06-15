@@ -4,7 +4,6 @@ import com.bob.game.inputs.Block;
 import com.bob.game.inputs.InputsManager;
 import com.bob.game.levels.ReadLevel;
 import org.junit.Test;
-import org.mockito.internal.exceptions.ExceptionIncludingMockitoWarnings;
 
 import static org.junit.Assert.*;
 

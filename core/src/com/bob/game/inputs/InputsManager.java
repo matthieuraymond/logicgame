@@ -15,9 +15,12 @@ public class InputsManager {
         }
     }
 
-    public void initView(InputsLayer layer) {
+    public void setLayer(InputsLayer layer) {
         this.layer = layer;
-        layer.initRulesView(rules);
+    }
+
+    public void initView() {
+
     }
 
     public boolean checkRules() {
@@ -48,15 +51,6 @@ public class InputsManager {
         layer.clearInputs();
     }
 
-    public void resetInputs(Block[] blocks) {
-
-        resetInputs();
-
-        for (Block b: blocks) {
-            layer.createInput(b);
-        }
-    }
-
     public String getRulesString() {
         StringBuilder res = new StringBuilder();
         for (int i = 0; i < rules.length; i++) {
@@ -66,30 +60,31 @@ public class InputsManager {
         return res.toString();
     }
 
-    public void lockRules(Level level) {
-        layer.lockRules(level.getNoRules());
-    }
-
     public void setupInputs(Level level) {
-        resetInputs(level.getInputs());
-        lockRules(level);
-        resetRules(level.getRules());
-        updateRulesView();
-    }
+        resetInputs();
 
-    private void updateRulesView() {
-        for (int i = 0; i < rules.length; i++) {
-            rules[i].initView(layer);
+        for (Block b: level.getInputs()) {
+            layer.createInput(b);
         }
-    }
-
-    public Rule[] getRules() {
-        return rules;
     }
 
     public void toggleLights() {
         for (Rule rule : rules) {
             rule.toggleLights();
+        }
+    }
+
+    public void setupRules(Level level) {
+
+        resetRules(level.getRules());
+
+        for (int i = 0; i < rules.length; i++) {
+            rules[i].initView(layer);
+            if (i < level.getNoRules()) {
+                layer.initRuleTargets(rules[i]);
+            } else {
+                rules[i].lock();
+            }
         }
     }
 }
