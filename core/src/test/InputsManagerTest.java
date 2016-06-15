@@ -31,6 +31,17 @@ public class InputsManagerTest {
 
         assertTrue(im.checkRules());
     }
+    @Test
+    public void getLPSStringTest() throws Exception {
+        InputsManager im = new InputsManager();
+
+        im.resetRules(new Block[][]{
+                {Block.WHITE, Block.IMPLY, Block.RIGHT},
+                {Block.WHITE, Block.AND, Block.RED, Block.IMPLY, Block.RIGHT}
+        });
+
+        assertEquals("isIn(X,Y) & wasIn(U,V) & white(X,Y) -> goRight().isIn(X,Y) & wasIn(U,V) & white(X,Y)&red(X,Y) -> goRight().", im.getRulesString());
+    }
 
 
 }
