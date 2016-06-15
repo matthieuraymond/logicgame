@@ -30,6 +30,7 @@ public class GameController {
         worldManager = new WorldManager();
 
         inputsManager.setLayer((InputsLayer)layerGroup.get("inputs"));
+        inputsManager.initRuleView();
     }
 
     public void reset() {
@@ -41,8 +42,6 @@ public class GameController {
         /*if (currentLevel == WriteLevel.values()[0].getLevel()) {
             layerGroup.setVisibility("tutorial", true);
         }*/
-
-        inputsManager.initView();
         inputsManager.setupRules(currentLevel);
         inputsManager.setupInputs(currentLevel);
         worldManager.setupWorld(currentLevel);

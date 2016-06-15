@@ -5,7 +5,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.bob.game.Layer;
 
 public class Rule {
 
@@ -87,6 +86,7 @@ public class Rule {
         for (RuleCell cell : cells) {
             cell.reset();
         }
+
     }
 
     public void setRuleBlocks(Block[] newRule) {
@@ -99,7 +99,7 @@ public class Rule {
         light.setDrawable(isValid() ? greenLight : redLight);
     }
 
-    public void lock() {
-        lock.setVisible(true);
+    public void lock(boolean isLocked) {
+        lock.setVisible(isLocked);
     }
 }

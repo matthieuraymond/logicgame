@@ -15,12 +15,14 @@ public class InputsManager {
         }
     }
 
-    public void setLayer(InputsLayer layer) {
-        this.layer = layer;
+    public void initRuleView() {
+        for (int i = 0; i < rules.length; i++) {
+            rules[i].initView(layer);
+        }
     }
 
-    public void initView() {
-
+    public void setLayer(InputsLayer layer) {
+        this.layer = layer;
     }
 
     public boolean checkRules() {
@@ -79,11 +81,11 @@ public class InputsManager {
         resetRules(level.getRules());
 
         for (int i = 0; i < rules.length; i++) {
-            rules[i].initView(layer);
             if (i < level.getNoRules()) {
                 layer.initRuleTargets(rules[i]);
+                rules[i].lock(false);
             } else {
-                rules[i].lock();
+                rules[i].lock(true);
             }
         }
     }
