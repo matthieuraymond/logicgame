@@ -96,4 +96,8 @@ public class Entity {
 
         return false;
     }
+
+    public EntityState getState() {
+        return currentState;
+    }
 }
