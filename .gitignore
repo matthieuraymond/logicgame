@@ -14,7 +14,7 @@ html/war/WEB-INF/deploy/
 html/war/WEB-INF/classes/
 .gwt/
 gwt-unitCache/
-www-test/
+www-com.bob.test.game/
 .gwt-tmp/
 
 ## Android Studio and Intellij and Android in general

@@ -94,7 +94,7 @@ public class FactSet {
 	/**
 	 * Checks if the specified fact can be made true in the set.
 	 * <p>
-	 * The test is done thanks to the
+	 * The com.bob.test.game is done thanks to the
 	 * {@link Unifiable#unify(Unifiable, SubstitutionSet) equal()} function.
 	 * 
 	 * @param fact

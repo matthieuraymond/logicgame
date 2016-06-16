@@ -74,7 +74,7 @@ public class Action {
 	 * applies the bindings got to the generic {@code SimpleSentence}.
 	 * 
 	 * @param event
-	 *            the bound action to test if it can be performed.
+	 *            the bound action to com.bob.test.game if it can be performed.
 	 * @param rulesAndEvents
 	 *            the rules and the events to check the conditions.
 	 * @param rulesAndNextEvents

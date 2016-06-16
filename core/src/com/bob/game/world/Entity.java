@@ -89,7 +89,7 @@ public class Entity {
         }
 
         // Time induced update IF NOT CLOSE TO MOVEMENT INDUCED ONE
-        if (roundTime > 1 && Math.round(Math.abs(movedX)) != 1 && Math.round(Math.abs(movedY)) != 1) {
+        if (roundTime >= 1 && Math.round(Math.abs(movedX)) != 1 && Math.round(Math.abs(movedY)) != 1) {
             roundTime = 0;
             return true;
         }
