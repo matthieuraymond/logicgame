@@ -2,7 +2,7 @@ package com.bob.game.levels;
 
 import com.bob.game.inputs.Block;
 
-public enum WriteLevel {
+public enum WriteLevel implements LevelFactory {
 
     level1("maps/tmx/straight.tmx",
             2,11,
@@ -39,7 +39,7 @@ public enum WriteLevel {
 
             @Override
             public Level next() {
-                WriteLevel[] levels = WriteLevel.values();
+                LevelFactory[] levels = WriteLevel.values();
 
                 return levels[(ordinal + 1) % levels.length].getLevel();
             }

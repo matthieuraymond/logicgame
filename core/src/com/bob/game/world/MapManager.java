@@ -2,6 +2,7 @@ package com.bob.game.world;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 
@@ -18,19 +19,19 @@ public class MapManager {
     private float elapsedSinceAnimation;
 
     public MapManager(String path) {
+        map = new TmxMapLoader().load(path);
 
-        setMap(path);
+        floorLayer = (TiledMapTileLayer)map.getLayers().get("Floor");
+        waterIterator = map.getTileSets().getTileSet("water").iterator();
 
-        camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        camera.position.set(Config.tileWidth * Config.noHorizontalTile - 50, 67, 0);
+        elapsedSinceAnimation = 0;
     }
 
-    private void setMap(String path) {
-        map = new TmxMapLoader().load(path);
-        floorLayer = (TiledMapTileLayer)map.getLayers().get("Floor");
+    public void initRender() {
+        camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        camera.position.set(Config.tileWidth * Config.noHorizontalTile - 50, 67, 0);
+
         renderer = new IsometricTiledMapRenderer(map);
-        elapsedSinceAnimation = 0;
-        waterIterator = map.getTileSets().getTileSet("water").iterator();
     }
 
     public void draw(float deltaTime) {

@@ -5,7 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.bob.game.inputs.InputsLayer;
 import com.bob.game.inputs.InputsManager;
 import com.bob.game.levels.Level;
-import com.bob.game.world.WorldManager;
+import com.bob.game.world.WorldController;
 
 public class GameController {
 
@@ -14,7 +14,7 @@ public class GameController {
     private Level currentLevel;
 
     private InputsManager inputsManager;
-    private WorldManager worldManager;
+    private WorldController worldController;
 
     public GameController(Skin skin) {
 
@@ -27,7 +27,7 @@ public class GameController {
         layerGroup.add("tutorial", new Tutorial(skin));
 
         inputsManager = new InputsManager();
-        worldManager = new WorldManager();
+        worldController = new WorldController();
 
         inputsManager.setLayer((InputsLayer)layerGroup.get("inputs"));
         inputsManager.initRuleView();
@@ -35,7 +35,7 @@ public class GameController {
 
     public void reset() {
         inputsManager.resetRules();
-        worldManager.resetBob(currentLevel.getX(), currentLevel.getY());
+        worldController.resetBob(currentLevel.getX(), currentLevel.getY());
     }
 
     public void startNewLevel() {
@@ -44,7 +44,7 @@ public class GameController {
         }*/
         inputsManager.setupRules(currentLevel);
         inputsManager.setupInputs(currentLevel);
-        worldManager.setupWorld(currentLevel);
+        worldController.setupWorld(currentLevel);
 
         ((BackgroundLayer)layerGroup.get("background")).changeText(currentLevel.getText());
     }
@@ -55,9 +55,9 @@ public class GameController {
 
         inputsManager.toggleLights();
 
-        worldManager.render(deltaTime);
+        worldController.render(deltaTime);
 
-        if (worldManager.isLevelWon()) {
+        if (worldController.isLevelWon()) {
             layerGroup.setVisibility("winning", true);
         }
 
@@ -74,16 +74,16 @@ public class GameController {
     }
 
     public void submit() {
-        worldManager.startAnimation(currentLevel, inputsManager.getRulesString());
+        worldController.startAnimation(currentLevel, inputsManager.getRulesString());
     }
 
     public void updateSpeed(float value) {
-        worldManager.updateSpeed(value);
+        worldController.updateSpeed(value);
     }
 
     public void linkStage(Stage stage) {
         layerGroup.setStage(stage);
-        worldManager.setStage(stage);
+        worldController.setStage(stage);
     }
 
     public void show() {

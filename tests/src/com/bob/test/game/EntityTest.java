@@ -113,6 +113,4 @@ public class EntityTest {
             assertFalse(e.needInstructions());
         }
     }
-
-
 }

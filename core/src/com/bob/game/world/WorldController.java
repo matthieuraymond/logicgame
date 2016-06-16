@@ -10,7 +10,7 @@ import com.bob.game.levels.Level;
 import java.util.LinkedList;
 import java.util.List;
 
-public class WorldManager {
+public class WorldController {
 
     //view
     private boolean isAnimPlaying;
@@ -29,7 +29,7 @@ public class WorldManager {
     Stage stage;
     List<ClickListener> goldListener;
 
-    public WorldManager() {
+    public WorldController() {
         batch = new SpriteBatch();
         goldListener = new LinkedList<>();
         isAnimPlaying = false;
@@ -40,6 +40,7 @@ public class WorldManager {
 
     public void setupWorld(Level level) {
         mapManager = new MapManager(level.getMap());
+        mapManager.initRender();
         setGoldListeners();
         resetBob(level.getX(), level.getY());
     }

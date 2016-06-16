@@ -2,7 +2,7 @@ package com.bob.game.levels;
 
 import com.bob.game.inputs.Block;
 
-public enum ReadLevel {
+public enum ReadLevel implements LevelFactory {
 
     level1("maps/tmx/guess.tmx",
             11,11,
@@ -25,7 +25,7 @@ public enum ReadLevel {
 
             @Override
             public Level next() {
-                ReadLevel[] levels = ReadLevel.values();
+                LevelFactory[] levels = ReadLevel.values();
 
                 return levels[(ordinal + 1) % levels.length].getLevel();
             }

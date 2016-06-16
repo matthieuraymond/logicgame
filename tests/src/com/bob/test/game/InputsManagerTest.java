@@ -2,6 +2,7 @@ package com.bob.test.game;
 
 import com.bob.game.inputs.Block;
 import com.bob.game.inputs.InputsManager;
+import com.bob.game.levels.LevelFactory;
 import com.bob.game.levels.ReadLevel;
 import org.junit.Test;
 
@@ -25,7 +26,7 @@ public class InputsManagerTest {
     public void readLevelIntegrationTest() throws Exception {
         InputsManager im = new InputsManager();
 
-        for (ReadLevel read : ReadLevel.values()) {
+        for (LevelFactory read : ReadLevel.values()) {
             im.resetRules(read.getLevel().getRules());
         }
 
