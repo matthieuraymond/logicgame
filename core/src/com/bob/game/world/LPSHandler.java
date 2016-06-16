@@ -17,7 +17,7 @@ public class LPSHandler {
     private Set<String> facts = new HashSet<>();
     private Set<String> actions  = new HashSet<>();
 
-    public LPSHandler(MapManager map, String inputs, int x, int y) {
+    public LPSHandler(String worldDescription, String rules, int x, int y) {
         try {
             resetLPS();
             StringBuilder lpsString = new StringBuilder("Database {\n\tFacts {\n\t\t");
@@ -29,9 +29,9 @@ public class LPSHandler {
             FileHandle middleScript = Gdx.files.internal("scripts/middle");
             FileHandle tailScript = Gdx.files.internal("scripts/tail");
 
-            lpsString.append(map.getLPSDescription());
+            lpsString.append(worldDescription);
             lpsString.append(middleScript.readString());
-            lpsString.append(inputs);
+            lpsString.append(rules);
             lpsString.append(tailScript.readString());
 
             if (Config.printLPS) {

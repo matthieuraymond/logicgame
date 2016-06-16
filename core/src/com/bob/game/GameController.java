@@ -45,6 +45,7 @@ public class GameController {
         inputsManager.setupRules(currentLevel);
         inputsManager.setupInputs(currentLevel);
         worldController.setupWorld(currentLevel);
+        worldController.initRender();
 
         ((BackgroundLayer)layerGroup.get("background")).changeText(currentLevel.getText());
     }

@@ -30,7 +30,6 @@ public class WorldController {
     List<ClickListener> goldListener;
 
     public WorldController() {
-        batch = new SpriteBatch();
         goldListener = new LinkedList<>();
         isAnimPlaying = false;
         speedFactor = 2f;
@@ -40,9 +39,13 @@ public class WorldController {
 
     public void setupWorld(Level level) {
         mapManager = new MapManager(level.getMap());
+        resetBob(level.getX(), level.getY());
+    }
+
+    public void initRender() {
         mapManager.initRender();
         setGoldListeners();
-        resetBob(level.getX(), level.getY());
+        batch = new SpriteBatch();
     }
 
     private void setGoldListeners() {
@@ -68,18 +71,13 @@ public class WorldController {
     }
 
     public void startAnimation(Level level, String rules) {
-        lpsHandler = new LPSHandler(mapManager, rules, level.getX(), level.getY());
+        lpsHandler = new LPSHandler(mapManager.getLPSDescription(), rules, level.getX(), level.getY());
         isAnimPlaying = true;
     }
 
     public void render(float deltaTime) {
         // UPDATE OF ENTITY
-        bob.increaseTime(isAnimPlaying ? deltaTime * speedFactor : 0);
-
-        if (bob.needInstructions()) {
-            retrieveInstructions();
-            updateGameState();
-        }
+        updateBob(isAnimPlaying ? deltaTime * speedFactor: 0);
 
         //Map
         if (mapManager != null) mapManager.draw(isAnimPlaying ? deltaTime * speedFactor : 0);
@@ -88,6 +86,15 @@ public class WorldController {
         batch.begin();
         if (bob != null) bob.draw(batch);
         batch.end();
+    }
+
+    public void updateBob(float deltaTime) {
+        bob.increaseTime(deltaTime);
+
+        if (bob.needInstructions()) {
+            retrieveInstructions();
+            updateGameState();
+        }
     }
 
     private void retrieveInstructions() {
