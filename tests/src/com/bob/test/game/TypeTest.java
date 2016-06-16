@@ -1,4 +1,4 @@
-package test;
+package com.bob.test.game;
 
 import com.bob.game.inputs.Type;
 import org.junit.Assert;

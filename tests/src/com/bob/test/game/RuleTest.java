@@ -1,4 +1,4 @@
-package test;
+package com.bob.test.game;
 
 import com.bob.game.inputs.Block;
 import com.bob.game.inputs.Rule;
