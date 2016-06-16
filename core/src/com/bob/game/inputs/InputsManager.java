@@ -83,6 +83,7 @@ public class InputsManager {
         for (int i = 0; i < rules.length; i++) {
             if (i < level.getNoRules()) {
                 layer.initRuleTargets(rules[i]);
+                rules[i].displayImages();
                 rules[i].lock(false);
             } else {
                 rules[i].lock(true);

@@ -57,10 +57,14 @@ public class GameController {
 
         worldController.render(deltaTime);
 
-        if (worldController.isLevelWon()) {
+        if (checkIfWon()) {
             layerGroup.setVisibility("winning", true);
         }
 
+    }
+
+    public boolean checkIfWon() {
+        return worldController.isLevelWon();
     }
 
     public void setLevel(Level level) {
@@ -74,7 +78,11 @@ public class GameController {
     }
 
     public void submit() {
-        worldController.startAnimation(currentLevel, inputsManager.getRulesString());
+        startAnim(inputsManager.getRulesString());
+    }
+
+    public void startAnim(String LPS) {
+        worldController.startAnimation(currentLevel, LPS);
     }
 
     public void updateSpeed(float value) {

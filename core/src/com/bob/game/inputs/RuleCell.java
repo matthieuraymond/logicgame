@@ -36,17 +36,17 @@ public class RuleCell {
         layer.addActor(bkgImage);
 
         target = new DragAndDrop.Target(bkgImage) {
-            public boolean drag (DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
+            public boolean drag(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
                 getActor().setColor(Color.GREEN);
                 return true;
             }
 
-            public void reset (DragAndDrop.Source source, DragAndDrop.Payload payload) {
+            public void reset(DragAndDrop.Source source, DragAndDrop.Payload payload) {
                 getActor().setColor(Color.CLEAR);
             }
 
-            public void drop (DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
-                setBlock((Block)payload.getObject());
+            public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
+                setBlock((Block) payload.getObject());
                 setImage(true);
             }
         };
@@ -79,14 +79,14 @@ public class RuleCell {
     }
 
     public void setImage(boolean isDragable) {
-        assert(block != null); //set block called before
+        if (block != null) {
+            containImage = new Image(skin, block.getImageName());
+            containImage.setBounds(targetX, targetY, 50, 50);
+            layer.addActor(containImage);
 
-        containImage = new Image(skin, block.getImageName());
-        containImage.setBounds(targetX, targetY, 50, 50);
-        layer.addActor(containImage);
-
-        if (isDragable) {
-            setMoveAbility();
+            if (isDragable) {
+                setMoveAbility();
+            }
         }
     }
 

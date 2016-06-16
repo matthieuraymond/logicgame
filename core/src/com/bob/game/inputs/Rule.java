@@ -102,4 +102,10 @@ public class Rule {
     public void lock(boolean isLocked) {
         lock.setVisible(isLocked);
     }
+
+    public void displayImages() {
+        for (RuleCell c: cells) {
+            c.setImage(false);
+        }
+    }
 }

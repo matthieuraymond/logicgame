@@ -17,8 +17,6 @@ public class LPSHandler {
     private Set<String> facts = new HashSet<>();
     private Set<String> actions  = new HashSet<>();
 
-    public LPSHandler() {}
-
     public LPSHandler(MapManager map, String inputs, int x, int y) {
         try {
             resetLPS();
