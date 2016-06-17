@@ -44,9 +44,9 @@ public class GameController {
         }*/
         inputsManager.setupRules(currentLevel);
         inputsManager.setupInputs(currentLevel);
+        inputsManager.lightOnRule(-1); //todo improve reset
         worldController.setupWorld(currentLevel);
         worldController.initRender();
-
         ((BackgroundLayer)layerGroup.get("background")).changeText(currentLevel.getText());
     }
 

@@ -11,6 +11,7 @@ public class Rule {
     private static int startingY = 1080 - 495;
     private Image light;
     private Image lock;
+    private Image arrow;
     private RuleCell[] cells;
     private Drawable greenLight;
     private Drawable redLight;
@@ -37,7 +38,10 @@ public class Rule {
         lock.setVisible(false);
         layer.addActor(lock);
 
-
+        arrow = new Image(new Texture("lights/arrow.png"));
+        arrow.setBounds(1380, startingY - 2, 60, 45);
+        arrow.setVisible(false);
+        layer.addActor(arrow);
 
 
         for (int i=0; i < cells.length; ++i) {
@@ -88,7 +92,6 @@ public class Rule {
         for (RuleCell cell : cells) {
             cell.reset();
         }
-
     }
 
     public void setRuleBlocks(Block[] newRule) {
@@ -112,10 +115,10 @@ public class Rule {
     }
 
     public void lightOn() {
-        lock.setVisible(true);
+        arrow.setVisible(true);
     }
 
     public void lightOff() {
-        lock.setVisible(false);
+        arrow.setVisible(false);
     }
 }

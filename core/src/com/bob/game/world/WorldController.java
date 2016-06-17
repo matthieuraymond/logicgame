@@ -127,6 +127,8 @@ public class WorldController {
         if (!set.isEmpty()) {
             Goal g = set.iterator().next();
             currentRuleIndex = Integer.parseInt(g.getGoal().getTerm(1).getName());
+        } else {
+            currentRuleIndex = -1;
         }
     }
 

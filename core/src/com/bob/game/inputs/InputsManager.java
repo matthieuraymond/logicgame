@@ -96,10 +96,10 @@ public class InputsManager {
     }
 
     public void lightOnRule(int ruleIndex) {
+        for (Rule r: rules) {
+            r.lightOff();
+        }
         if (ruleIndex >= 0 && ruleIndex < rules.length) {
-            for (Rule r: rules) {
-                r.lightOff();
-            }
             rules[ruleIndex].lightOn();
         }
     }
