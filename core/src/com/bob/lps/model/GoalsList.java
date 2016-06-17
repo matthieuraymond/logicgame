@@ -272,4 +272,10 @@ public class GoalsList {
 		return res;
 	}
 
+	/**
+	 * Returns the active goals set
+	 */
+	public Set<Goal> getActiveGoals() {
+		return goalsList.keySet();
+	}
 }

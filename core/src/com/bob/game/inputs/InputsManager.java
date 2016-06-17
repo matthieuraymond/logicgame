@@ -56,7 +56,11 @@ public class InputsManager {
     public String getRulesString() {
         StringBuilder res = new StringBuilder();
         for (int i = 0; i < rules.length; i++) {
-            res.append(rules[i].getString());
+            String ruleString = rules[i].getString();
+            if (!ruleString.equals("")) {
+                res.append(ruleString);
+                res.append("("+i+").");
+            }
         }
 
         return res.toString();
@@ -88,6 +92,15 @@ public class InputsManager {
             } else {
                 rules[i].lock(true);
             }
+        }
+    }
+
+    public void lightOnRule(int ruleIndex) {
+        if (ruleIndex >= 0 && ruleIndex < rules.length) {
+            for (Rule r: rules) {
+                r.lightOff();
+            }
+            rules[ruleIndex].lightOn();
         }
     }
 }

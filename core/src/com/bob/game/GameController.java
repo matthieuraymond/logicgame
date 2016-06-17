@@ -55,6 +55,7 @@ public class GameController {
         ((ControlsLayer)layerGroup.get("controls")).disableSubmit(!inputsManager.checkRules());
 
         inputsManager.toggleLights();
+        inputsManager.lightOnRule(worldController.getCurrentRuleIndex());
 
         worldController.render(deltaTime);
 

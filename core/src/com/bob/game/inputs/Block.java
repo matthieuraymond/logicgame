@@ -19,10 +19,10 @@ public enum Block {
     PURPLE_PREV("purple(U,V)", "purple_prev", Type.FLUENT, "If Bob was previously on a purple cell"),
 
     // Directions
-    LEFT("goLeft()", "left", Type.CONSEQUENT, "Bob should go left"),
-    RIGHT("goRight()", "right", Type.CONSEQUENT, "Bob should go right"),
-    UP("goUp()", "up", Type.CONSEQUENT, "Bob should go up"),
-    DOWN("goDown()", "down", Type.CONSEQUENT, "Bob should go down"),
+    LEFT("goLeft", "left", Type.CONSEQUENT, "Bob should go left"),
+    RIGHT("goRight", "right", Type.CONSEQUENT, "Bob should go right"),
+    UP("goUp", "up", Type.CONSEQUENT, "Bob should go up"),
+    DOWN("goDown", "down", Type.CONSEQUENT, "Bob should go down"),
 
     // Connectors
     AND("&", "and", Type.AND, "AND, to be used in: if a AND b"),

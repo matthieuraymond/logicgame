@@ -6,9 +6,12 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.bob.game.levels.Level;
+import com.bob.lps.model.Goal;
+import com.bob.lps.model.GoalsList;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 public class WorldController {
 
@@ -24,6 +27,7 @@ public class WorldController {
     // Map and LPS
     MapManager mapManager;
     LPSHandler lpsHandler;
+    int currentRuleIndex;
 
     // Golden cells
     Stage stage;
@@ -34,6 +38,7 @@ public class WorldController {
         isAnimPlaying = false;
         speedFactor = 2f;
         nbWon = 0;
+        currentRuleIndex = -1;
         bob = new Entity(0, 0);
     }
 
@@ -116,6 +121,13 @@ public class WorldController {
             bob.updateState(EntityState.WON);
             nbWon++;
         }
+
+        // Update current rule
+        Set<Goal> set = GoalsList.getInstance().getActiveGoals();
+        if (!set.isEmpty()) {
+            Goal g = set.iterator().next();
+            currentRuleIndex = Integer.parseInt(g.getGoal().getTerm(1).getName());
+        }
     }
 
     public boolean isLevelWon() {
@@ -143,5 +155,9 @@ public class WorldController {
 
         goldListener.add(listener);
         stage.addListener(listener);
+    }
+
+    public int getCurrentRuleIndex() {
+        return currentRuleIndex;
     }
 }

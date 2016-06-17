@@ -38,6 +38,8 @@ public class Rule {
         layer.addActor(lock);
 
 
+
+
         for (int i=0; i < cells.length; ++i) {
             cells[i].initView(layer, startingY, i, skin);
         }
@@ -67,7 +69,7 @@ public class Rule {
             }
         }
 
-        sb.append(".");
+        //sb.append(".");
 
         return notEmpty ? sb.toString() : "";
     }
@@ -107,5 +109,13 @@ public class Rule {
         for (RuleCell c: cells) {
             c.setImage(false);
         }
+    }
+
+    public void lightOn() {
+        lock.setVisible(true);
+    }
+
+    public void lightOff() {
+        lock.setVisible(false);
     }
 }

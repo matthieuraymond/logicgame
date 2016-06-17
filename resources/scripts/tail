@@ -3,10 +3,10 @@
 }
 
 Goals {
-	goRight() :- isIn(X,Y) & isNext(X,Z)     & moveFromTo(X,Y,Z,Y).
-	goLeft()  :- isIn(X,Y) & isPrevious(X,Z) & moveFromTo(X,Y,Z,Y).
-	goUp()    :- isIn(X,Y) & isNext(Y,Z)     & moveFromTo(X,Y,X,Z).
-	goDown()  :- isIn(X,Y) & isPrevious(Y,Z) & moveFromTo(X,Y,X,Z).
+	goRight(N) :- isIn(X,Y) & isNext(X,Z)     & moveFromTo(X,Y,Z,Y).
+	goLeft(N)  :- isIn(X,Y) & isPrevious(X,Z) & moveFromTo(X,Y,Z,Y).
+	goUp(N)    :- isIn(X,Y) & isNext(Y,Z)     & moveFromTo(X,Y,X,Z).
+	goDown(N)  :- isIn(X,Y) & isPrevious(Y,Z) & moveFromTo(X,Y,X,Z).
 }
 
 Events {

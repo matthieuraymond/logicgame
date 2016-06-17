@@ -17,7 +17,7 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
 @RunWith(GdxTestRunner.class)
-public class LPSHandlerTest {
+public class WorldControllerTest {
 
     @Test
     public void testLevels() throws Exception {
