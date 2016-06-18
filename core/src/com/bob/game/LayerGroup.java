@@ -4,8 +4,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import java.util.LinkedHashMap;
 
-public class LayerGroup {
-    private LinkedHashMap<String, Layer> layers = new LinkedHashMap<>();
+class LayerGroup {
+    private final LinkedHashMap<String, Layer> layers = new LinkedHashMap<>();
     private boolean isVisible = false;
 
     public void add(String name, Layer layer) {

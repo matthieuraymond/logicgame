@@ -6,7 +6,7 @@ import java.util.LinkedList;
 
 public class MockLPSHandler extends LPSHandler {
 
-    LinkedList<Block> blockStack;
+    private final LinkedList<Block> blockStack;
 
     public MockLPSHandler(LinkedList<Block> blockStack) {
         this.blockStack = blockStack;

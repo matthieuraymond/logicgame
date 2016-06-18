@@ -22,17 +22,17 @@ public class WorldController {
     private int nbWon;
 
     // Bob
-    SpriteBatch batch;
-    Entity bob;
+    private SpriteBatch batch;
+    private final Entity bob;
 
     // Map and LPS
-    MapManager mapManager;
-    LPSHandler lpsHandler;
-    int currentRuleIndex;
+    private MapManager mapManager;
+    private LPSHandler lpsHandler;
+    private int currentRuleIndex;
 
     // Golden cells
-    Stage stage;
-    List<ClickListener> goldListener;
+    private Stage stage;
+    private final List<ClickListener> goldListener;
 
     public WorldController() {
         goldListener = new LinkedList<>();
@@ -151,7 +151,7 @@ public class WorldController {
         this.stage = stage;
     }
 
-    public void addQuestionListener(final WorldCoordinates coord) {
+    private void addQuestionListener(final WorldCoordinates coord) {
 
         ClickListener listener = new ClickListener(Input.Buttons.LEFT) {
             @Override

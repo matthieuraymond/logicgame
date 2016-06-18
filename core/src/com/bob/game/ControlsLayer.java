@@ -7,9 +7,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-public class ControlsLayer extends Layer {
+class ControlsLayer extends Layer {
 
-    Button submitButton;
+    private final Button submitButton;
 
     public ControlsLayer(Skin skin, final GameController controller) {
         TextButton quitButton = new TextButton("MENU", skin, "blue_button");

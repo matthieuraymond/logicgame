@@ -14,8 +14,8 @@ import java.util.Set;
 
 public class LPSHandler {
 
-    private Set<String> facts = new HashSet<>();
-    private Set<String> actions  = new HashSet<>();
+    private final Set<String> facts = new HashSet<>();
+    private final Set<String> actions  = new HashSet<>();
 
     public LPSHandler(String worldDescription, String rules, int x, int y) {
         try {
@@ -59,7 +59,7 @@ public class LPSHandler {
         ReactiveRuleSet.reset();
     }
 
-    public void streamReader(CharStream fileStream) throws RecognitionException {
+    private void streamReader(CharStream fileStream) throws RecognitionException {
         JLPSSyntaxLexer lexer = new JLPSSyntaxLexer(fileStream);
         TokenStream tokenStream = new CommonTokenStream(lexer);
         JLPSSyntaxParser parser = new JLPSSyntaxParser(tokenStream);

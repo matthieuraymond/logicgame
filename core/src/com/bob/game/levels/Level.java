@@ -4,13 +4,13 @@ import com.bob.game.inputs.Block;
 
 public abstract class Level {
 
-    private String map;
-    private int coordX;
-    private int coordY;
-    private int noRules;
-    private Block[] inputs;
-    private Block[][] rules;
-    private String text;
+    private final String map;
+    private final int coordX;
+    private final int coordY;
+    private final int noRules;
+    private final Block[] inputs;
+    private final Block[][] rules;
+    private final String text;
 
     public Level(String map, int x, int y, int noRules, Block[] inputs, Block[][] rules, String text) {
         this.map = map;

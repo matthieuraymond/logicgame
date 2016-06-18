@@ -29,7 +29,7 @@ public enum WriteLevel implements LevelFactory {
             "Be careful, this one is tricky!\n\nYou'll have to make good use of the \"previous\" block.\nThanks for your help."
     );
 
-    private Level level;
+    private final Level level;
 
     WriteLevel(String map, int x, int y, int noRules, Block[] inputs, String text) {
 

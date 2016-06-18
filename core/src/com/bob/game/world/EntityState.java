@@ -15,9 +15,9 @@ public enum EntityState {
     WET (Textures.BOB_WET),
     WON (Textures.BOB_WON, 0, 0);
 
-    private Animation animation;
-    private float dx;
-    private float dy;
+    private final Animation animation;
+    private final float dx;
+    private final float dy;
 
     EntityState(Textures text) {
         this.animation = new Animation(text.getSpeed(), text.getTexture().findRegions("0001"));

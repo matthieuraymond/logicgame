@@ -6,7 +6,7 @@ import java.util.LinkedList;
 
 public class InputsManager {
 
-    private Rule[] rules;
+    private final Rule[] rules;
     private InputsLayer layer;
 
     public InputsManager() {
@@ -18,8 +18,8 @@ public class InputsManager {
     }
 
     public void initRuleView() {
-        for (int i = 0; i < rules.length; i++) {
-            rules[i].initView(layer);
+        for (Rule rule : rules) {
+            rule.initView(layer);
         }
     }
 
@@ -51,7 +51,7 @@ public class InputsManager {
         }
     }
 
-    public void resetInputs() {
+    private void resetInputs() {
         layer.clearInputs();
     }
 

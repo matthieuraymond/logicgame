@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-public class WinningLayer extends Layer {
+class WinningLayer extends Layer {
 
     public WinningLayer(Skin skin, final GameController controller) {
         initialVisibility = false;

@@ -12,12 +12,12 @@ import java.util.LinkedList;
 
 public class GameController {
 
-    private LayerGroup layerGroup;
+    private final LayerGroup layerGroup;
 
     private Level currentLevel;
 
-    private InputsManager inputsManager;
-    private WorldController worldController;
+    private final InputsManager inputsManager;
+    private final WorldController worldController;
 
     public GameController(Skin skin) {
 
@@ -67,7 +67,7 @@ public class GameController {
 
     }
 
-    public boolean checkIfWon() {
+    private boolean checkIfWon() {
         return worldController.isLevelWon();
     }
 
@@ -93,7 +93,7 @@ public class GameController {
         worldController.startMockAnimation(blockStack);
     }
 
-    public void startLPSAnim(String LPS) {
+    private void startLPSAnim(String LPS) {
         worldController.startLPSAnimation(currentLevel, LPS);
     }
 

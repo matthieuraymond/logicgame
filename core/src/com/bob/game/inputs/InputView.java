@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 
-public class InputView {
+class InputView {
     private static final int refXFluent = 1415;
     private static final int refXLogic = refXFluent + 270;
     private static final int refXConsequent = refXLogic + 90;
@@ -15,10 +15,10 @@ public class InputView {
     private static int noFluent = 0;
     private static int noLogic = 0;
     private static int noConsequent = 0;
-    private Image sourceImage;
+    private final Image sourceImage;
 
-    private Block block;
-    private DragAndDrop dragAndDrop;
+    private final Block block;
+    private final DragAndDrop dragAndDrop;
 
     public InputView(Group group, final Skin skin, final Block block) {
 
@@ -87,9 +87,5 @@ public class InputView {
                 noLogic--;
             }
         }
-    }
-
-    public boolean isFluent() {
-        return block != null ? block.getType() == Type.FLUENT : false;
     }
 }

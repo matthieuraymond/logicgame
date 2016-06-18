@@ -5,9 +5,9 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
-public class BackgroundLayer extends Layer {
+class BackgroundLayer extends Layer {
 
-    Label text;
+    private final Label text;
 
     public BackgroundLayer() {
         // Bkg

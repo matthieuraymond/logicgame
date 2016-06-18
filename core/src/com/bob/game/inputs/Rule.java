@@ -14,7 +14,7 @@ public class Rule {
     private Image light;
     private Image lock;
     private Image arrow;
-    private RuleCell[] cells;
+    private final RuleCell[] cells;
     private Drawable greenLight;
     private Drawable redLight;
 

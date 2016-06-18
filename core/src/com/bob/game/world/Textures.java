@@ -11,8 +11,8 @@ public enum Textures {
     BOB_WET ("resources/bob/bob_wet", 1/24f),
     BOB_WON ("resources/bob/bob_won", 1/24f);
 
-    private TextureAtlas texture;
-    private float speed;
+    private final TextureAtlas texture;
+    private final float speed;
 
     Textures(String path, float speed) {
         this.texture = new TextureAtlas(Gdx.files.internal(path + ".atlas"));

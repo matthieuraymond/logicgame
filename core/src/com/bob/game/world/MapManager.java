@@ -2,7 +2,6 @@ package com.bob.game.world;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 
@@ -11,10 +10,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class MapManager {
-    private TiledMap map;
+    private final TiledMap map;
     private IsometricTiledMapRenderer renderer;
     private OrthographicCamera camera;
-    private TiledMapTileLayer floorLayer;
+    private final TiledMapTileLayer floorLayer;
     private Iterator waterIterator;
     private float elapsedSinceAnimation;
 
@@ -126,10 +125,7 @@ public class MapManager {
         TiledMapTile goldTile = tileSet.getTile(6);
         TiledMapTile questionTile = tileSet.getTile(7);
 
-        Iterator<TiledMapTile> it = tileSet.iterator();
-
-        while(it.hasNext()) {
-            TiledMapTile t = it.next();
+        for (TiledMapTile t : tileSet) {
             if (t.getProperties().get("type").equals("gold")) {
                 goldTile = t;
             }

@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.bob.game.Layer;
 
-public class RuleCell {
+class RuleCell {
 
     private Image containImage;
     private Block block;

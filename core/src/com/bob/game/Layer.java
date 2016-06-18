@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public abstract class Layer {
     protected final Group group = new Group();
-    protected boolean initialVisibility = true;
+    boolean initialVisibility = true;
 
     public void setInitialVisibility() {
         setVisibility(initialVisibility);

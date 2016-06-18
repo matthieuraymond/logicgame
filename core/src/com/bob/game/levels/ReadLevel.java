@@ -15,7 +15,7 @@ public enum ReadLevel implements LevelFactory {
             "Hi, my name is Bob!\n\nI am quite a simple robot and I am lost. Can you help me to reach the golden platform?\n\nTo do so, write rules I can follow in the box on the right!\nThanks for your help!"
     );
 
-    private Level level;
+    private final Level level;
 
     ReadLevel(String map, int x, int y, Block[][] rules, String text) {
 

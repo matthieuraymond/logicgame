@@ -15,11 +15,11 @@ import java.util.List;
 
 public class InputsLayer extends Layer {
 
-    private List<DragAndDrop.Target> targets;
-    private List<InputView> inputViews;
+    private final List<DragAndDrop.Target> targets;
+    private final List<InputView> inputViews;
     private Skin skin;
 
-    public InputsLayer(){
+    private InputsLayer(){
         targets = new ArrayList<>();
         inputViews = new ArrayList<>();
     }

@@ -38,7 +38,7 @@ public class Entity {
         batch.draw(currentFrame, drawingX, drawingY);
     }
 
-    public void updatePosition(float deltaTime) {
+    private void updatePosition(float deltaTime) {
         movedX += currentState.getDx() * deltaTime;
         movedY += currentState.getDy() * deltaTime;
         roundTime += deltaTime;
