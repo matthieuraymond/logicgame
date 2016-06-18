@@ -20,7 +20,6 @@ public class TypeTest {
     public void testIsInvalidOnJustOne() throws Exception {
         testEverywhereOnType(Type.FLUENT);
         testEverywhereOnType(Type.AND);
-        testEverywhereOnType(Type.CONSEQUENT);
         testEverywhereOnType(Type.IMPLY);
         testEverywhereOnType(Type.NOT);
     }
@@ -58,7 +57,6 @@ public class TypeTest {
                 {Type.FLUENT},
                 {Type.NOT},
                 {Type.AND},
-                {Type.CONSEQUENT},
                 {Type.CONSEQUENT, Type.IMPLY, Type.FLUENT},
                 {Type.FLUENT, Type.CONSEQUENT},
                 {Type.FLUENT, Type.FLUENT, Type.IMPLY, Type.CONSEQUENT},

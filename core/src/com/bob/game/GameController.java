@@ -1,11 +1,14 @@
 package com.bob.game;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.bob.game.inputs.Block;
 import com.bob.game.inputs.InputsLayer;
 import com.bob.game.inputs.InputsManager;
 import com.bob.game.levels.Level;
 import com.bob.game.world.WorldController;
+
+import java.util.LinkedList;
 
 public class GameController {
 
@@ -79,11 +82,19 @@ public class GameController {
     }
 
     public void submit() {
-        startAnim(inputsManager.getRulesString());
+        if (inputsManager.onlyConsequentUsed()) {
+            startMockAnim(inputsManager.getBlockStack());
+        } else {
+            startLPSAnim(inputsManager.getRulesString());
+        }
     }
 
-    public void startAnim(String LPS) {
-        worldController.startAnimation(currentLevel, LPS);
+    private void startMockAnim(LinkedList<Block> blockStack) {
+        worldController.startMockAnimation(blockStack);
+    }
+
+    public void startLPSAnim(String LPS) {
+        worldController.startLPSAnimation(currentLevel, LPS);
     }
 
     public void updateSpeed(float value) {

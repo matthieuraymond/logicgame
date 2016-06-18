@@ -117,4 +117,8 @@ public class RuleCell {
             dragAndDrop.addTarget(t);
         }
     }
+
+    public Block getBlock() {
+        return block;
+    }
 }

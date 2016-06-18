@@ -1,15 +1,10 @@
 package com.bob.test.game;
 
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.bob.game.GameController;
 import com.bob.game.inputs.Block;
 import com.bob.game.inputs.InputsManager;
-import com.bob.game.inputs.Rule;
 import com.bob.game.levels.Level;
 import com.bob.game.levels.WriteLevel;
-import com.bob.game.world.LPSHandler;
 import com.bob.game.world.WorldController;
-import com.bob.main.Main;
 import com.bob.test.GdxTestRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -58,7 +53,7 @@ public class WorldControllerTest {
         InputsManager im = new InputsManager();
         im.resetRules(rules);
 
-        wc.startAnimation(lvl, im.getRulesString());
+        wc.startLPSAnimation(lvl, im.getRulesString());
         for (int i=0; i < 100; i++) {
             wc.updateBob(0.6f);
             if (wc.isLevelWon()) break;

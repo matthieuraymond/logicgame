@@ -2,6 +2,8 @@ package com.bob.game.inputs;
 
 import com.bob.game.levels.Level;
 
+import java.util.LinkedList;
+
 public class InputsManager {
 
     private Rule[] rules;
@@ -102,5 +104,24 @@ public class InputsManager {
         if (ruleIndex >= 0 && ruleIndex < rules.length) {
             rules[ruleIndex].lightOn();
         }
+    }
+
+    public boolean onlyConsequentUsed() {
+        boolean res = true;
+        for(Rule r: rules) {
+            res &= r.onlyConsequentUsed();
+        }
+
+        return res;
+    }
+
+    public LinkedList<Block> getBlockStack() {
+        LinkedList<Block> blockStack = new LinkedList<>();
+
+        for (Rule r: rules) {
+            blockStack.addAll(r.getBlockStack());
+        }
+
+        return blockStack;
     }
 }

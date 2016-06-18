@@ -48,6 +48,9 @@ public class LPSHandler {
         setLimit();
     }
 
+    public LPSHandler() {
+    }
+
     // TODO - optimize LPS usage
     private void resetLPS() {
         CycleHandler.reset();
@@ -87,7 +90,7 @@ public class LPSHandler {
         CycleHandler.getInstance().updateFireAndSolve();
     }
 
-    public RuleSet getEvents() {
+    private RuleSet getEvents() {
         return CycleHandler.getInstance().getEvents();
     }
 

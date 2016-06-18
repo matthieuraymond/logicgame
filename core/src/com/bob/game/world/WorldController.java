@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.bob.game.inputs.Block;
 import com.bob.game.levels.Level;
 import com.bob.lps.model.Goal;
 import com.bob.lps.model.GoalsList;
@@ -76,8 +77,13 @@ public class WorldController {
         isAnimPlaying = false;
     }
 
-    public void startAnimation(Level level, String rules) {
+    public void startLPSAnimation(Level level, String rules) {
         lpsHandler = new LPSHandler(mapManager.getLPSDescription(), rules, level.getX(), level.getY());
+        isAnimPlaying = true;
+    }
+
+    public void startMockAnimation(LinkedList<Block> blockStack) {
+        lpsHandler = new MockLPSHandler(blockStack);
         isAnimPlaying = true;
     }
 

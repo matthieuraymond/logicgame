@@ -37,7 +37,7 @@ public enum Type {
         }
 
         if (last != null) {
-            return implied && last == CONSEQUENT && oneFluent;
+            return (implied && last == CONSEQUENT && oneFluent) || (!implied && !oneFluent && last == CONSEQUENT);
         } else {
             return true;
         }
