@@ -41,7 +41,7 @@ public class InputsManagerTest {
                 {Block.WHITE, Block.AND, Block.RED, Block.IMPLY, Block.RIGHT}
         });
 
-        assertEquals("isIn(X,Y) & wasIn(U,V) & white(X,Y) -> goRight().isIn(X,Y) & wasIn(U,V) & white(X,Y)&red(X,Y) -> goRight().", im.getRulesString());
+        assertEquals("isIn(X,Y) & wasIn(U,V) & white(X,Y) -> goRight(0).isIn(X,Y) & wasIn(U,V) & white(X,Y)&red(X,Y) -> goRight(1).", im.getRulesString());
     }
 
 

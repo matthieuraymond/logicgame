@@ -45,6 +45,7 @@ public class WorldController {
     public void setupWorld(Level level) {
         mapManager = new MapManager(level.getMap());
         resetBob(level.getX(), level.getY());
+        currentRuleIndex = -1;
     }
 
     public void initRender() {

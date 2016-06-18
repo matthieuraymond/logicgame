@@ -48,8 +48,8 @@ public class ControlsLayer extends Layer {
         // ----------
 
         // SLIDER
-        skin.add("slider_bkg", new Texture("buttons/slider_bkg.png"));
-        skin.add("slider_knob", new Texture("buttons/slider_knob.png"));
+        skin.add("slider_bkg", new Texture("resources/buttons/slider_bkg.png"));
+        skin.add("slider_knob", new Texture("resources/buttons/slider_knob.png"));
         Slider.SliderStyle sliderStyle = new Slider.SliderStyle();
         sliderStyle.knob = skin.getDrawable("slider_knob");
         sliderStyle.background = skin.getDrawable("slider_bkg");

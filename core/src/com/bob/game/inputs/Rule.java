@@ -33,12 +33,12 @@ public class Rule {
         light.setBounds(1450, startingY, light.getWidth(), light.getHeight());
         layer.addActor(light);
 
-        lock = new Image(new Texture("blocks/locked.png"));
+        lock = new Image(new Texture("resources/blocks/locked.png"));
         lock.setBounds(1400, startingY - 12, 500, 70);
         lock.setVisible(false);
         layer.addActor(lock);
 
-        arrow = new Image(new Texture("lights/arrow.png"));
+        arrow = new Image(new Texture("resources/lights/arrow.png"));
         arrow.setBounds(1380, startingY - 2, 60, 45);
         arrow.setVisible(false);
         layer.addActor(arrow);

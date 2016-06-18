@@ -12,7 +12,7 @@ public class WinningLayer extends Layer {
     public WinningLayer(Skin skin, final GameController controller) {
         initialVisibility = false;
 
-        group.addActor(new Image(new Texture("screens/winning.png")));
+        group.addActor(new Image(new Texture("resources/screens/winning.png")));
 
         TextButton nextButton = new TextButton("NEXT LEVEL", skin, "big_grey_button");
         nextButton.setBounds(760, 380, 400, 100);

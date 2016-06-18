@@ -1,6 +1,5 @@
 package com.bob.test.game;
 
-import com.badlogic.gdx.physics.box2d.World;
 import com.bob.game.world.Config;
 import com.bob.game.world.Entity;
 import com.bob.game.world.EntityState;

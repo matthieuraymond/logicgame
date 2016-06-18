@@ -19,7 +19,7 @@ public class Tutorial extends Layer {
         initialVisibility = false;
 
         for (int i = 0; i < images.length; i++) {
-            images[i] = new Image(new Texture("screens/tut" + Integer.toString(1 + i) + ".png"));
+            images[i] = new Image(new Texture("resources/screens/tut" + Integer.toString(1 + i) + ".png"));
             group.addActor(images[i]);
             images[i].setVisible(false);
         }
