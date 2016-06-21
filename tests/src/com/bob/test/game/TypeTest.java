@@ -38,6 +38,7 @@ public class TypeTest {
     public void ruleIsValid() throws Exception {
         Type[][] testCases = {
                 {},
+                {Type.CONSEQUENT, Type.CONSEQUENT},
                 {Type.FLUENT, Type.IMPLY, Type.CONSEQUENT},
                 {Type.NOT, Type.FLUENT, Type.IMPLY, Type.CONSEQUENT},
                 {Type.FLUENT, Type.AND, Type.FLUENT, Type.IMPLY, Type.CONSEQUENT},

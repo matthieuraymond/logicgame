@@ -73,6 +73,7 @@ public class WorldController {
 
     public void resetBob(float x, float y) {
         nbWon = 0;
+        currentRuleIndex = -1;
         bob.setPosition(x, y);
         isAnimPlaying = false;
     }
