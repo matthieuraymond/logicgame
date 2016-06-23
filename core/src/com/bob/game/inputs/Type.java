@@ -29,7 +29,7 @@ public enum Type {
                         if (type != CONSEQUENT) return false;
                         break;
                     case CONSEQUENT:
-                        return true;
+                        if (type != CONSEQUENT) return false;
                 }
             }
 

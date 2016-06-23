@@ -39,7 +39,7 @@ public class MapManagerTest {
         MapManager m = new MapManager(lvl.getMap());
 
         assertEquals(
-                "white(2,11).white(3,11).white(4,11).white(5,11).white(6,11).white(7,11).white(8,11).white(9,11).white(10,11).white(11,11).white(12,11).white(13,11).white(14,11).white(15,11).gold(16,11).",
+                "white(9,11).white(10,11).white(11,11).white(12,11).gold(13,11).",
                 m.getLPSDescription()
         );
     }

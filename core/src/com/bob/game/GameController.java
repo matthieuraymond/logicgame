@@ -82,6 +82,9 @@ public class GameController {
     }
 
     public void submit() {
+        //Reset Bob?
+        worldController.resetBob(currentLevel.getX(), currentLevel.getY());
+
         if (inputsManager.onlyConsequentUsed()) {
             startMockAnim(inputsManager.getBlockStack());
         } else {
