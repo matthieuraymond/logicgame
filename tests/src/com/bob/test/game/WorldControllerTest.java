@@ -21,7 +21,7 @@ public class WorldControllerTest {
                 WriteLevel.level2.getLevel(),
                 new Block[][] {{Block.WHITE, Block.IMPLY, Block.RIGHT}}
         );
-        /*
+
         testLevel(
                 WriteLevel.level3.getLevel(),
                 new Block[][] {{Block.WHITE, Block.IMPLY, Block.RIGHT},{Block.RED, Block.IMPLY, Block.DOWN}}
@@ -41,7 +41,7 @@ public class WorldControllerTest {
                         {Block.GREEN_PREV, Block.IMPLY, Block.UP},
                         {Block.GREEN, Block.IMPLY, Block.UP}
                 }
-        );*/
+        );
 
     }
 
@@ -56,7 +56,7 @@ public class WorldControllerTest {
 
         wc.startLPSAnimation(lvl, im.getRulesString());
         for (int i=0; i < 100; i++) {
-            wc.updateBob(1.1f);
+            wc.updateBob(1f);
             if (wc.isLevelWon()) break;
         }
 
