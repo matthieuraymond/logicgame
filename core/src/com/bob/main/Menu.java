@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.bob.game.levels.Level;
+import com.bob.game.levels.MacroLevel;
 import com.bob.game.levels.ReadLevel;
 import com.bob.game.levels.WriteLevel;
 
@@ -88,16 +89,22 @@ public class Menu {
 
         modeGroup.addActor(levelsBkg);
 
-        String[] menu = {"WRITER", "READER"};
+        String[] menu = {"WRITER", "READER", "MACRO"};
         Map<String, Button> buttons = addButtons(modeGroup, skin, menu);
 
         buttons.get("WRITER").addListener(new ClickListener() {
-            public void clicked(InputEvent ie, float x, float y) {launchLevel(WriteLevel.level1.getLevel());
+            public void clicked(InputEvent ie, float x, float y) {launchLevel(WriteLevel.values()[0].getLevel());
             }
         });
 
         buttons.get("READER").addListener(new ClickListener() {
-            public void clicked(InputEvent ie, float x, float y) {launchLevel(ReadLevel.level1.getLevel());
+            public void clicked(InputEvent ie, float x, float y) {launchLevel(ReadLevel.values()[0].getLevel());
+            }
+        });
+
+        buttons.get("MACRO").addListener(new ClickListener() {
+            public void clicked(InputEvent ie, float x, float y) {
+                launchLevel(MacroLevel.values()[0].getLevel());
             }
         });
 

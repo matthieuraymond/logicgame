@@ -7,19 +7,36 @@ public abstract class Level {
     private final String map;
     private final int coordX;
     private final int coordY;
-    private final int noRules;
-    private final Block[] inputs;
-    private final Block[][] rules;
+    private int noRules = 8;
+    private Block[] inputs = new Block[]{};
+    private Block[][] rules = new Block[][]{};
     private final String text;
 
-    public Level(String map, int x, int y, int noRules, Block[] inputs, Block[][] rules, String text) {
+    public Level(String map, int x, int y, Block[][] rules, String text) {
         this.map = map;
         this.coordX = x;
         this.coordY = y;
-        this.noRules = noRules;
-        this.inputs = inputs;
         this.rules = rules;
         this.text = text;
+    }
+
+    public Level(String map, int x, int y, int noRules, Block[] inputs, String text) {
+        this.map = map;
+        this.coordX = x;
+        this.coordY = y;
+        this.inputs = inputs;
+        this.text = text;
+    }
+
+    public Level(String map, int x, int y, String text) {
+        this.map = map;
+        this.coordX = x;
+        this.coordY = y;
+        this.text = text;
+    }
+
+    public Boolean allowMacro() {
+        return false;
     }
 
     public Block[] getInputs() {

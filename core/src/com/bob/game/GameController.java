@@ -45,8 +45,13 @@ public class GameController {
         /*if (currentLevel == WriteLevel.values()[0].getLevel()) {
             layerGroup.setVisibility("tutorial", true);
         }*/
-        inputsManager.setupRules(currentLevel);
-        inputsManager.setupInputs(currentLevel);
+        if (currentLevel.allowMacro()) {
+            inputsManager.setupMacro();
+        } else {
+            inputsManager.deleteMacro();
+            inputsManager.setupRules(currentLevel);
+            inputsManager.setupInputs(currentLevel);
+        }
         worldController.setupWorld(currentLevel);
         worldController.initRender();
         ((BackgroundLayer)layerGroup.get("background")).changeText(currentLevel.getText());

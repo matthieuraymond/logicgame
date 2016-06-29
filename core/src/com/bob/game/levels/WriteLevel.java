@@ -41,7 +41,7 @@ public enum WriteLevel implements LevelFactory {
 
         final int ordinal = this.ordinal();
 
-        this.level = new Level(map, x, y, noRules, inputs, new Block[][]{}, text) {
+        this.level = new Level(map, x, y, noRules, inputs, text) {
 
             @Override
             public Level next() {

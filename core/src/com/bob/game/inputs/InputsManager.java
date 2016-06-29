@@ -124,4 +124,12 @@ public class InputsManager {
 
         return blockStack;
     }
+
+    public void setupMacro() {
+        layer.setUpMacroPanel();
+    }
+
+    public void deleteMacro() {
+        layer.deleteMacroPanel();
+    }
 }
