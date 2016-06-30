@@ -22,11 +22,16 @@ public class MacroManager {
     }
 
     public void initView(Skin skin) {
-        inputsManager.initRuleView(skin);
+        inputsManager.initRuleView(skin, 785, 1080 - 545);
     }
 
     public void displayMacroModal() {
+        inputsManager.setupRules(8, new Block[][]{});
         inputsManager.setupInputs(Block.values(), 725, 1080 - 215);
         modalLayer.setVisibility(true);
+    }
+
+    public void toggleLights() {
+        inputsManager.toggleLights();
     }
 }

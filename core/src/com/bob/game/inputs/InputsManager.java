@@ -1,7 +1,6 @@
 package com.bob.game.inputs;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.bob.game.levels.Level;
 
 import java.util.LinkedList;
 
@@ -18,9 +17,11 @@ public class InputsManager {
         }
     }
 
-    public void initRuleView(Skin skin) {
+    public void initRuleView(Skin skin, int startingX, int startingY) {
+
         for (Rule rule : rules) {
-            rule.initView(layer, skin);
+            rule.initView(layer, skin, startingX, startingY);
+            startingY -= 70;
         }
     }
 
@@ -86,12 +87,12 @@ public class InputsManager {
         }
     }
 
-    public void setupRules(Level level) {
+    public void setupRules(int noRules, Block[][] newRules) {
 
-        resetRules(level.getRules());
+        resetRules(newRules);
 
         for (int i = 0; i < rules.length; i++) {
-            if (i < level.getNoRules()) {
+            if (i < noRules) {
                 layer.initRuleTargets(rules[i]);
                 rules[i].displayImages();
                 rules[i].lock(false);

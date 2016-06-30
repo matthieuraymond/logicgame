@@ -10,7 +10,6 @@ import java.util.LinkedList;
 
 public class Rule {
 
-    private static int startingY = 1080 - 495;
     private Image light;
     private Image lock;
     private Image arrow;
@@ -25,10 +24,10 @@ public class Rule {
         }
     }
 
-    public void initView(InputsLayer layer, Skin skin){
+    public void initView(InputsLayer layer, Skin skin, int startingX, int startingY){
         //Cells
         for (int i=0; i < cells.length; ++i) {
-            cells[i].initView(layer, startingY, i, skin);
+            cells[i].initView(layer, startingX + i * 60, startingY, skin);
         }
 
         // Red light, green light
@@ -36,22 +35,20 @@ public class Rule {
         redLight = skin.getDrawable("red_light");
 
         light = new Image(greenLight);
-        light.setBounds(1450, startingY, light.getWidth(), light.getHeight());
+        light.setBounds(startingX - 25, startingY, light.getWidth(), light.getHeight());
         layer.addActor(light);
 
         // Locking pane
         lock = new Image(new Texture("resources/blocks/locked.png"));
-        lock.setBounds(1400, startingY - 12, 500, 70);
+        lock.setBounds(startingX - 75, startingY - 12, 500, 70);
         lock.setVisible(false);
         layer.addActor(lock);
 
         // Arrow for current rule
         arrow = new Image(new Texture("resources/lights/arrow.png"));
-        arrow.setBounds(1380, startingY - 2, 60, 45);
+        arrow.setBounds(startingX - 100, startingY - 2, 60, 45);
         arrow.setVisible(false);
         layer.addActor(arrow);
-
-        startingY -= 70;
     }
 
     public DragAndDrop.Target[] getTargets() {

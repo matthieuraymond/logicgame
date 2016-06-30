@@ -22,15 +22,16 @@ class RuleCell {
 
     }
 
-    public void initView(Layer layer, int startingY, int index, final Skin skin) {
+    public void initView(Layer layer, int startingX, int startingY, final Skin skin) {
 
         this.layer = (InputsLayer)layer;
         this.skin = skin;
 
         Image bkgImage = new Image(skin, "target");
 
-        targetX = 1475 + index * 60;
+        targetX = startingX;
         targetY = startingY;
+
         bkgImage.setBounds(targetX, targetY, 50, 50);
 
         layer.addActor(bkgImage);

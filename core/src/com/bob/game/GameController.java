@@ -37,7 +37,7 @@ public class GameController {
         worldController = new WorldController();
 
         inputsManager.setLayer((InputsLayer)layerGroup.get("inputs"));
-        inputsManager.initRuleView(skin);
+        inputsManager.initRuleView(skin, 1475, 1080 - 495);
 
         /* TODO improve this line */
         layerGroup.get("modal_inputs").addActor(new Image(new Texture("resources/screens/macro_modal.png")));
@@ -63,7 +63,7 @@ public class GameController {
             layerGroup.setVisibility("macro", false);
             layerGroup.setVisibility("inputs", true);
 
-            inputsManager.setupRules(currentLevel);
+            inputsManager.setupRules(currentLevel.getNoRules(), currentLevel.getRules());
             inputsManager.setupInputs(currentLevel.getInputs(), 1415, 1080 - 165);
         }
 
@@ -78,6 +78,8 @@ public class GameController {
 
         inputsManager.toggleLights();
         inputsManager.lightOnRule(worldController.getCurrentRuleIndex());
+
+        macroManager.toggleLights();
 
         worldController.render(deltaTime);
 
