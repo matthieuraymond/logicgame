@@ -1,10 +1,10 @@
 package com.bob.game;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.bob.game.inputs.Block;
-import com.bob.game.inputs.InputsLayer;
-import com.bob.game.inputs.InputsManager;
+import com.bob.game.inputs.*;
 import com.bob.game.levels.Level;
 import com.bob.game.world.WorldController;
 
@@ -17,6 +17,7 @@ public class GameController {
     private Level currentLevel;
 
     private final InputsManager inputsManager;
+    private final MacroManager macroManager;
     private final WorldController worldController;
 
     public GameController(Skin skin) {
@@ -26,14 +27,24 @@ public class GameController {
         layerGroup.add("background", new BackgroundLayer());
         layerGroup.add("controls", new ControlsLayer(skin, this));
         layerGroup.add("inputs", new InputsLayer(skin));
+        layerGroup.add("macro", new MacroLayer(skin));
+        layerGroup.add("modal_inputs", new InputsLayer(skin));
         layerGroup.add("winning", new WinningLayer(skin, this));
         layerGroup.add("tutorial", new Tutorial(skin));
 
         inputsManager = new InputsManager();
+        macroManager = new MacroManager();
         worldController = new WorldController();
 
         inputsManager.setLayer((InputsLayer)layerGroup.get("inputs"));
-        inputsManager.initRuleView();
+        inputsManager.initRuleView(skin);
+
+        /* TODO improve this line */
+        layerGroup.get("modal_inputs").addActor(new Image(new Texture("resources/screens/macro_modal.png")));
+
+        macroManager.setLayers((MacroLayer)layerGroup.get("macro"), (InputsLayer)layerGroup.get("modal_inputs"));
+        macroManager.initView(skin);
+        macroManager.addModalButton();
     }
 
     public void reset() {
@@ -46,12 +57,16 @@ public class GameController {
             layerGroup.setVisibility("tutorial", true);
         }*/
         if (currentLevel.allowMacro()) {
-            inputsManager.setupMacro();
+            layerGroup.setVisibility("macro", true);
+            layerGroup.setVisibility("inputs", false);
         } else {
-            inputsManager.deleteMacro();
+            layerGroup.setVisibility("macro", false);
+            layerGroup.setVisibility("inputs", true);
+
             inputsManager.setupRules(currentLevel);
-            inputsManager.setupInputs(currentLevel);
+            inputsManager.setupInputs(currentLevel.getInputs(), 1415, 1080 - 165);
         }
+
         worldController.setupWorld(currentLevel);
         worldController.initRender();
         ((BackgroundLayer)layerGroup.get("background")).changeText(currentLevel.getText());

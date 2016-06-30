@@ -1,5 +1,6 @@
 package com.bob.game.inputs;
 
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.bob.game.levels.Level;
 
 import java.util.LinkedList;
@@ -17,9 +18,9 @@ public class InputsManager {
         }
     }
 
-    public void initRuleView() {
+    public void initRuleView(Skin skin) {
         for (Rule rule : rules) {
-            rule.initView(layer);
+            rule.initView(layer, skin);
         }
     }
 
@@ -68,11 +69,14 @@ public class InputsManager {
         return res.toString();
     }
 
-    public void setupInputs(Level level) {
+    public void setupInputs(Block[] blocks, int refX, int refY) {
         resetInputs();
 
-        for (Block b: level.getInputs()) {
-            layer.createInput(b);
+        BlockCoordinatesGenerator bcg = new BlockCoordinatesGenerator(refX, refY);
+
+        for (Block b: blocks) {
+            int[] coord = bcg.getCoordinates(b.getType());
+            layer.createInput(b, coord[0], coord[1]);
         }
     }
 
@@ -123,13 +127,5 @@ public class InputsManager {
         }
 
         return blockStack;
-    }
-
-    public void setupMacro() {
-        layer.setUpMacroPanel();
-    }
-
-    public void deleteMacro() {
-        layer.deleteMacroPanel();
     }
 }

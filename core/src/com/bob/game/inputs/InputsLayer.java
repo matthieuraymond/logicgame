@@ -3,8 +3,9 @@ package com.bob.game.inputs;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.bob.game.Layer;
 
@@ -16,10 +17,10 @@ public class InputsLayer extends Layer {
 
     private final List<DragAndDrop.Target> targets;
     private final List<InputView> inputViews;
-    private Group macroGroup;
     private Skin skin;
 
     private InputsLayer(){
+        initialVisibility = false;
         targets = new ArrayList<>();
         inputViews = new ArrayList<>();
     }
@@ -62,8 +63,8 @@ public class InputsLayer extends Layer {
         Collections.addAll(targets, rules_targets);
     }
 
-    public void createInput(Block block) {
-        InputView inputView = new InputView(group, skin, block);
+    public void createInput(Block block, int refX, int refY) {
+        InputView inputView = new InputView(group, skin, block, refX, refY);
 
         for (DragAndDrop.Target t: targets) {
             inputView.addTarget(t);
@@ -81,29 +82,5 @@ public class InputsLayer extends Layer {
 
     public Skin getSkin() {
         return skin;
-    }
-
-    public void setUpMacroPanel() {
-        macroGroup = new Group();
-        addActor(macroGroup);
-
-        Image topCache = new Image(new Texture("resources/screens/macro_top.png"));
-        topCache.setBounds(1400, 720, 500, 310);
-        macroGroup.addActor(topCache);
-
-        Image botCache = new Image(new Texture("resources/screens/macro_bot.png"));
-        botCache.setBounds(1400, 80, 500, 615);
-        macroGroup.addActor(botCache);
-
-        TextButton button = new TextButton("+", skin, "green_button");
-        button.setBounds(1840, 970, 50, 50);
-
-        macroGroup.addActor(button);
-    }
-
-    public void deleteMacroPanel() {
-        if (macroGroup != null) {
-            macroGroup.clear();
-        }
     }
 }

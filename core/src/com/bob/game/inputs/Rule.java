@@ -25,9 +25,7 @@ public class Rule {
         }
     }
 
-    public void initView(InputsLayer layer){
-        Skin skin = layer.getSkin();
-
+    public void initView(InputsLayer layer, Skin skin){
         //Cells
         for (int i=0; i < cells.length; ++i) {
             cells[i].initView(layer, startingY, i, skin);

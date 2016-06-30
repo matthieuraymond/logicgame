@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 class WinningLayer extends Layer {
 
-    public WinningLayer(Skin skin, final GameController controller) {
+    public WinningLayer(final Skin skin, final GameController controller) {
         initialVisibility = false;
 
         group.addActor(new Image(new Texture("resources/screens/winning.png")));

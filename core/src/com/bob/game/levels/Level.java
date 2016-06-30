@@ -24,6 +24,7 @@ public abstract class Level {
         this.map = map;
         this.coordX = x;
         this.coordY = y;
+        this.noRules = noRules;
         this.inputs = inputs;
         this.text = text;
     }

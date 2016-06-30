@@ -73,9 +73,9 @@ public class Main extends ApplicationAdapter {
 		if (gameState == GameState.MENU) {
 			if (!menu.isVisible()) {
 				gameController.setLevel(menu.getLevelSelected());
+				gameController.show();
 				gameController.startNewLevel();
 				gameState = GameState.PLAYING;
-				gameController.show();
 			}
 		}
 
