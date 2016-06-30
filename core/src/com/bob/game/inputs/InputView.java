@@ -10,12 +10,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 class InputView {
     private final Image sourceImage;
 
-    private final Block block;
     private final DragAndDrop dragAndDrop;
 
     public InputView(Group group, final Skin skin, final Block block, int x, int y) {
-
-        this.block = block;
 
         sourceImage = new Image(skin, block.getImageName());
         final Image dragImage = new Image(skin, block.getImageName());
