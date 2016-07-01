@@ -16,13 +16,13 @@ import java.util.List;
 public class InputsLayer extends Layer {
 
     private final List<DragAndDrop.Target> targets;
-    private final List<InputView> inputViews;
-    private Skin skin;
+    private final List<Draggable> draggables;
+    protected Skin skin;
 
-    private InputsLayer(){
+    public InputsLayer(){
         initialVisibility = false;
         targets = new ArrayList<>();
-        inputViews = new ArrayList<>();
+        draggables = new ArrayList<>();
     }
 
     public InputsLayer(Skin skin) {
@@ -35,6 +35,7 @@ public class InputsLayer extends Layer {
         for (Block b: Block.values()) {
             skin.add(b.getImageName(), new Texture("resources/blocks/"+ b.getImageName() +".png"));
         }
+        skin.add("macro_block", new Texture("resources/blocks/macro.png"));
 
         // Rules
         skin.add("red_light", new Texture("resources/lights/red.png"));
@@ -64,20 +65,20 @@ public class InputsLayer extends Layer {
     }
 
     public void createInput(Block block, int refX, int refY) {
-        InputView inputView = new InputView(group, skin, block, refX, refY);
+        Draggable draggable = new Draggable(group, skin, refX, refY, block, block.getImageName(), block.getTooltip());
 
         for (DragAndDrop.Target t: targets) {
-            inputView.addTarget(t);
+            draggable.addTarget(t);
         }
 
-        inputViews.add(inputView);
+        draggables.add(draggable);
     }
 
     public void clearInputs() {
-        for (InputView i: inputViews) {
+        for (Draggable i: draggables) {
             i.clear();
         }
-        inputViews.clear();
+        draggables.clear();
     }
 
     public Skin getSkin() {

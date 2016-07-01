@@ -1,8 +1,6 @@
 package com.bob.game;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.bob.game.inputs.*;
 import com.bob.game.levels.Level;
@@ -28,7 +26,7 @@ public class GameController {
         layerGroup.add("controls", new ControlsLayer(skin, this));
         layerGroup.add("inputs", new InputsLayer(skin));
         layerGroup.add("macro", new MacroLayer(skin));
-        layerGroup.add("modal_inputs", new InputsLayer(skin));
+        layerGroup.add("modal_inputs", new ModalLayer(skin));
         layerGroup.add("winning", new WinningLayer(skin, this));
         layerGroup.add("tutorial", new Tutorial(skin));
 
@@ -39,12 +37,9 @@ public class GameController {
         inputsManager.setLayer((InputsLayer)layerGroup.get("inputs"));
         inputsManager.initRuleView(skin, 1475, 1080 - 495);
 
-        /* TODO improve this line */
-        layerGroup.get("modal_inputs").addActor(new Image(new Texture("resources/screens/macro_modal.png")));
-
-        macroManager.setLayers((MacroLayer)layerGroup.get("macro"), (InputsLayer)layerGroup.get("modal_inputs"));
+        macroManager.setLayers((MacroLayer)layerGroup.get("macro"), (ModalLayer)layerGroup.get("modal_inputs"));
         macroManager.initView(skin);
-        macroManager.addModalButton();
+        macroManager.addButtons(skin);
     }
 
     public void reset() {
