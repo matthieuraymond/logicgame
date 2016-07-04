@@ -12,12 +12,14 @@ import com.bob.game.Layer;
 
 public class MacroLayer extends Layer {
     private final Skin skin;
-    private String[] macros;
+    private Image[] images;
+    private Macro[] macros;
     private DragAndDrop.Target[] targets;
 
     public MacroLayer(Skin skin) {
         this.skin = skin;
         this.targets = new DragAndDrop.Target[8];
+        this.images = new Image[8];
 
         Image topCache = new Image(new Texture("resources/screens/macro_top.png"));
         topCache.setBounds(1400, 720, 500, 310);
@@ -27,14 +29,14 @@ public class MacroLayer extends Layer {
         botCache.setBounds(1400, 80, 500, 615);
         addActor(botCache);
 
-        Texture macroTarget = new Texture("resources/blocks/target.png");
+        Texture macroTarget = new Texture("resources/blocks/macro_target.png");
 
         for (int i = 0; i < 8; ++i) {
             Image bkgImage = new Image(macroTarget);
 
             final int index = i;
 
-            bkgImage.setBounds(1535, 585 - i * 70, 290, 50);
+            bkgImage.setBounds(1567, 585 - i * 70, 230, 50);
 
             addActor(bkgImage);
 
@@ -49,7 +51,7 @@ public class MacroLayer extends Layer {
                 }
 
                 public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
-                    setMacro(index , (String)payload.getObject()); // TODO define object more precisely
+                    setMacro(index , (Macro)payload.getObject()); // TODO define object more precisely
                 }
             };
 
@@ -74,11 +76,30 @@ public class MacroLayer extends Layer {
     }
 
 
-    private void setMacro(int index, String macro) {
+    private void setMacro(int index, Macro macro) {
         macros[index] = macro;
     }
 
-    public void setMacros(String[] macros) {
+    /* TO REFACTOR SEE RULECELL FOR MERGE*/
+    /*
+    public void setImage(boolean isDragable) {
+
+            containImage = new Image(skin, block.getImageName());
+            containImage.setBounds(targetX, targetY, 50, 50);
+            layer.addActor(containImage);
+
+            if (isDragable) {
+                setMoveAbility();
+            }
+        }
+    }*/
+
+    /* ------ */
+    public void setMacros(Macro[] macros) {
         this.macros = macros;
+    }
+
+    public DragAndDrop.Target[] getTargets() {
+        return targets;
     }
 }

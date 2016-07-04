@@ -2,7 +2,7 @@ package com.bob.game.levels;
 
 public enum MacroLevel implements LevelFactory {
     level1("resources/maps/tmx/macro.tmx",
-            11,11,
+            6,11,
             "Hi, my name is Bob!\n\nI am quite a simple robot and I am lost. Can you help me to reach the golden platform?\n\nTo do so, write rules I can follow in the box on the right!\nThanks for your help!"
     );
 

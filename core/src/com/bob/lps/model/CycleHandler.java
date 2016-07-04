@@ -81,9 +81,9 @@ public final class CycleHandler {
 	 * Added by Matthieu on 05/05/16
 	 */
 	public void updateFireAndSolve() {
-		myState.handlerMethod(this, "UPDATE", events);
 		myState.handlerMethod(this, "FIRING", events);
 		myState.handlerMethod(this, "SOLVING", events);
+		myState.handlerMethod(this, "UPDATE", events);
 	}
 
 

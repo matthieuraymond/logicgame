@@ -1,19 +1,21 @@
 package com.bob.game.inputs;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 
 public class MacroManager {
     private MacroLayer macroLayer;
     private ModalLayer modalLayer;
     private InputsManager inputsManager;
-    private String[] macros;
+    private Macro[] macros;
 
     public MacroManager() {
         inputsManager = new InputsManager();
-        macros = new String[8];
+        macros = new Macro[8];
     }
 
     public void setLayers(MacroLayer macroLayer, ModalLayer modalLayer) {
@@ -23,7 +25,7 @@ public class MacroManager {
         this.macroLayer.setMacros(macros);
     }
 
-    public void addButtons(Skin skin) {
+    public void addButtons(final Skin skin) {
         macroLayer.addModalButton(this);
 
         // Submit modal button
@@ -33,18 +35,37 @@ public class MacroManager {
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                submitModal();
+                submitModal(skin);
             };
         });
 
         modalLayer.addActor(button);
     }
 
-    private void submitModal() {
+    private void submitModal(Skin skin) {
         modalLayer.setVisibility(false);
 
-        String macroName = modalLayer.getText();
+        String title = modalLayer.getText();
+        Macro macro = new Macro(title, inputsManager.getRules());
 
+        Image dragImage = new Image(skin, "macro_block");
+        dragImage.setBounds(1415, 915, 230, 50);
+
+        final Draggable d = new Draggable(macroLayer, skin, dragImage, macro);
+
+        dragImage.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if( getTapCount() == 2) {
+                    Macro m = (Macro)d.getPayLoad();
+                    displayMacroModal(m.getRules(), m.getTitle());
+                }
+            }
+        });
+
+        for (DragAndDrop.Target t : macroLayer.getTargets()) {
+            d.addTarget(t);
+        }
     }
 
     public void initView(Skin skin) {

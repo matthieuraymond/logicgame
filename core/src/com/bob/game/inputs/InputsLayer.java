@@ -3,6 +3,7 @@ package com.bob.game.inputs;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip;
@@ -65,7 +66,13 @@ public class InputsLayer extends Layer {
     }
 
     public void createInput(Block block, int refX, int refY) {
-        Draggable draggable = new Draggable(group, skin, refX, refY, block, block.getImageName(), block.getTooltip());
+
+        Image dragImage = new Image(skin, block.getImageName());
+        Image draggingImage = new Image(skin, block.getImageName());
+        dragImage.setBounds(refX, refY, 50, 50);
+
+        Draggable draggable = new Draggable(this, skin, dragImage, draggingImage, block);
+        draggable.setTooltip(skin, block.getTooltip());
 
         for (DragAndDrop.Target t: targets) {
             draggable.addTarget(t);

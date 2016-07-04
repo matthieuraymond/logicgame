@@ -3,6 +3,7 @@ package com.bob.game.inputs;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class InputsManager {
 
@@ -128,5 +129,16 @@ public class InputsManager {
         }
 
         return blockStack;
+    }
+
+    public Block[][] getRules() {
+        Block[][] res = new Block[rules.length][];
+
+        for (int i = 0; i < res.length; i++) {
+            List<Block> blocks = rules[i].getBlockStack();
+            res[i] = blocks.toArray(new Block[blocks.size()]);
+        }
+
+        return res;
     }
 }
