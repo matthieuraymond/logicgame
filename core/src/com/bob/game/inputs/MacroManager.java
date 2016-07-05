@@ -13,18 +13,15 @@ public class MacroManager {
     private MacroLayer macroLayer;
     private ModalLayer modalLayer;
     private InputsManager inputsManager;
-    private Macro[] macros;
 
     public MacroManager() {
         inputsManager = new InputsManager();
-        macros = new Macro[8];
     }
 
     public void setLayers(MacroLayer macroLayer, ModalLayer modalLayer) {
         this.macroLayer = macroLayer;
         this.modalLayer = modalLayer;
         inputsManager.setLayer(modalLayer);
-        this.macroLayer.setMacros(macros);
     }
 
     public void addButtons(final Skin skin) {

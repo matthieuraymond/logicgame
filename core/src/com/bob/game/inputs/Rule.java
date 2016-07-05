@@ -99,7 +99,7 @@ public class Rule {
 
     public void setRuleBlocks(Block[] newRule) {
         for (int i = 0; i < newRule.length && i < cells.length; ++i) {
-            cells[i].setObject(newRule[i]);
+            cells[i].setPayload(newRule[i]);
         }
     }
 

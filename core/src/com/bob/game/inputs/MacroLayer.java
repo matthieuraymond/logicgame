@@ -11,16 +11,15 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.bob.game.Layer;
 
-public class MacroLayer extends Layer {
+import java.util.ArrayList;
+
+public class MacroLayer extends InputsLayer {
     private final Skin skin;
-    private Image[] images;
-    private Macro[] macros;
-    private DragAndDrop.Target[] targets;
+    private MacroCell[] macros;
 
     public MacroLayer(Skin skin) {
         this.skin = skin;
-        this.targets = new DragAndDrop.Target[8];
-        this.images = new Image[8];
+        this.macros = new MacroCell[8];
 
         Image topCache = new Image(new Texture("resources/screens/macro_top.png"));
         topCache.setBounds(1400, 720, 500, 310);
@@ -30,41 +29,21 @@ public class MacroLayer extends Layer {
         botCache.setBounds(1400, 80, 500, 615);
         addActor(botCache);
 
-        Texture macroTarget = new Texture("resources/blocks/macro_target.png");
-
         Label.LabelStyle macroStyle = new Label.LabelStyle();
         macroStyle.background = new Image(new Texture("resources/blocks/macro.png")).getDrawable();
         macroStyle.font = skin.getFont("impact_small");
 
         skin.add("macro_style", macroStyle);
 
+        Texture macroTarget = new Texture("resources/blocks/macro_target.png");
+
         for (int i = 0; i < 8; ++i) {
             Image bkgImage = new Image(macroTarget);
-
-            final int index = i;
-
             bkgImage.setBounds(1567, 585 - i * 70, 230, 50);
 
-            addActor(bkgImage);
+            macros[i] = new MacroCell(this, 1567, 585 - i * 70, bkgImage, skin);
 
-            DragAndDrop.Target target = new DragAndDrop.Target(bkgImage) {
-                public boolean drag(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
-                    getActor().setColor(Color.GREEN);
-                    return true;
-                }
-
-                public void reset(DragAndDrop.Source source, DragAndDrop.Payload payload) {
-                    getActor().setColor(Color.CLEAR);
-                }
-
-                public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
-                    setMacro(index , (Macro)payload.getObject()); // TODO define object more precisely
-                }
-            };
-
-            target.getActor().setColor(Color.CLEAR);
-
-            targets[i] = target;
+            targets.add(macros[i].getTarget());
         }
     }
 
@@ -80,33 +59,5 @@ public class MacroLayer extends Layer {
         });
 
         addActor(button);
-    }
-
-
-    private void setMacro(int index, Macro macro) {
-        macros[index] = macro;
-    }
-
-    /* TO REFACTOR SEE RULECELL FOR MERGE*/
-    /*
-    public void setImage(boolean isDragable) {
-
-            containImage = new Image(skin, object.getImageName());
-            containImage.setBounds(targetX, targetY, 50, 50);
-            layer.addActor(containImage);
-
-            if (isDragable) {
-                setMoveAbility();
-            }
-        }
-    }*/
-
-    /* ------ */
-    public void setMacros(Macro[] macros) {
-        this.macros = macros;
-    }
-
-    public DragAndDrop.Target[] getTargets() {
-        return targets;
     }
 }

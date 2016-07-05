@@ -16,7 +16,7 @@ import java.util.List;
 
 public class InputsLayer extends Layer {
 
-    private final List<DragAndDrop.Target> targets;
+    protected final List<DragAndDrop.Target> targets;
     private final List<Draggable> draggables;
     protected Skin skin;
 

@@ -9,18 +9,19 @@ class RuleCell extends Target{
     }
 
     public String getLPSString() {
-        return object != null ? ((Block)object).getLPSString() : "";
+        return payload != null ? ((Block) payload).getLPSString() : "";
     }
 
     public Type getType() {
-        return object != null ? ((Block)object).getType() : null;
+        return payload != null ? ((Block) payload).getType() : null;
     }
 
+    @Override
     public void setImage(boolean isDragable) {
-        if (object != null) {
-            containImage = new Image(skin, ((Block)object).getImageName());
-            containImage.setBounds(targetX, targetY, 50, 50);
-            layer.addActor(containImage);
+        if (payload != null) {
+            actor = new Image(skin, ((Block) payload).getImageName());
+            actor.setBounds(targetX, targetY, 50, 50);
+            layer.addActor(actor);
 
             if (isDragable) {
                 setMoveAbility();
@@ -29,6 +30,6 @@ class RuleCell extends Target{
     }
 
     public Block getBlock() {
-        return ((Block)object);
+        return ((Block) payload);
     }
 }

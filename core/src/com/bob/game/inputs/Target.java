@@ -3,7 +3,6 @@ package com.bob.game.inputs;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
@@ -11,8 +10,8 @@ import com.bob.game.Layer;
 
 public abstract class Target {
 
-    protected Image containImage;
-    protected Object object;
+    protected Actor actor;
+    protected Object payload;
 
     private DragAndDrop.Target target;
     protected int targetX;
@@ -42,7 +41,7 @@ public abstract class Target {
             }
 
             public void drop(DragAndDrop.Source source, DragAndDrop.Payload payload, float x, float y, int pointer) {
-                setObject(payload.getObject());
+                setPayload(payload.getObject());
                 setImage(true);
             }
         };
@@ -55,19 +54,19 @@ public abstract class Target {
     }
 
     public void reset() {
-        if (containImage != null) {
-            containImage.remove();
+        if (actor != null) {
+            actor.remove();
         }
-        object = null;
+        payload = null;
     }
 
-    public void setObject(Object object) {
+    public void setPayload(Object payload) {
         reset();
-        this.object = object;
+        this.payload = payload;
     }
 
     protected void setMoveAbility() {
-        containImage.addListener(new ClickListener() {
+        actor.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if( getTapCount() == 2) {
@@ -77,13 +76,13 @@ public abstract class Target {
         });
 
         DragAndDrop dragAndDrop = new DragAndDrop();
-        dragAndDrop.setDragActorPosition(-(containImage.getWidth()/2), containImage.getHeight()/2);
-        dragAndDrop.addSource(new DragAndDrop.Source(containImage) {
+        dragAndDrop.setDragActorPosition(-(actor.getWidth()/2), actor.getHeight()/2);
+        dragAndDrop.addSource(new DragAndDrop.Source(actor) {
             public DragAndDrop.Payload dragStart (InputEvent event, float x, float y, int pointer) {
                 DragAndDrop.Payload payload = new DragAndDrop.Payload();
-                payload.setObject(object);
-                payload.setDragActor(containImage);
-                object = null;
+                payload.setObject(Target.this.payload);
+                payload.setDragActor(actor);
+                Target.this.payload = null;
 
                 return payload;
             }
