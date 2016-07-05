@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -30,6 +31,12 @@ public class MacroLayer extends Layer {
         addActor(botCache);
 
         Texture macroTarget = new Texture("resources/blocks/macro_target.png");
+
+        Label.LabelStyle macroStyle = new Label.LabelStyle();
+        macroStyle.background = new Image(new Texture("resources/blocks/macro.png")).getDrawable();
+        macroStyle.font = skin.getFont("impact_small");
+
+        skin.add("macro_style", macroStyle);
 
         for (int i = 0; i < 8; ++i) {
             Image bkgImage = new Image(macroTarget);

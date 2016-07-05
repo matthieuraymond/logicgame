@@ -2,10 +2,12 @@ package com.bob.game.inputs;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
+import com.badlogic.gdx.utils.Align;
 
 public class MacroManager {
     private MacroLayer macroLayer;
@@ -48,10 +50,17 @@ public class MacroManager {
         String title = modalLayer.getText();
         Macro macro = new Macro(title, inputsManager.getRules());
 
-        Image dragImage = new Image(skin, "macro_block");
+        Label dragImage = new Label(title, skin, "macro_style");
         dragImage.setBounds(1415, 915, 230, 50);
+        dragImage.setEllipsis(true);
+        dragImage.setAlignment(Align.center);
 
-        final Draggable d = new Draggable(macroLayer, skin, dragImage, macro);
+        Label draggedImage = new Label(title, skin, "macro_style");
+        draggedImage.setBounds(1415, 915, 230, 50);
+        draggedImage.setEllipsis(true);
+        draggedImage.setAlignment(Align.center);
+
+        final Draggable d = new Draggable(macroLayer, skin, dragImage, draggedImage, macro);
 
         dragImage.addListener(new ClickListener() {
             @Override

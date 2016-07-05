@@ -22,8 +22,16 @@ DSet {
 		]
 	}
 
+	startMacro(M) = {
+        Postconditions [
+            initiates(startMacro(M), macro(M)).
+            terminates(startMacro(M), macro(R)).
+        ]
+	}
+
 }
 
 ReactiveRules {
+    //isIn(X, Y) & nextMacro(X, Y) & macro(M) & isNext(M, N)
 // RULES ARE DEFINED BY FINAL USER
 
