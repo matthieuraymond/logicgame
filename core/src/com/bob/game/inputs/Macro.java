@@ -16,4 +16,12 @@ public class Macro {
     public String getTitle() {
         return title;
     }
+
+    public void setTitle(String text) {
+        this.title = text;
+    }
+
+    public void setRules(Block[][] rules) {
+        this.rules = rules;
+    }
 }

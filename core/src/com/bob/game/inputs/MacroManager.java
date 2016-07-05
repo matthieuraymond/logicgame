@@ -1,8 +1,6 @@
 package com.bob.game.inputs;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -14,12 +12,12 @@ public class MacroManager {
     private MacroLayer macroLayer;
     private ModalLayer modalLayer;
     private InputsManager inputsManager;
-    private Draggable[] macros;
-    private MacroCell[] macroCells;
+    private Draggable[] draggables;
+    private Macro[] macros;
 
     public MacroManager() {
-        this.macros = new Draggable[8];
-        this.macroCells = new MacroCell[8];
+        this.draggables = new Draggable[8];
+        this.macros = new Macro[8];
         inputsManager = new InputsManager();
     }
 
@@ -31,16 +29,6 @@ public class MacroManager {
 
     public void initView(Skin skin) {
         inputsManager.initRuleView(skin, 785, 1080 - 545);
-        Texture macroTarget = new Texture("resources/blocks/macro_target.png");
-
-        for (int i = 0; i < 8; ++i) {
-            Image bkgImage = new Image(macroTarget);
-            bkgImage.setBounds(1567, 585 - i * 70, 230, 50);
-
-            macroCells[i] = new MacroCell(macroLayer, 1567, 585 - i * 70, bkgImage, skin);
-
-            macroLayer.addTarget(macroCells[i].getTarget());
-        }
     }
 
     public void addButtons(final Skin skin) {
@@ -63,9 +51,18 @@ public class MacroManager {
     private void submitModal(Skin skin) {
         modalLayer.setVisibility(false);
 
-        Macro macro = new Macro(modalLayer.getText(), inputsManager.getRules());
+        int index = modalLayer.getIndex();
 
-        createDraggable(skin, macro, modalLayer.getIndex());
+        if (draggables[index] == null) {
+            macros[index] = new Macro(modalLayer.getText(), inputsManager.getRules());
+        } else {
+            macros[index].setTitle(modalLayer.getText());
+            macros[index].setRules(inputsManager.getRules());
+        }
+
+        createDraggable(skin, macros[index], modalLayer.getIndex());
+
+        macroLayer.getMacroCells();
     }
 
     private void createDraggable(Skin skin, final Macro macro, final int index) {
@@ -82,7 +79,7 @@ public class MacroManager {
         draggedImage.setEllipsis(true);
         draggedImage.setAlignment(Align.center);
 
-        macros[index]  = new Draggable(macroLayer, dragImage, draggedImage, macro);
+        draggables[index]  = new Draggable(macroLayer, dragImage, draggedImage, macro);
 
         final int i = index;
         dragImage.addListener(new ClickListener() {
@@ -95,7 +92,7 @@ public class MacroManager {
         });
 
         for (DragAndDrop.Target t : macroLayer.getTargets()) {
-            macros[index].addTarget(t);
+            draggables[index].addTarget(t);
         }
     }
 
@@ -106,8 +103,8 @@ public class MacroManager {
     public void displayMacroModal(Block[][] rules, String title) {
         int index = -1;
 
-        for (int i = 0; i < macros.length; ++i) {
-            if (macros[i] == null) {
+        for (int i = 0; i < draggables.length; ++i) {
+            if (draggables[i] == null) {
                 index = i;
                 break;
             }
