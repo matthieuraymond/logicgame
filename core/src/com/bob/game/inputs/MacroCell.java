@@ -1,5 +1,6 @@
 package com.bob.game.inputs;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -15,9 +16,15 @@ public class MacroCell extends Target {
     @Override
     public void setImage(boolean isDragable) {
         if (payload != null) {
-            Macro m = (Macro)payload;
+            final Macro m = (Macro)payload;
 
-            actor = new Label(m.getTitle(), skin, "macro_style");
+            actor = new Label(m.getTitle(), skin, "macro_style") {
+                @Override
+                public void draw(Batch batch, float parentAlpha) {
+                    this.setText(m.getTitle());
+                    super.draw(batch, parentAlpha);
+                }
+            };
             actor.setBounds(targetX, targetY, 230, 50);
             ((Label)actor).setEllipsis(true);
             ((Label)actor).setAlignment(Align.center);
