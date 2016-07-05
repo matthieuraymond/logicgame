@@ -13,6 +13,7 @@ public class MacroManager {
     private MacroLayer macroLayer;
     private ModalLayer modalLayer;
     private InputsManager inputsManager;
+    private Draggable[] macros;
 
     public MacroManager() {
         inputsManager = new InputsManager();
@@ -21,6 +22,7 @@ public class MacroManager {
     public void setLayers(MacroLayer macroLayer, ModalLayer modalLayer) {
         this.macroLayer = macroLayer;
         this.modalLayer = modalLayer;
+        this.macros = new Draggable[8];
         inputsManager.setLayer(modalLayer);
     }
 
@@ -44,20 +46,39 @@ public class MacroManager {
     private void submitModal(Skin skin) {
         modalLayer.setVisibility(false);
 
-        String title = modalLayer.getText();
-        Macro macro = new Macro(title, inputsManager.getRules());
+        Macro macro = new Macro(modalLayer.getText(), inputsManager.getRules());
+
+        createDraggable(skin, macro);
+    }
+
+    private void createDraggable(Skin skin, Macro macro) {
+        String title = macro.getTitle();
+
+        int index = -1;
+
+        for (int i = 0; i < macros.length; ++i) {
+            if (macros[i] == null) {
+                index = i;
+                break;
+            }
+        }
+
+        if (index == -1) {
+            return;
+        }
 
         Label dragImage = new Label(title, skin, "macro_style");
-        dragImage.setBounds(1415, 915, 230, 50);
+        dragImage.setBounds(1415 + (index/4) * 240, 915 - (index % 4) * 60, 230, 50);
         dragImage.setEllipsis(true);
         dragImage.setAlignment(Align.center);
 
         Label draggedImage = new Label(title, skin, "macro_style");
-        draggedImage.setBounds(1415, 915, 230, 50);
+        dragImage.setBounds(1415 + (index/4) * 240, 915 - (index % 4) * 60, 230, 50);
         draggedImage.setEllipsis(true);
         draggedImage.setAlignment(Align.center);
 
         final Draggable d = new Draggable(macroLayer, skin, dragImage, draggedImage, macro);
+        macros[index] = d;
 
         dragImage.addListener(new ClickListener() {
             @Override
@@ -92,4 +113,6 @@ public class MacroManager {
     public void toggleLights() {
         inputsManager.toggleLights();
     }
+
+
 }
