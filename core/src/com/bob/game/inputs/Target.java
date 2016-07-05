@@ -75,6 +75,7 @@ public abstract class Target {
             }
         });
 
+        /* TODO REFACTOR TO USE DRAGGABLE */
         DragAndDrop dragAndDrop = new DragAndDrop();
         dragAndDrop.setDragActorPosition(-(actor.getWidth()/2), actor.getHeight()/2);
         dragAndDrop.addSource(new DragAndDrop.Source(actor) {

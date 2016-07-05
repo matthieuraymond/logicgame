@@ -12,11 +12,11 @@ class Draggable {
     private final DragAndDrop dragAndDrop;
     private final Object payLoad;
 
-    public Draggable(Layer layer, Skin skin, Actor sourceActor, Object payloadObject) {
-        this(layer, skin, sourceActor, sourceActor, payloadObject);
+    public Draggable(Layer layer, Actor sourceActor, Object payloadObject) {
+        this(layer, sourceActor, sourceActor, payloadObject);
     }
 
-    public Draggable(Layer layer, final Skin skin, Actor sourceActor, final Actor dragActor, final Object payloadObject) {
+    public Draggable(Layer layer, Actor sourceActor, final Actor dragActor, final Object payloadObject) {
 
         this.sourceActor = sourceActor;
         this.payLoad = payloadObject;
@@ -44,12 +44,7 @@ class Draggable {
     public void clear() {
         sourceActor.remove();
     }
-
-    public Actor getsourceActor() {
-        return sourceActor;
-    }
-
-    public void setTooltip(Skin skin, String tooltipText) {
+        public void setTooltip(Skin skin, String tooltipText) {
         TextTooltip tooltip = new TextTooltip("  " + tooltipText + "  ", skin, "tooltipStyle");
         tooltip.setInstant(true);
         sourceActor.addListener(tooltip);

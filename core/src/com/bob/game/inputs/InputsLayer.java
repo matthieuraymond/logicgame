@@ -71,7 +71,7 @@ public class InputsLayer extends Layer {
         Image draggingImage = new Image(skin, block.getImageName());
         dragImage.setBounds(refX, refY, 50, 50);
 
-        Draggable draggable = new Draggable(this, skin, dragImage, draggingImage, block);
+        Draggable draggable = new Draggable(this, dragImage, draggingImage, block);
         draggable.setTooltip(skin, block.getTooltip());
 
         for (DragAndDrop.Target t: targets) {

@@ -77,7 +77,7 @@ public class MacroManager {
         draggedImage.setEllipsis(true);
         draggedImage.setAlignment(Align.center);
 
-        final Draggable d = new Draggable(macroLayer, skin, dragImage, draggedImage, macro);
+        final Draggable d = new Draggable(macroLayer, dragImage, draggedImage, macro);
         macros[index] = d;
 
         dragImage.addListener(new ClickListener() {
