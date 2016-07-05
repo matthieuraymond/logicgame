@@ -51,7 +51,7 @@ public class MacroManager {
         createDraggable(skin, macro);
     }
 
-    private void createDraggable(Skin skin, Macro macro) {
+    private void createDraggable(Skin skin, final Macro macro) {
         String title = macro.getTitle();
 
         int index = -1;
@@ -77,21 +77,21 @@ public class MacroManager {
         draggedImage.setEllipsis(true);
         draggedImage.setAlignment(Align.center);
 
-        final Draggable d = new Draggable(macroLayer, dragImage, draggedImage, macro);
-        macros[index] = d;
+        macros[index]  = new Draggable(macroLayer, dragImage, draggedImage, macro);
 
+        final int i = index;
         dragImage.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if( getTapCount() == 2) {
-                    Macro m = (Macro)d.getPayLoad();
-                    displayMacroModal(m.getRules(), m.getTitle());
+                    macros[i] = null; //just erase pointer, submit modal will build on top
+                    displayMacroModal(macro.getRules(), macro.getTitle());
                 }
             }
         });
 
         for (DragAndDrop.Target t : macroLayer.getTargets()) {
-            d.addTarget(t);
+            macros[index].addTarget(t);
         }
     }
 
