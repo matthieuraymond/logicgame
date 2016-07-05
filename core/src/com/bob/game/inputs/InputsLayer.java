@@ -60,9 +60,12 @@ public class InputsLayer extends Layer {
         return targets;
     }
 
-    public void initRuleTargets(Rule rule) {
-        DragAndDrop.Target[] rules_targets = rule.getTargets();
-        Collections.addAll(targets, rules_targets);
+    public void addTargets(DragAndDrop.Target[] targets) {
+        Collections.addAll(this.targets, targets);
+    }
+
+    public void addTarget(DragAndDrop.Target target) {
+        this.targets.add(target);
     }
 
     public void createInput(Block block, int refX, int refY) {

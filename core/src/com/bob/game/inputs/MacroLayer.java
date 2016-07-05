@@ -15,11 +15,9 @@ import java.util.ArrayList;
 
 public class MacroLayer extends InputsLayer {
     private final Skin skin;
-    private MacroCell[] macros;
 
     public MacroLayer(Skin skin) {
         this.skin = skin;
-        this.macros = new MacroCell[8];
 
         Image topCache = new Image(new Texture("resources/screens/macro_top.png"));
         topCache.setBounds(1400, 720, 500, 310);
@@ -34,17 +32,6 @@ public class MacroLayer extends InputsLayer {
         macroStyle.font = skin.getFont("impact_small");
 
         skin.add("macro_style", macroStyle);
-
-        Texture macroTarget = new Texture("resources/blocks/macro_target.png");
-
-        for (int i = 0; i < 8; ++i) {
-            Image bkgImage = new Image(macroTarget);
-            bkgImage.setBounds(1567, 585 - i * 70, 230, 50);
-
-            macros[i] = new MacroCell(this, 1567, 585 - i * 70, bkgImage, skin);
-
-            targets.add(macros[i].getTarget());
-        }
     }
 
     public void addModalButton(final MacroManager macroManager) {

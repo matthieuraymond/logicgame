@@ -15,7 +15,7 @@ public class MacroCell extends Target {
     @Override
     public void setImage(boolean isDragable) {
         if (payload != null) {
-            Macro m = (Macro) payload;
+            Macro m = (Macro)payload;
 
             actor = new Label(m.getTitle(), skin, "macro_style");
             actor.setBounds(targetX, targetY, 230, 50);

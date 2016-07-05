@@ -9,10 +9,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 public class ModalLayer extends InputsLayer {
 
     private TextField textField;
+    private int index;
 
     public ModalLayer(Skin skin) {
         super();
         this.skin = skin;
+        this.index = -1;
 
         addActor(new Image(new Texture("resources/screens/macro_modal.png")));
 
@@ -33,5 +35,13 @@ public class ModalLayer extends InputsLayer {
 
     public void setText(String text) {
         textField.setText(text);
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public int getIndex() {
+        return index;
     }
 }
