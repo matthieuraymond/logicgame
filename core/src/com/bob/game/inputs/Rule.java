@@ -27,7 +27,10 @@ public class Rule {
     public void initView(InputsLayer layer, Skin skin, int startingX, int startingY){
         //Cells
         for (int i=0; i < cells.length; ++i) {
-            cells[i].initView(layer, startingX + i * 60, startingY, skin);
+            Image bkgImage = new Image(skin, "target");
+            bkgImage.setBounds(startingX + i * 60, startingY, 50, 50);
+
+            cells[i].initView(layer, startingX + i * 60, startingY, bkgImage, skin);
         }
 
         // Red light, green light
@@ -96,7 +99,7 @@ public class Rule {
 
     public void setRuleBlocks(Block[] newRule) {
         for (int i = 0; i < newRule.length && i < cells.length; ++i) {
-            cells[i].setBlock(newRule[i]);
+            cells[i].setObject(newRule[i]);
         }
     }
 

@@ -91,7 +91,7 @@ public class MacroLayer extends Layer {
     /*
     public void setImage(boolean isDragable) {
 
-            containImage = new Image(skin, block.getImageName());
+            containImage = new Image(skin, object.getImageName());
             containImage.setBounds(targetX, targetY, 50, 50);
             layer.addActor(containImage);
 
