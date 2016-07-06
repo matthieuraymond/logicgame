@@ -22,16 +22,23 @@ DSet {
 		]
 	}
 
-	startMacro(M) = {
+	setLights(Y) = {
+        Preconditions [
+            conditions: isIn(A, B).
+        ]
         Postconditions [
-            initiates(startMacro(M), macro(M)).
-            terminates(startMacro(M), macro(R)).
+            initiates(setLights(Y), lights(Y)).
+            terminates(setLights(Y), lights(X)).
+            terminates(setLights(Y), lightBulb(A, B)).
         ]
 	}
 
 }
 
 ReactiveRules {
+
+    isIn(X,Y) & lightBulb(X,Y) -> pickUpLight().
+
     //isIn(X, Y) & nextMacro(X, Y) & macro(M) & isNext(M, N)
-// RULES ARE DEFINED BY FINAL USER
+    // RULES ARE DEFINED BY FINAL USER
 

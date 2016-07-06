@@ -22,7 +22,7 @@ public class LPSHandler {
             resetLPS();
             StringBuilder lpsString = new StringBuilder("Database {\n\tFacts {\n\t\t");
 
-            lpsString.append("isIn(" + x + "," + y + ").\n\twasIn(" + x + "," + y + ").\n");
+            lpsString.append("lights(0).\n\tisIn(" + x + "," + y + ").\n\twasIn(" + x + "," + y + ").\n");
 
             lpsString.append("\t}\n\nRules {\n\t\t");
 
@@ -95,6 +95,8 @@ public class LPSHandler {
     }
 
     public EntityState getNewState() {
+        /* Todo: eventually refactor to use goRight and moveTo instead of moveFromTo see lights in JLPS folder */
+
         RuleSet instructions = getEvents();
         if (instructions.getRuleCount() > 0) {
             SimpleSentence nextRule = instructions.getRule(0).getHead();

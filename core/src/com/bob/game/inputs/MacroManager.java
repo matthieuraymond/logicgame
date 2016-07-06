@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.StringBuilder;
 
 public class MacroManager {
     private MacroLayer macroLayer;
@@ -130,4 +131,13 @@ public class MacroManager {
     }
 
 
+    public String getRulesString() {
+        StringBuilder sb = new StringBuilder();
+
+        for (MacroCell mc: macroLayer.getMacroCells()) {
+            sb.append(mc.getLPSString());
+        }
+
+        return sb.toString();
+    }
 }

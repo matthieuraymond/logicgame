@@ -11,7 +11,7 @@ public enum WriteLevel implements LevelFactory {
             "Hi, my name is Bob!\n\nI am quite a simple robot and I am lost. Can you help me to reach the golden platform?\n\nTo do so, write rules I can follow in the box on the right!\nThanks for your help!"
     ),
     level2("resources/maps/tmx/straight.tmx",
-            5,11,
+            2,11,
             1,
             new Block[]{Block.WHITE, Block.IMPLY, Block.RIGHT},
             "Hi, my name is Bob!\n\nI am quite a simple robot and I am lost. Can you help me to reach the golden platform?\n\nTo do so, write rules I can follow in the box on the right!\nThanks for your help!"

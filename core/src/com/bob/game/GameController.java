@@ -54,6 +54,8 @@ public class GameController {
         if (currentLevel.allowMacro()) {
             layerGroup.setVisibility("macro", true);
             layerGroup.setVisibility("inputs", false);
+
+            /* TODO : Reset level */
         } else {
             layerGroup.setVisibility("macro", false);
             layerGroup.setVisibility("inputs", true);
@@ -101,11 +103,14 @@ public class GameController {
     public void submit() {
         //Reset Bob?
         worldController.resetBob(currentLevel.getX(), currentLevel.getY());
-
-        if (inputsManager.onlyConsequentUsed()) {
-            startMockAnim(inputsManager.getBlockStack());
+        if (currentLevel.allowMacro()) {
+            startLPSAnim(macroManager.getRulesString());
         } else {
-            startLPSAnim(inputsManager.getRulesString());
+            if (inputsManager.onlyConsequentUsed()) {
+                startMockAnim(inputsManager.getBlockStack());
+            } else {
+                startLPSAnim(inputsManager.getRulesString());
+            }
         }
     }
 

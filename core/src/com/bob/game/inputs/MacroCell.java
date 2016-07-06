@@ -36,4 +36,12 @@ public class MacroCell extends Target {
             }
         }
     }
+
+    public String getLPSString() {
+        if (payload != null) {
+            return ((Macro)payload).getLPSString();
+        } else {
+            return "";
+        }
+    }
 }

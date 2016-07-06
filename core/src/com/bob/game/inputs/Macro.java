@@ -1,5 +1,7 @@
 package com.bob.game.inputs;
 
+import com.badlogic.gdx.utils.StringBuilder;
+
 public class Macro {
     private Block[][] rules;
 
@@ -23,5 +25,18 @@ public class Macro {
 
     public void setRules(Block[][] rules) {
         this.rules = rules;
+    }
+
+    public String getLPSString() {
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < rules.length; i++) {
+            Rule r = new Rule();
+            r.setRuleBlocks(rules[i]);
+
+            sb.append(r.getString(i));
+        }
+
+        return sb.toString();
     }
 }
