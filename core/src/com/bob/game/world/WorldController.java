@@ -10,6 +10,7 @@ import com.bob.game.levels.Level;
 import com.bob.lps.model.Goal;
 import com.bob.lps.model.GoalsList;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -24,6 +25,9 @@ public class WorldController {
     // Bob
     private SpriteBatch batch;
     private final Entity bob;
+
+    // Objects
+    private List<Entity> objects;
 
     // Map and LPS
     private MapManager mapManager;
@@ -41,11 +45,13 @@ public class WorldController {
         nbWon = 0;
         currentRuleIndex = -1;
         bob = new Entity(0, 0);
+        objects = new ArrayList<Entity>();
     }
 
     public void setupWorld(Level level) {
         mapManager = new MapManager(level.getMap());
         resetBob(level.getX(), level.getY());
+        resetLights();
         currentRuleIndex = -1;
     }
 
@@ -57,7 +63,7 @@ public class WorldController {
 
     private void setGoldListeners() {
         clearListener();
-        List<WorldCoordinates> questions = mapManager.getQuestionCoordinates();
+        List<WorldCoordinates> questions = mapManager.getCoordinatesList("Floor", "question");
 
         for (WorldCoordinates coord: questions) {
             addQuestionListener(coord);
@@ -71,6 +77,19 @@ public class WorldController {
         }
     }
 
+    public void resetLights() {
+        List<WorldCoordinates> lights = mapManager.getCoordinatesList("Objects", "light_bulb");
+
+        for (WorldCoordinates l: lights) {
+            Entity light = new Entity(l.getWorldX(), l.getWorldY());
+            light.updateState(EntityState.LIGHT);
+
+            objects.add(light);
+        }
+
+    }
+
+    // Todo merge reset bob and reset lights into one reset stage
     public void resetBob(float x, float y) {
         nbWon = 0;
         currentRuleIndex = -1;
@@ -79,7 +98,7 @@ public class WorldController {
     }
 
     public void startLPSAnimation(Level level, String rules) {
-        lpsHandler = new LPSHandler(mapManager.getLPSDescription(), rules, level.getX(), level.getY());
+        lpsHandler = new LPSHandler(mapManager.getLPSDescription(), mapManager.getLightsString(), rules, level.getX(), level.getY());
         isAnimPlaying = true;
     }
 
@@ -98,6 +117,9 @@ public class WorldController {
         // Batch
         batch.begin();
         if (bob != null) bob.draw(batch);
+        for (Entity object: objects) {
+            object.draw(batch);
+        }
         batch.end();
     }
 

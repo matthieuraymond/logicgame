@@ -13,7 +13,8 @@ public enum EntityState {
     WALK_LEFT (Textures.BOB_W_LEFT, -1, 0),
     WALK_UP (Textures.BOB_W_UP, 0, 1),
     WET (Textures.BOB_WET),
-    WON (Textures.BOB_WON, 0, 0);
+    WON (Textures.BOB_WON, 0, 0),
+    LIGHT (Textures.LIGHT, 0, 0);
 
     private final Animation animation;
     private final float dx;

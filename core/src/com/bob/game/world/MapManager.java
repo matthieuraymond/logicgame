@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
+import com.badlogic.gdx.utils.StringBuilder;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -98,17 +99,24 @@ public class MapManager {
         return sb.toString();
     }
 
-    public List<WorldCoordinates> getQuestionCoordinates() {
+    public List<WorldCoordinates> getCoordinatesList(String layerName, String typeString) {
+        TiledMapTileLayer layer = (TiledMapTileLayer)map.getLayers().get(layerName);
         List<WorldCoordinates> res = new LinkedList<>();
 
-        for(int x = 0; x < floorLayer.getWidth();x++){
-            for(int y = 0; y < floorLayer.getHeight();y++){
+        if (layer == null) {
+            return res;
+        }
 
-                TiledMapTileLayer.Cell cell = floorLayer.getCell(x,y);
+        for(int x = 0; x < layer.getWidth();x++){
+            for(int y = 0; y < layer.getHeight();y++){
+
+                TiledMapTileLayer.Cell cell = layer.getCell(x,y);
+                if (cell == null) continue;
+
                 Object type = cell.getTile().getProperties().get("type");
 
                 if (type != null){
-                    if (type.equals("question")) {
+                    if (type.equals(typeString)) {
                         res.add(new WorldCoordinates(x, y));
                     }
                 }
@@ -116,6 +124,17 @@ public class MapManager {
         }
 
         return res;
+    }
+
+    public String getLightsString() {
+        List<WorldCoordinates> lights = getCoordinatesList("Objects", "light_bulb");
+        StringBuilder sb = new StringBuilder();
+
+        for (WorldCoordinates light: lights) {
+            sb.append("lightBulb("+(int)light.getWorldX()+","+(int)light.getWorldY()+").");
+        }
+
+        return sb.toString();
     }
 
     public void setGold(int i, int j) {

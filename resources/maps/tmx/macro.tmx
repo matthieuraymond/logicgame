@@ -130,7 +130,7 @@
   <image source="../objects.png" width="51" height="75"/>
   <tile id="0">
    <properties>
-    <property name="type" value="lightBulb"/>
+    <property name="type" value="light_bulb"/>
    </properties>
   </tile>
  </tileset>
@@ -166,7 +166,7 @@
    <polyline points="0,0 644.667,-639.333 1410,128.667 770,771.333 0.666667,2"/>
   </object>
  </objectgroup>
- <layer name="lights" width="23" height="23">
+ <layer name="Objects" width="23" height="23" visible="0">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

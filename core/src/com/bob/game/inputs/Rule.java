@@ -64,11 +64,11 @@ public class Rule {
         return targets;
     }
 
-    public String getString() {
-        return getString(0);
+    public String getString(int ruleIndex) {
+        return getString(ruleIndex, 0);
     }
 
-    public String getString(int noLights) {
+    public String getString(int ruleIndex, int noLights) {
 
         StringBuilder sb = new StringBuilder("isIn(X,Y) & wasIn(U,V) & lights(" + noLights + ") & !lightBulb(X,Y) & ");
         boolean notEmpty = false;
@@ -80,7 +80,7 @@ public class Rule {
             }
         }
 
-        //sb.append(".");
+        sb.append("("+ruleIndex+").");
 
         return notEmpty ? sb.toString() : "";
     }

@@ -18,10 +18,14 @@ public class LPSHandler {
     private final Set<String> actions  = new HashSet<>();
 
     public LPSHandler(String worldDescription, String rules, int x, int y) {
+        this(worldDescription, "", rules, x, y);
+    }
+
+    public LPSHandler(String worldDescription, String objectDescription, String rules, int x, int y) {
         try {
             resetLPS();
             StringBuilder lpsString = new StringBuilder("Database {\n\tFacts {\n\t\t");
-
+            lpsString.append(objectDescription);
             lpsString.append("lights(0).\n\tisIn(" + x + "," + y + ").\n\twasIn(" + x + "," + y + ").\n");
 
             lpsString.append("\t}\n\nRules {\n\t\t");

@@ -37,9 +37,9 @@ public class MacroCell extends Target {
         }
     }
 
-    public String getLPSString() {
+    public String getLPSString(int macroIndex) {
         if (payload != null) {
-            return ((Macro)payload).getLPSString();
+            return ((Macro)payload).getLPSString(macroIndex);
         } else {
             return "";
         }

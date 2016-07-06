@@ -133,9 +133,9 @@ public class MacroManager {
 
     public String getRulesString() {
         StringBuilder sb = new StringBuilder();
-
-        for (MacroCell mc: macroLayer.getMacroCells()) {
-            sb.append(mc.getLPSString());
+        MacroCell[] cells = macroLayer.getMacroCells();
+        for (int i = 0; i < cells.length; i++) {
+            sb.append(cells[i].getLPSString(i));
         }
 
         return sb.toString();

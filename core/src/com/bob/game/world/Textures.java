@@ -9,7 +9,8 @@ public enum Textures {
     BOB_W_LEFT ("resources/bob/bob_walk_left", 1/24f),
     BOB_W_UP ("resources/bob/bob_walk_up", 1/24f),
     BOB_WET ("resources/bob/bob_wet", 1/24f),
-    BOB_WON ("resources/bob/bob_won", 1/24f);
+    BOB_WON ("resources/bob/bob_won", 1/24f),
+    LIGHT("resources/bob/light_bulb", 1/24f);
 
     private final TextureAtlas texture;
     private final float speed;

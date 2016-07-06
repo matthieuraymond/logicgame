@@ -45,6 +45,7 @@ public class GameController {
     public void reset() {
         inputsManager.resetRules();
         worldController.resetBob(currentLevel.getX(), currentLevel.getY());
+        worldController.resetLights();
     }
 
     public void startNewLevel() {
@@ -103,6 +104,8 @@ public class GameController {
     public void submit() {
         //Reset Bob?
         worldController.resetBob(currentLevel.getX(), currentLevel.getY());
+        worldController.resetLights();
+
         if (currentLevel.allowMacro()) {
             startLPSAnim(macroManager.getRulesString());
         } else {

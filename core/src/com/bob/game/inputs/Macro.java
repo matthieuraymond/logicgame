@@ -27,14 +27,14 @@ public class Macro {
         this.rules = rules;
     }
 
-    public String getLPSString() {
+    public String getLPSString(int macroIndex) {
         StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < rules.length; i++) {
             Rule r = new Rule();
             r.setRuleBlocks(rules[i]);
 
-            sb.append(r.getString(i));
+            sb.append(r.getString(i, macroIndex));
         }
 
         return sb.toString();

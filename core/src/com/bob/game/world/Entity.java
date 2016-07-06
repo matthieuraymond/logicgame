@@ -33,7 +33,9 @@ public class Entity {
         TextureRegion currentFrame = currentState.getFrame(stateTime);
 
         float drawingX = this.coord.getScreenX() - currentFrame.getRegionWidth()/2;
-        float drawingY = this.coord.getScreenY() + (currentState == EntityState.WON ? (float)Math.abs(Math.sin(3.1415f*stateTime)) * 50: 0);
+        float drawingY = this.coord.getScreenY() // Todo: clean those two add
+                            + (currentState == EntityState.WON ? (float)Math.abs(Math.sin(3.1415f*stateTime)) * 50: 0)
+                            + (currentState == EntityState.LIGHT ? (float)Math.abs(Math.sin(3.1415f*stateTime)) * 20: 0);
 
         batch.draw(currentFrame, drawingX, drawingY);
     }
