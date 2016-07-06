@@ -79,6 +79,7 @@ public class WorldController {
 
     public void resetLights() {
         List<WorldCoordinates> lights = mapManager.getCoordinatesList("Objects", "light_bulb");
+        objects = new ArrayList<>();
 
         for (WorldCoordinates l: lights) {
             Entity light = new Entity(l.getWorldX(), l.getWorldY());
@@ -108,18 +109,32 @@ public class WorldController {
     }
 
     public void render(float deltaTime) {
+        float deltaTimeAdjusted = isAnimPlaying ? deltaTime * speedFactor: 0;
+
         // UPDATE OF ENTITY
-        updateBob(isAnimPlaying ? deltaTime * speedFactor: 0);
+        updateBob(deltaTimeAdjusted);
 
         //Map
-        if (mapManager != null) mapManager.draw(isAnimPlaying ? deltaTime * speedFactor : 0);
+        if (mapManager != null) mapManager.draw(deltaTimeAdjusted);
 
         // Batch
         batch.begin();
         if (bob != null) bob.draw(batch);
+
+        List<Entity> toDelete = new LinkedList<>();
+
         for (Entity object: objects) {
+            object.increaseTime(deltaTimeAdjusted);
             object.draw(batch);
+            if (object.getCoord().collide(bob.getCoord())) {
+                toDelete.add(object); // todo anim
+            }
         }
+
+        for (Entity o: toDelete) {
+            objects.remove(o);
+        }
+
         batch.end();
     }
 

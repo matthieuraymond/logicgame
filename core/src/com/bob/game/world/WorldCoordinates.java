@@ -32,4 +32,8 @@ public class WorldCoordinates {
     public void increaseY(float dy) {
         this.y += dy;
     }
+
+    public boolean collide(WorldCoordinates coord) {
+        return Math.round(this.x) == Math.round(coord.getWorldX()) && Math.round(this.y) == Math.round(coord.getWorldY());
+    }
 }

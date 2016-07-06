@@ -35,7 +35,7 @@ public class Entity {
         float drawingX = this.coord.getScreenX() - currentFrame.getRegionWidth()/2;
         float drawingY = this.coord.getScreenY() // Todo: clean those two add
                             + (currentState == EntityState.WON ? (float)Math.abs(Math.sin(3.1415f*stateTime)) * 50: 0)
-                            + (currentState == EntityState.LIGHT ? (float)Math.abs(Math.sin(3.1415f*stateTime)) * 50: 0);
+                            + (currentState == EntityState.LIGHT ? (float)Math.abs(Math.sin(3.1415f*stateTime)) * 20: 0);
 
         batch.draw(currentFrame, drawingX, drawingY);
     }
