@@ -156,6 +156,7 @@ public class WorldController {
         Set<Goal> set = GoalsList.getInstance().getActiveGoals();
         if (!set.isEmpty()) {
             Goal g = set.iterator().next();
+            // TODO enable light again when picking light up #resilience
             currentRuleIndex = Integer.parseInt(g.getGoal().getTerm(1).getName());
         } else {
             currentRuleIndex = -1;

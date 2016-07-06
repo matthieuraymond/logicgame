@@ -104,6 +104,10 @@ public class LPSHandler {
         RuleSet instructions = getEvents();
         if (instructions.getRuleCount() > 0) {
             SimpleSentence nextRule = instructions.getRule(0).getHead();
+
+            // TODO REFACTOR DAT SHIT
+            if (!nextRule.getTerm(0).toString().equals("moveFromTo")) return null;
+
             int fromX = convertToInt(nextRule.getTerm(1).toString());
             int fromY = convertToInt(nextRule.getTerm(2).toString());
             int toX = convertToInt(nextRule.getTerm(3).toString());

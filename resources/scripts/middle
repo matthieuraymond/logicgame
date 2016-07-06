@@ -37,7 +37,7 @@ DSet {
 
 ReactiveRules {
 
-    isIn(X,Y) & lightBulb(X,Y) -> pickUpLight().
+    isIn(X,Y) & lightBulb(X,Y) -> pickUpLight(0).
 
     //isIn(X, Y) & nextMacro(X, Y) & macro(M) & isNext(M, N)
     // RULES ARE DEFINED BY FINAL USER
