@@ -1,6 +1,5 @@
 package com.bob.game.inputs;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -8,14 +7,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
-import com.bob.game.Layer;
-
-import java.util.ArrayList;
 
 public class MacroLayer extends InputsLayer {
     private final Skin skin;
     private MacroCell[] macroCells;
+    private TextButton newMacroButton;
 
     public MacroLayer(Skin skin) {
         this.skin = skin;
@@ -49,20 +45,24 @@ public class MacroLayer extends InputsLayer {
     }
 
     public void addModalButton(final MacroManager macroManager) {
-        TextButton button = new TextButton("+", skin, "green_button");
-        button.setBounds(1840, 970, 50, 50);
+        newMacroButton = new TextButton("+", skin, "green_button");
+        newMacroButton.setBounds(1840, 970, 50, 50);
 
-        button.addListener(new ClickListener() {
+        newMacroButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 macroManager.displayMacroModal();
             };
         });
 
-        addActor(button);
+        addActor(newMacroButton);
     }
 
     public MacroCell[] getMacroCells() {
         return macroCells;
+    }
+
+    public TextButton getNewMacroButton() {
+        return newMacroButton;
     }
 }

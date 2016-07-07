@@ -1,5 +1,6 @@
 package com.bob.game.inputs;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -15,7 +16,6 @@ public class MacroManager {
     private InputsManager inputsManager;
     private Draggable[] draggables;
     private Macro[] macros;
-    private TextButton newMacroButton;
 
     public MacroManager() {
         this.draggables = new Draggable[8];
@@ -37,15 +37,21 @@ public class MacroManager {
         macroLayer.addModalButton(this);
 
         // Submit modal button
-        newMacroButton = new TextButton("Submit", skin, "green_button");
-        newMacroButton.setBounds(1250, 880, 200, 50);
-        newMacroButton.addListener(new ClickListener() {
+        final TextButton submitbutton = new TextButton("Submit", skin, "green_button") {
+            @Override
+            public void draw(Batch batch, float parentAlpha) {
+                this.setDisabled(!inputsManager.checkRules());
+                super.draw(batch, parentAlpha);
+            }
+        };
+        submitbutton.setBounds(1250, 880, 200, 50);
+        submitbutton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                submitModal(skin);
+                if (!submitbutton.isDisabled()) submitModal(skin);
             };
         });
-        modalLayer.addActor(newMacroButton);
+        modalLayer.addActor(submitbutton);
 
         // Cancel modal button
         TextButton button = new TextButton("Cancel", skin, "blue_button");
@@ -81,7 +87,8 @@ public class MacroManager {
             draggables[index] = null;
         }
 
-        newMacroButton.setDisabled(false);
+        // Todo refactor for demeter law
+        macroLayer.getNewMacroButton().setDisabled(false);
     }
 
     private void submitModal(Skin skin) {
@@ -96,7 +103,7 @@ public class MacroManager {
             aSlotFree |= m == null;
         }
 
-        newMacroButton.setDisabled(!aSlotFree);
+        macroLayer.getNewMacroButton().setDisabled(!aSlotFree);
 
         // Create dragable and macro object
         if (draggables[index] == null) {

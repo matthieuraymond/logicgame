@@ -28,7 +28,7 @@ public class ModalLayer extends InputsLayer {
 
         addActor(textField);
     }
-
+    
     public String getText() {
         return textField.getText();
     }
