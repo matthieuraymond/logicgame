@@ -15,6 +15,7 @@ public class MacroManager {
     private InputsManager inputsManager;
     private Draggable[] draggables;
     private Macro[] macros;
+    private TextButton newMacroButton;
 
     public MacroManager() {
         this.draggables = new Draggable[8];
@@ -36,18 +37,18 @@ public class MacroManager {
         macroLayer.addModalButton(this);
 
         // Submit modal button
-        TextButton button = new TextButton("Submit", skin, "green_button");
-        button.setBounds(1250, 880, 200, 50);
-        button.addListener(new ClickListener() {
+        newMacroButton = new TextButton("Submit", skin, "green_button");
+        newMacroButton.setBounds(1250, 880, 200, 50);
+        newMacroButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 submitModal(skin);
             };
         });
-        modalLayer.addActor(button);
+        modalLayer.addActor(newMacroButton);
 
         // Cancel modal button
-        button = new TextButton("Cancel", skin, "blue_button");
+        TextButton button = new TextButton("Cancel", skin, "blue_button");
         button.setBounds(1250, 940, 200, 50);
         button.addListener(new ClickListener() {
             @Override
@@ -79,6 +80,8 @@ public class MacroManager {
             draggables[index].clear();
             draggables[index] = null;
         }
+
+        newMacroButton.setDisabled(false);
     }
 
     private void submitModal(Skin skin) {
@@ -86,6 +89,16 @@ public class MacroManager {
 
         int index = modalLayer.getIndex();
 
+        // Disable button if all occupied
+        boolean aSlotFree = true;
+
+        for (Macro m: macros) {
+            aSlotFree |= m == null;
+        }
+
+        newMacroButton.setDisabled(!aSlotFree);
+
+        // Create dragable and macro object
         if (draggables[index] == null) {
             macros[index] = new Macro(modalLayer.getText(), inputsManager.getRules());
         } else {
