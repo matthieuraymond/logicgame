@@ -36,17 +36,49 @@ public class MacroManager {
         macroLayer.addModalButton(this);
 
         // Submit modal button
-        TextButton button = new TextButton("+", skin, "green_button");
-        button.setBounds(1340, 970, 50, 50);
-
+        TextButton button = new TextButton("Submit", skin, "green_button");
+        button.setBounds(1250, 880, 200, 50);
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 submitModal(skin);
             };
         });
-
         modalLayer.addActor(button);
+
+        // Cancel modal button
+        button = new TextButton("Cancel", skin, "blue_button");
+        button.setBounds(1250, 940, 200, 50);
+        button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                modalLayer.setVisibility(false);
+            };
+        });
+        modalLayer.addActor(button);
+
+        // Delete modal button
+        button = new TextButton("Delete", skin, "orange_button");
+        button.setBounds(1250, 1000, 200, 50);
+        button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                deleteButtonModal();
+            };
+        });
+        modalLayer.addActor(button);
+    }
+
+    private void deleteButtonModal() {
+        modalLayer.setVisibility(false);
+
+        int index = modalLayer.getIndex();
+
+        if (draggables[index] != null) {
+            macros[index] = null;
+            draggables[index].clear();
+            draggables[index] = null;
+        }
     }
 
     private void submitModal(Skin skin) {
@@ -57,6 +89,7 @@ public class MacroManager {
         if (draggables[index] == null) {
             macros[index] = new Macro(modalLayer.getText(), inputsManager.getRules());
         } else {
+            draggables[index].clear();
             macros[index].setTitle(modalLayer.getText());
             macros[index].setRules(inputsManager.getRules());
         }
