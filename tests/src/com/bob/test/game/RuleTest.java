@@ -14,7 +14,7 @@ public class RuleTest {
 
         r.setRuleBlocks(new Block[] {Block.WHITE, Block.IMPLY, Block.RIGHT});
 
-        assertEquals("isIn(X,Y) & wasIn(U,V) & white(X,Y) -> goRight", r.getString());
+        assertEquals("isIn(X,Y) & wasIn(U,V) & lights(0) & !lightBulb(X,Y) & white(X,Y) -> goRight(0).", r.getString(0));
     }
 
     @Test
