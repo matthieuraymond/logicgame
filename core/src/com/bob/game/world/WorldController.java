@@ -208,4 +208,12 @@ public class WorldController {
     public int getCurrentRuleIndex() {
         return currentRuleIndex;
     }
+
+    public int getNoObjects() {
+        return objects.size();
+    }
+
+    public int getMaxObjects() {
+        return mapManager.getCoordinatesList("Objects", "light_bulb").size();
+    }
 }

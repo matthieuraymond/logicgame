@@ -22,7 +22,7 @@ public class GameController {
 
         layerGroup = new LayerGroup();
 
-        layerGroup.add("background", new BackgroundLayer());
+        layerGroup.add("background", new BackgroundLayer(skin));
         layerGroup.add("controls", new ControlsLayer(skin, this));
         layerGroup.add("inputs", new InputsLayer(skin));
         layerGroup.add("macro", new MacroLayer(skin));
@@ -68,6 +68,7 @@ public class GameController {
         worldController.setupWorld(currentLevel);
         worldController.initRender();
         ((BackgroundLayer)layerGroup.get("background")).changeText(currentLevel.getText());
+        ((BackgroundLayer)layerGroup.get("background")).setMaxLights(worldController.getMaxObjects());
     }
 
     public void render(float deltaTime) {
@@ -80,6 +81,7 @@ public class GameController {
         macroManager.toggleLights();
 
         worldController.render(deltaTime);
+        ((BackgroundLayer)layerGroup.get("background")).setNoLights(worldController.getMaxObjects() - worldController.getNoObjects());
 
         if (checkIfWon()) {
             layerGroup.setVisibility("winning", true);
@@ -105,6 +107,7 @@ public class GameController {
         //Reset Bob?
         worldController.resetBob(currentLevel.getX(), currentLevel.getY());
         worldController.resetLights();
+        ((BackgroundLayer)layerGroup.get("background")).setNoLights(0);
 
         if (currentLevel.allowMacro()) {
             startLPSAnim(macroManager.getRulesString());
