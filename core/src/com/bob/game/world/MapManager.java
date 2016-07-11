@@ -177,9 +177,9 @@ public class MapManager {
         return type.equals("water");
     }
 
-    public boolean chekIfWon(WorldCoordinates coord) {
+    public boolean chekIfWon(WorldCoordinates coord, int noObjects) {
         String type = this.getType(Math.round(coord.getWorldX()), Math.round(coord.getWorldY()));
 
-        return type.equals("gold");
+        return type.equals("gold") && noObjects == 0;
     }
 }

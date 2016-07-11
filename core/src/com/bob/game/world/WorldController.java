@@ -162,7 +162,7 @@ public class WorldController {
         }
 
         // Adds delay to show winning screen
-        if (mapManager.chekIfWon(coord)) {
+        if (mapManager.chekIfWon(coord, objects.size())) {
             bob.updateState(EntityState.WON);
             nbWon++;
         }

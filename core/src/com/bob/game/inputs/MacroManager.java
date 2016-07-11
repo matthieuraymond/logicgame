@@ -123,19 +123,16 @@ public class MacroManager {
         String title = macro.getTitle();
 
         Label dragImage = new Label(title, skin, "macro_style");
-
         dragImage.setBounds(1415 + (index/4) * 240, 915 - (index % 4) * 60, 230, 50);
         dragImage.setEllipsis(true);
         dragImage.setAlignment(Align.center);
 
         Label draggedImage = new Label(title, skin, "macro_style");
-        dragImage.setBounds(1415 + (index/4) * 240, 915 - (index % 4) * 60, 230, 50);
+        draggedImage.setSize(230, 50);
         draggedImage.setEllipsis(true);
         draggedImage.setAlignment(Align.center);
 
         draggables[index]  = new Draggable(macroLayer, dragImage, draggedImage, macro);
-
-        final int i = index;
         dragImage.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
