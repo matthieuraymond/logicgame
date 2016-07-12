@@ -1,3 +1,2 @@
 Manifest-Version: 1.0
-Main-Class: com.bob.com.bob.test.game.desktop.DesktopLauncher
-
+Main-Class: com.bob.game.desktop.DesktopLauncher
