@@ -111,8 +111,8 @@ public class WorldController {
     public void render(float deltaTime) {
         float deltaTimeAdjusted = isAnimPlaying ? deltaTime * speedFactor: 0;
 
-        // UPDATE OF ENTITY
-        updateBob(deltaTimeAdjusted);
+        // UPDATE OF ENTITY // TODO merge
+        updateWorld(deltaTimeAdjusted);
 
         //Map
         if (mapManager != null) mapManager.draw(deltaTimeAdjusted);
@@ -121,11 +121,24 @@ public class WorldController {
         batch.begin();
         if (bob != null) bob.draw(batch);
 
-        List<Entity> toDelete = new LinkedList<>();
 
         for (Entity object: objects) {
             object.increaseTime(deltaTimeAdjusted);
             object.draw(batch);
+        }
+
+
+        batch.end();
+    }
+
+    public void updateWorld(float deltaTimeAdjusted) {
+        updateBob(deltaTimeAdjusted);
+        cleanObjects();
+    }
+
+    private void cleanObjects() {
+        List<Entity> toDelete = new LinkedList<>();
+        for (Entity object: objects) {
             if (object.getCoord().collide(bob.getCoord())) {
                 toDelete.add(object); // todo anim
             }
@@ -134,8 +147,6 @@ public class WorldController {
         for (Entity o: toDelete) {
             objects.remove(o);
         }
-
-        batch.end();
     }
 
     public void updateBob(float deltaTime) {

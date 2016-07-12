@@ -9,9 +9,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class MacroLayer extends InputsLayer {
-    private final Skin skin;
+    private Skin skin;
     private MacroCell[] macroCells;
     private TextButton newMacroButton;
+
+    public MacroLayer() {
+
+    }
 
     public MacroLayer(Skin skin) {
         this.skin = skin;
@@ -64,5 +68,9 @@ public class MacroLayer extends InputsLayer {
 
     public TextButton getNewMacroButton() {
         return newMacroButton;
+    }
+
+    public void setMacroCells(MacroCell[] macroCells) {
+        this.macroCells = macroCells;
     }
 }

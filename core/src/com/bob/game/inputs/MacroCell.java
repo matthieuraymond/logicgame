@@ -9,6 +9,10 @@ import com.bob.game.Layer;
 
 public class MacroCell extends Target {
 
+    public MacroCell() {
+
+    }
+
     public MacroCell(Layer layer, int startingX, int startingY, Image bkgImage, Skin skin) {
         initView(layer, startingX, startingY, bkgImage, skin);
     }

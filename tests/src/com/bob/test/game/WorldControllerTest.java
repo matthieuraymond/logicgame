@@ -56,7 +56,7 @@ public class WorldControllerTest {
 
         wc.startLPSAnimation(lvl, im.getRulesString());
         for (int i=0; i < 100; i++) {
-            wc.updateBob(1f);
+            wc.updateWorld(1f);
             if (wc.isLevelWon()) break;
         }
 
