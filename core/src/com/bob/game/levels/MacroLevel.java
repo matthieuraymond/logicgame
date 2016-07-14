@@ -16,7 +16,7 @@ public enum MacroLevel implements LevelFactory {
 
             @Override
             public Level next() {
-                LevelFactory[] levels = ReadLevel.values();
+                LevelFactory[] levels = MacroLevel.values();
 
                 return levels[(ordinal + 1) % levels.length].getLevel();
             }
