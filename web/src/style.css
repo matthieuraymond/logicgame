@@ -20,6 +20,12 @@ html, body {
   font-weight: bold;
 }
 
+#tiles-pane {
+  background: white;
+  border-radius: 10px;
+
+}
+
 .tile {
   position: absolute;
   background-size: 512px 32px;
@@ -29,7 +35,7 @@ html, body {
   background-repeat: no-repeat;
 }
 
-.tile[data-id="9"] {
+.tile[data-id="8"] {
   background-image: url("water_tile_long.png");
   background-size: 1024px 32px;
 
@@ -57,4 +63,9 @@ html, body {
 
 .tile[data-id="7"] {
   background-position: -384px;
+}
+
+.tile-selector {
+  position: relative;
+  display: inline-block;
 }
