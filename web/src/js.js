@@ -13,13 +13,13 @@ function setup(textFile) {
     var ids = lines[line].split(',');
     for (var column = 0; column < ids.length; column++) { // y
       if (ids[column] > 0) {
-        $map.append('<div class="tile" data-id="'+ids[column]+'" style="top:'+ (column + line) * 16 +'px;left:'+ (200 + (column - line) * 32) +'px">');
+        $map.append('<div class="tile updatable" data-id="'+ids[column]+'" style="top:'+ (column + line) * 16 +'px;left:'+ (200 + (column - line) * 32) +'px">');
       }
     }
   }
 
-  $('.tile').on('click', function() {
-    $(this).attr('data-id', $('#selected').data('id'));
+  $('.updatable').on('click', function() {
+    $(this).attr('data-id', $('#selected').attr('data-id'));
   });
 }
 
