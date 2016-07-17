@@ -13,14 +13,31 @@ function setup(textFile) {
     var ids = lines[line].split(',');
     for (var column = 0; column < ids.length; column++) { // y
       if (ids[column] > 0) {
-        $map.append('<div class="tile updatable" data-id="'+ids[column]+'" style="top:'+ (column + line) * 16 +'px;left:'+ (200 + (column - line) * 32) +'px">');
+        $map.append('<div class="tile updatable '+line+'-'+column+'" data-line="'+line+'" data-column="'+column+'" data-id="'+ids[column]+'" style="top:'+ (column + line) * 16 +'px;left:'+ (200 + (column - line) * 32) +'px">');
       }
     }
   }
 
-  $('.updatable').on('click', function() {
-    $(this).attr('data-id', $('#selected').attr('data-id'));
+
+  $('.updatable').on('click', function(e) {
+    var id = $('#selected').attr('data-id');
+    var $this = $(this);
+    var line = $this.attr('data-line');
+    var column = $this.attr('data-column');
+    var left = e.pageX - $this.offset().left;
+    var top = e.pageY - $this.offset().top;
+    var w = 64;
+    var h = 32;
+
+    var deltaC = Math.round((left/w) + (top/h) - 1);
+    var deltaL = -1 * Math.round((left/w) - (top/h));
+
+    update(line * 1 + deltaL * 1, column * 1 + deltaC * 1,id)
   });
+}
+
+function update(l, c, id) {
+  $('.updatable.'+l+'-'+c).attr('data-id', id);
 }
 
 // TO REFACTOR
