@@ -12,12 +12,21 @@
       <span style="font-size:50%;">Map Editor</span>
     </div>
     <div class="container">
-      <input type="file" name="file" id="file">
+
       <div class="row">
         <div class="col-md-9" id="map">
 
         </div>
         <div class="col-md-3" id="tiles-pane">
+          <br />
+          <p>
+            Upload a map:
+            <span class="btn btn-default btn-file">
+              Browse <input type="file" name="file" id="file">
+            </span>
+          </p>
+          <button class="btn btn-default" id="download">Download this map</button>
+          <hr />
           <p>
             Selected tile:
             <div class="tile-selector tile" data-id="" id="selected">

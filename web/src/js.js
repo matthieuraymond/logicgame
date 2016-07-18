@@ -81,3 +81,18 @@ var emptyFile = "8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,\n"
 +"8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8";
 
 setup(emptyFile);
+
+/* Download button */
+$('#download').on('click', function() {
+    var csvContent = "data:text/csv;charset=utf-8;\n";
+
+    for(var i = 0; i < 23; i++) {
+        for(var j = 0; j < 23; j++) {
+            csvContent += $($('.updatable')[i * 23 + j]).data('id') + ',';
+        }
+        csvContent += '\n';
+    }
+    console.log(csvContent);
+    var encodedUri = encodeURI(csvContent);
+    window.open(encodedUri);
+});
