@@ -13,11 +13,11 @@ function setup(textFile) {
     var ids = lines[line].split(',');
     for (var column = 0; column < ids.length; column++) { // y
       if (ids[column] > 0) {
-        $map.append('<div class="tile updatable '+line+'-'+column+'" data-line="'+line+'" data-column="'+column+'" data-id="'+ids[column]+'" style="top:'+ (column + line) * 16 +'px;left:'+ (200 + (column - line) * 32) +'px">');
+        var visible = (line+column < 11 || line+column > 33 || column-line > 10 || line-column > 10 ) ? 'not-visible': '';
+        $map.append('<div class="tile updatable '+line+'-'+column+' '+ visible +'" data-line="'+line+'" data-column="'+column+'" data-id="'+ids[column]+'" style="top:'+ (column + line) * 16 +'px;left:'+ (200 + (column - line) * 32) +'px">');
       }
     }
   }
-
 
   $('.updatable').on('click', function(e) {
     var id = $('#selected').attr('data-id');
@@ -32,7 +32,7 @@ function setup(textFile) {
     var deltaC = Math.round((left/w) + (top/h) - 1);
     var deltaL = -1 * Math.round((left/w) - (top/h));
 
-    update(line * 1 + deltaL * 1, column * 1 + deltaC * 1,id)
+    update(line * 1 + deltaL * 1, column * 1 + deltaC * 1,id);
   });
 }
 
@@ -84,7 +84,7 @@ setup(emptyFile);
 
 /* Download button */
 $('#download').on('click', function() {
-    var csvContent = "data:text/csv;charset=utf-8;\n";
+    var csvContent = "data:text/csv;charset=utf-8,";
 
     for(var i = 0; i < 23; i++) {
         for(var j = 0; j < 23; j++) {

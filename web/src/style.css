@@ -90,3 +90,7 @@ html, body {
     cursor: inherit;
     display: block;
 }
+
+.not-visible {
+    opacity: 0.5;
+}
