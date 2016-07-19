@@ -35,7 +35,7 @@ html, body {
   background-repeat: no-repeat;
 }
 
-.tile[data-id="8"] {
+.tile[data-id="10"] {
   background-image: url("water_tile_long.png");
   background-size: 1024px 32px;
 
@@ -63,6 +63,10 @@ html, body {
 
 .tile[data-id="7"] {
   background-position: -384px;
+}
+
+.tile[data-id="8"] {
+  background-position: -448px;
 }
 
 .tile-selector {
