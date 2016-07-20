@@ -22,22 +22,25 @@ DSet {
 		]
 	}
 
-	setLights(Y) = {
-        Preconditions [
-            conditions: isIn(A, B).
-        ]
+    setLights(Y) = {
+      Postconditions [
+          initiates(setLights(Y), lights(Y)).
+          terminates(setLights(Y), lights(X)).
+      ]
+    }
+
+    deleteLight(X, Y) = {
         Postconditions [
-            initiates(setLights(Y), lights(Y)).
-            terminates(setLights(Y), lights(X)).
-            terminates(setLights(Y), lightBulb(A, B)).
+            terminates(deleteLight(X, Y), lightBulb(X, Y)).
         ]
-	}
+    }
 
 }
 
 ReactiveRules {
 
-    isIn(X,Y) & lightBulb(X,Y) -> pickUpLight(0).
+    isIn(X,Y) & lightBulb(X,Y) -> stepOnLight().
+    isIn(X,Y) & lightBulb(X,Y) -> pickUpLight().
 
     //isIn(X, Y) & nextMacro(X, Y) & macro(M) & isNext(M, N)
     // RULES ARE DEFINED BY FINAL USER

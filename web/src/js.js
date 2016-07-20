@@ -95,7 +95,7 @@ $('#download').on('click', function() {
 
     csvContent += tailTMX;
 
-    window.open('data:text/xml;charset=utf-8,' + encodeURI(csvContent), "_blank");
+    window.open('data:text/xml;charset=utf-8,' + encodeURI(csvContent));
 });
 
 var tailTMX = '</data>\n'

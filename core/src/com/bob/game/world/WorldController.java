@@ -9,6 +9,7 @@ import com.bob.game.inputs.Block;
 import com.bob.game.levels.Level;
 import com.bob.lps.model.Goal;
 import com.bob.lps.model.GoalsList;
+import com.bob.lps.model.SimpleSentence;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -180,12 +181,15 @@ public class WorldController {
 
         // Update current rule
         Set<Goal> set = GoalsList.getInstance().getActiveGoals();
+        currentRuleIndex = -1;
+
         if (!set.isEmpty()) {
             Goal g = set.iterator().next();
             // TODO enable light again when picking light up #resilience
-            currentRuleIndex = Integer.parseInt(g.getGoal().getTerm(1).getName());
-        } else {
-            currentRuleIndex = -1;
+            SimpleSentence goal = g.getGoal();
+            if (goal.length() > 1) {
+                currentRuleIndex = Integer.parseInt(g.getGoal().getTerm(1).getName());
+            }
         }
     }
 
