@@ -1,5 +1,8 @@
 package com.bob.game.levels;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
+
 public enum MacroLevel implements LevelFactory {
     level1("resources/maps/tmx/macro.tmx",
             6,11,
@@ -28,6 +31,13 @@ public enum MacroLevel implements LevelFactory {
             @Override
             public Boolean allowMacro() {
                 return true;
+            }
+
+            @Override
+            public void save() {
+                Preferences prefs = Gdx.app.getPreferences("Progress");
+                prefs.putInteger("macroProgress", ordinal);
+                prefs.flush();
             }
         };
     }

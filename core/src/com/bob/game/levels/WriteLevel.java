@@ -1,5 +1,7 @@
 package com.bob.game.levels;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.bob.game.inputs.Block;
 
 public enum WriteLevel implements LevelFactory {
@@ -48,6 +50,13 @@ public enum WriteLevel implements LevelFactory {
                 LevelFactory[] levels = WriteLevel.values();
 
                 return levels[(ordinal + 1) % levels.length].getLevel();
+            }
+
+            @Override
+            public void save() {
+                Preferences prefs = Gdx.app.getPreferences("Progress");
+                prefs.putInteger("writeProgress", ordinal);
+                prefs.flush();
             }
         };
     }

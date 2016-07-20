@@ -1,6 +1,8 @@
 package com.bob.main;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -33,7 +35,7 @@ public class Menu {
         initMode(skin);
     }
 
-    private void initMenu(Skin skin) {
+    private void initMenu(final Skin skin) {
         // Bkg
         Image menuBkg = new Image(new Texture("resources/screens/menu.png"));
         menuBkg.setBounds(0,0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -58,6 +60,8 @@ public class Menu {
 
         buttons.get("LEVELS").addListener(new ClickListener() {
             public void clicked(InputEvent ie, float x, float y) {
+                levelsGroup.clear();
+                initLevels(skin);
                 levelsGroup.setVisible(true);
             }
         });
@@ -128,6 +132,12 @@ public class Menu {
         int levelsButtonX = 660;
         int levelsButtonY = 430;
 
+        Texture lockTexture = new Texture("resources/buttons/lock.png");
+
+        Preferences prefs = Gdx.app.getPreferences("Progress");
+        int writeUnlock = prefs.getInteger("writeProgress", -1);
+
+
         for (int i = 0; i < noLevels; i++) {
             final int j = i;
             TextButton button = new TextButton(Integer.toString(i + 1), skin, "grey_square_button");
@@ -139,8 +149,16 @@ public class Menu {
                 }
             });
 
-
             levelsGroup.addActor(button);
+
+            // Disable if not unlocked
+            if (i > writeUnlock + 1) {
+                button.setDisabled(true);
+                Image lock = new Image(lockTexture);
+                lock.setBounds(levelsButtonX - 14, levelsButtonY - 14, 128, 128);
+                levelsGroup.addActor(lock);
+            }
+
 
             levelsButtonX += 125;
 

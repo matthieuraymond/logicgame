@@ -84,6 +84,7 @@ public class GameController {
         ((BackgroundLayer)layerGroup.get("background")).setNoLights(worldController.getMaxObjects() - worldController.getNoObjects());
 
         if (checkIfWon()) {
+            currentLevel.save();
             layerGroup.setVisibility("winning", true);
         }
 

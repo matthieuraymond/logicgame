@@ -1,5 +1,7 @@
 package com.bob.game.levels;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.bob.game.inputs.Block;
 
 public enum ReadLevel implements LevelFactory {
@@ -28,6 +30,13 @@ public enum ReadLevel implements LevelFactory {
                 LevelFactory[] levels = ReadLevel.values();
 
                 return levels[(ordinal + 1) % levels.length].getLevel();
+            }
+
+            @Override
+            public void save() {
+                Preferences prefs = Gdx.app.getPreferences("Progress");
+                prefs.putInteger("readProgress", ordinal);
+                prefs.flush();
             }
         };
     }

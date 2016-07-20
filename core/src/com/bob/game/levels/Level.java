@@ -69,4 +69,6 @@ public abstract class Level {
     public Block[][] getRules() {
         return rules;
     }
+
+    public abstract void save();
 }
