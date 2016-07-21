@@ -7,15 +7,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.bob.game.levels.Level;
-import com.bob.game.levels.MacroLevel;
-import com.bob.game.levels.ReadLevel;
-import com.bob.game.levels.WriteLevel;
+import com.badlogic.gdx.utils.Align;
+import com.bob.game.levels.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -128,14 +123,32 @@ public class Menu {
         levelsBkg.setBounds(0,0,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         levelsGroup.addActor(levelsBkg);
 
-        int noLevels = WriteLevel.values().length;
+        addLevelButtons(skin, WriteLevel.values(), "writeProgress", "Write", 430);
+        addLevelButtons(skin, ReadLevel.values(), "readProgress", "Read", 300);
+        addLevelButtons(skin, MacroLevel.values(), "macroProgress", "Macro", 170);
+
+        addBackButton(skin, levelsGroup);
+
+        levelsGroup.setVisible(false);
+    }
+
+    private void addLevelButtons(Skin skin, final LevelFactory[] levels, String prefString, String title, int startY) {
+        int noLevels = levels.length;
         int levelsButtonX = 660;
-        int levelsButtonY = 430;
+        int levelsButtonY = startY;
 
         Texture lockTexture = new Texture("resources/buttons/lock.png");
 
+        Label.LabelStyle titleStyle = new Label.LabelStyle();
+        titleStyle.font = skin.getFont("impact");
+        Label titleLabel = new Label(title, titleStyle);
+        titleLabel.setAlignment(Align.right);
+        titleLabel.setBounds(0, startY, 640, 100);
+
+        levelsGroup.addActor(titleLabel);
+
         Preferences prefs = Gdx.app.getPreferences("Progress");
-        int writeUnlock = prefs.getInteger("writeProgress", -1);
+        int unlocked = prefs.getInteger(prefString, -1);
 
 
         for (int i = 0; i < noLevels; i++) {
@@ -145,14 +158,14 @@ public class Menu {
 
             button.addListener(new ClickListener() {
                 public void clicked(InputEvent ie, float x, float y) {
-                    launchLevel(WriteLevel.values()[j].getLevel());
+                    launchLevel(levels[j].getLevel());
                 }
             });
 
             levelsGroup.addActor(button);
 
             // Disable if not unlocked
-            if (i > writeUnlock + 1) {
+            if (i > unlocked + 1) {
                 button.setDisabled(true);
                 Image lock = new Image(lockTexture);
                 lock.setBounds(levelsButtonX - 14, levelsButtonY - 14, 128, 128);
@@ -162,15 +175,13 @@ public class Menu {
 
             levelsButtonX += 125;
 
+
             if (levelsButtonX >= 1360) {
                 levelsButtonY -= 125;
                 levelsButtonX = 560;
             }
         }
 
-        addBackButton(skin, levelsGroup);
-
-        levelsGroup.setVisible(false);
     }
 
     private void addBackButton(Skin skin, final Group group) {
