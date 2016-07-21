@@ -95,8 +95,18 @@ $('#download').on('click', function() {
 
     csvContent += tailTMX;
 
-    window.open('data:text/xml;charset=utf-8,' + encodeURI(csvContent));
+    download(csvContent);
 });
+
+function download(content) {
+    var blob = new Blob([content], {type : 'text/xml'});
+
+    var downLink = document.createElement("A");
+    downLink.innerHTML = "File ready!";
+    downLink.download = "map.tmx";
+    downLink.href = window.URL.createObjectURL(blob);
+    downLink.click();
+}
 
 var tailTMX = '</data>\n'
 +'                </layer>\n'
