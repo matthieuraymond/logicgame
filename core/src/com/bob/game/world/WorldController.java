@@ -11,10 +11,7 @@ import com.bob.lps.model.Goal;
 import com.bob.lps.model.GoalsList;
 import com.bob.lps.model.SimpleSentence;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class WorldController {
 
@@ -180,15 +177,21 @@ public class WorldController {
         }
 
         // Update current rule
-        Set<Goal> set = GoalsList.getInstance().getActiveGoals();
         currentRuleIndex = -1;
+        Set<Goal> set = GoalsList.getInstance().getActiveGoals();
 
-        if (!set.isEmpty()) {
-            Goal g = set.iterator().next();
-            // TODO enable light again when picking light up #resilience
-            SimpleSentence goal = g.getGoal();
-            if (goal.length() > 1) {
-                currentRuleIndex = Integer.parseInt(g.getGoal().getTerm(1).getName());
+        Iterator<Goal> it = set.iterator();
+
+        while (it.hasNext()) {
+            Goal g = it.next();
+            switch (g.getGoal().getTerm(0).toString()) {
+                case "goRight":
+                case "goLeft":
+                case "goUp":
+                case "goDown":
+                case "wait":
+                    currentRuleIndex = Integer.parseInt(g.getGoal().getTerm(1).getName());
+                    break;
             }
         }
     }

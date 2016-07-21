@@ -97,26 +97,24 @@ public class LPSHandler {
     }
 
     public EntityState getNewState() {
-        RuleSet instructions = getEvents();
-        if (instructions.getRuleCount() > 0) {
 
-            Set<Goal> set = GoalsList.getInstance().getActiveGoals();
-            Iterator<Goal> it = set.iterator();
+        Set<Goal> set = GoalsList.getInstance().getActiveGoals();
+        Iterator<Goal> it = set.iterator();
 
-            while (it.hasNext()) {
-                Goal g = it.next();
-                switch (g.getGoal().getTerm(0).toString()) {
-                    case "goRight":
-                        return EntityState.WALK_RIGHT;
-                    case "goLeft":
-                        return EntityState.WALK_LEFT;
-                    case "goUp":
-                        return EntityState.WALK_UP;
-                    case "goDown":
-                        return EntityState.WALK_DOWN;
-                }
+        while (it.hasNext()) {
+            Goal g = it.next();
+            switch (g.getGoal().getTerm(0).toString()) {
+                case "goRight":
+                    return EntityState.WALK_RIGHT;
+                case "goLeft":
+                    return EntityState.WALK_LEFT;
+                case "goUp":
+                    return EntityState.WALK_UP;
+                case "goDown":
+                    return EntityState.WALK_DOWN;
             }
         }
+
         return null;
     }
 
