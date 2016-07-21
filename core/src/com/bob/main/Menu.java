@@ -165,7 +165,7 @@ public class Menu {
             levelsGroup.addActor(button);
 
             // Disable if not unlocked
-            if (i > unlocked + 1) {
+            if (i > unlocked + 1 && Config.levelsAreLocked) {
                 button.setDisabled(true);
                 Image lock = new Image(lockTexture);
                 lock.setBounds(levelsButtonX - 14, levelsButtonY - 14, 128, 128);
@@ -174,7 +174,6 @@ public class Menu {
 
 
             levelsButtonX += 125;
-
 
             if (levelsButtonX >= 1360) {
                 levelsButtonY -= 125;

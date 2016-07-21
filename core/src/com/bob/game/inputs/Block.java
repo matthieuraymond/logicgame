@@ -24,6 +24,9 @@ public enum Block {
     UP("goUp", "up", Type.CONSEQUENT, "Bob should go up"),
     DOWN("goDown", "down", Type.CONSEQUENT, "Bob should go down"),
 
+    // Other instructions
+    WAIT("wait", "pause", Type.CONSEQUENT, "Bob should wait"),
+
     // Connectors
     AND("&", "and", Type.AND, "AND, to be used in: if a AND b"),
     IMPLY(" -> ", "imply", Type.IMPLY, "IMPLY/THEN, to be used in: if a THEN b"),

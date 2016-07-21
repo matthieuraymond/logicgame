@@ -1,6 +1,6 @@
 package com.bob.test.game;
 
-import com.bob.game.world.Config;
+import com.bob.main.Config;
 import com.bob.game.world.Entity;
 import com.bob.game.world.EntityState;
 import com.bob.game.world.WorldCoordinates;

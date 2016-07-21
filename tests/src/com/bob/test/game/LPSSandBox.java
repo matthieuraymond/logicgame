@@ -6,6 +6,7 @@ import com.bob.game.world.LPSHandler;
 import com.bob.game.world.MapManager;
 import com.bob.lps.model.Goal;
 import com.bob.lps.model.GoalsList;
+import com.bob.lps.model.SimpleSentence;
 import com.bob.test.GdxTestRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,6 +24,8 @@ public class LPSSandBox {
         LPSHandler lps = new LPSHandler(m.getLPSDescription(), "isIn(X,Y) & wasIn(U,V) & white(X,Y) -> goRight(0).isIn(X,Y) & wasIn(U,V) & white(X,Y) -> goRight(1).", lvl.getX(), lvl.getY());
         for (int i = 0; i < 20; ++i) {
             lps.update();
+            GoalsList goalsList = GoalsList.getInstance();
+
             Set<Goal> set = GoalsList.getInstance().getActiveGoals();
             int index = -1;
             if (!set.isEmpty()) {
@@ -30,6 +33,7 @@ public class LPSSandBox {
                 index = Integer.parseInt(g.getGoal().getTerm(1).getName());
             }
             String s = "lol";
+
         }
 
     }

@@ -1,5 +1,7 @@
 package com.bob.game.world;
 
+import com.bob.main.Config;
+
 public class WorldCoordinates {
     private float x;
     private float y;

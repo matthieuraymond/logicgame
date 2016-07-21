@@ -10,6 +10,8 @@ Goals {
 
 	pickUpLight() :- lights(X) & isNext(X,Y) & setLights(Y).
     stepOnLight() :- isIn(X, Y) & deleteLight(X, Y).
+    wait() :- excludeAll().
+    triggerUpdateWasIn() :- isIn(X, Y) & updateWasIn(X, Y).
 }
 
 Events {

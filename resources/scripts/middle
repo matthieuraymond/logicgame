@@ -35,12 +35,29 @@ DSet {
         ]
     }
 
+    excludeAll() = {
+        Preconditions [
+            conflicts: !moveFromTo(A, B, C, D) & !setLights(E) & !deleteLight(F).
+        ]
+    }
+
+    updateWasIn(X, Y) = {
+        Preconditions [
+            conditions: isIn(X, Y).
+        ]
+        Postconditions [
+            initiates(updateWasIn(X, Y), wasIn(X, Y)).
+            terminates(updateWasIn(X, Y), wasIn(A, B)).
+        ]
+    }
+
 }
 
 ReactiveRules {
 
     isIn(X,Y) & lightBulb(X,Y) -> stepOnLight().
     isIn(X,Y) & lightBulb(X,Y) -> pickUpLight().
+    isIn(X,Y) -> triggerUpdateWasIn(). // Always update was in
 
     //isIn(X, Y) & nextMacro(X, Y) & macro(M) & isNext(M, N)
     // RULES ARE DEFINED BY FINAL USER

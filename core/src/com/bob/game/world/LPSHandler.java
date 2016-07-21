@@ -5,12 +5,10 @@ import com.badlogic.gdx.files.FileHandle;
 import com.bob.lps.controller.syntax.JLPSSyntaxLexer;
 import com.bob.lps.controller.syntax.JLPSSyntaxParser;
 import com.bob.lps.model.*;
+import com.bob.main.Config;
 import org.antlr.runtime.*;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class LPSHandler {
 
@@ -99,28 +97,24 @@ public class LPSHandler {
     }
 
     public EntityState getNewState() {
-        /* Todo: eventually refactor to use goRight and moveTo instead of moveFromTo see lights in JLPS folder */
-
         RuleSet instructions = getEvents();
         if (instructions.getRuleCount() > 0) {
-            SimpleSentence nextRule = instructions.getRule(0).getHead();
 
-            // TODO REFACTOR DAT SHIT
-            if (!nextRule.getTerm(0).toString().equals("moveFromTo")) return null;
+            Set<Goal> set = GoalsList.getInstance().getActiveGoals();
+            Iterator<Goal> it = set.iterator();
 
-            int fromX = convertToInt(nextRule.getTerm(1).toString());
-            int fromY = convertToInt(nextRule.getTerm(2).toString());
-            int toX = convertToInt(nextRule.getTerm(3).toString());
-            int toY = convertToInt(nextRule.getTerm(4).toString());
-
-            if (toX > fromX) {
-                return EntityState.WALK_RIGHT;
-            } else if (toX < fromX) {
-                return EntityState.WALK_LEFT;
-            } else if (toY > fromY) {
-                return EntityState.WALK_UP;
-            } else if (toY < fromY) {
-                return EntityState.WALK_DOWN;
+            while (it.hasNext()) {
+                Goal g = it.next();
+                switch (g.getGoal().getTerm(0).toString()) {
+                    case "goRight":
+                        return EntityState.WALK_RIGHT;
+                    case "goLeft":
+                        return EntityState.WALK_LEFT;
+                    case "goUp":
+                        return EntityState.WALK_UP;
+                    case "goDown":
+                        return EntityState.WALK_DOWN;
+                }
             }
         }
         return null;
