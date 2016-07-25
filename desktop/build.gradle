@@ -4,7 +4,7 @@ sourceCompatibility = 1.7
 sourceSets.main.java.srcDirs = [ "src/" ]
 
 project.ext.mainClassName = "com.bob.game.desktop.DesktopLauncher"
-project.ext.assetsDir = new File("..");
+project.ext.assetsDir = new File("../resources");
 
 task run(dependsOn: classes, type: JavaExec) {
     main = project.mainClassName

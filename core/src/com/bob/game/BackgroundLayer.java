@@ -17,11 +17,11 @@ class BackgroundLayer extends Layer {
 
     public BackgroundLayer(Skin skin) {
         // Bkg
-        Image foreground = new Image(new Texture("resources/screens/foreground.png"));
+        Image foreground = new Image(new Texture("screens/foreground.png"));
         group.addActor(foreground);
 
         // Thumbs
-        Image currentThumb = new Image(new Texture("resources/thumbs/bob.png"));
+        Image currentThumb = new Image(new Texture("thumbs/bob.png"));
         currentThumb.setBounds(25, 1080 - 148, currentThumb.getWidth(), currentThumb.getHeight());
         group.addActor(currentThumb);
 

@@ -4,11 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 
 public enum MacroLevel implements LevelFactory {
-    level1("resources/maps/tmx/macro.tmx",
+    level1("maps/tmx/macro.tmx",
             6,11,
             "Hi, my name is Bob!\n\nI am quite a simple robot and I am lost. Can you help me to reach the golden platform?\n\nTo do so, write rules I can follow in the box on the right!\nThanks for your help!"
     ),
-    level2("resources/maps/tmx/macro2.tmx",
+    level2("maps/tmx/macro2.tmx",
             6,11,
             "Hi, my name is Bob!\n\nI am quite a simple robot and I am lost. Can you help me to reach the golden platform?\n\nTo do so, write rules I can follow in the box on the right!\nThanks for your help!"
     );

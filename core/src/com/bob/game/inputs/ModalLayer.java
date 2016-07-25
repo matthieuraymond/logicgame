@@ -16,12 +16,12 @@ public class ModalLayer extends InputsLayer {
         this.skin = skin;
         this.index = -1;
 
-        addActor(new Image(new Texture("resources/screens/macro_modal.png")));
+        addActor(new Image(new Texture("screens/macro_modal.png")));
 
         TextField.TextFieldStyle textFieldStyle = new TextField.TextFieldStyle();
         textFieldStyle.font = skin.getFont("impact_small");
         textFieldStyle.fontColor = Color.WHITE;
-        textFieldStyle.cursor = new Image(new Texture("resources/buttons/cursor.png")).getDrawable();
+        textFieldStyle.cursor = new Image(new Texture("buttons/cursor.png")).getDrawable();
 
         textField = new TextField("Macro Title", textFieldStyle);
         textField.setBounds(755, 1005, 415, 50);

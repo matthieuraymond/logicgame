@@ -2,7 +2,6 @@ package com.bob.main;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -32,7 +31,7 @@ public class Menu {
 
     private void initMenu(final Skin skin) {
         // Bkg
-        Image menuBkg = new Image(new Texture("resources/screens/menu.png"));
+        Image menuBkg = new Image(new Texture("screens/menu.png"));
         menuBkg.setBounds(0,0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         menuGroup.addActor(menuBkg);
 
@@ -83,7 +82,7 @@ public class Menu {
 
     private void initMode(Skin skin) {
 
-        Image levelsBkg = new Image(new Texture("resources/screens/menu.png"));
+        Image levelsBkg = new Image(new Texture("screens/menu.png"));
         levelsBkg.setBounds(0,0,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         modeGroup.addActor(levelsBkg);
@@ -119,7 +118,7 @@ public class Menu {
 
     private void initLevels(Skin skin) {
         // Levels Menu
-        Image levelsBkg = new Image(new Texture("resources/screens/menu.png"));
+        Image levelsBkg = new Image(new Texture("screens/menu.png"));
         levelsBkg.setBounds(0,0,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         levelsGroup.addActor(levelsBkg);
 
@@ -137,7 +136,7 @@ public class Menu {
         int levelsButtonX = 660;
         int levelsButtonY = startY;
 
-        Texture lockTexture = new Texture("resources/buttons/lock.png");
+        Texture lockTexture = new Texture("buttons/lock.png");
 
         Label.LabelStyle titleStyle = new Label.LabelStyle();
         titleStyle.font = skin.getFont("impact");

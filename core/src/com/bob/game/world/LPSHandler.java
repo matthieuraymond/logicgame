@@ -28,8 +28,8 @@ public class LPSHandler {
 
             lpsString.append("\t}\n\nRules {\n\t\t");
 
-            FileHandle middleScript = Gdx.files.internal("resources/scripts/middle");
-            FileHandle tailScript = Gdx.files.internal("resources/scripts/tail");
+            FileHandle middleScript = Gdx.files.internal("scripts/middle");
+            FileHandle tailScript = Gdx.files.internal("scripts/tail");
 
             lpsString.append(worldDescription);
             lpsString.append(middleScript.readString());

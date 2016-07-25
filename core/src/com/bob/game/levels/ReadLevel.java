@@ -6,7 +6,7 @@ import com.bob.game.inputs.Block;
 
 public enum ReadLevel implements LevelFactory {
 
-    level1("resources/maps/tmx/guess.tmx",
+    level1("maps/tmx/guess.tmx",
             11,11,
             new Block[][]{
                     {Block.RED, Block.IMPLY, Block.DOWN},
