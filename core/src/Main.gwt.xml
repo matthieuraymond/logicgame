@@ -3,5 +3,5 @@
 <module>
 	<source path="com/bob/game" />
 	<source path="com/bob/main" />
-	<!--source path="com/bob/lps" /-->
+	<source path="com/bob/lps" />
 </module>

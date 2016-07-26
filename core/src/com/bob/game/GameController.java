@@ -8,7 +8,7 @@ import com.bob.game.world.WorldController;
 
 import java.util.LinkedList;
 
-public class GameController {
+public class    GameController {
 
     private final LayerGroup layerGroup;
 
