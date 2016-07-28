@@ -36,11 +36,11 @@ public class Menu {
         menuGroup.addActor(menuBkg);
 
         // Menu button
-        String[] menu = {"NEW GAME", "LEVELS", "SETTINGS", "QUIT"};
+        String[] menu = {"PLAY", "LEVELS", "SETTINGS", "QUIT"};
 
         Map<String, Button> buttons = addButtons(menuGroup, skin, menu);
 
-        buttons.get("NEW GAME").addListener(new ClickListener() {
+        buttons.get("PLAY").addListener(new ClickListener() {
             public void clicked(InputEvent ie, float x, float y) {
                 modeGroup.setVisible(true);
             }
@@ -91,18 +91,38 @@ public class Menu {
         Map<String, Button> buttons = addButtons(modeGroup, skin, menu);
 
         buttons.get("WRITER").addListener(new ClickListener() {
-            public void clicked(InputEvent ie, float x, float y) {launchLevel(WriteLevel.values()[0].getLevel());
+            public void clicked(InputEvent ie, float x, float y) {
+                int lvlIndex = 0;
+
+                if (Config.levelsAreLocked) {
+                    Preferences prefs = Gdx.app.getPreferences("Progress");
+                    lvlIndex = prefs.getInteger("writeProgress", -1) + 1;
+                }
+                launchLevel(WriteLevel.values()[lvlIndex].getLevel());
             }
         });
 
         buttons.get("READER").addListener(new ClickListener() {
-            public void clicked(InputEvent ie, float x, float y) {launchLevel(ReadLevel.values()[0].getLevel());
+            public void clicked(InputEvent ie, float x, float y) {
+                int lvlIndex = 0;
+
+                if (Config.levelsAreLocked) {
+                    Preferences prefs = Gdx.app.getPreferences("Progress");
+                    lvlIndex = prefs.getInteger("readProgress", -1) + 1;
+                }
+                launchLevel(ReadLevel.values()[lvlIndex].getLevel());
             }
         });
 
         buttons.get("MACRO").addListener(new ClickListener() {
             public void clicked(InputEvent ie, float x, float y) {
-                launchLevel(MacroLevel.values()[0].getLevel());
+                int lvlIndex = 0;
+
+                if (Config.levelsAreLocked) {
+                    Preferences prefs = Gdx.app.getPreferences("Progress");
+                    lvlIndex = prefs.getInteger("macroProgress", -1) + 1;
+                }
+                launchLevel(MacroLevel.values()[lvlIndex].getLevel());
             }
         });
 
