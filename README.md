@@ -16,6 +16,7 @@ This com.bob.test.game is developed as my master thesis project. It uses the LPS
 
 # Cool, how do I try it?
 
-For the moment you can import the project using gradle. The only things to do is to make the resource folder the working directory.
+- You can download a simple jar file here (you'll need a JRE 1.7 or above): [DOWNLOAD JAR](https://github.com/matthieuraymond/logicgame/blob/master/release/Bob_the_simplebot.jar:raw?true)
+- If you're on Windows, you'll find a portable executable here: [DOWNLOAD EXE](https://github.com/matthieuraymond/logicgame/blob/master/release/Bob_the_simplebot.exe:raw?true)
+- Otherwise, you can import the project using gradle. then use """./gradlew desktop:run""" on Linux and Mac and use """gradlew.bat desktop:run""" on windows. If you run it through an IDE you'll need to set the working directory to the "resources" folder. 
 
- An executable version will soon be available
