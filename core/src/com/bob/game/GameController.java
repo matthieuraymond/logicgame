@@ -59,7 +59,6 @@ public class    GameController {
             layerGroup.setVisibility("macro", true);
             layerGroup.setVisibility("inputs", false);
 
-            /* TODO : Reset level */
             macroManager.resetMacros();
             macroManager.resetMacroInputs();
 
