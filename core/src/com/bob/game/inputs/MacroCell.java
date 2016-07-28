@@ -48,4 +48,12 @@ public class MacroCell extends Target {
             return "";
         }
     }
+
+    public void clear() {
+        if (actor != null) {
+            actor.setVisible(false);
+            actor = null;
+        }
+        payload = null;
+    }
 }

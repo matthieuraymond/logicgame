@@ -73,4 +73,12 @@ public class MacroLayer extends InputsLayer {
     public void setMacroCells(MacroCell[] macroCells) {
         this.macroCells = macroCells;
     }
+
+    public void resetCells() {
+        for (int i = 0; i < macroCells.length; i++) {
+            if (macroCells[i] != null) {
+                macroCells[i].clear();
+            }
+        }
+    }
 }

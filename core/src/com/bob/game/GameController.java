@@ -44,6 +44,7 @@ public class    GameController {
 
     public void reset() {
         inputsManager.resetRules();
+        macroManager.resetMacros();
         worldController.resetBob(currentLevel.getX(), currentLevel.getY());
         worldController.resetLights();
     }
@@ -57,6 +58,9 @@ public class    GameController {
             layerGroup.setVisibility("inputs", false);
 
             /* TODO : Reset level */
+            macroManager.resetMacros();
+            macroManager.resetMacroInputs();
+
         } else {
             layerGroup.setVisibility("macro", false);
             layerGroup.setVisibility("inputs", true);

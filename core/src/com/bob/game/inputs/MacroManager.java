@@ -190,4 +190,21 @@ public class MacroManager {
 
         return sb.toString();
     }
+
+    public void resetMacros() {
+        macroLayer.resetCells();
+    }
+
+    public void resetMacroInputs() {
+        for (int i = 0; i < draggables.length; i++) {
+            if (draggables[i] != null) {
+                draggables[i].clear();
+                draggables[i] = null;
+            }
+        }
+
+        for (int i = 0; i < macros.length; i++) {
+            macros[i] = null;
+        }
+    }
 }
