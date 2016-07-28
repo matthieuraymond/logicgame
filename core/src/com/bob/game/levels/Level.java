@@ -40,6 +40,10 @@ public abstract class Level {
         return false;
     }
 
+    public Boolean allowRuleReset() {
+        return true;
+    }
+
     public Block[] getInputs() {
         return inputs;
     }

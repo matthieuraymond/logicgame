@@ -43,8 +43,10 @@ public class    GameController {
     }
 
     public void reset() {
-        inputsManager.resetRules();
-        macroManager.resetMacros();
+        if (currentLevel.allowRuleReset()) {
+            inputsManager.resetRules();
+            macroManager.resetMacros();
+        }
         worldController.resetBob(currentLevel.getX(), currentLevel.getY());
         worldController.resetLights();
     }

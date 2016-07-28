@@ -38,6 +38,11 @@ public enum ReadLevel implements LevelFactory {
                 prefs.putInteger("readProgress", ordinal);
                 prefs.flush();
             }
+
+            @Override
+            public Boolean allowRuleReset() {
+                return false;
+            }
         };
     }
 

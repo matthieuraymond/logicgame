@@ -9,7 +9,6 @@ import com.bob.game.inputs.Block;
 import com.bob.game.levels.Level;
 import com.bob.lps.model.Goal;
 import com.bob.lps.model.GoalsList;
-import com.bob.lps.model.SimpleSentence;
 
 import java.util.*;
 
@@ -214,7 +213,9 @@ public class WorldController {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (Math.abs(x - coord.getScreenX()) < 50 && Math.abs(y - coord.getScreenY()) < 30) {
-                    mapManager.setGold((int)coord.getWorldX(), (int)coord.getWorldY());
+                    if (!isAnimPlaying) {
+                        mapManager.setGold((int) coord.getWorldX(), (int) coord.getWorldY());
+                    }
                 }
             }
         };
