@@ -20,6 +20,7 @@ public class MapManager {
     private float elapsedSinceAnimation;
 
     public MapManager(String path) {
+
         map = new TmxMapLoader().load(path);
 
         floorLayer = (TiledMapTileLayer)map.getLayers().get("Floor");

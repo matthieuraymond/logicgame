@@ -9,20 +9,20 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.bob.game.GameController;
+import com.bob.game.levels.Level;
 import com.bob.game.world.Textures;
 
 public class Main extends ApplicationAdapter {
 
 	// Game State
-	GameState gameState;
+	protected GameState gameState;
 	float gameStateTime;
 
 	Skin skin;
 	Stage stage;
 
-	Menu menu;
+	protected Menu menu;
 	GameController gameController;
-
 
 	@Override
 	public void create() {
@@ -72,10 +72,7 @@ public class Main extends ApplicationAdapter {
 
 		if (gameState == GameState.MENU) {
 			if (!menu.isVisible()) {
-				gameController.setLevel(menu.getLevelSelected());
-				gameController.show();
-				gameController.startNewLevel();
-				gameState = GameState.PLAYING;
+				startLevel(menu.getLevelSelected());
 			}
 		}
 
@@ -92,6 +89,13 @@ public class Main extends ApplicationAdapter {
 		stage.act(deltaTime);
 		stage.draw();
 		//stage.setDebugAll(true);
+	}
+
+	protected void startLevel(Level lvl) {
+		gameController.setLevel(lvl);
+		gameController.show();
+		gameController.startNewLevel();
+		gameState = GameState.PLAYING;
 	}
 
 	private void addButtonStyle() {
