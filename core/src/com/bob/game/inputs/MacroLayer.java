@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.bob.main.TextureFactory;
 
 public class MacroLayer extends InputsLayer {
     private Skin skin;
@@ -20,21 +21,21 @@ public class MacroLayer extends InputsLayer {
     public MacroLayer(Skin skin) {
         this.skin = skin;
 
-        Image topCache = new Image(new Texture("screens/macro_top.png"));
+        Image topCache = new Image(TextureFactory.createTexture("screens/macro_top.png"));
         topCache.setBounds(1400, 720, 500, 310);
         addActor(topCache);
 
-        Image botCache = new Image(new Texture("screens/macro_bot.png"));
+        Image botCache = new Image(TextureFactory.createTexture("screens/macro_bot.png"));
         botCache.setBounds(1400, 80, 500, 615);
         addActor(botCache);
 
         Label.LabelStyle macroStyle = new Label.LabelStyle();
-        macroStyle.background = new Image(new Texture("blocks/macro.png")).getDrawable();
+        macroStyle.background = new Image(TextureFactory.createTexture("blocks/macro.png")).getDrawable();
         macroStyle.font = skin.getFont("impact_small");
 
         skin.add("macro_style", macroStyle);
 
-        Texture macroTarget = new Texture("blocks/macro_target.png");
+        Texture macroTarget = TextureFactory.createTexture("blocks/macro_target.png");
 
         macroCells = new MacroCell[8];
 

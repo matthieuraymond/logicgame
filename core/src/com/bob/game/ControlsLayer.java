@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.bob.main.TextureFactory;
 
 class ControlsLayer extends Layer {
 
@@ -48,8 +49,8 @@ class ControlsLayer extends Layer {
         // ----------
 
         // SLIDER
-        skin.add("slider_bkg", new Texture("buttons/slider_bkg.png"));
-        skin.add("slider_knob", new Texture("buttons/slider_knob.png"));
+        skin.add("slider_bkg", TextureFactory.createTexture("buttons/slider_bkg.png"));
+        skin.add("slider_knob", TextureFactory.createTexture("buttons/slider_knob.png"));
         Slider.SliderStyle sliderStyle = new Slider.SliderStyle();
         sliderStyle.knob = skin.getDrawable("slider_knob");
         sliderStyle.background = skin.getDrawable("slider_bkg");

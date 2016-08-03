@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.bob.game.Layer;
+import com.bob.main.TextureFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,21 +35,21 @@ public class InputsLayer extends Layer {
 
         // Inputs
         for (Block b: Block.values()) {
-            skin.add(b.getImageName(), new Texture("blocks/"+ b.getImageName() +".png"));
+            skin.add(b.getImageName(), TextureFactory.createTexture("blocks/"+ b.getImageName() +".png"));
         }
-        skin.add("macro_block", new Texture("blocks/macro.png"));
+        skin.add("macro_block", TextureFactory.createTexture("blocks/macro.png"));
 
         // Rules
-        skin.add("red_light", new Texture("lights/red.png"));
-        skin.add("green_light", new Texture("lights/green.png"));
-        skin.add("target", new Texture("blocks/target.png"));
+        skin.add("red_light", TextureFactory.createTexture("lights/red.png"));
+        skin.add("green_light", TextureFactory.createTexture("lights/green.png"));
+        skin.add("target", TextureFactory.createTexture("blocks/target.png"));
 
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = new BitmapFont();
 
         // DRAG N DROP
         TextTooltip.TextTooltipStyle tooltipStyle = new TextTooltip.TextTooltipStyle();
-        skin.add("tooltip_bkg", new Texture("blocks/tooltip.png"));
+        skin.add("tooltip_bkg", TextureFactory.createTexture("blocks/tooltip.png"));
         tooltipStyle.label = labelStyle;
 
         tooltipStyle.background = skin.getDrawable("tooltip_bkg");

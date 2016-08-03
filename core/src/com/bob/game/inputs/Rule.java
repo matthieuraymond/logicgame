@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.bob.main.TextureFactory;
 
 import java.util.LinkedList;
 
@@ -42,13 +43,13 @@ public class Rule {
         layer.addActor(light);
 
         // Locking pane
-        lock = new Image(new Texture("blocks/locked.png"));
+        lock = new Image(TextureFactory.createTexture("blocks/locked.png"));
         lock.setBounds(startingX - 75, startingY - 12, 500, 70);
         lock.setVisible(false);
         layer.addActor(lock);
 
         // Arrow for current rule
-        arrow = new Image(new Texture("lights/arrow.png"));
+        arrow = new Image(TextureFactory.createTexture("lights/arrow.png"));
         arrow.setBounds(startingX - 100, startingY - 2, 60, 45);
         arrow.setVisible(false);
         layer.addActor(arrow);

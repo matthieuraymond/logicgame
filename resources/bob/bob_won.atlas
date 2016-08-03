@@ -2,7 +2,7 @@
 bob_won.png
 size: 64,128
 format: RGBA8888
-filter: Nearest,Nearest
+filter: Linear,Linear
 repeat: none
 bob_won
   rotate: false

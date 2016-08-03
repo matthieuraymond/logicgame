@@ -2,7 +2,7 @@
 bob_walk_down.png
 size: 512,128
 format: RGBA8888
-filter: Nearest,Nearest
+filter: Linear,Linear
 repeat: none
 0001
   rotate: false
