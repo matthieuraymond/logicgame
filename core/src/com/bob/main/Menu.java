@@ -32,7 +32,7 @@ public class Menu {
     private void initMenu(final Skin skin) {
         // Bkg
         Image menuBkg = new Image(new Texture("screens/menu.png"));
-        menuBkg.setBounds(0,0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        menuBkg.setBounds(0,0, 1920, 1080);
         menuGroup.addActor(menuBkg);
 
         // Menu button
@@ -83,7 +83,7 @@ public class Menu {
     private void initMode(Skin skin) {
 
         Image levelsBkg = new Image(new Texture("screens/menu.png"));
-        levelsBkg.setBounds(0,0,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        levelsBkg.setBounds(0,0, 1920, 1080);
 
         modeGroup.addActor(levelsBkg);
 
@@ -139,7 +139,7 @@ public class Menu {
     private void initLevels(Skin skin) {
         // Levels Menu
         Image levelsBkg = new Image(new Texture("screens/menu.png"));
-        levelsBkg.setBounds(0,0,Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        levelsBkg.setBounds(0,0, 1920, 1080);
         levelsGroup.addActor(levelsBkg);
 
         addLevelButtons(skin, WriteLevel.values(), "writeProgress", "Write", 430);

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.bob.game.inputs.Block;
 import com.bob.game.levels.Level;
 import com.bob.lps.model.Goal;
@@ -20,6 +21,7 @@ public class WorldController {
     private int nbWon;
 
     // Bob
+    private OrthographicCamera camera;
     private SpriteBatch batch;
     private final Entity bob;
 
@@ -43,6 +45,10 @@ public class WorldController {
         currentRuleIndex = -1;
         bob = new Entity(0, 0);
         objects = new ArrayList<Entity>();
+    }
+
+    public void setCamera(OrthographicCamera camera) {
+        this.camera = camera;
     }
 
     public void setupWorld(Level level) {
@@ -115,6 +121,7 @@ public class WorldController {
         if (mapManager != null) mapManager.draw(deltaTimeAdjusted);
 
         // Batch
+        //batch.setProjectionMatrix(camera.combined);
         batch.begin();
         if (bob != null) bob.draw(batch);
 

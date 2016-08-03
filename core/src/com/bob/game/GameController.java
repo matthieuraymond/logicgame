@@ -2,6 +2,7 @@ package com.bob.game;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.bob.game.inputs.*;
 import com.bob.game.levels.Level;
 import com.bob.game.world.WorldController;
@@ -18,7 +19,7 @@ public class    GameController {
     private final MacroManager macroManager;
     private final WorldController worldController;
 
-    public GameController(Skin skin) {
+    public GameController(Skin skin, OrthographicCamera camera) {
 
         layerGroup = new LayerGroup();
 
@@ -33,6 +34,8 @@ public class    GameController {
         inputsManager = new InputsManager();
         macroManager = new MacroManager();
         worldController = new WorldController();
+
+        worldController.setCamera(camera);
 
         inputsManager.setLayer((InputsLayer)layerGroup.get("inputs"));
         inputsManager.initRuleView(skin, 1475, 1080 - 495);

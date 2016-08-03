@@ -8,6 +8,9 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.bob.game.GameController;
 import com.bob.game.levels.Level;
 import com.bob.game.world.Textures;
@@ -16,25 +19,30 @@ public class Main extends ApplicationAdapter {
 
 	// Game State
 	protected GameState gameState;
-	float gameStateTime;
+	private float gameStateTime;
 
-	Skin skin;
-	Stage stage;
+	private Skin skin;
+	private Stage stage;
 
 	protected Menu menu;
-	GameController gameController;
+	private GameController gameController;
 
 	@Override
 	public void create() {
 
         skin = new Skin();
-		stage = new Stage();
+		stage = new Stage(new StretchViewport(1920, 1080));
 
 		skin.add("font", new BitmapFont());
 
 		addButtonStyle();
 
-		gameController = new GameController(skin);
+		OrthographicCamera camera = new OrthographicCamera();
+		StretchViewport viewport = new StretchViewport(100,100,camera);
+		viewport.apply();
+		camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);
+
+		gameController = new GameController(skin, camera);
 		menu = new Menu(skin);
 
 		gameController.linkStage(stage);
