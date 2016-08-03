@@ -29,6 +29,7 @@ class BackgroundLayer extends Layer {
         // Text
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = new BitmapFont();
+        labelStyle.font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
         text = new Label("", labelStyle);
         text.setBounds(240, 945, 575, 125);

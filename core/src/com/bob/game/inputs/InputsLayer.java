@@ -31,7 +31,10 @@ public class InputsLayer extends Layer {
         this();
         this.skin = skin;
 
-        skin.add("default", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        BitmapFont font = new BitmapFont();
+        font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
+        skin.add("default", new Label.LabelStyle(font, Color.WHITE));
 
         // Inputs
         for (Block b: Block.values()) {

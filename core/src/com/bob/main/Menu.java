@@ -31,7 +31,7 @@ public class Menu {
 
     private void initMenu(final Skin skin) {
         // Bkg
-        Image menuBkg = new Image(new Texture("screens/menu.png"));
+        Image menuBkg = new Image(TextureFactory.createTexture("screens/menu.png"));
         menuBkg.setBounds(0,0, 1920, 1080);
         menuGroup.addActor(menuBkg);
 
@@ -82,7 +82,7 @@ public class Menu {
 
     private void initMode(Skin skin) {
 
-        Image levelsBkg = new Image(new Texture("screens/menu.png"));
+        Image levelsBkg = new Image(TextureFactory.createTexture("screens/menu.png"));
         levelsBkg.setBounds(0,0, 1920, 1080);
 
         modeGroup.addActor(levelsBkg);
@@ -138,7 +138,7 @@ public class Menu {
 
     private void initLevels(Skin skin) {
         // Levels Menu
-        Image levelsBkg = new Image(new Texture("screens/menu.png"));
+        Image levelsBkg = new Image(TextureFactory.createTexture("screens/menu.png"));
         levelsBkg.setBounds(0,0, 1920, 1080);
         levelsGroup.addActor(levelsBkg);
 
@@ -156,7 +156,7 @@ public class Menu {
         int levelsButtonX = 660;
         int levelsButtonY = startY;
 
-        Texture lockTexture = new Texture("buttons/lock.png");
+        Texture lockTexture = TextureFactory.createTexture("buttons/lock.png");
 
         Label.LabelStyle titleStyle = new Label.LabelStyle();
         titleStyle.font = skin.getFont("impact");

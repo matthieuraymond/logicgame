@@ -108,10 +108,14 @@ public class Main extends ApplicationAdapter {
 	}
 
 	private void addButtonStyle() {
-		skin.add("impact", new BitmapFont(Gdx.files.internal("font/impact.fnt")));
+
+		BitmapFont impactFont = new BitmapFont(Gdx.files.internal("font/impact.fnt"));
+		impactFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+		skin.add("impact", impactFont);
 
 		BitmapFont smallFont = new BitmapFont(Gdx.files.internal("font/impact.fnt"));
 		smallFont.getData().scale(-0.3f);
+		smallFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		skin.add("impact_small", smallFont);
 
 		String[] buttonColor = {"grey", "grey_square", "big_grey", "orange", "red", "green", "blue"};
@@ -119,8 +123,8 @@ public class Main extends ApplicationAdapter {
 
 		for (int i = 0; i < buttonColor.length; i++) {
 			String color = buttonColor[i];
-			skin.add(color + "_button", new Texture("buttons/" + color + ".png"));
-			skin.add(color + "_clicked", new Texture("buttons/" + color + "_clicked.png"));
+			skin.add(color + "_button", TextureFactory.createTexture("buttons/" + color + ".png"));
+			skin.add(color + "_clicked", TextureFactory.createTexture("buttons/" + color + "_clicked.png"));
 			TextButton.TextButtonStyle colorButtonStyle = new TextButton.TextButtonStyle();
 			colorButtonStyle.up = skin.getDrawable(color + "_button");
 			colorButtonStyle.down = skin.getDrawable(color + "_clicked");

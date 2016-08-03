@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.utils.StringBuilder;
+import com.badlogic.gdx.graphics.Texture;
 import com.bob.main.Config;
 
 import java.util.Iterator;
@@ -22,6 +23,18 @@ public class MapManager {
     public MapManager(String path) {
 
         map = new TmxMapLoader().load(path);
+
+        
+        Iterator<TiledMapTileSet> tileSets = map.getTileSets().iterator();
+        while(tileSets.hasNext())
+        {
+            Iterator<TiledMapTile> tiles = tileSets.next().iterator();
+
+            while(tiles.hasNext())
+            {
+                tiles.next().getTextureRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            }
+        }
 
         floorLayer = (TiledMapTileLayer)map.getLayers().get("Floor");
         waterIterator = map.getTileSets().getTileSet("water").iterator();
@@ -68,6 +81,7 @@ public class MapManager {
         if (!waterIterator.hasNext()) {
             waterIterator = map.getTileSets().getTileSet("water").iterator();
         }
+
         TiledMapTile newTile = (TiledMapTile)waterIterator.next();
 
         for(int x = 0; x < floorLayer.getWidth();x++){
