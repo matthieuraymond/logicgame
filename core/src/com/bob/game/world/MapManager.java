@@ -30,7 +30,7 @@ public class MapManager {
     }
 
     public void initRender() {
-        camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        camera = new OrthographicCamera(1920, 1080);
         camera.position.set(Config.tileWidth * Config.noHorizontalTile - 50, 67, 0);
 
         renderer = new IsometricTiledMapRenderer(map);

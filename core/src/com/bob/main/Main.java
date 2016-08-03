@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.*;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.bob.game.GameController;
 import com.bob.game.levels.Level;
@@ -31,16 +32,16 @@ public class Main extends ApplicationAdapter {
 	public void create() {
 
         skin = new Skin();
-		stage = new Stage(new StretchViewport(1920, 1080));
+		stage = new Stage(new FitViewport(1920, 1080));
 
 		skin.add("font", new BitmapFont());
 
 		addButtonStyle();
 
 		OrthographicCamera camera = new OrthographicCamera();
-		StretchViewport viewport = new StretchViewport(100,100,camera);
+		Viewport viewport = new FitViewport(1920,1080,camera);
+		camera.position.set(960,540,0);
 		viewport.apply();
-		camera.position.set(camera.viewportWidth/2,camera.viewportHeight/2,0);
 
 		gameController = new GameController(skin, camera);
 		menu = new Menu(skin);

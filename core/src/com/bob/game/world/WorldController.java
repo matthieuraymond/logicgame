@@ -121,7 +121,7 @@ public class WorldController {
         if (mapManager != null) mapManager.draw(deltaTimeAdjusted);
 
         // Batch
-        //batch.setProjectionMatrix(camera.combined);
+        batch.setProjectionMatrix(camera.combined);
         batch.begin();
         if (bob != null) bob.draw(batch);
 

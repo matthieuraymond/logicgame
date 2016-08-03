@@ -1,5 +1,6 @@
 package com.bob.game.world;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -32,8 +33,8 @@ public class Entity {
 
         TextureRegion currentFrame = currentState.getFrame(stateTime);
 
-        float drawingX = this.coord.getScreenX() - currentFrame.getRegionWidth()/2;
-        float drawingY = this.coord.getScreenY() // Todo: clean those two add
+        float drawingX =  this.coord.getScreenX() - currentFrame.getRegionWidth()/2;
+        float drawingY =  this.coord.getScreenY() // Todo: clean those two add
                             + (currentState == EntityState.WON ? (float)Math.abs(Math.sin(3.1415f*stateTime)) * 50: 0)
                             + (currentState == EntityState.LIGHT ? (float)(Math.cos(3.1415f*stateTime) + 1 ) * 5: 0);
 
