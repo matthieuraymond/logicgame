@@ -11,13 +11,14 @@ public enum WriteLevel implements LevelFactory {
             8,
             new Block[]{Block.RIGHT},
             "Hi, my name is Bob!\n\nI am quite a simple robot and I am lost. Can you help me to reach the golden platform?\n\nTo do so, write rules I can follow in the box on the right!\nThanks for your help!",
-            new String[]{"screens/tut1.png", "screens/tut2.png"}
+            new String[]{"screens/tut1.png", "screens/tut2.png", "screens/tut3.png"}
     ),
     level2("maps/tmx/straight.tmx",
             2,11,
             1,
             new Block[]{Block.WHITE, Block.IMPLY, Block.RIGHT},
-            "Hi, my name is Bob!\n\nI am quite a simple robot and I am lost. Can you help me to reach the golden platform?\n\nTo do so, write rules I can follow in the box on the right!\nThanks for your help!"
+            "Hi, my name is Bob!\n\nI am quite a simple robot and I am lost. Can you help me to reach the golden platform?\n\nTo do so, write rules I can follow in the box on the right!\nThanks for your help!",
+            new String[]{"screens/tut4.png"}
     ),
     level3("maps/tmx/turn.tmx",
             2,11,
