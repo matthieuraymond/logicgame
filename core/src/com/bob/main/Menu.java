@@ -87,6 +87,12 @@ public class Menu {
 
         modeGroup.addActor(levelsBkg);
 
+        Label.LabelStyle titleStyle = new Label.LabelStyle();
+        titleStyle.font = skin.getFont("impact");
+        Label startLabel = new Label("< Start here!", titleStyle);
+        startLabel.setBounds(1185, 430, 400, 100);
+        modeGroup.addActor(startLabel);
+
         String[] menu = {"WRITER", "READER", "MACRO"};
         Map<String, Button> buttons = addButtons(modeGroup, skin, menu);
 
