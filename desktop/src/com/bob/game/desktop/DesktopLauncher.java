@@ -40,7 +40,7 @@ public class DesktopLauncher {
 				int startY = bobNode.getInt("y");
 				int noRules = levelNode.getChildByName("rules").getIntAttribute("available");
 
-				final Level customLevel = new Level("maps/tmx/custom.tmx", startX, startY, noRules, new Block[]{}, "") {
+				final Level customLevel = new Level("maps/tmx/custom.tmx", startX, startY, noRules, new Block[]{}, "", new String[]{}) {
 					@Override
 					public Level next() {
 						return this;

@@ -10,6 +10,7 @@ public abstract class Level {
     private int noRules = 8;
     private Block[] inputs = new Block[]{};
     private Block[][] rules = new Block[][]{};
+    private String[] tutorialImages = new String[]{};
     private final String text;
 
     public Level(String map, int x, int y, Block[][] rules, String text) {
@@ -20,13 +21,14 @@ public abstract class Level {
         this.text = text;
     }
 
-    public Level(String map, int x, int y, int noRules, Block[] inputs, String text) {
+    public Level(String map, int x, int y, int noRules, Block[] inputs, String text, String[] tutorialImages) {
         this.map = map;
         this.coordX = x;
         this.coordY = y;
         this.noRules = noRules;
         this.inputs = inputs;
         this.text = text;
+        this.tutorialImages = tutorialImages;
     }
 
     public Level(String map, int x, int y, String text) {
@@ -42,6 +44,10 @@ public abstract class Level {
 
     public Boolean allowRuleReset() {
         return true;
+    }
+
+    public Boolean hasTutorial() {
+        return tutorialImages.length > 0;
     }
 
     public Block[] getInputs() {
@@ -75,4 +81,8 @@ public abstract class Level {
     }
 
     public abstract void save();
+
+    public String[] getTutorialImages() {
+        return tutorialImages;
+    }
 }

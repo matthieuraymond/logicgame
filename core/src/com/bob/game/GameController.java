@@ -55,9 +55,12 @@ public class    GameController {
     }
 
     public void startNewLevel() {
-        /*if (currentLevel == WriteLevel.values()[0].getLevel()) {
+
+        if (currentLevel.hasTutorial()) {
+            ((Tutorial)layerGroup.get("tutorial")).setImages(currentLevel.getTutorialImages());
             layerGroup.setVisibility("tutorial", true);
-        }*/
+        }
+
         if (currentLevel.allowMacro()) {
             layerGroup.setVisibility("macro", true);
             layerGroup.setVisibility("inputs", false);

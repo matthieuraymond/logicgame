@@ -10,7 +10,8 @@ public enum WriteLevel implements LevelFactory {
             9,11,
             8,
             new Block[]{Block.RIGHT},
-            "Hi, my name is Bob!\n\nI am quite a simple robot and I am lost. Can you help me to reach the golden platform?\n\nTo do so, write rules I can follow in the box on the right!\nThanks for your help!"
+            "Hi, my name is Bob!\n\nI am quite a simple robot and I am lost. Can you help me to reach the golden platform?\n\nTo do so, write rules I can follow in the box on the right!\nThanks for your help!",
+            new String[]{"screens/tut1.png", "screens/tut2.png"}
     ),
     level2("maps/tmx/straight.tmx",
             2,11,
@@ -40,10 +41,14 @@ public enum WriteLevel implements LevelFactory {
     private final Level level;
 
     WriteLevel(String map, int x, int y, int noRules, Block[] inputs, String text) {
+        this(map, x, y, noRules, inputs, text, new String[]{});
+    }
+
+    WriteLevel(String map, int x, int y, int noRules, Block[] inputs, String text, String[] tutorialImages) {
 
         final int ordinal = this.ordinal();
 
-        this.level = new Level(map, x, y, noRules, inputs, text) {
+        this.level = new Level(map, x, y, noRules, inputs, text, tutorialImages) {
 
             @Override
             public Level next() {
