@@ -13,12 +13,13 @@ public abstract class Level {
     private String[] tutorialImages = new String[]{};
     private final String text;
 
-    public Level(String map, int x, int y, Block[][] rules, String text) {
+    public Level(String map, int x, int y, Block[][] rules, String text, String[] tutorialImages) {
         this.map = map;
         this.coordX = x;
         this.coordY = y;
         this.rules = rules;
         this.text = text;
+        this.tutorialImages = tutorialImages;
     }
 
     public Level(String map, int x, int y, int noRules, Block[] inputs, String text, String[] tutorialImages) {
@@ -31,11 +32,12 @@ public abstract class Level {
         this.tutorialImages = tutorialImages;
     }
 
-    public Level(String map, int x, int y, String text) {
+    public Level(String map, int x, int y, String text, String[] tutorialImages) {
         this.map = map;
         this.coordX = x;
         this.coordY = y;
         this.text = text;
+        this.tutorialImages = tutorialImages;
     }
 
     public Boolean allowMacro() {

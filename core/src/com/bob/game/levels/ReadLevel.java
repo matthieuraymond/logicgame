@@ -20,10 +20,14 @@ public enum ReadLevel implements LevelFactory {
     private final Level level;
 
     ReadLevel(String map, int x, int y, Block[][] rules, String text) {
+        this(map, x, y, rules, text, new String[]{});
+    }
+
+    ReadLevel(String map, int x, int y, Block[][] rules, String text, String[] tutorialImages) {
 
         final int ordinal = this.ordinal();
 
-        this.level = new Level(map, x, y, rules, text) {
+        this.level = new Level(map, x, y, rules, text, tutorialImages) {
 
             @Override
             public Level next() {
