@@ -1,6 +1,8 @@
 package com.bob.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -49,6 +51,23 @@ class ControlsLayer extends Layer {
         // ----------
 
         // SLIDER
+        BitmapFont font = new BitmapFont(Gdx.files.internal("font/impact.fnt"));
+        font.getData().scale(-0.6f);
+        font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font = font;
+        Label speedLabel = new Label("Speed", labelStyle);
+        speedLabel.setBounds(250, 50, 100, 25);
+        group.addActor(speedLabel);
+
+        Image turtle = new Image(TextureFactory.createTexture("buttons/turtle.png"));
+        turtle.setBounds(240, 10, 35, 25);
+        group.addActor(turtle);
+
+        Image rabbit = new Image(TextureFactory.createTexture("buttons/rabbit.png"));
+        rabbit.setBounds(425, 10, 35, 25);
+        group.addActor(rabbit);
+
         skin.add("slider_bkg", TextureFactory.createTexture("buttons/slider_bkg.png"));
         skin.add("slider_knob", TextureFactory.createTexture("buttons/slider_knob.png"));
         Slider.SliderStyle sliderStyle = new Slider.SliderStyle();
