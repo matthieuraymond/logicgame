@@ -41,6 +41,14 @@ class BackgroundLayer extends Layer {
         Label.LabelStyle lightLabelStyle = new Label.LabelStyle();
         lightLabelStyle.font = skin.getFont("impact");
 
+        Image lightBulb = new Image(TextureFactory.createTexture("bob/light_bulb.png"));
+        lightBulb.setBounds(815, 960, 64, 128);
+        noLightsGroup.addActor(lightBulb);
+
+        Label colon = new Label(":", lightLabelStyle);
+        colon.setBounds(870, 1005, 25, 60);
+        noLightsGroup.addActor(colon);
+
         noLights = new Label("", lightLabelStyle);
         noLights.setBounds(855, 1000, 100, 60);
         noLights.setAlignment(Align.right);

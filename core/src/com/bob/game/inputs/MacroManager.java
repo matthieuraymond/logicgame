@@ -1,10 +1,8 @@
 package com.bob.game.inputs;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.utils.Align;
@@ -33,50 +31,12 @@ public class MacroManager {
         inputsManager.initRuleView(skin, 785, 1080 - 545);
     }
 
-    public void addButtons(final Skin skin) {
+    public void addButtons(Skin skin) {
         macroLayer.addModalButton(this);
-
-        // Submit modal button
-        final TextButton submitbutton = new TextButton("Submit", skin, "green_button") {
-            @Override
-            public void draw(Batch batch, float parentAlpha) {
-                this.setDisabled(!inputsManager.checkRules());
-                super.draw(batch, parentAlpha);
-            }
-        };
-        submitbutton.setBounds(1250, 880, 200, 50);
-        submitbutton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (!submitbutton.isDisabled()) submitModal(skin);
-            };
-        });
-        modalLayer.addActor(submitbutton);
-
-        // Cancel modal button
-        TextButton button = new TextButton("Cancel", skin, "blue_button");
-        button.setBounds(1250, 940, 200, 50);
-        button.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                modalLayer.setVisibility(false);
-            };
-        });
-        modalLayer.addActor(button);
-
-        // Delete modal button
-        button = new TextButton("Delete", skin, "orange_button");
-        button.setBounds(1250, 1000, 200, 50);
-        button.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                deleteButtonModal();
-            };
-        });
-        modalLayer.addActor(button);
+        modalLayer.addButtons(skin, this);
     }
 
-    private void deleteButtonModal() {
+    public void deleteButtonModal() {
         modalLayer.setVisibility(false);
 
         int index = modalLayer.getIndex();
@@ -91,7 +51,7 @@ public class MacroManager {
         macroLayer.getNewMacroButton().setDisabled(false);
     }
 
-    private void submitModal(Skin skin) {
+    public void submitModal(Skin skin) {
         modalLayer.setVisibility(false);
 
         int index = modalLayer.getIndex();
@@ -206,5 +166,9 @@ public class MacroManager {
         for (int i = 0; i < macros.length; i++) {
             macros[i] = null;
         }
+    }
+
+    public boolean checkRules() {
+        return inputsManager.checkRules();
     }
 }
