@@ -29,6 +29,7 @@ public class    GameController {
         layerGroup.add("macro", new MacroLayer(skin));
         layerGroup.add("modal_inputs", new ModalLayer(skin));
         layerGroup.add("winning", new WinningLayer(skin, this));
+        layerGroup.add("confused_modal", new ConfusedLayer(skin, this));
         layerGroup.add("tutorial", new Tutorial(skin));
 
         inputsManager = new InputsManager();
@@ -50,8 +51,7 @@ public class    GameController {
             inputsManager.resetRules();
             macroManager.resetMacros();
         }
-        worldController.resetBob(currentLevel.getX(), currentLevel.getY());
-        worldController.resetLights();
+        worldController.resetStage(currentLevel.getX(), currentLevel.getY());
     }
 
     public void startNewLevel() {
@@ -94,15 +94,15 @@ public class    GameController {
         worldController.render(deltaTime);
         ((BackgroundLayer)layerGroup.get("background")).setNoLights(worldController.getMaxObjects() - worldController.getNoObjects());
 
-        if (checkIfWon()) {
+        if (worldController.isLevelWon()) {
             currentLevel.save();
             layerGroup.setVisibility("winning", true);
         }
 
-    }
+        if (worldController.isBobConfused()) {
+            layerGroup.setVisibility("confused_modal", true);
+        }
 
-    private boolean checkIfWon() {
-        return worldController.isLevelWon();
     }
 
     public void setLevel(Level level) {
@@ -116,10 +116,7 @@ public class    GameController {
     }
 
     public void submit() {
-        //Reset Bob?
-        worldController.resetBob(currentLevel.getX(), currentLevel.getY());
-        worldController.resetLights();
-        ((BackgroundLayer)layerGroup.get("background")).setNoLights(0);
+        resetWorld();
 
         if (currentLevel.allowMacro()) {
             startLPSAnim(macroManager.getRulesString());
@@ -130,6 +127,11 @@ public class    GameController {
                 startLPSAnim(inputsManager.getRulesString());
             }
         }
+    }
+
+    public void resetWorld() {
+        worldController.resetStage(currentLevel.getX(), currentLevel.getY());
+        ((BackgroundLayer)layerGroup.get("background")).setNoLights(0);
     }
 
     private void startMockAnim(LinkedList<Block> blockStack) {

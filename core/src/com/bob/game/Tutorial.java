@@ -24,7 +24,7 @@ public class Tutorial extends Layer {
         group.addActor(imageGroup);
 
         TextButton nextButton = new TextButton("NEXT", skin, "big_grey_button");
-        nextButton.setBounds(850, 15, 300, 100);
+        nextButton.setBounds(810, 15, 300, 100);
         nextButton.addListener(new ClickListener() {
             public void clicked(InputEvent ie, float x, float y) {
                 next();
@@ -33,6 +33,11 @@ public class Tutorial extends Layer {
         group.addActor(nextButton);
 
         group.setVisible(false);
+    }
+
+
+    public void setImage(String path) {
+        setImages(new String[]{path});
     }
 
     public void setImages(String[] imagePaths) {

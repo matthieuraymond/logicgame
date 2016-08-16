@@ -1,0 +1,90 @@
+
+confused.png
+size: 512,128
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+0001
+  rotate: false
+  xy: 2, 2
+  size: 50, 100
+  orig: 50, 100
+  offset: 0, 0
+  index: -1
+0007
+  rotate: false
+  xy: 2, 2
+  size: 50, 100
+  orig: 50, 100
+  offset: 0, 0
+  index: -1
+0003
+  rotate: false
+  xy: 54, 2
+  size: 50, 100
+  orig: 50, 100
+  offset: 0, 0
+  index: -1
+0011
+  rotate: false
+  xy: 54, 2
+  size: 50, 100
+  orig: 50, 100
+  offset: 0, 0
+  index: -1
+0004
+  rotate: false
+  xy: 106, 2
+  size: 50, 100
+  orig: 50, 100
+  offset: 0, 0
+  index: -1
+0010
+  rotate: false
+  xy: 106, 2
+  size: 50, 100
+  orig: 50, 100
+  offset: 0, 0
+  index: -1
+0005
+  rotate: false
+  xy: 158, 2
+  size: 50, 100
+  orig: 50, 100
+  offset: 0, 0
+  index: -1
+0009
+  rotate: false
+  xy: 158, 2
+  size: 50, 100
+  orig: 50, 100
+  offset: 0, 0
+  index: -1
+0006
+  rotate: false
+  xy: 210, 2
+  size: 50, 100
+  orig: 50, 100
+  offset: 0, 0
+  index: -1
+0008
+  rotate: false
+  xy: 210, 2
+  size: 50, 100
+  orig: 50, 100
+  offset: 0, 0
+  index: -1
+0012
+  rotate: false
+  xy: 262, 2
+  size: 50, 100
+  orig: 50, 100
+  offset: 0, 0
+  index: -1
+0002 - Copie
+  rotate: false
+  xy: 262, 2
+  size: 50, 100
+  orig: 50, 100
+  offset: 0, 0
+  index: -1

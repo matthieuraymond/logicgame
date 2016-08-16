@@ -101,6 +101,10 @@ public class LPSHandler {
         Set<Goal> set = GoalsList.getInstance().getActiveGoals();
         Iterator<Goal> it = set.iterator();
 
+        if (hasContradictoryInstruction(set)) {
+            return EntityState.CONFUSED;
+        }
+
         while (it.hasNext()) {
             Goal g = it.next();
             switch (g.getGoal().getTerm(0).toString()) {
@@ -116,6 +120,39 @@ public class LPSHandler {
         }
 
         return null;
+    }
+
+    private boolean hasContradictoryInstruction(Set<Goal> set) {
+
+        int noGoRight = 0;
+        int noGoLeft = 0;
+        int noGoUp = 0;
+        int noGoDown = 0;
+
+        boolean result = false;
+
+        for (Goal g: set) {
+            switch (g.getGoal().getTerm(0).toString()) {
+                case "goRight":
+                    noGoRight++;
+                    result |= (noGoDown + noGoLeft + noGoUp) > 0;
+                    break;
+                case "goLeft":
+                    noGoLeft++;
+                    result |= (noGoDown + noGoRight + noGoUp) > 0;
+                    break;
+                case "goUp":
+                    noGoUp++;
+                    result |= (noGoDown + noGoLeft + noGoRight) > 0;
+                    break;
+                case "goDown":
+                    noGoDown++;
+                    result |= (noGoUp + noGoLeft + noGoRight) > 0;
+                    break;
+            }
+        }
+
+        return result;
     }
 
     private int convertToInt(String s) {

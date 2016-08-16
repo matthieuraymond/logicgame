@@ -1,6 +1,5 @@
 package com.bob.game.world;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -83,6 +82,11 @@ public class Entity {
 
     public boolean needInstructions() {
 
+        // Do not retrieve if confused
+        if (isConfused()) {
+            return false;
+        }
+
         // Movement induced update
         if (Math.abs(movedX) >= 1 || Math.abs(movedY) >= 1) {
             movedX = Math.signum(movedX) * (Math.abs(movedX) - (int)Math.abs(movedX));
@@ -102,5 +106,9 @@ public class Entity {
 
     public EntityState getState() {
         return currentState;
+    }
+
+    public boolean isConfused() {
+        return currentState == EntityState.CONFUSED;
     }
 }

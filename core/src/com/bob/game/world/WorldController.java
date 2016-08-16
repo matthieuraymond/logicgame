@@ -53,9 +53,7 @@ public class WorldController {
 
     public void setupWorld(Level level) {
         mapManager = new MapManager(level.getMap());
-        resetBob(level.getX(), level.getY());
-        resetLights();
-        currentRuleIndex = -1;
+        resetStage(level.getX(), level.getY());
     }
 
     public void initRender() {
@@ -93,12 +91,17 @@ public class WorldController {
 
     }
 
-    // Todo merge reset bob and reset lights into one reset stage
     public void resetBob(float x, float y) {
         nbWon = 0;
         currentRuleIndex = -1;
         bob.setPosition(x, y);
         isAnimPlaying = false;
+    }
+
+    public void resetStage(float x, float y) {
+        resetBob(x, y);
+        resetLights();
+        currentRuleIndex = -1;
     }
 
     public void startLPSAnimation(Level level, String rules) {
@@ -114,7 +117,7 @@ public class WorldController {
     public void render(float deltaTime) {
         float deltaTimeAdjusted = isAnimPlaying ? deltaTime * speedFactor: 0;
 
-        // UPDATE OF ENTITY // TODO merge
+        // UPDATE OF ENTITY
         updateWorld(deltaTimeAdjusted);
 
         //Map
@@ -241,5 +244,9 @@ public class WorldController {
 
     public int getMaxObjects() {
         return mapManager.getCoordinatesList("Objects", "light_bulb").size();
+    }
+
+    public boolean isBobConfused() {
+        return bob.isConfused() && isAnimPlaying;
     }
 }
