@@ -14,8 +14,24 @@ public enum ReadLevel implements LevelFactory {
                     {Block.YELLOW, Block.IMPLY, Block.DOWN},
                     {Block.GREEN, Block.IMPLY, Block.LEFT}
             },
+            "Hi, my name is Bob!\n\nI am quite a simple robot and I am lost. Can you help me to reach the golden platform?\n\nTo do so, write rules I can follow in the box on the right!\nThanks for your help!",
+            new String[]{"screens/tut_read.png"}
+    ),
+    level2("maps/tmx/guess.tmx",
+            11,11,
+            new Block[][]{
+                    {Block.RED, Block.AND, Block.RED_PREV, Block.IMPLY, Block.DOWN},
+                    {Block.RED, Block.AND, Block.YELLOW_PREV, Block.IMPLY, Block.LEFT},
+                    {Block.YELLOW, Block.AND, Block.YELLOW_PREV, Block.IMPLY, Block.DOWN},
+                    {Block.YELLOW, Block.AND, Block.RED_PREV, Block.IMPLY, Block.UP},
+                    {Block.PURPLE, Block.AND, Block.YELLOW_PREV, Block.IMPLY, Block.RIGHT},
+                    {Block.GREEN, Block.AND, Block.RED_PREV,Block.IMPLY, Block.LEFT},
+                    {Block.PURPLE, Block.AND, Block.PURPLE_PREV, Block.IMPLY, Block.RIGHT},
+                    {Block.GREEN, Block.AND, Block.GREEN_PREV,Block.IMPLY, Block.LEFT},
+            },
             "Hi, my name is Bob!\n\nI am quite a simple robot and I am lost. Can you help me to reach the golden platform?\n\nTo do so, write rules I can follow in the box on the right!\nThanks for your help!"
     );
+    ;
 
     private final Level level;
 

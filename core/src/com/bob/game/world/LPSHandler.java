@@ -24,7 +24,7 @@ public class LPSHandler {
             resetLPS();
             StringBuilder lpsString = new StringBuilder("Database {\n\tFacts {\n\t\t");
             lpsString.append(objectDescription);
-            lpsString.append("lights(0).\n\tisIn(" + x + "," + y + ").\n\twasIn(" + x + "," + y + ").\n");
+            lpsString.append("lights(0).\n\tisIn(" + x + "," + y + ").\n"); //	wasIn(" + x + "," + y + ").
 
             lpsString.append("\t}\n\nRules {\n\t\t");
 
