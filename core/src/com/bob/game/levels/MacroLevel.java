@@ -6,12 +6,12 @@ import com.badlogic.gdx.Preferences;
 public enum MacroLevel implements LevelFactory {
     level1("maps/tmx/macro.tmx",
             6,11,
-            "Hi, my name is Bob!\n\nI am quite a simple robot and I am lost. Can you help me to reach the golden platform?\n\nTo do so, write rules I can follow in the box on the right!\nThanks for your help!",
+            "In this mode, I'll change my behavior.\nIndeed, it depends on how many light bulbs I have.\n\nCan you help me collect this light bulb?",
             new String[]{"screens/tut_macro.png"}
     ),
     level2("maps/tmx/macro2.tmx",
             6,11,
-            "Hi, my name is Bob!\n\nI am quite a simple robot and I am lost. Can you help me to reach the golden platform?\n\nTo do so, write rules I can follow in the box on the right!\nThanks for your help!"
+            "Okay, \nNow that you understood the concept, can you apply the same principles here?"
     );
 
     private final Level level;

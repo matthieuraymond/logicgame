@@ -17,7 +17,7 @@ public enum WriteLevel implements LevelFactory {
             2,11,
             1,
             new Block[]{Block.WHITE, Block.IMPLY, Block.RIGHT},
-            "Hi, my name is Bob!\n\nI am quite a simple robot and I am lost. Can you help me to reach the golden platform?\n\nTo do so, write rules I can follow in the box on the right!\nThanks for your help!",
+            "Thanks for that first one!\n\nI must admit that doing the same here would be tedious... Could you find another way?",
             new String[]{"screens/tut4.png"}
     ),
     level3("maps/tmx/turn.tmx",
@@ -35,8 +35,8 @@ public enum WriteLevel implements LevelFactory {
     level5("maps/tmx/loop.tmx",
             7,11,
             5,
-            new Block[]{Block.WHITE, Block.RED, Block.GREEN, Block.YELLOW, Block.WHITE_PREV, Block.RED_PREV, Block.GREEN_PREV, Block.YELLOW_PREV, Block.IMPLY, Block.AND, Block.NOT, Block.LEFT, Block.RIGHT, Block.UP, Block.DOWN, Block.WAIT},
-            "Be careful, this one is tricky!\n\nYou'll have to make good use of the \"previous\" block.\nThanks for your help."
+            new Block[]{Block.WHITE, Block.RED, Block.GREEN, Block.YELLOW, Block.WHITE_PREV, Block.RED_PREV, Block.GREEN_PREV, Block.YELLOW_PREV, Block.IMPLY, Block.AND, Block.NOT, Block.LEFT, Block.RIGHT, Block.UP, Block.DOWN},
+            "Oh its getting quite complicated here.\n\nIf you need a hint: you'll have to make good use of the \"previous\" block.\nThanks for your help."
     );
 
     private final Level level;

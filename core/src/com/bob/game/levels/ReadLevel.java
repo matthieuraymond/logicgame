@@ -14,7 +14,7 @@ public enum ReadLevel implements LevelFactory {
                     {Block.YELLOW, Block.IMPLY, Block.DOWN},
                     {Block.GREEN, Block.IMPLY, Block.LEFT}
             },
-            "Hi, my name is Bob!\n\nI am quite a simple robot and I am lost. Can you help me to reach the golden platform?\n\nTo do so, write rules I can follow in the box on the right!\nThanks for your help!",
+            "Hi again!\nnMake sure you've played the write mode first!\n\nHere you'll need to guess where I'm going!\nClick on the question mark when you've guessed.",
             new String[]{"screens/tut_read.png"}
     ),
     level2("maps/tmx/guess.tmx",
@@ -29,7 +29,7 @@ public enum ReadLevel implements LevelFactory {
                     {Block.PURPLE, Block.AND, Block.PURPLE_PREV, Block.IMPLY, Block.RIGHT},
                     {Block.GREEN, Block.AND, Block.GREEN_PREV,Block.IMPLY, Block.LEFT},
             },
-            "Hi, my name is Bob!\n\nI am quite a simple robot and I am lost. Can you help me to reach the golden platform?\n\nTo do so, write rules I can follow in the box on the right!\nThanks for your help!"
+            "The previous one was too easy...\n\nSame layout, different rules, can you guess it right?"
     ),
     level3("maps/tmx/guess2.tmx",
             11,11,
@@ -41,9 +41,8 @@ public enum ReadLevel implements LevelFactory {
                     {Block.GREEN, Block.AND, Block.WHITE_PREV, null, Block.IMPLY, Block.RIGHT},
                     {Block.RED, Block.AND, Block.NOT, Block.WHITE_PREV, Block.IMPLY, Block.UP},
                     {Block.RED, Block.AND, Block.WHITE_PREV, null, Block.IMPLY, Block.LEFT},
-
             },
-            "Hi, my name is Bob!\n\nI am quite a simple robot and I am lost. Can you help me to reach the golden platform?\n\nTo do so, write rules I can follow in the box on the right!\nThanks for your help!"
+            "You will not get that one,\nI am sure that it is too complicated!"
     );
 
     private final Level level;
