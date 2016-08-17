@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Bob" default="default" basedir="."> 
+
+	<property environment="env" />
+
+    <taskdef name="bundleapp"
+             classname="com.oracle.appbundler.AppBundlerTask"   
+             classpath="lib/appbundler-1.0.jar" />
+
+    <target name="bundle-bob">
+        <bundleapp outputdirectory="dist"
+            name="Bob_the_simplebot"
+            displayname="Bob the simplebot"
+            identifier="components.Bob_the_simplebot"
+            mainclassname="components.Bob_the_simplebot">
+			<runtime dir="${env.JAVA_HOME}" />
+            <classpath file="release/Bob_the_simplebot.jar" />
+        </bundleapp>
+    </target>
+
+</project>
