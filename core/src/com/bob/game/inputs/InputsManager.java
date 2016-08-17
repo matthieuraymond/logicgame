@@ -109,12 +109,11 @@ public class InputsManager {
         }
     }
 
-    public void lightOnRule(int ruleIndex) {
-        for (Rule r: rules) {
-            r.lightOff();
-        }
-        if (ruleIndex >= 0 && ruleIndex < rules.length) {
-            rules[ruleIndex].lightOn();
+    public void lightOnRule(List<Integer> ruleIndexes) {
+        for(Integer ruleIndex: ruleIndexes) {
+            if (ruleIndex >= 0 && ruleIndex < rules.length) {
+                rules[ruleIndex].lightOn();
+            }
         }
     }
 
@@ -146,5 +145,11 @@ public class InputsManager {
         }
 
         return res;
+    }
+
+    public void lightOffRules() {
+        for (Rule r: rules) {
+            r.lightOff();
+        }
     }
 }

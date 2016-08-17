@@ -31,7 +31,7 @@ public class WorldController {
     // Map and LPS
     private MapManager mapManager;
     private LPSHandler lpsHandler;
-    private int currentRuleIndex;
+    private List<Integer> currentRuleIndexes;
 
     // Golden cells
     private Stage stage;
@@ -42,7 +42,7 @@ public class WorldController {
         isAnimPlaying = false;
         speedFactor = 2f;
         nbWon = 0;
-        currentRuleIndex = -1;
+        currentRuleIndexes = new ArrayList<Integer>();
         bob = new Entity(0, 0);
         objects = new ArrayList<Entity>();
     }
@@ -93,7 +93,6 @@ public class WorldController {
 
     public void resetBob(float x, float y) {
         nbWon = 0;
-        currentRuleIndex = -1;
         bob.setPosition(x, y);
         isAnimPlaying = false;
     }
@@ -101,7 +100,7 @@ public class WorldController {
     public void resetStage(float x, float y) {
         resetBob(x, y);
         resetLights();
-        currentRuleIndex = -1;
+        currentRuleIndexes.clear();
     }
 
     public void startLPSAnimation(Level level, String rules) {
@@ -134,7 +133,6 @@ public class WorldController {
             object.draw(batch);
         }
 
-
         batch.end();
     }
 
@@ -159,7 +157,7 @@ public class WorldController {
     public void updateBob(float deltaTime) {
         bob.increaseTime(deltaTime);
 
-        if (bob.needInstructions()) {
+        if (bob.needInstructions() && isAnimPlaying) {
             retrieveInstructions();
             updateGameState();
         }
@@ -186,10 +184,10 @@ public class WorldController {
         }
 
         // Update current rule
-        currentRuleIndex = -1;
         Set<Goal> set = GoalsList.getInstance().getActiveGoals();
-
         Iterator<Goal> it = set.iterator();
+
+        currentRuleIndexes.clear();
 
         while (it.hasNext()) {
             Goal g = it.next();
@@ -199,7 +197,7 @@ public class WorldController {
                 case "goUp":
                 case "goDown":
                 case "wait":
-                    currentRuleIndex = Integer.parseInt(g.getGoal().getTerm(1).getName());
+                    currentRuleIndexes.add(Integer.parseInt(g.getGoal().getTerm(1).getName()));
                     break;
             }
         }
@@ -234,8 +232,8 @@ public class WorldController {
         stage.addListener(listener);
     }
 
-    public int getCurrentRuleIndex() {
-        return currentRuleIndex;
+    public List<Integer> getCurrentRuleIndexes() {
+        return currentRuleIndexes;
     }
 
     public int getNoObjects() {
