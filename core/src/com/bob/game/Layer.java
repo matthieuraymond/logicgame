@@ -1,5 +1,6 @@
 package com.bob.game;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -22,5 +23,12 @@ public abstract class Layer {
 
     public void addActor(Actor actor) {
         group.addActor(actor);
+    }
+
+    public void setOpacity(float opacity) {
+        Color color = group.getColor();
+        color.a = opacity;
+
+        group.setColor(color);
     }
 }

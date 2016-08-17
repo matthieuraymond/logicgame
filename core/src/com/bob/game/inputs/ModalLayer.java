@@ -63,12 +63,30 @@ public class ModalLayer extends InputsLayer {
         addActor(button);
 
         // Delete modal button
-        button = new TextButton("Delete", skin, "orange_button");
+        button = new TextButton("Delete", skin, "red_button");
         button.setBounds(1250, 1000, 200, 50);
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 macroManager.deleteButtonModal();
+            };
+        });
+        addActor(button);
+
+        // Delete modal button
+        button = new TextButton("See map", skin, "grey_button");
+        button.setBounds(1250, 820, 200, 50);
+        final ModalLayer layer = this;
+        button.addListener(new ClickListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                layer.setOpacity(0.2f);
+                return true;
+            };
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                layer.setOpacity(1f);
             };
         });
         addActor(button);
