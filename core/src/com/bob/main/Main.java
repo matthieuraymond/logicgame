@@ -63,6 +63,8 @@ public class Main extends ApplicationAdapter {
 		for (Textures t: Textures.values()) {
 			t.dispose();
 		}
+
+		TextureFactory.dispose();
 	}
 
 	@Override

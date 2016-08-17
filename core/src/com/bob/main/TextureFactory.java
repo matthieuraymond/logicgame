@@ -16,5 +16,9 @@ public class TextureFactory {
 		return t;
 	}
 
-	//TODO dispose textures;
+	public static void dispose() {
+		for(Texture texture: allTextures) {
+			texture.dispose();
+		}
+	}
 }
