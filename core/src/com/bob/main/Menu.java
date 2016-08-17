@@ -18,6 +18,7 @@ public class Menu {
 
     private final Group menuGroup = new Group();
     private final Group modeGroup = new Group();
+    private final Group settingsGroup = new Group();
     private final Group levelsGroup = new Group();
     private boolean isVisible = true;
     private Level levelSelected;
@@ -27,6 +28,7 @@ public class Menu {
         initMenu(skin);
         initLevels(skin);
         initMode(skin);
+        initSettings(skin);
     }
 
     private void initMenu(final Skin skin) {
@@ -57,6 +59,12 @@ public class Menu {
                 levelsGroup.clear();
                 initLevels(skin);
                 levelsGroup.setVisible(true);
+            }
+        });
+
+        buttons.get("SETTINGS").addListener(new ClickListener() {
+            public void clicked(InputEvent ie, float x, float y) {
+                settingsGroup.setVisible(true);
             }
         });
 
@@ -135,6 +143,33 @@ public class Menu {
         addBackButton(skin, modeGroup);
 
         modeGroup.setVisible(false);
+    }
+
+    private void initSettings(Skin skin) {
+
+        // Bkg
+        Image menuBkg = new Image(TextureFactory.createTexture("screens/menu.png"));
+        menuBkg.setBounds(0,0, 1920, 1080);
+        settingsGroup.addActor(menuBkg);
+
+        TextButton button = new TextButton("RESET LEVELS", skin, "grey_button");
+        button.setBounds(810, 430, 300, 100);
+
+        button.addListener(
+                new ClickListener() {
+                   public void clicked(InputEvent ie, float x, float y) {
+                       Preferences prefs = Gdx.app.getPreferences("Progress");
+                       prefs.putInteger("writeProgress", -1);
+                       prefs.putInteger("readProgress", -1);
+                       prefs.putInteger("macroProgress", -1);
+                   }
+               }
+        );
+        settingsGroup.addActor(button);
+
+        addBackButton(skin, settingsGroup);
+
+        settingsGroup.setVisible(false);
     }
 
     private void launchLevel(Level level) {
@@ -229,6 +264,7 @@ public class Menu {
         menuGroup.setVisible(false);
         modeGroup.setVisible(false);
         levelsGroup.setVisible(false);
+        settingsGroup.setVisible(false);
         isVisible = false;
     }
 
@@ -244,6 +280,6 @@ public class Menu {
         stage.addActor(menuGroup);
         stage.addActor(levelsGroup);
         stage.addActor(modeGroup);
-        //stage.addActor(settingsGroup);
+        stage.addActor(settingsGroup);
     }
 }
