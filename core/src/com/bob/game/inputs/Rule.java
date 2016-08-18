@@ -116,9 +116,9 @@ public class Rule {
         lock.setVisible(isLocked);
     }
 
-    public void displayImages() {
+    public void displayImages(boolean draggable) {
         for (RuleCell c: cells) {
-            c.setImage(false);
+            c.setImage(draggable);
         }
     }
 

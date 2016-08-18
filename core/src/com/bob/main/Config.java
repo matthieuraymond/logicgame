@@ -24,5 +24,5 @@ public final class Config {
     /**
      * Graphic print
      */
-    public static boolean printNoTexture = true;
+    public static final boolean printNoTexture = false;
 }

@@ -72,7 +72,7 @@ public class    GameController {
             layerGroup.setVisibility("macro", false);
             layerGroup.setVisibility("inputs", true);
 
-            inputsManager.setupRules(currentLevel.getNoRules(), currentLevel.getRules());
+            inputsManager.setupRules(currentLevel.getNoRules(), currentLevel.getRules(), false);
             inputsManager.setupInputs(currentLevel.getInputs(), 1415, 1080 - 165);
         }
 

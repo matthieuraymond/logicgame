@@ -129,7 +129,7 @@ public class MacroManager {
     }
 
     public void displayMacroModal(Block[][] rules, String title, int index) {
-        inputsManager.setupRules(8, rules);
+        inputsManager.setupRules(8, rules, true);
         inputsManager.setupInputs(Block.values(), 725, 1080 - 215);
         modalLayer.setText(title);
         modalLayer.setIndex(index);

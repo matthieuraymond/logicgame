@@ -87,21 +87,21 @@ public class InputsManager {
         }
     }
 
-    public void setupRules(int noRules, Block[][] newRules) {
+    public void setupRules(int noRules, Block[][] newRules, boolean draggable) {
         resetRules(newRules);
-        setupRuleView(noRules);
+        setupRuleView(noRules, draggable);
     }
 
     public void setupRules(int noRules, Rule[] newRules) {
         this.rules = newRules;
-        setupRuleView(noRules);
+        setupRuleView(noRules, false);
     }
 
-    private void setupRuleView(int noRules) {
+    private void setupRuleView(int noRules, boolean draggable) {
         for (int i = 0; i < rules.length; i++) {
             if (i < noRules) {
                 layer.addTargets(rules[i].getTargets());
-                rules[i].displayImages();
+                rules[i].displayImages(draggable);
                 rules[i].lock(false);
             } else {
                 rules[i].lock(true);
