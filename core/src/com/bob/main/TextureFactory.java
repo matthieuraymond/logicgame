@@ -1,6 +1,10 @@
 package com.bob.main;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.LinkedList;
 
@@ -13,6 +17,11 @@ public class TextureFactory {
 		t.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		allTextures.add(t);
 
+		if (Config.printNoTexture) {
+			Calendar cal = Calendar.getInstance();
+			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+			System.out.println( sdf.format(cal.getTime()) + " - " + allTextures.size());
+		}
 		return t;
 	}
 

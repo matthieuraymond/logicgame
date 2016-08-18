@@ -112,7 +112,7 @@ public class Menu {
                     Preferences prefs = Gdx.app.getPreferences("Progress");
                     lvlIndex = prefs.getInteger("writeProgress", -1) + 1;
                 }
-                launchLevel(WriteLevel.values()[lvlIndex % WriteLevel.values().length].getLevel());
+                launchLevel(WriteLevel.values()[lvlIndex].getLevel().next());
             }
         });
 
