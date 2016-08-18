@@ -30,7 +30,7 @@ public class    GameController {
         layerGroup.add("modal_inputs", new ModalLayer(skin));
         layerGroup.add("winning", new WinningLayer(skin, this));
         layerGroup.add("confused_modal", new ConfusedLayer(skin, this));
-        layerGroup.add("tutorial", new Tutorial(skin));
+        layerGroup.add("help screen", new HelpScreen(skin));
 
         inputsManager = new InputsManager();
         macroManager = new MacroManager();
@@ -57,8 +57,8 @@ public class    GameController {
     public void startNewLevel() {
 
         if (currentLevel.hasTutorial()) {
-            ((Tutorial)layerGroup.get("tutorial")).setImages(currentLevel.getTutorialImages());
-            layerGroup.setVisibility("tutorial", true);
+            ((HelpScreen)layerGroup.get("help screen")).setImages(currentLevel.getTutorialImages());
+            layerGroup.setVisibility("help screen", true);
         }
 
         if (currentLevel.allowMacro()) {
@@ -123,7 +123,8 @@ public class    GameController {
             startLPSAnim(macroManager.getRulesString());
         } else {
             if (inputsManager.mixedParadigmUsed()) {
-
+                ((HelpScreen)layerGroup.get("help screen")).setImage("screens/both_paradigm.png");
+                layerGroup.setVisibility("help screen", true);
             } else if (inputsManager.onlyConsequentUsed()) {
                 startMockAnim(inputsManager.getBlockStack());
             } else {
