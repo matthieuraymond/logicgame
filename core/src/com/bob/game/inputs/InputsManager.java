@@ -152,4 +152,20 @@ public class InputsManager {
             r.lightOff();
         }
     }
+
+    public boolean mixedParadigmUsed() {
+        // At least
+        boolean oneOnlyConsequent = false;
+        boolean oneOther = false;
+
+        for(Rule r: rules) {
+            if (!r.isNull()) {
+                boolean consequent = r.onlyConsequentUsed();
+                oneOnlyConsequent |= consequent;
+                oneOther |= !consequent;
+            }
+        }
+
+        return oneOnlyConsequent && oneOther;
+    }
 }

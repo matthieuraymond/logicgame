@@ -122,7 +122,9 @@ public class    GameController {
         if (currentLevel.allowMacro()) {
             startLPSAnim(macroManager.getRulesString());
         } else {
-            if (inputsManager.onlyConsequentUsed()) {
+            if (inputsManager.mixedParadigmUsed()) {
+
+            } else if (inputsManager.onlyConsequentUsed()) {
                 startMockAnim(inputsManager.getBlockStack());
             } else {
                 startLPSAnim(inputsManager.getRulesString());

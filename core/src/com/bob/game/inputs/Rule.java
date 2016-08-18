@@ -139,6 +139,15 @@ public class Rule {
         return res;
     }
 
+    public boolean isNull() {
+        boolean res = true;
+        for(RuleCell c: cells) {
+            res &= (c.getType() == null);
+        }
+
+        return res;
+    }
+
     public LinkedList<Block> getBlockStack() {
         LinkedList<Block> blockStack = new LinkedList<>();
 
