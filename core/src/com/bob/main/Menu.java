@@ -112,7 +112,7 @@ public class Menu {
                     Preferences prefs = Gdx.app.getPreferences("Progress");
                     lvlIndex = prefs.getInteger("writeProgress", -1) + 1;
                 }
-                launchLevel(WriteLevel.values()[lvlIndex].getLevel());
+                launchLevel(WriteLevel.values()[lvlIndex % WriteLevel.values().length].getLevel());
             }
         });
 
@@ -124,7 +124,7 @@ public class Menu {
                     Preferences prefs = Gdx.app.getPreferences("Progress");
                     lvlIndex = prefs.getInteger("readProgress", -1) + 1;
                 }
-                launchLevel(ReadLevel.values()[lvlIndex].getLevel());
+                launchLevel(ReadLevel.values()[lvlIndex % ReadLevel.values().length].getLevel());
             }
         });
 
@@ -136,7 +136,7 @@ public class Menu {
                     Preferences prefs = Gdx.app.getPreferences("Progress");
                     lvlIndex = prefs.getInteger("macroProgress", -1) + 1;
                 }
-                launchLevel(MacroLevel.values()[lvlIndex].getLevel());
+                launchLevel(MacroLevel.values()[lvlIndex % MacroLevel.values().length].getLevel());
             }
         });
 
