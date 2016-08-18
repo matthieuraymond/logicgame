@@ -27,9 +27,9 @@ class Draggable {
         dragAndDrop.setDragActorPosition(-(sourceActor.getWidth()/2), sourceActor.getHeight()/2);
         dragAndDrop.addSource(new DragAndDrop.Source(sourceActor) {
             public DragAndDrop.Payload dragStart (InputEvent event, float x, float y, int pointer) {
+
                 DragAndDrop.Payload payload = new DragAndDrop.Payload();
                 payload.setObject(payloadObject);
-
                 payload.setDragActor(dragActor);
 
                 return payload;

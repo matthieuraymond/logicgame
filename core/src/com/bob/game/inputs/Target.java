@@ -75,10 +75,20 @@ public abstract class Target {
             }
         });
 
-        Draggable draggable = new Draggable(layer, actor, payload);
+        DragAndDrop dragAndDrop = new DragAndDrop();
+        dragAndDrop.setDragActorPosition(-(actor.getWidth()/2), actor.getHeight()/2);
+        dragAndDrop.addSource(new DragAndDrop.Source(actor) {
+                public DragAndDrop.Payload dragStart (InputEvent event, float x, float y, int pointer) {
+                    DragAndDrop.Payload payload = new DragAndDrop.Payload();
+                    payload.setObject(Target.this.payload);
+                    payload.setDragActor(actor);
+                    Target.this.payload = null;
+                    return payload;
+                }
+        });
 
         for (DragAndDrop.Target t: layer.getTargets()) {
-            draggable.addTarget(t);
+            dragAndDrop.addTarget(t);
         }
     }
 
