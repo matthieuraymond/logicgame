@@ -30,7 +30,7 @@ public enum MacroLevel implements LevelFactory {
             public Level next() {
                 LevelFactory[] levels = MacroLevel.values();
 
-                return levels[(ordinal + 1) % levels.length].getLevel();
+                return (ordinal + 1) < levels.length ? levels[ordinal + 1].getLevel() : null;
             }
 
             @Override

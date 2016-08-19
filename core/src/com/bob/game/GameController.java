@@ -111,8 +111,13 @@ public class    GameController {
     }
 
     public void loadNextLevel() {
-        currentLevel = currentLevel.next();
-        startNewLevel();
+        if (currentLevel.next() == null) { // Mode completed, back to menu
+            hide();
+        } else {
+            currentLevel = currentLevel.next();
+            startNewLevel();
+        }
+
         layerGroup.setVisibility("winning", false);
     }
 

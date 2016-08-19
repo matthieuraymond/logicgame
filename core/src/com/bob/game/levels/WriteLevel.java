@@ -55,7 +55,7 @@ public enum WriteLevel implements LevelFactory {
             public Level next() {
                 LevelFactory[] levels = WriteLevel.values();
 
-                return levels[(ordinal + 1) % levels.length].getLevel();
+                return (ordinal + 1) < levels.length ? levels[ordinal + 1].getLevel() : null;
             }
 
             @Override
