@@ -4,7 +4,7 @@ import com.bob.game.inputs.Block;
 
 import java.util.LinkedList;
 
-public class MockLPSHandler extends LPSHandler {
+public class MockLPSHandler implements InstructionStrategy {
 
     private final LinkedList<Block> blockStack;
 

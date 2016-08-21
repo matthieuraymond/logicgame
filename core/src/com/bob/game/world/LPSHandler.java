@@ -10,7 +10,7 @@ import org.antlr.runtime.*;
 
 import java.util.*;
 
-public class LPSHandler {
+public class LPSHandler implements InstructionStrategy {
 
     private final Set<String> facts = new HashSet<>();
     private final Set<String> actions  = new HashSet<>();
@@ -88,6 +88,7 @@ public class LPSHandler {
         Database.getInstance().setLimits(limits);
     }
 
+    @Override
     public void update() {
         CycleHandler.getInstance().updateFireAndSolve();
     }
@@ -96,6 +97,7 @@ public class LPSHandler {
         return CycleHandler.getInstance().getEvents();
     }
 
+    @Override
     public EntityState getNewState() {
 
         Set<Goal> set = GoalsList.getInstance().getActiveGoals();

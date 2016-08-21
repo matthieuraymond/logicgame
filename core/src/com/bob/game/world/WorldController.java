@@ -30,7 +30,7 @@ public class WorldController {
 
     // Map and LPS
     private MapManager mapManager;
-    private LPSHandler lpsHandler;
+    private InstructionStrategy instructionRetriever;
     private List<Integer> currentRuleIndexes;
 
     // Golden cells
@@ -104,12 +104,12 @@ public class WorldController {
     }
 
     public void startLPSAnimation(Level level, String rules) {
-        lpsHandler = new LPSHandler(mapManager.getLPSDescription(), mapManager.getLightsString(), rules, level.getX(), level.getY());
+        instructionRetriever = new LPSHandler(mapManager.getLPSDescription(), mapManager.getLightsString(), rules, level.getX(), level.getY());
         isAnimPlaying = true;
     }
 
     public void startMockAnimation(LinkedList<Block> blockStack) {
-        lpsHandler = new MockLPSHandler(blockStack);
+        instructionRetriever = new MockLPSHandler(blockStack);
         isAnimPlaying = true;
     }
 
@@ -164,8 +164,8 @@ public class WorldController {
     }
 
     private void retrieveInstructions() {
-        lpsHandler.update();
-        bob.updateState(lpsHandler.getNewState());
+        instructionRetriever.update();
+        bob.updateState(instructionRetriever.getNewState());
     }
 
     private void updateGameState() {
