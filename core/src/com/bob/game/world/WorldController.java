@@ -8,8 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.bob.game.inputs.Block;
 import com.bob.game.levels.Level;
-import com.bob.lps.model.Goal;
-import com.bob.lps.model.GoalsList;
 
 import java.util.*;
 
@@ -184,23 +182,8 @@ public class WorldController {
         }
 
         // Update current rule
-        Set<Goal> set = GoalsList.getInstance().getActiveGoals();
-        Iterator<Goal> it = set.iterator();
-
         currentRuleIndexes.clear();
-
-        while (it.hasNext()) {
-            Goal g = it.next();
-            switch (g.getGoal().getTerm(0).toString()) {
-                case "goRight":
-                case "goLeft":
-                case "goUp":
-                case "goDown":
-                case "wait":
-                    currentRuleIndexes.add(Integer.parseInt(g.getGoal().getTerm(1).getName()));
-                    break;
-            }
-        }
+        currentRuleIndexes.addAll(instructionRetriever.getAppliedRuleIndexes());
     }
 
     public boolean isLevelWon() {
