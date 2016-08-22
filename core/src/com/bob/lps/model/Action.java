@@ -78,7 +78,7 @@ public class Action {
 	 * @param rulesAndEvents
 	 *            the rules and the events to check the conditions.
 	 * @param rulesAndNextEvents
-	 *            the rules and the next events so far to check the conflicts.
+	 *            the rules and the getNext events so far to check the conflicts.
 	 * @return true if this bound action can be performed. False otherwise.
 	 */
 	public boolean actionsAllowed(SimpleSentence event, RuleSet rulesAndEvents, RuleSet rulesAndNextEvents) {

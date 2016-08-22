@@ -11,8 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.bob.game.levels.*;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.List;
 
 public class Menu {
 
@@ -106,37 +106,40 @@ public class Menu {
 
         buttons.get("WRITER").addListener(new ClickListener() {
             public void clicked(InputEvent ie, float x, float y) {
-                int lvlIndex = 0;
+                int lvlIndex;
 
                 if (Config.levelsAreLocked) {
                     Preferences prefs = Gdx.app.getPreferences("Progress");
                     lvlIndex = prefs.getInteger("writeProgress", -1) + 1;
                 }
-                launchLevel(WriteLevel.values()[lvlIndex % WriteLevel.values().length].getLevel());
+
+                launchLevel(lvlIndex < LevelFactory.WRITE.size() ? LevelFactory.WRITE.get(lvlIndex) : LevelFactory.WRITE.get(0));
             }
         });
 
         buttons.get("READER").addListener(new ClickListener() {
             public void clicked(InputEvent ie, float x, float y) {
-                int lvlIndex = 0;
+                int lvlIndex;
 
                 if (Config.levelsAreLocked) {
                     Preferences prefs = Gdx.app.getPreferences("Progress");
                     lvlIndex = prefs.getInteger("readProgress", -1) + 1;
                 }
-                launchLevel(ReadLevel.values()[lvlIndex % ReadLevel.values().length].getLevel());
+
+                launchLevel(lvlIndex < LevelFactory.READ.size() ? LevelFactory.READ.get(lvlIndex) : LevelFactory.READ.get(0));
             }
         });
 
         buttons.get("MACRO").addListener(new ClickListener() {
             public void clicked(InputEvent ie, float x, float y) {
-                int lvlIndex = 0;
+                int lvlIndex;
 
                 if (Config.levelsAreLocked) {
                     Preferences prefs = Gdx.app.getPreferences("Progress");
                     lvlIndex = prefs.getInteger("macroProgress", -1) + 1;
                 }
-                launchLevel(MacroLevel.values()[lvlIndex % MacroLevel.values().length].getLevel());
+
+                launchLevel(lvlIndex < LevelFactory.MACRO.size() ? LevelFactory.MACRO.get(lvlIndex) : LevelFactory.MACRO.get(0));
             }
         });
 
@@ -183,17 +186,17 @@ public class Menu {
         levelsBkg.setBounds(0,0, 1920, 1080);
         levelsGroup.addActor(levelsBkg);
 
-        addLevelButtons(skin, WriteLevel.values(), "writeProgress", "Write", 430);
-        addLevelButtons(skin, ReadLevel.values(), "readProgress", "Read", 300);
-        addLevelButtons(skin, MacroLevel.values(), "macroProgress", "Macro", 170);
+        addLevelButtons(skin, LevelFactory.WRITE, "writeProgress", "Write", 430);
+        addLevelButtons(skin, LevelFactory.READ, "readProgress", "Read", 300);
+        addLevelButtons(skin, LevelFactory.MACRO, "macroProgress", "Macro", 170);
 
         addBackButton(skin, levelsGroup);
 
         levelsGroup.setVisible(false);
     }
 
-    private void addLevelButtons(Skin skin, final LevelFactory[] levels, String prefString, String title, int startY) {
-        int noLevels = levels.length;
+    private void addLevelButtons(Skin skin, final List<Level> levels, String prefString, String title, int startY) {
+        int noLevels = levels.size();
         int levelsButtonX = 660;
         int levelsButtonY = startY;
 
@@ -218,7 +221,7 @@ public class Menu {
 
             button.addListener(new ClickListener() {
                 public void clicked(InputEvent ie, float x, float y) {
-                    launchLevel(levels[j].getLevel());
+                    launchLevel(levels.get(j));
                 }
             });
 

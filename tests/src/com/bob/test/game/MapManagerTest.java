@@ -19,12 +19,11 @@ public class MapManagerTest {
     @Test
     public void testBobOnFloorInLevels() throws Exception {
 
-        List<LevelFactory> lfs = new LinkedList<>();
-        Collections.addAll(lfs, WriteLevel.values());
-        Collections.addAll(lfs, ReadLevel.values());
+        List<Level> lfs = new LinkedList<>();
+        lfs.addAll(LevelFactory.WRITE);
+        lfs.addAll(LevelFactory.READ);
 
-        for (LevelFactory lf: lfs) {
-            Level lvl = lf.getLevel();
+        for (Level lvl: lfs) {
             MapManager m = new MapManager(lvl.getMap());
 
             String type = m.getType(lvl.getX(), lvl.getY());
@@ -34,7 +33,8 @@ public class MapManagerTest {
 
     @Test
     public void testGetLPSDescription() throws Exception {
-        Level lvl = WriteLevel.level1.getLevel();
+        LevelFactory.initialiseLevels();
+        Level lvl = LevelFactory.WRITE.get(0);
 
         MapManager m = new MapManager(lvl.getMap());
 

@@ -78,7 +78,7 @@ public class GoalsList {
 
 	/**
 	 * Adds the specified event to the list of events that will be performed
-	 * during the next cycle.
+	 * during the getNext cycle.
 	 * 
 	 * @param event
 	 *            the event to addActor.
@@ -113,7 +113,7 @@ public class GoalsList {
 			
 			return solveGoal(goal, ruleSet, events, rulesAndEvents);
 		
-		// If there is no other definition reset and wait for the next cycle.
+		// If there is no other definition reset and wait for the getNext cycle.
 		} else {
 			goal.reset();
 			leaf = goal.getNextDefinition().getSolver(rulesAndEvents, new SubstitutionSet(), null);
@@ -205,7 +205,7 @@ public class GoalsList {
 				// Get the corresponding action
 				Action action = Database.getInstance().getDSet().getAction(simpleSentence.getName());
 				
-				// If it is an action addActor it to the next action to do
+				// If it is an action addActor it to the getNext action to do
 				if (action != null) {
 					RuleSet rulesAndNextEvents = new RuleSet(ruleSet.getRules());
 					rulesAndNextEvents.addRules(this.nextEvents.getRules());
@@ -222,7 +222,7 @@ public class GoalsList {
 			}
 		}
 		
-		// Otherwise, according to the strategy, get the next definition to check.
+		// Otherwise, according to the strategy, get the getNext definition to check.
 		return backtrack(leaf, goal, rulesAndEvents, ruleSet, rulesAndEvents);
 	}
 

@@ -166,7 +166,7 @@ public class Interpreter {
 			return false;
 		}
 		
-		// Go to the next part of the string to check
+		// Go to the getNext part of the string to check
 		searchIndexStart = searchIndexEnd + 1;
 		
 		// If the last character is not a closing parenthesis it is not a simple sentence.
@@ -188,12 +188,12 @@ public class Interpreter {
 		while(searchIndexEnd != -1) {
 			searchString = string.substring(searchIndexStart, searchIndexEnd);
 			
-			// If the search string is a parameter, then go to the next comma and start searching from it
+			// If the search string is a parameter, then go to the getNext comma and start searching from it
 			if (isConstant(searchString) || isVariable(searchString) || isSimpleSentence(searchString)) {
 				searchIndexStart = searchIndexEnd + 1;
 				searchIndexEnd = string.indexOf(',', searchIndexStart);
 			
-			// If it is not a parameter, then go to the next comma and carry on
+			// If it is not a parameter, then go to the getNext comma and carry on
 			} else {
 				searchIndexEnd = string.indexOf(',', searchIndexEnd + 1);
 			}
@@ -248,7 +248,7 @@ public class Interpreter {
 			// Store the name is a constant
 			Constant name = new Constant(string.substring(searchIndexStart, searchIndexEnd));
 
-			// Go to the next part of the string to check
+			// Go to the getNext part of the string to check
 			searchIndexStart = searchIndexEnd + 1;
 
 			// If there is no parameter.
@@ -283,7 +283,7 @@ public class Interpreter {
 					searchIndexEnd = string.indexOf(',', searchIndexStart);
 					parameters.add(stringToSimpleSentence(searchString, variables));
 
-					// If it is not a parameter, then go to the next comma and
+					// If it is not a parameter, then go to the getNext comma and
 					// carry on
 				} else {
 					searchIndexEnd = string.indexOf(',', searchIndexEnd + 1);
@@ -341,7 +341,7 @@ public class Interpreter {
 			return false;
 		}
 		
-		// Go to the next part of the string to check
+		// Go to the getNext part of the string to check
 		searchIndexStart = searchIndexEnd + 1;
 		
 		// If the last character is not a closing parenthesis it is not a DPost declaration.
@@ -363,7 +363,7 @@ public class Interpreter {
 		while(searchIndexEnd != -1) {
 			searchString = string.substring(searchIndexStart, searchIndexEnd);
 			
-			// If the search string is a simple sentence, then go to the next comma and start searching from it
+			// If the search string is a simple sentence, then go to the getNext comma and start searching from it
 			if (isSimpleSentence(searchString)) {
 				searchIndexStart = searchIndexEnd + 1;
 				searchIndexEnd = string.indexOf(',', searchIndexStart);
@@ -374,7 +374,7 @@ public class Interpreter {
 				
 				return isSimpleSentence(searchString);
 			
-			// If it is not a simple sentence, then go to the next comma and carry on
+			// If it is not a simple sentence, then go to the getNext comma and carry on
 			} else {
 				searchIndexEnd = string.indexOf(',', searchIndexEnd + 1);
 			}
@@ -460,7 +460,7 @@ public class Interpreter {
 		while (searchIndexEnd != -1) {
 			searchString = string.substring(searchIndexStart, searchIndexEnd);
 			
-			// If the search string is a valid operand, then go to the next
+			// If the search string is a valid operand, then go to the getNext
 			// & and start searching from it
 			if (isSimpleSentence(searchString) || isNegation(searchString) || isEquality(searchString)) {
 				searchIndexStart = searchIndexEnd + 1;
@@ -584,7 +584,7 @@ public class Interpreter {
 			while (searchIndexEnd != -1) {
 				searchString = string.substring(searchIndexStart, searchIndexEnd);
 				
-				// If the search string is a valid operand, then go to the next
+				// If the search string is a valid operand, then go to the getNext
 				// & and start searching from it
 				if (isSimpleSentence(searchString)) {
 					searchIndexStart = searchIndexEnd + 1;

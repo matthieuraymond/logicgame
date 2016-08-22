@@ -39,10 +39,10 @@ public class DesktopLauncher {
 				int startX = bobNode.getInt("x");
 				int startY = bobNode.getInt("y");
 				int noRules = levelNode.getChildByName("rules").getIntAttribute("available");
-
+				/*
 				final Level customLevel = new Level("maps/tmx/custom.tmx", startX, startY, noRules, new Block[]{}, "", new String[]{}) {
 					@Override
-					public Level next() {
+					public Level getNext() {
 						return this;
 					}
 
@@ -62,7 +62,7 @@ public class DesktopLauncher {
 						this.gameState = GameState.PLAYING;
 					}
 				}, config);
-
+				*/
 				return;
 			} catch (Exception e) {
 				// Empty as doing the same as when no files are found

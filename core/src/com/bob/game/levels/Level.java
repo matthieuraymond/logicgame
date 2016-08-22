@@ -4,41 +4,28 @@ import com.bob.game.inputs.Block;
 
 public abstract class Level {
 
-    private final String map;
-    private final int coordX;
-    private final int coordY;
-    private int noRules = 8;
-    private Block[] inputs = new Block[]{};
-    private Block[][] rules = new Block[][]{};
-    private String[] tutorialImages = new String[]{};
-    private final String text;
+    protected String map;
+    protected int coordX;
+    protected int coordY;
+    protected int noRules = 8;
+    protected Block[] inputs;
+    protected Block[][] rules;
+    protected String[] tutorialImages;
+    protected String text;
 
-    public Level(String map, int x, int y, Block[][] rules, String text, String[] tutorialImages) {
-        this.map = map;
-        this.coordX = x;
-        this.coordY = y;
-        this.rules = rules;
-        this.text = text;
-        this.tutorialImages = tutorialImages;
+    protected Level next;
+
+    public Level() {
+        inputs = new Block[]{};
+        rules = new Block[][]{};
+        tutorialImages = new String[]{};
     }
 
-    public Level(String map, int x, int y, int noRules, Block[] inputs, String text, String[] tutorialImages) {
-        this.map = map;
-        this.coordX = x;
-        this.coordY = y;
-        this.noRules = noRules;
-        this.inputs = inputs;
-        this.text = text;
-        this.tutorialImages = tutorialImages;
-    }
+    public abstract void save();
 
-    public Level(String map, int x, int y, String text, String[] tutorialImages) {
-        this.map = map;
-        this.coordX = x;
-        this.coordY = y;
-        this.text = text;
-        this.tutorialImages = tutorialImages;
-    }
+    public Level getNext() {
+        return next;
+    };
 
     public Boolean allowMacro() {
         return false;
@@ -76,15 +63,15 @@ public abstract class Level {
         return text;
     }
 
-    public abstract Level next();
-
     public Block[][] getRules() {
         return rules;
     }
 
-    public abstract void save();
-
     public String[] getTutorialImages() {
         return tutorialImages;
+    }
+
+    public void setNext(Level next) {
+        this.next = next;
     }
 }

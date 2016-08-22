@@ -111,10 +111,10 @@ public class    GameController {
     }
 
     public void loadNextLevel() {
-        if (currentLevel.next() == null) { // Mode completed, back to menu
+        if (currentLevel.getNext() == null) { // Mode completed, back to menu
             hide();
         } else {
-            currentLevel = currentLevel.next();
+            currentLevel = currentLevel.getNext();
             startNewLevel();
         }
 

@@ -3,6 +3,7 @@ package com.bob.test.game;
 import com.bob.game.inputs.Block;
 import com.bob.game.inputs.InputsManager;
 import com.bob.game.levels.Level;
+import com.bob.game.levels.LevelFactory;
 import com.bob.game.levels.WriteLevel;
 import com.bob.game.world.WorldController;
 import com.bob.test.GdxTestRunner;
@@ -17,23 +18,25 @@ public class WorldControllerTest {
     @Test
     public void testLevels() throws Exception {
 
+        LevelFactory.initialiseLevels();
+
         testLevel(
-                WriteLevel.level2.getLevel(),
+                LevelFactory.WRITE.get(1),
                 new Block[][] {{Block.WHITE, Block.IMPLY, Block.RIGHT}}
         );
 
         testLevel(
-                WriteLevel.level3.getLevel(),
+                LevelFactory.WRITE.get(2),
                 new Block[][] {{Block.WHITE, Block.IMPLY, Block.RIGHT},{Block.RED, Block.IMPLY, Block.DOWN}}
         );
 
         testLevel(
-                WriteLevel.level4.getLevel(),
+                LevelFactory.WRITE.get(3),
                 new Block[][] {{Block.NOT, Block.WHITE, Block.IMPLY, Block.RIGHT}}
         );
 
         testLevel(
-                WriteLevel.level5.getLevel(),
+                LevelFactory.WRITE.get(4),
                 new Block[][] {
                         {Block.WHITE, Block.AND, Block.WHITE_PREV, Block.IMPLY, Block.RIGHT},
                         {Block.RED, Block.IMPLY, Block.DOWN},

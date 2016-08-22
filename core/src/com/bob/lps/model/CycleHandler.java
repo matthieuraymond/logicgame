@@ -51,10 +51,10 @@ public final class CycleHandler {
 	 * {@link #handlerMethod(String) handlerMethod}
 	 * <p>
 	 * This allows states to terminate and send a request to the
-	 * {@code CycleHandler} to go to the specified and next state.
+	 * {@code CycleHandler} to go to the specified and getNext state.
 	 * 
 	 * @param NEW_STATE
-	 *            the next step of the cycle.
+	 *            the getNext step of the cycle.
 	 */
 	public void setState(final CycleState NEW_STATE) {
 		myState = NEW_STATE;
@@ -105,7 +105,7 @@ public final class CycleHandler {
 	 * previous cycle.
 	 * <p>
 	 * This method is basically used by a cycle during its final step to prepare
-	 * the next cycle.
+	 * the getNext cycle.
 	 * <p>
 	 * See a file_return documentation for more details on cycles and actions/events.
 	 * 

@@ -81,12 +81,12 @@ public class AndSolutionNode extends AbstractSolutionNode {
 	}
 
 	/**
-	 * Creates the next solution for the and clause of the node. If no solution
+	 * Creates the getNext solution for the and clause of the node. If no solution
 	 * exists, it will create a solution. Otherwise it will get a different
 	 * solution or return {@code null} if there no other different solution.
 	 *
 	 * @return a {@code SubstitutionSet} object representing the bindings of the
-	 *         next solution or {@code null} if there is no next solution.
+	 *         getNext solution or {@code null} if there is no getNext solution.
 	 * @see AbstractSolutionNode#nextSolution()
 	 */
 	@Override

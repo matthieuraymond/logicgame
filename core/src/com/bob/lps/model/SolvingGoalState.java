@@ -3,7 +3,7 @@ package com.bob.lps.model;
 
 /**
  * This class implements the {@code CycleState} interface. It tries to solves
- * the goals and updates the actions that will be performed during the next
+ * the goals and updates the actions that will be performed during the getNext
  * cycle.
  * 
  * @author Alexandre Camus
@@ -15,7 +15,7 @@ class SolvingGoalState implements CycleState {
 	 * This is the implementation of the
 	 * {@link CycleState#handlerMethod(CycleHandler, String, RuleSet)
 	 * CycleState#handlerMethod()}. Here it tries to solves the goals and
-	 * updates the actions that will be performed during the next cycle.
+	 * updates the actions that will be performed during the getNext cycle.
 	 * 
 	 * @param STATE_CONTEXT
 	 *            the manager of the state which is here the only instance of

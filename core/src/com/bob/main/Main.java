@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.viewport.*;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.bob.game.GameController;
 import com.bob.game.levels.Level;
+import com.bob.game.levels.LevelFactory;
 import com.bob.game.world.Textures;
 
 public class Main extends ApplicationAdapter {
@@ -51,6 +52,8 @@ public class Main extends ApplicationAdapter {
 
 		gameStateTime = 0;
 		gameState = GameState.MENU;
+
+		LevelFactory.initialiseLevels();
 
 		Gdx.input.setInputProcessor(stage);
 	}

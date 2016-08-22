@@ -2,6 +2,7 @@ package com.bob.test.game;
 
 import com.bob.game.inputs.*;
 import com.bob.game.levels.Level;
+import com.bob.game.levels.LevelFactory;
 import com.bob.game.levels.MacroLevel;
 import com.bob.game.world.WorldController;
 import org.junit.Test;
@@ -20,7 +21,8 @@ public class MacroManagerTest {
 
     @Test
     public void testLevel1() throws Exception {
-        Level lvl = MacroLevel.level1.getLevel();
+        LevelFactory.initialiseLevels();
+        Level lvl = LevelFactory.MACRO.get(0);
 
         WorldController wc = new WorldController();
         wc.setupWorld(lvl);

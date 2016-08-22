@@ -82,7 +82,7 @@ public class Goal {
 	}
 	
 	/**
-	 * Checks if the goal has a next definition.
+	 * Checks if the goal has a getNext definition.
 	 * 
 	 * @return a true if the definition counter is below the number of
 	 *         definitions.
@@ -92,10 +92,10 @@ public class Goal {
 	}
 
 	/**
-	 * Gets the next definition of the goal.
+	 * Gets the getNext definition of the goal.
 	 * 
 	 * @return a {@code Clause} object representing the definition. If
-	 *         there is no next definition, returns {@code null}.
+	 *         there is no getNext definition, returns {@code null}.
 	 */
 	public Clause getNextDefinition() {
 		if (hasNextDefinition()) {
@@ -112,7 +112,7 @@ public class Goal {
 	}
 	
 	/**
-	 * Updates the next rule to get. This is the method to modify in order to
+	 * Updates the getNext rule to get. This is the method to modify in order to
 	 * apply different strategies when choosing a definition of a goal.
 	 * <p>
 	 * For now the strategy is very simple: take the definitions in the order of
@@ -123,7 +123,7 @@ public class Goal {
 	}
 	
 	/**
-	 * Resets the next rule to get. This is the method to modify in order to
+	 * Resets the getNext rule to get. This is the method to modify in order to
 	 * apply different strategies when every definition has been tried.
 	 * <p>
 	 * For now the strategy is very simple: restart from the beginning.
