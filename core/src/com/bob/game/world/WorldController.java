@@ -165,7 +165,7 @@ public class WorldController {
 
     private void retrieveInstructions() {
         instructionRetriever.update();
-        bob.updateState(instructionRetriever.getNewState());
+        bob.updateState(instructionRetriever.getState());
     }
 
     private void updateGameState() {

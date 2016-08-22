@@ -98,7 +98,7 @@ public class LPSHandler implements InstructionStrategy {
     }
 
     @Override
-    public EntityState getNewState() {
+    public EntityState getState() {
 
         Set<Goal> set = GoalsList.getInstance().getActiveGoals();
         Iterator<Goal> it = set.iterator();

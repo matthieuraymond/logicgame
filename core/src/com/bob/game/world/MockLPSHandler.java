@@ -9,22 +9,24 @@ public class MockLPSHandler implements InstructionStrategy {
     private final LinkedList<Block> blockStack;
 
     public MockLPSHandler(LinkedList<Block> blockStack) {
+        blockStack.addFirst(null); // In JLPS first update is needed to start
         this.blockStack = blockStack;
     }
 
     @Override
     public void update() {
-        // Do nothing as it is a mock version
+        if (!blockStack.isEmpty())
+            blockStack.removeFirst();
     }
 
     @Override
-    public EntityState getNewState() {
+    public EntityState getState() {
 
         if (blockStack.isEmpty()) {
             return null;
         }
 
-        Block b = blockStack.removeFirst();
+        Block b = blockStack.peekFirst();
 
         if (b == Block.LEFT) {
             return EntityState.WALK_LEFT;
