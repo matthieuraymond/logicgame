@@ -63,6 +63,7 @@ public class TypeTest {
                 {Type.FLUENT, Type.FLUENT, Type.IMPLY, Type.CONSEQUENT},
                 {Type.FLUENT, Type.NOT, Type.IMPLY, Type.CONSEQUENT},
                 {Type.FLUENT, Type.NOT, Type.FLUENT, Type.IMPLY, Type.CONSEQUENT},
+                {Type.FLUENT, Type.IMPLY, Type.CONSEQUENT, Type.CONSEQUENT},
         };
 
         for (Type[] test: testCases) {

@@ -19,7 +19,7 @@ public final class Config {
     /**
      * Levels lock
      */
-    public static final boolean levelsAreLocked = true;
+    public static final boolean levelsAreLocked = false;
 
     /**
      * Graphic print

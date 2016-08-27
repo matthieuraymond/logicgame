@@ -106,7 +106,7 @@ public class Menu {
 
         buttons.get("WRITER").addListener(new ClickListener() {
             public void clicked(InputEvent ie, float x, float y) {
-                int lvlIndex;
+                int lvlIndex = 0;
 
                 if (Config.levelsAreLocked) {
                     Preferences prefs = Gdx.app.getPreferences("Progress");
@@ -119,7 +119,7 @@ public class Menu {
 
         buttons.get("READER").addListener(new ClickListener() {
             public void clicked(InputEvent ie, float x, float y) {
-                int lvlIndex;
+                int lvlIndex = 0;
 
                 if (Config.levelsAreLocked) {
                     Preferences prefs = Gdx.app.getPreferences("Progress");
@@ -132,7 +132,7 @@ public class Menu {
 
         buttons.get("MACRO").addListener(new ClickListener() {
             public void clicked(InputEvent ie, float x, float y) {
-                int lvlIndex;
+                int lvlIndex = 0;
 
                 if (Config.levelsAreLocked) {
                     Preferences prefs = Gdx.app.getPreferences("Progress");
