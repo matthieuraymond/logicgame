@@ -68,7 +68,7 @@ public class HelpScreen extends Layer {
 
         stage.addListener(new InputListener(){
             public boolean keyDown(InputEvent ie, int keycode) {
-                if (keycode == com.badlogic.gdx.Input.Keys.ENTER || keycode == com.badlogic.gdx.Input.Keys.SPACE) {
+                if (group.isVisible() && (keycode == com.badlogic.gdx.Input.Keys.ENTER || keycode == com.badlogic.gdx.Input.Keys.SPACE)) {
                     next();
                 } else if (keycode == Input.Keys.ESCAPE) {
                     hide();
