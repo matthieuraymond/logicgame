@@ -198,4 +198,10 @@ public class MapManager {
 
         return type.equals("gold") && noObjects == 0;
     }
+
+    public boolean isQuestionMark(WorldCoordinates coord) {
+        String type = this.getType(Math.round(coord.getWorldX()), Math.round(coord.getWorldY()));
+
+        return type.equals("question");
+    }
 }

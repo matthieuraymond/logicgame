@@ -51,9 +51,10 @@ public class LPSHandler implements InstructionStrategy {
     }
 
     public LPSHandler() {
+        // Empty for test purposes, should not be used in production
     }
 
-    // TODO - optimize LPS usage
+    // LPS usage could be optimized here if needed
     private void resetLPS() {
         CycleHandler.reset();
         Database.reset();
@@ -122,6 +123,29 @@ public class LPSHandler implements InstructionStrategy {
         }
 
         return null;
+    }
+
+    public List<Integer> getAppliedRuleIndexes() {
+        List<Integer> result = new ArrayList<Integer>();;
+
+        Set<Goal> set = GoalsList.getInstance().getActiveGoals();
+        Iterator<Goal> it = set.iterator();
+
+
+        while (it.hasNext()) {
+            Goal g = it.next();
+            switch (g.getGoal().getTerm(0).toString()) {
+                case "goRight":
+                case "goLeft":
+                case "goUp":
+                case "goDown":
+                case "wait":
+                    result.add(Integer.parseInt(g.getGoal().getTerm(1).getName()));
+                    break;
+            }
+        }
+
+        return result;
     }
 
     private boolean hasContradictoryInstruction(Set<Goal> set) {

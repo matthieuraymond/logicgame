@@ -187,7 +187,7 @@ public class WorldController {
     }
 
     public boolean isLevelWon() {
-        return nbWon > 2;
+        return nbWon > 0;
     }
 
     public void updateSpeed(float newValue) {
@@ -229,5 +229,9 @@ public class WorldController {
 
     public boolean isBobConfused() {
         return bob.isConfused() && isAnimPlaying;
+    }
+
+    public boolean isOnQuestionMark() {
+        return mapManager.isQuestionMark(bob.getCoord());
     }
 }
