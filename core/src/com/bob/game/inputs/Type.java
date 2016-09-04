@@ -7,10 +7,12 @@ public enum Type {
         Type last = null;
         boolean implied = false;
         boolean oneFluent = false;
+        int nbConsequent = 0;
 
         for (Type type : types) {
 
             if (type == null) continue;
+            if (type == CONSEQUENT) nbConsequent++;
 
             if (last != null) {
                 switch (last) {
@@ -37,7 +39,7 @@ public enum Type {
         }
 
         if (last != null) {
-            return (implied && last == CONSEQUENT && oneFluent) || (!implied && !oneFluent && last == CONSEQUENT);
+            return (implied && last == CONSEQUENT && oneFluent && nbConsequent == 1) || (!implied && !oneFluent && last == CONSEQUENT);
         } else {
             return true;
         }
