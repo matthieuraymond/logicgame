@@ -11,14 +11,22 @@ public abstract class Level {
     protected Block[] inputs;
     protected Block[][] rules;
     protected String[] tutorialImages;
+    protected String[] hints;
     protected String text;
 
     protected Level next;
 
-    public Level() {
-        inputs = new Block[]{};
-        rules = new Block[][]{};
-        tutorialImages = new String[]{};
+    public Level(String map, int x, int y, String text, String[] hints, String[] tutorialImages) {
+        this.inputs = new Block[]{};
+        this.rules = new Block[][]{};
+        this.tutorialImages = new String[]{};
+        this.hints = new String[]{};
+        this.map = map;
+        this.coordX = x;
+        this.coordY = y;
+        this.text = text;
+        this.hints = hints;
+        this.tutorialImages = tutorialImages;
     }
 
     public abstract void save();
@@ -37,6 +45,10 @@ public abstract class Level {
 
     public Boolean hasTutorial() {
         return tutorialImages.length > 0;
+    }
+
+    public Boolean hasHints() {
+        return hints.length > 0;
     }
 
     public Block[] getInputs() {
@@ -73,5 +85,9 @@ public abstract class Level {
 
     public void setNext(Level next) {
         this.next = next;
+    }
+
+    public String[] getHints() {
+        return hints;
     }
 }

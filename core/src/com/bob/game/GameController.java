@@ -7,7 +7,7 @@ import com.bob.game.inputs.*;
 import com.bob.game.levels.Level;
 import com.bob.game.world.WorldController;
 
-import java.util.LinkedList;
+import java.util.*;
 
 public class GameController {
 
@@ -18,6 +18,7 @@ public class GameController {
     private final InputsManager inputsManager;
     private final MacroManager macroManager;
     private final WorldController worldController;
+    private int currentHint = 0;
 
     public GameController(Skin skin, OrthographicCamera camera) {
 
@@ -29,7 +30,7 @@ public class GameController {
         layerGroup.add("macro", new MacroLayer(skin));
         layerGroup.add("modal_inputs", new ModalLayer(skin));
         layerGroup.add("winning", new WinningLayer(skin, this));
-        layerGroup.add("confused_modal", new ConfusedLayer(skin, this));
+        layerGroup.add("message", new MessageLayer(skin, this));
         layerGroup.add("help screen", new HelpScreen(skin));
 
         inputsManager = new InputsManager();
@@ -56,6 +57,12 @@ public class GameController {
 
     public void startNewLevel() {
 
+        currentHint = 0;
+
+        if (currentLevel.hasHints()) {
+
+        }
+
         if (currentLevel.hasTutorial()) {
             ((HelpScreen)layerGroup.get("help screen")).setImages(currentLevel.getTutorialImages());
             layerGroup.setVisibility("help screen", true);
@@ -77,6 +84,7 @@ public class GameController {
         }
 
         ((ControlsLayer)layerGroup.get("controls")).disableReset(currentLevel.allowRuleReset());
+        ((ControlsLayer)layerGroup.get("controls")).disableHints(currentLevel.hasHints());
 
         worldController.setupWorld(currentLevel);
         worldController.initRender();
@@ -103,7 +111,8 @@ public class GameController {
         }
 
         if (worldController.isBobConfused()) {
-            layerGroup.setVisibility("confused_modal", true);
+            ((MessageLayer) layerGroup.get("message")).changeText("Uh oh, Bob does not know which rule to follow...");
+            layerGroup.setVisibility("message", true);
         }
 
     }
@@ -174,4 +183,22 @@ public class GameController {
         return layerGroup.isVisible();
     }
 
+    public void displayHints() {
+        if (currentLevel.hasHints()) {
+            ((MessageLayer) layerGroup.get("message")).changeText(currentLevel.getHints()[currentHint]);
+            layerGroup.setVisibility("message", true);
+            currentHint = (currentHint + 1) % currentLevel.getHints().length;
+        }
+    }
+
+    public void displayHelp() {
+        int n = currentLevel.hasTutorial() ? currentLevel.getTutorialImages().length : 0;
+        String[] res = new String[n + 1];
+
+        System.arraycopy(currentLevel.getTutorialImages(), 0, res, 0, n);
+        res[n] = "screens/help.png";
+
+        ((HelpScreen)layerGroup.get("help screen")).setImages(res);
+        layerGroup.setVisibility("help screen", true);
+    }
 }

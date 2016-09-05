@@ -7,17 +7,16 @@ import com.bob.game.inputs.Block;
 public class ReadLevel extends Level {
 
     public ReadLevel(String map, int x, int y, Block[][] rules, String text) {
-        this(map, x, y, rules, text, new String[]{});
+        this(map, x, y, rules, text, new String[]{}, new String[]{});
     }
 
-    public ReadLevel(String map, int x, int y, Block[][] rules, String text, String[] tutorialImages) {
-        super();
-        this.map = map;
-        this.coordX = x;
-        this.coordY = y;
+    public ReadLevel(String map, int x, int y, Block[][] rules, String text, String[] hints) {
+        this(map, x, y, rules, text, hints, new String[]{});
+    }
+
+    public ReadLevel(String map, int x, int y, Block[][] rules, String text, String[] hints, String[] tutorialImages) {
+        super(map, x, y, text, hints, tutorialImages);
         this.rules = rules;
-        this.text = text;
-        this.tutorialImages = tutorialImages;
     }
 
     @Override

@@ -14,6 +14,7 @@ class ControlsLayer extends Layer {
 
     private final Button submitButton;
     private final Button resetButton;
+    private final Button hintButton;
 
     public ControlsLayer(Skin skin, final GameController controller) {
         TextButton quitButton = new TextButton("MENU", skin, "blue_button");
@@ -39,8 +40,35 @@ class ControlsLayer extends Layer {
         group.addActor(submitButton);
 
         // ----------
+        // HINTS BUTTON
+        hintButton = new TextButton("HINTS", skin, "grey_button");
+        hintButton.setBounds(1110, 930, 200, 60);
+        hintButton.addListener(new ClickListener() {
+            public void clicked(InputEvent ie, float x, float y) {
+                if (!hintButton.isDisabled()) {
+                    controller.displayHints();
+                }
+            }
+        });
+        group.addActor(hintButton);
+
+        // ----------
+        // HELPS BUTTON
+        final TextButton helpButton = new TextButton("?", skin, "grey_button");
+        helpButton.setBounds(1318, 931, 50, 58);
+        helpButton.addListener(new ClickListener() {
+            public void clicked(InputEvent ie, float x, float y) {
+                if (!helpButton.isDisabled()) {
+                    controller.displayHelp();
+                }
+            }
+        });
+        group.addActor(helpButton);
+
+
+        // ----------
         // RESET BUTTON
-        resetButton = new TextButton("RESET ALL", skin, "yellow_button");
+        resetButton = new TextButton("RESET ALL", skin, "grey_button");
         resetButton.setBounds(1260, 10, 210, 60);
         resetButton.addListener(new ClickListener() {
             public void clicked(InputEvent ie, float x, float y) {
@@ -53,7 +81,7 @@ class ControlsLayer extends Layer {
 
         // RESET BOB
 
-        TextButton resetBobButton = new TextButton("RESET BOB", skin, "yellow_button");
+        TextButton resetBobButton = new TextButton("RESET BOB", skin, "grey_button");
         resetBobButton.setBounds(1480, 10, 210, 60);
         resetBobButton.addListener(new ClickListener() {
             public void clicked(InputEvent ie, float x, float y) {
@@ -101,7 +129,7 @@ class ControlsLayer extends Layer {
         group.addActor(slider);
 
         // Pause
-        TextButton pauseButton = new TextButton("||", skin, "yellow_button");
+        TextButton pauseButton = new TextButton("||", skin, "grey_button");
         pauseButton.setBounds(220, 20, 30, 40);
         pauseButton.addListener(new ClickListener() {
             public void clicked(InputEvent ie, float x, float y) {
@@ -112,7 +140,7 @@ class ControlsLayer extends Layer {
         group.addActor(pauseButton);
 
         // Play
-        TextButton playButton = new TextButton(">", skin, "yellow_button");
+        TextButton playButton = new TextButton(">", skin, "grey_button");
         playButton.setBounds(260, 20, 30, 40);
         playButton.addListener(new ClickListener() {
             public void clicked(InputEvent ie, float x, float y) {
@@ -130,5 +158,9 @@ class ControlsLayer extends Layer {
 
     public void disableReset(boolean disabled) {
         this.resetButton.setVisible(disabled);
+    }
+
+    public void disableHints(boolean disabled) {
+        this.hintButton.setVisible(disabled);
     }
 }

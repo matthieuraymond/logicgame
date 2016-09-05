@@ -24,6 +24,7 @@ public class LevelFactory {
                 8,
                 new Block[]{Block.RIGHT},
                 "Hi, my name is Bob!\n\nI am quite a simple robot and I am lost. Can you help me to reach the golden platform?\n\nTo do so, write rules I can follow in the box on the right!\nThanks for your help!",
+                new String[]{"Vas y", "Tu peux y arriver", "Tu es beau!"},
                 new String[]{"screens/tut1.png", "screens/tut2.png", "screens/tut3.png"}
         ));
 
@@ -32,6 +33,7 @@ public class LevelFactory {
                 1,
                 new Block[]{Block.WHITE, Block.IMPLY, Block.RIGHT},
                 "Thanks for that first one!\n\nI must admit that doing the same here would be tedious... Could you find another way?",
+                new String[]{"Vas y", "Tu peux y arriver", "Tu es beau!"},
                 new String[]{"screens/tut4.png"}
         ));
 
@@ -39,21 +41,24 @@ public class LevelFactory {
                 2,11,
                 2,
                 new Block[]{Block.WHITE, Block.RED, Block.IMPLY, Block.AND, Block.NOT, Block.LEFT, Block.RIGHT, Block.UP, Block.DOWN},
-                "WOW! That was amazing!\n\nHowever I still have a little problem:\n\tI don't know how to cross that one, can you help me again?\n\nThanks!"
+                "WOW! That was amazing!\n\nHowever I still have a little problem:\n\tI don't know how to cross that one, can you help me again?\n\nThanks!",
+                new String[]{"Vas y", "Tu peux y arriver", "Tu es beau!"}
         ));
 
         WRITE.add(new WriteLevel("maps/tmx/not.tmx",
                 2,11,
                 4,
                 new Block[]{Block.WHITE, Block.RED, Block.GREEN, Block.ORANGE, Block.PURPLE, Block.YELLOW, Block.IMPLY, Block.AND, Block.NOT, Block.LEFT, Block.RIGHT, Block.UP, Block.DOWN},
-                "Be careful, this one is tricky!\n\nLet's see if you can riddle me this."
+                "Be careful, this one is tricky!\n\nLet's see if you can riddle me this.",
+                new String[]{"Vas y", "Tu peux y arriver", "Tu es beau!"}
         ));
 
         WRITE.add(new WriteLevel("maps/tmx/loop.tmx",
                 7,11,
                 5,
                 new Block[]{Block.WHITE, Block.RED, Block.GREEN, Block.YELLOW, Block.WHITE_PREV, Block.RED_PREV, Block.GREEN_PREV, Block.YELLOW_PREV, Block.IMPLY, Block.AND, Block.NOT, Block.LEFT, Block.RIGHT, Block.UP, Block.DOWN},
-                "Oh its getting quite complicated here.\n\nIf you need a hint: you'll have to make good use of the \"previous\" block.\nThanks for your help."
+                "Oh its getting quite complicated here.\n\nIf you need a hint: you'll have to make good use of the \"previous\" block.\nThanks for your help.",
+                new String[]{"Vas y", "Tu peux y arriver", "Tu es beau!"}
         ));
 
         for (int i = 0; i < WRITE.size() - 1; i++) {
@@ -70,7 +75,8 @@ public class LevelFactory {
                         {Block.YELLOW, Block.IMPLY, Block.DOWN},
                         {Block.GREEN, Block.IMPLY, Block.LEFT}
                 },
-                "Hi again!\nnMake sure you've played the write mode first!\n\nHere you'll need to guess where I'm going!\nClick on the question mark when you've guessed.",
+                "Hi again!\nMake sure you've played the write mode first!\n\nHere you'll need to guess where I'm going!\nClick on the question mark when you've guessed.",
+                new String[]{"Vas y", "Tu peux y arriver", "Tu es beau!"},
                 new String[]{"screens/tut_read.png"}
         ));
         READ.add(new ReadLevel("maps/tmx/guess.tmx",
@@ -85,7 +91,8 @@ public class LevelFactory {
                         {Block.PURPLE, Block.AND, Block.PURPLE_PREV, Block.IMPLY, Block.RIGHT},
                         {Block.GREEN, Block.AND, Block.GREEN_PREV,Block.IMPLY, Block.LEFT},
                 },
-                "The previous one was too easy...\n\nSame layout, different rules, can you guess it right?"
+                "The previous one was too easy...\n\nSame layout, different rules, can you guess it right?",
+                new String[]{"Vas y", "Tu peux y arriver", "Tu es beau!"}
         ));
         READ.add(new ReadLevel("maps/tmx/guess2.tmx",
                 11,11,
@@ -98,7 +105,8 @@ public class LevelFactory {
                         {Block.RED, Block.AND, Block.NOT, Block.WHITE_PREV, Block.IMPLY, Block.UP},
                         {Block.RED, Block.AND, Block.WHITE_PREV, null, Block.IMPLY, Block.LEFT},
                 },
-                "You will not get that one,\nI am sure that it is too complicated!"
+                "You will not get that one,\nI am sure that it is too complicated!",
+                new String[]{"Vas y", "Tu peux y arriver", "Tu es beau!"}
         ));
 
         for (int i = 0; i < READ.size() - 1; i++) {
@@ -110,11 +118,13 @@ public class LevelFactory {
         MACRO.add(new MacroLevel("maps/tmx/macro.tmx",
             6,11,
             "In this mode, I'll change my behavior.\nIndeed, it depends on how many light bulbs I have.\n\nCan you help me collect this light bulb?",
+            new String[]{"Vas y", "Tu peux y arriver", "Tu es beau!"},
             new String[]{"screens/tut_macro.png"}
         ));
         MACRO.add(new MacroLevel("maps/tmx/macro2.tmx",
             6,11,
-            "Okay, \nNow that you understood the concept, can you apply the same principles here?"
+            "Okay, \nNow that you understood the concept, can you apply the same principles here?",
+            new String[]{"Vas y", "Tu peux y arriver", "Tu es beau!"}
         ));
     }
 

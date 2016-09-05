@@ -6,16 +6,14 @@ import com.badlogic.gdx.Preferences;
 public class MacroLevel extends Level {
 
     public MacroLevel(String map, int x, int y, String text) {
-       this(map,x,y,text,new String[]{});
+       this(map,x,y,text,new String[]{}, new String[]{});
     }
 
-    public MacroLevel(String map, int x, int y, String text, String[] tutorialImages) {
-        super();
-        this.map = map;
-        this.coordX = x;
-        this.coordY = y;
-        this.text = text;
-        this.tutorialImages = tutorialImages;
+    public MacroLevel(String map, int x, int y, String text, String[] hints) {
+        this(map,x,y,text,hints, new String[]{});
+    }
+    public MacroLevel(String map, int x, int y, String text, String[] hints, String[] tutorialImages) {
+        super(map, x, y, text, hints, tutorialImages);
     }
 
     @Override

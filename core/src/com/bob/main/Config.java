@@ -14,7 +14,7 @@ public final class Config {
      */
     public static final boolean LPSDebug = false;
     public static final int LPSLimit = 2;
-    public static final boolean printLPS = true;
+    public static final boolean printLPS = false;
 
     /**
      * Levels lock
