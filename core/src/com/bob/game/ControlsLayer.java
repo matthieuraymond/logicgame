@@ -51,21 +51,22 @@ class ControlsLayer extends Layer {
         // ----------
 
         // SLIDER
+        int xSlider = 300;
         BitmapFont font = new BitmapFont(Gdx.files.internal("font/impact.fnt"));
         font.getData().scale(-0.6f);
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font = font;
         Label speedLabel = new Label("Speed", labelStyle);
-        speedLabel.setBounds(250, 50, 100, 25);
+        speedLabel.setBounds(xSlider, 50, 100, 25);
         group.addActor(speedLabel);
 
         Image turtle = new Image(TextureFactory.createTexture("buttons/turtle.png"));
-        turtle.setBounds(240, 10, 35, 25);
+        turtle.setBounds(xSlider -10, 10, 35, 25);
         group.addActor(turtle);
 
         Image rabbit = new Image(TextureFactory.createTexture("buttons/rabbit.png"));
-        rabbit.setBounds(425, 10, 35, 25);
+        rabbit.setBounds(xSlider + 175, 10, 35, 25);
         group.addActor(rabbit);
 
         skin.add("slider_bkg", TextureFactory.createTexture("buttons/slider_bkg.png"));
@@ -74,7 +75,7 @@ class ControlsLayer extends Layer {
         sliderStyle.knob = skin.getDrawable("slider_knob");
         sliderStyle.background = skin.getDrawable("slider_bkg");
         final Slider slider = new Slider(0, 4, 0.01f, false, sliderStyle);
-        slider.setBounds(250, 30, 200, 25);
+        slider.setBounds(xSlider, 30, 200, 25);
         slider.setValue(2);
 
         slider.addListener(new ChangeListener() {
@@ -84,6 +85,29 @@ class ControlsLayer extends Layer {
         });
 
         group.addActor(slider);
+
+        // Pause
+        TextButton pauseButton = new TextButton("||", skin, "grey_button");
+        pauseButton.setBounds(220, 20, 30, 40);
+        pauseButton.addListener(new ClickListener() {
+            public void clicked(InputEvent ie, float x, float y) {
+                slider.setValue(0);
+            }
+        });
+
+        group.addActor(pauseButton);
+
+        // Play
+        TextButton playButton = new TextButton(">", skin, "grey_button");
+        playButton.setBounds(260, 20, 30, 40);
+        playButton.addListener(new ClickListener() {
+            public void clicked(InputEvent ie, float x, float y) {
+                slider.setValue(2);
+            }
+        });
+
+        group.addActor(playButton);
+
     }
 
     public void disableSubmit(boolean disabled) {

@@ -171,4 +171,5 @@ public class GameController {
     public boolean isVisible() {
         return layerGroup.isVisible();
     }
+
 }
