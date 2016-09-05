@@ -76,7 +76,7 @@ public class GameController {
             inputsManager.setupInputs(currentLevel.getInputs(), 1415, 1080 - 165);
         }
 
-        ((ControlsLayer)layerGroup.get("controls")).disableReset(!currentLevel.allowRuleReset());
+        ((ControlsLayer)layerGroup.get("controls")).disableReset(currentLevel.allowRuleReset());
 
         worldController.setupWorld(currentLevel);
         worldController.initRender();

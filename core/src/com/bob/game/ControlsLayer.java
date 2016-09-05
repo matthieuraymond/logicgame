@@ -40,8 +40,8 @@ class ControlsLayer extends Layer {
 
         // ----------
         // RESET BUTTON
-        resetButton = new TextButton("RESET ALL", skin, "blue_button");
-        resetButton.setBounds(1480, 10, 210, 60);
+        resetButton = new TextButton("RESET ALL", skin, "yellow_button");
+        resetButton.setBounds(1260, 10, 210, 60);
         resetButton.addListener(new ClickListener() {
             public void clicked(InputEvent ie, float x, float y) {
                 controller.reset();
@@ -53,8 +53,8 @@ class ControlsLayer extends Layer {
 
         // RESET BOB
 
-        TextButton resetBobButton = new TextButton("RESET BOB", skin, "blue_button");
-        resetBobButton.setBounds(1260, 10, 210, 60);
+        TextButton resetBobButton = new TextButton("RESET BOB", skin, "yellow_button");
+        resetBobButton.setBounds(1480, 10, 210, 60);
         resetBobButton.addListener(new ClickListener() {
             public void clicked(InputEvent ie, float x, float y) {
                 controller.resetWorld();
@@ -101,7 +101,7 @@ class ControlsLayer extends Layer {
         group.addActor(slider);
 
         // Pause
-        TextButton pauseButton = new TextButton("||", skin, "grey_button");
+        TextButton pauseButton = new TextButton("||", skin, "yellow_button");
         pauseButton.setBounds(220, 20, 30, 40);
         pauseButton.addListener(new ClickListener() {
             public void clicked(InputEvent ie, float x, float y) {
@@ -112,7 +112,7 @@ class ControlsLayer extends Layer {
         group.addActor(pauseButton);
 
         // Play
-        TextButton playButton = new TextButton(">", skin, "grey_button");
+        TextButton playButton = new TextButton(">", skin, "yellow_button");
         playButton.setBounds(260, 20, 30, 40);
         playButton.addListener(new ClickListener() {
             public void clicked(InputEvent ie, float x, float y) {
@@ -129,6 +129,6 @@ class ControlsLayer extends Layer {
     }
 
     public void disableReset(boolean disabled) {
-        this.resetButton.setDisabled(disabled);
+        this.resetButton.setVisible(disabled);
     }
 }

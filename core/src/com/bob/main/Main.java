@@ -123,8 +123,8 @@ public class Main extends ApplicationAdapter {
 		smallFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		skin.add("impact_small", smallFont);
 
-		String[] buttonColor = {"grey", "grey_square", "big_grey", "orange", "red", "green", "blue"};
-		String[] buttonFont = {"impact_small", "impact", "impact", "impact_small", "impact_small", "impact_small", "impact_small"};
+		String[] buttonColor = {"grey", "grey_square", "big_grey", "orange", "red", "green", "blue", "yellow"};
+		String[] buttonFont = {"impact_small", "impact", "impact", "impact_small", "impact_small", "impact_small", "impact_small", "impact_small"};
 
 		for (int i = 0; i < buttonColor.length; i++) {
 			String color = buttonColor[i];
