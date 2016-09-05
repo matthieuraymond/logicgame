@@ -51,7 +51,7 @@ public class GameController {
             inputsManager.resetRules();
             macroManager.resetMacros();
         }
-        worldController.resetStage(currentLevel.getX(), currentLevel.getY());
+        resetWorld();
     }
 
     public void startNewLevel() {
@@ -75,6 +75,8 @@ public class GameController {
             inputsManager.setupRules(currentLevel.getNoRules(), currentLevel.getRules(), false);
             inputsManager.setupInputs(currentLevel.getInputs(), 1415, 1080 - 165);
         }
+
+        ((ControlsLayer)layerGroup.get("controls")).disableReset(!currentLevel.allowRuleReset());
 
         worldController.setupWorld(currentLevel);
         worldController.initRender();

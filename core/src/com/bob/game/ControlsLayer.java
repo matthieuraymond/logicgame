@@ -13,6 +13,7 @@ import com.bob.main.TextureFactory;
 class ControlsLayer extends Layer {
 
     private final Button submitButton;
+    private final Button resetButton;
 
     public ControlsLayer(Skin skin, final GameController controller) {
         TextButton quitButton = new TextButton("MENU", skin, "blue_button");
@@ -39,8 +40,8 @@ class ControlsLayer extends Layer {
 
         // ----------
         // RESET BUTTON
-        TextButton resetButton = new TextButton("RESET", skin, "blue_button");
-        resetButton.setBounds(1450, 10, 200, 60);
+        resetButton = new TextButton("RESET ALL", skin, "blue_button");
+        resetButton.setBounds(1480, 10, 210, 60);
         resetButton.addListener(new ClickListener() {
             public void clicked(InputEvent ie, float x, float y) {
                 controller.reset();
@@ -48,6 +49,19 @@ class ControlsLayer extends Layer {
         });
 
         group.addActor(resetButton);
+        // ----------
+
+        // RESET BOB
+
+        TextButton resetBobButton = new TextButton("RESET BOB", skin, "blue_button");
+        resetBobButton.setBounds(1260, 10, 210, 60);
+        resetBobButton.addListener(new ClickListener() {
+            public void clicked(InputEvent ie, float x, float y) {
+                controller.resetWorld();
+            }
+        });
+
+        group.addActor(resetBobButton);
         // ----------
 
         // SLIDER
@@ -112,5 +126,9 @@ class ControlsLayer extends Layer {
 
     public void disableSubmit(boolean disabled) {
         this.submitButton.setDisabled(disabled);
+    }
+
+    public void disableReset(boolean disabled) {
+        this.resetButton.setDisabled(disabled);
     }
 }
