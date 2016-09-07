@@ -2,8 +2,13 @@ package com.bob.game.levels;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.XmlReader;
 import com.bob.game.inputs.Block;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,29 +19,22 @@ public class LevelFactory {
 
     public static void initialiseLevels() { // TODO, PUT INTO FILES
         populateWrite();
-        populateRead();
-        populateMacro();
+        //populateRead();
+        //populateMacro();
     }
 
     private static void populateWrite() {
-        WRITE.add(new WriteLevel("maps/tmx/short.tmx",
+        /*WRITE.add(new WriteLevel("maps/tmx/short.tmx",
                 9,11,
                 8,
                 new Block[]{Block.RIGHT},
                 "Hi, my name is Bob!\n\nI am quite a simple robot and I am lost. Can you help me to reach the golden platform?\n\nTo do so, write rules I can follow in the box on the right!\nThanks for your help!",
                 new String[]{"Vas y", "Tu peux y arriver", "Tu es beau!"},
                 new String[]{"screens/tut1.png", "screens/tut2.png", "screens/tut3.png"}
-        ));
+        ));*/
 
-        WRITE.add(new WriteLevel("maps/tmx/straight.tmx",
-                2,11,
-                1,
-                new Block[]{Block.WHITE, Block.IMPLY, Block.RIGHT},
-                "Thanks for that first one!\n\nI must admit that doing the same here would be tedious... Could you find another way?",
-                new String[]{"Vas y", "Tu peux y arriver", "Tu es beau!"},
-                new String[]{"screens/tut4.png"}
-        ));
-
+        WRITE.add(loadLevelFromFile("maps/tmx/straight.tmx"));
+/*
         WRITE.add(new WriteLevel("maps/tmx/turn.tmx",
                 2,11,
                 2,
@@ -125,8 +123,70 @@ public class LevelFactory {
             6,11,
             "Okay, \nNow that you understood the concept, can you apply the same principles here?",
             new String[]{"Vas y", "Tu peux y arriver", "Tu es beau!"}
-        ));
+        ));*/
     }
 
+    private static void loadLevel(String path){
 
+        XmlReader xmlReader = new XmlReader();
+
+        try {
+
+            FileHandle localFile = new FileHandle(path);
+            localFile.write(new FileInputStream(new File(path)), false);
+
+            XmlReader.Element root = xmlReader.parse(localFile);
+
+            XmlReader.Element levelNode = root.getChildByName("level");
+            XmlReader.Element bobNode = levelNode.getChildByName("bob");
+
+            int startX = bobNode.getInt("x");
+            int startY = bobNode.getInt("y");
+            int noRules = levelNode.getChildByName("rules").getIntAttribute("available");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+    protected int[][] floor;
+    protected int[][] objects;
+    protected int coordX;
+    protected int coordY;
+    protected int noRules = 8;
+    protected Block[] inputs;
+    protected Block[][] rules;
+    protected String[] tutorialImages;
+    protected String[] hints;
+    protected String text;
+
+
+    super(floor, objects, x, y, text, hints, tutorialImages);
+     */
+
+    public static Level loadLevelFromFile(String path) {
+        XmlReader xmlReader = new XmlReader();
+
+        XmlReader.Element root = null;
+
+        try {
+            root = xmlReader.parse(new FileHandle(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String type = root.getAttribute("type");
+
+        switch (type) {
+            case "WRITE":
+                return new WriteLevel(root);
+            case "READ":
+                return new ReadLevel(root);
+            case "MACRO":
+                return new MacroLevel(root);
+            default:
+                return null;
+        }
+    }
 }

@@ -1,136 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="isometric" renderorder="right-down" width="23" height="23" tilewidth="128" tileheight="64" nextobjectid="8">
- <tileset firstgid="1" name="floor" tilewidth="128" tileheight="64" tilecount="7" columns="7">
-  <image source="../tiles.png" width="896" height="64"/>
-  <tile id="0">
-   <properties>
-    <property name="type" value="white"/>
-   </properties>
-  </tile>
-  <tile id="1">
-   <properties>
-    <property name="type" value="red"/>
-   </properties>
-  </tile>
-  <tile id="2">
-   <properties>
-    <property name="type" value="yellow"/>
-   </properties>
-  </tile>
-  <tile id="3">
-   <properties>
-    <property name="type" value="green"/>
-   </properties>
-  </tile>
-  <tile id="4">
-   <properties>
-    <property name="type" value="purple"/>
-   </properties>
-  </tile>
-  <tile id="5">
-   <properties>
-    <property name="type" value="orange"/>
-   </properties>
-  </tile>
-  <tile id="6">
-   <properties>
-    <property name="type" value="gold"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="8" name="lava" tilewidth="128" tileheight="64" tilecount="1" columns="1">
-  <image source="../lava.png" width="129" height="65"/>
-  <tile id="0">
-   <properties>
-    <property name="type" value="lava"/>
-   </properties>
-  </tile>
- </tileset>
- <tileset firstgid="9" name="water" tilewidth="128" tileheight="64" tilecount="16" columns="16">
-  <image source="../water_tile_long.png" width="2048" height="64"/>
-  <tile id="0">
-   <properties>
-    <property name="type" value="water"/>
-   </properties>
-  </tile>
-  <tile id="1">
-   <properties>
-    <property name="type" value="water"/>
-   </properties>
-  </tile>
-  <tile id="2">
-   <properties>
-    <property name="type" value="water"/>
-   </properties>
-  </tile>
-  <tile id="3">
-   <properties>
-    <property name="type" value="water"/>
-   </properties>
-  </tile>
-  <tile id="4">
-   <properties>
-    <property name="type" value="water"/>
-   </properties>
-  </tile>
-  <tile id="5">
-   <properties>
-    <property name="type" value="water"/>
-   </properties>
-  </tile>
-  <tile id="6">
-   <properties>
-    <property name="type" value="water"/>
-   </properties>
-  </tile>
-  <tile id="7">
-   <properties>
-    <property name="type" value="water"/>
-   </properties>
-  </tile>
-  <tile id="8">
-   <properties>
-    <property name="type" value="water"/>
-   </properties>
-  </tile>
-  <tile id="9">
-   <properties>
-    <property name="type" value="water"/>
-   </properties>
-  </tile>
-  <tile id="10">
-   <properties>
-    <property name="type" value="water"/>
-   </properties>
-  </tile>
-  <tile id="11">
-   <properties>
-    <property name="type" value="water"/>
-   </properties>
-  </tile>
-  <tile id="12">
-   <properties>
-    <property name="type" value="water"/>
-   </properties>
-  </tile>
-  <tile id="13">
-   <properties>
-    <property name="type" value="water"/>
-   </properties>
-  </tile>
-  <tile id="14">
-   <properties>
-    <property name="type" value="water"/>
-   </properties>
-  </tile>
-  <tile id="15">
-   <properties>
-    <property name="type" value="water"/>
-   </properties>
-  </tile>
- </tileset>
- <layer name="Floor" width="23" height="23">
-  <data encoding="csv">
+<root type="WRITE">
+<bob x="2" y="11" />
+<rules available="1" />
+<text>Thanks for that first one!
+
+I must admit that doing the same here would be tedious...
+Could you find another way?
+</text>
+<hints>
+    <hint>hint 1</hint>
+    <hint>hint 2</hint>
+    <hint>hint 3</hint>
+</hints>
+<tutorial>
+    <image>screens/tut4.png</image>
+</tutorial>
+<inputs>
+    <block name="white" />
+    <block name="imply" />
+    <block name="right" />
+</inputs>
+<floor>
 9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
 9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
 9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
@@ -154,11 +44,30 @@
 9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
 9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
 9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9
-</data>
- </layer>
- <objectgroup name="Borders">
-  <object id="6" x="30.6667" y="670.667">
-   <polyline points="0,0 644.667,-639.333 1410,128.667 770,771.333 0.666667,2"/>
-  </object>
- </objectgroup>
-</map>
+</floor>
+<object>
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</object>
+</root>

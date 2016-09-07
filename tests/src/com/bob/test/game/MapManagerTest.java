@@ -24,7 +24,7 @@ public class MapManagerTest {
         lfs.addAll(LevelFactory.READ);
 
         for (Level lvl: lfs) {
-            MapManager m = new MapManager(lvl.getMap());
+            MapManager m = new MapManager(lvl.getFloor(), lvl.getObjects());
 
             String type = m.getType(lvl.getX(), lvl.getY());
             assertNotEquals("water", type);
@@ -36,7 +36,7 @@ public class MapManagerTest {
         LevelFactory.initialiseLevels();
         Level lvl = LevelFactory.WRITE.get(0);
 
-        MapManager m = new MapManager(lvl.getMap());
+        MapManager m = new MapManager(lvl.getFloor(), lvl.getObjects());
 
         assertEquals(
                 "white(9,11).white(10,11).white(11,11).white(12,11).gold(13,11).",

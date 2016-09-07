@@ -1,13 +1,18 @@
 package com.bob.game.levels;
 
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.XmlReader;
 import com.bob.game.inputs.Block;
+
+import java.io.IOException;
 
 public abstract class Level {
 
-    protected String map;
+    protected int[][] floor;
+    protected int[][] objects;
     protected int coordX;
     protected int coordY;
-    protected int noRules = 8;
+    protected int noRules;
     protected Block[] inputs;
     protected Block[][] rules;
     protected String[] tutorialImages;
@@ -16,17 +21,21 @@ public abstract class Level {
 
     protected Level next;
 
-    public Level(String map, int x, int y, String text, String[] hints, String[] tutorialImages) {
+    public Level(XmlReader.Element root) {
+
+        XmlReader.Element bobNode = root.getChildByName("bob");
+
+        this.floor = csvToArray(root.getChildByName("floor").getText());
+        this.objects = csvToArray(root.getChildByName("object").getText());
+        this.coordX = bobNode.getInt("x");
+        this.coordY = bobNode.getInt("y");
+        this.text = root.getChildByName("text").getText();
+        this.hints = extractStrings(root.getChildByName("hints"));
+        this.tutorialImages = extractStrings(root.getChildByName("tutorial"));
+
+        this.noRules = 8;
         this.inputs = new Block[]{};
         this.rules = new Block[][]{};
-        this.tutorialImages = new String[]{};
-        this.hints = new String[]{};
-        this.map = map;
-        this.coordX = x;
-        this.coordY = y;
-        this.text = text;
-        this.hints = hints;
-        this.tutorialImages = tutorialImages;
     }
 
     public abstract void save();
@@ -59,8 +68,12 @@ public abstract class Level {
         return noRules;
     }
 
-    public String getMap() {
-        return map;
+    public int[][] getFloor() {
+        return floor;
+    }
+
+    public int[][] getObjects() {
+        return objects;
     }
 
     public int getX() {
@@ -89,5 +102,42 @@ public abstract class Level {
 
     public String[] getHints() {
         return hints;
+    }
+
+    private int[][] csvToArray(String csv) {
+        String[] lines = csv.split("\n");
+        int[][] res = new int[lines.length][];
+
+        for (int i = 0; i < lines.length; i++) {
+            String[] cols = lines[i].split(",");
+            res[i] = new int[cols.length];
+            for(int j = 0; j < cols.length; j++) {
+                res[i][j] = Integer.parseInt(cols[j]);
+            }
+
+        }
+
+        return res;
+    }
+
+    private String[] extractStrings(XmlReader.Element element) {
+        String[] res = new String[element.getChildCount()];
+
+        for (int i = 0; i < res.length; i++) {
+            res[i] = element.getChild(i).getText();
+        }
+
+        return res;
+    }
+
+    protected Block[] extractBlocks(XmlReader.Element blockContainer) {
+        int n = blockContainer.getChildCount();
+        Block[] res = new Block[n];
+
+        for(int i = 0; i < n; i++) {
+            res[i] = Block.getBlock(blockContainer.getChild(i).getAttribute("name"));
+        }
+
+        return res;
     }
 }

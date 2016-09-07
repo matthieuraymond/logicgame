@@ -59,4 +59,11 @@ public enum Block {
     public String getTooltip() {
         return tooltip;
     }
+
+    public static Block getBlock(String name) {
+        for (Block b: Block.values()) {
+            if (b.getImageName().equals(name)) return b;
+        }
+        return null;
+    }
 }

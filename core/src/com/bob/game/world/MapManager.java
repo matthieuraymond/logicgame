@@ -1,13 +1,15 @@
 package com.bob.game.world;
 
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.utils.StringBuilder;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.utils.XmlReader;
 import com.bob.main.Config;
 
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,14 +19,14 @@ public class MapManager {
     private IsometricTiledMapRenderer renderer;
     private OrthographicCamera camera;
     private final TiledMapTileLayer floorLayer;
+    private final TiledMapTileLayer objectsLayer;
     private Iterator waterIterator;
     private float elapsedSinceAnimation;
 
-    public MapManager(String path) {
+    public MapManager(int[][] floor, int[][] objects) {
 
-        map = new TmxMapLoader().load(path);
+        map = new TmxMapLoader().load("maps/tmx/default.tmx");
 
-        
         Iterator<TiledMapTileSet> tileSets = map.getTileSets().iterator();
         while(tileSets.hasNext())
         {
@@ -37,9 +39,29 @@ public class MapManager {
         }
 
         floorLayer = (TiledMapTileLayer)map.getLayers().get("Floor");
+        objectsLayer = (TiledMapTileLayer)map.getLayers().get("Objects");
         waterIterator = map.getTileSets().getTileSet("water").iterator();
 
+        populateMap(floor, objects);
+
         elapsedSinceAnimation = 0;
+    }
+
+    private void populateMap(int[][] floor, int[][] objects) {
+
+        for (int i = 0; i < floor.length; i++) {
+            for (int j = 0; j < floor[i].length; j++) {
+                floorLayer.getCell(i,j).setTile(map.getTileSets().getTile(floor[i][j]));
+
+                if (objects[i][j] == 0) {
+                    objectsLayer.getCell(i, j).getTile().setId(0);
+                } else {
+                    objectsLayer.getCell(i, j).setTile(map.getTileSets().getTile(objects[i][j]));
+                }
+            }
+        }
+
+
     }
 
     public void initRender() {

@@ -16,7 +16,7 @@ public class LPSSandBox {
     public void sandBox() throws Exception {
         LevelFactory.initialiseLevels();
         Level lvl = LevelFactory.WRITE.get(2);
-        MapManager m = new MapManager(lvl.getMap());
+        MapManager m = new MapManager(lvl.getFloor(), lvl.getObjects());
 
         LPSHandler lps = new LPSHandler(m.getLPSDescription(), "isIn(X,Y) & wasIn(U,V) & white(X,Y) -> goRight(0).isIn(X,Y) & wasIn(U,V) & white(X,Y) -> goRight(1).", lvl.getX(), lvl.getY());
         /*for (int i = 0; i < 20; ++i) {

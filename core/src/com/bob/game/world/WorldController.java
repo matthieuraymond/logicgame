@@ -50,7 +50,7 @@ public class WorldController {
     }
 
     public void setupWorld(Level level) {
-        mapManager = new MapManager(level.getMap());
+        mapManager = new MapManager(level.getFloor(), level.getObjects());
         resetStage(level.getX(), level.getY());
     }
 
