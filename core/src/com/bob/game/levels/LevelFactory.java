@@ -24,15 +24,7 @@ public class LevelFactory {
     }
 
     private static void populateWrite() {
-        /*WRITE.add(new WriteLevel("maps/tmx/short.tmx",
-                9,11,
-                8,
-                new Block[]{Block.RIGHT},
-                "Hi, my name is Bob!\n\nI am quite a simple robot and I am lost. Can you help me to reach the golden platform?\n\nTo do so, write rules I can follow in the box on the right!\nThanks for your help!",
-                new String[]{"Vas y", "Tu peux y arriver", "Tu es beau!"},
-                new String[]{"screens/tut1.png", "screens/tut2.png", "screens/tut3.png"}
-        ));*/
-
+        WRITE.add(loadLevelFromFile("maps/tmx/short.tmx"));
         WRITE.add(loadLevelFromFile("maps/tmx/straight.tmx"));
 /*
         WRITE.add(new WriteLevel("maps/tmx/turn.tmx",
@@ -126,44 +118,6 @@ public class LevelFactory {
         ));*/
     }
 
-    private static void loadLevel(String path){
-
-        XmlReader xmlReader = new XmlReader();
-
-        try {
-
-            FileHandle localFile = new FileHandle(path);
-            localFile.write(new FileInputStream(new File(path)), false);
-
-            XmlReader.Element root = xmlReader.parse(localFile);
-
-            XmlReader.Element levelNode = root.getChildByName("level");
-            XmlReader.Element bobNode = levelNode.getChildByName("bob");
-
-            int startX = bobNode.getInt("x");
-            int startY = bobNode.getInt("y");
-            int noRules = levelNode.getChildByName("rules").getIntAttribute("available");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /*
-    protected int[][] floor;
-    protected int[][] objects;
-    protected int coordX;
-    protected int coordY;
-    protected int noRules = 8;
-    protected Block[] inputs;
-    protected Block[][] rules;
-    protected String[] tutorialImages;
-    protected String[] hints;
-    protected String text;
-
-
-    super(floor, objects, x, y, text, hints, tutorialImages);
-     */
 
     public static Level loadLevelFromFile(String path) {
         XmlReader xmlReader = new XmlReader();
