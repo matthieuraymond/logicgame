@@ -1,5 +1,6 @@
 package com.bob.game.desktop;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.bob.game.levels.Level;
@@ -18,8 +19,7 @@ public class DesktopLauncher {
 		if (arg.length > 0) {
 
 			final String path = arg[0];
-
-			final Level customLevel = LevelFactory.loadLevelFromFile(path);
+			final Level customLevel = LevelFactory.loadExternaLevel(path);
 
 			new LwjglApplication(new Main() {
 				@Override
@@ -31,7 +31,7 @@ public class DesktopLauncher {
 					this.gameState = GameState.PLAYING;
 				}
 			}, config);
-			
+
 			return;
 
 		}

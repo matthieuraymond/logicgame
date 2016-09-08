@@ -127,7 +127,7 @@ setup(emptyFile);
 $('#download').on('click', function() {
     var mode = $('.nav-pills .active a').html();
     var map = '<floor>';
-    var objects = '<objects>';
+    var objects = '<object>';
     var startX = 0;
     var startY = 0;
 
@@ -137,8 +137,8 @@ $('#download').on('click', function() {
             map += $tile.data('id') + ',';
 
             if ($tile.find('img').attr('src') == 'bob.png') {
-              startX = i;
-              startY = j;
+              startX = j;
+              startY = i;
             }
 
             if ($tile.find('img').attr('src') == 'light_bulb.png') {
@@ -152,7 +152,7 @@ $('#download').on('click', function() {
     }
 
     map += '</floor>';
-    objects += '</objects>';
+    objects += '</object>';
 
     var file = '<?xml version="1.0" encoding="UTF-8"?>\n';
 
