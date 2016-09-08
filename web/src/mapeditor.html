@@ -32,7 +32,7 @@
               </p>
               <p>
                 Selected tile:
-                <span class="tile-selector tile" data-id="" id="selected" style="vertical-align:middle">
+                <span class="tile-selector tile" data-id="1" id="selected" style="vertical-align:middle">
                 </span>
               </p>
               <hr />
@@ -70,6 +70,7 @@
                 <p style="text-align:center"><i>Please click on tile, not on objects</i></p>
             </div>
             <div class="panel-footer" style="text-align:center;">
+              <button typel="button" class="btn btn-default btn-lg" id="objects-back">Back</button>
               <button typel="button" class="btn btn-primary btn-lg" id="objects-next" data-toggle="modal" data-target="#downloadModal">Next step</button>
             </div>
           </div>
@@ -86,13 +87,34 @@
             <h4 class="modal-title">Step 3: choose playing mode</h4>
           </div>
           <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Level text</label>
+                <textarea type="textarea" class="form-control" id="help-text" placeholder="Level text (on top left of the screen)." style="resize:none;"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Hint 1</label>
+                <input type="text" class="form-control" id="hint1" placeholder="Hint 1">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Hint 2</label>
+                <input type="text" class="form-control" id="hint2" placeholder="Hint 2">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Hint 3</label>
+                <input type="text" class="form-control" id="hint3" placeholder="Hint 3">
+              </div>
+            </form>
+
+            <hr />
+            <label for="exampleInputPassword1">Playing mode</label>
             <ul class="nav nav-pills nav-justified" id="modeTabs" style="padding-bottom:20px;">
               <li role="presentation" class="active"><a href="#write">WRITE</a></li>
               <li role="presentation"><a href="#read">READ</a></li>
               <li role="presentation"><a href="#macro">MACRO</a></li>
             </ul>
            <div class="tab-content">
-             <div role="tabpanel" class="tab-pane active" id="write">
+             <div role="tabpanel" class="input-picker tab-pane active" id="write">
                <div class="block" data-string="white">
                  <img src="blocks/white.png" />
                </div><!--
@@ -151,10 +173,93 @@
                  <img src="blocks/left.png" />
                </div>
              </div>
+
+
              <div role="tabpanel" class="tab-pane" id="read">
-
-
+               <div id="rules-container">
+                 <div class="rule">
+                          <div class="block" data-id="0" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="1" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="2" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="3" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="4" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="5" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="6" data-string=""><img src="blocks/void.png" /></div>
+                  </div>
+                  <hr />
+                  <div class="rule">
+                          <div class="block" data-id="7" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="8" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="9" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="10" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="11" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="12" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="13" data-string=""><img src="blocks/void.png" /></div>
+                  </div>
+                  <hr />
+                  <div class="rule">
+                          <div class="block" data-id="14" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="15" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="16" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="17" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="18" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="19" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="20" data-string=""><img src="blocks/void.png" /></div>
+                  </div>
+                  <hr />
+                  <div class="rule">
+                          <div class="block" data-id="21" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="22" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="23" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="24" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="25" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="26" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="27" data-string=""><img src="blocks/void.png" /></div>
+                  </div>
+                  <hr />
+                  <div class="rule">
+                          <div class="block" data-id="28" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="29" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="30" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="31" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="32" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="33" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="34" data-string=""><img src="blocks/void.png" /></div>
+                  </div>
+                  <hr />
+                  <div class="rule">
+                          <div class="block" data-id="35" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="36" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="37" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="38" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="39" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="40" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="41" data-string=""><img src="blocks/void.png" /></div>
+                  </div>
+                  <hr />
+                  <div class="rule">
+                          <div class="block" data-id="42" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="43" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="44" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="45" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="46" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="47" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="48" data-string=""><img src="blocks/void.png" /></div>
+                  </div>
+                  <hr />
+                  <div class="rule">
+                          <div class="block" data-id="49" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="50" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="51" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="52" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="53" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="54" data-string=""><img src="blocks/void.png" /></div>
+                          <div class="block" data-id="55" data-string=""><img src="blocks/void.png" /></div>
+      </div>
+                </div>
              </div>
+
+
              <div role="tabpanel" class="tab-pane" id="macro">
                <p style="text-align:center;padding:20px;">
                  Nothing more to configure for the macro mode, just click download :)
@@ -163,12 +268,89 @@
            </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary" id="download">Download</button>
+            <button type="button" class="btn btn-default btn-lg" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary btn-lg" id="download">Download</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="blockModal" tabindex="-1" role="dialog" aria-labelledby="blockModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content panel-primary">
+        <div class="modal-header panel-heading">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Choose input</h4>
+        </div>
+        <div class="modal-body input-rule-picker">
+          <div class="block" data-string="white">
+            <img src="blocks/white.png" />
+          </div><!--
+          --><div class="block" data-string="red">
+            <img src="blocks/red.png" />
+          </div><!--
+          --><div class="block" data-string="green">
+            <img src="blocks/green.png" />
+          </div><!--
+          --><div class="block" data-string="yellow">
+            <img src="blocks/yellow.png" />
+          </div><!--
+          --><div class="block" data-string="purple">
+            <img src="blocks/purple.png" />
+          </div><!--
+          --><div class="block" data-string="orange">
+            <img src="blocks/orange.png" />
+          </div><!--
+          --><div class="block" data-string="white_prev">
+            <img src="blocks/white_prev.png" />
+          </div><!--
+          --><div class="block" data-string="red_prev">
+            <img src="blocks/red_prev.png" />
+          </div><!--
+          --><div class="block" data-string="green_prev">
+            <img src="blocks/green_prev.png" />
+          </div><!--
+          --><div class="block" data-string="yellow_prev">
+            <img src="blocks/yellow_prev.png" />
+          </div><!--
+          --><div class="block" data-string="purple_prev">
+            <img src="blocks/purple_prev.png" />
+          </div><!--
+          --><div class="block" data-string="orange_prev">
+            <img src="blocks/orange_prev.png" />
+          </div><!--
+          --><div class="block" data-string="imply">
+            <img src="blocks/imply.png" />
+          </div><!--
+          --><div class="block" data-string="and">
+            <img src="blocks/and.png" />
+          </div><!--
+          --><div class="block" data-string="not">
+            <img src="blocks/not.png" />
+          </div><!--
+          --><div class="block" data-string="up">
+            <img src="blocks/up.png" />
+          </div><!--
+          --><div class="block" data-string="right">
+            <img src="blocks/right.png" />
+          </div><!--
+          --><div class="block" data-string="down">
+            <img src="blocks/down.png" />
+          </div><!--
+          --><div class="block" data-string="left">
+            <img src="blocks/left.png" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger">Cancel</button>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
   </body>
   <script src="js.js"></script>
 </html>

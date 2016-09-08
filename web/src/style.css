@@ -11,6 +11,11 @@ html, body {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#44aef5', endColorstr='#44aef5', GradientType=1 );
 }
 
+.modal .modal-body {
+    max-height: 750px;
+    overflow-y: auto;
+}
+
 .title {
   padding: 30px;
   font-family: 'Quicksand', sans-serif;
@@ -57,6 +62,19 @@ html, body {
 .block {
   display: inline-block;
   padding: 10px;
+}
+
+.rule {
+  text-align: center;
+}
+
+.rule .block {
+    display: inline-block;
+    padding: 2px;
+}
+
+#rules-container hr {
+  margin: 5px;
 }
 
 .picked {

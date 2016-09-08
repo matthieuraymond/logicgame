@@ -77,6 +77,12 @@ $('#tiles-next').on('click', function() {
   step++;
 });
 
+$('#objects-back').on('click', function() {
+  $('#tiles-pane').show();
+  $('#objects-pane').hide();
+  step--;
+});
+
 // Object selector
 $('.object-selector').on('click', function() {
   $('.object-selector.selected').removeClass('selected');
@@ -88,13 +94,29 @@ $('#modeTabs a').click(function(e){
   $(this).tab('show');
 });
 
-$('.block').on('click',function(){
+$('.input-picker .block').on('click',function(){
   var $this = $(this);
   if ($this.hasClass('picked')) {
     $this.removeClass('picked');
   } else {
     $this.addClass('picked');
   }
+});
+
+$('.rule .block').on('click',  function(){
+  var id = $(this).data('id');
+  $('.input-rule-picker .block').data('id', id);
+  $('#blockModal').modal();
+});
+
+$('.input-rule-picker .block').on('click', function () {
+  var $this = $(this);
+  var id = $this.data('id');
+
+  $('.rule .block[data-id='+$this.data('id')+']').html($this.html());
+  $('.rule .block[data-id='+$this.data('id')+']').data('string', $this.data('string'));
+
+  $('#blockModal').modal('hide');
 });
 
 var emptyFile = "9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,\n"
@@ -138,7 +160,7 @@ $('#download').on('click', function() {
 
             if ($tile.find('img').attr('src') == 'bob.png') {
               startX = j;
-              startY = i;
+              startY = 23 - i - 1;
             }
 
             if ($tile.find('img').attr('src') == 'light_bulb.png') {
@@ -159,8 +181,17 @@ $('#download').on('click', function() {
     file += '<root type="' + mode + '">\n';
 
     file += '<bob x="' + startX + '" y="' + startY + '" />\n';
-    file += '<rules available="8" />\n';
-    file += '<text></text>';
+    file += '<text>'+$('#help-text').val()+'</text>\n';
+
+    file += '<hints>\n';
+
+    for (var i = 1; i < 4; i++) {
+      if ($('#hint'+i).val() != "") {
+        file += '\t<hint>' + $('#hint'+i).val() + '</hint>\n';
+      }
+    }
+
+    file += '</hints>\n';
 
     if (mode == "WRITE") {
       file += '<inputs>\n';
@@ -168,13 +199,35 @@ $('#download').on('click', function() {
       var arr = $('.picked');
 
       for (var i = 0; i < arr.length; i++) {
-        file += '<block name="' + $(arr[i]).data('string') + '" />\n';
+        file += '\t<block name="' + $(arr[i]).data('string') + '" />\n';
       }
 
       file += '</inputs>\n';
     }
 
+    var rules = '<rules available="'+8+'">'
 
+    if (mode == "READ") {
+
+      for (var i = 0; i < 56 ; i++) {
+        var index = i % 7;
+        if (index == 0) {
+          rules += '<rule>\n\t';
+        }
+
+        var blockString = $('#rules-container .block[data-id="'+i+'"]').data('string');
+        rules += '<block name="'+ blockString +'" />';
+
+        if (index == 6) {
+          rules += '\n</rule>\n';
+        }
+
+      }
+    }
+
+    rules += '</rules>';
+
+    file += rules
     file += map;
     file += objects;
     file += "</root>";
