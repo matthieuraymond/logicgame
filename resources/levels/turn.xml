@@ -10,9 +10,8 @@ I don't know how to cross that one, can you help me again?
 Thanks!
 </text>
 <hints>
-    <hint>hint 1</hint>
-    <hint>hint 2</hint>
-    <hint>hint 3</hint>
+    <hint>Two rules are enough</hint>
+    <hint>Three blocks per rule</hint>
 </hints>
 <inputs>
     <block name="white" />

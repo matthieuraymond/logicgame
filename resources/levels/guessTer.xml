@@ -5,9 +5,8 @@
 I am sure that it is too complicated!
     </text>
     <hints>
-        <hint>hint 1</hint>
-        <hint>hint 2</hint>
-        <hint>hint 3</hint>
+        <hint>Is there a pattern?</hint>
+        <hint>Do you apply the same rule twice?</hint>
     </hints>
 
     {Block.RED, Block.AND, Block.WHITE_PREV, null, Block.IMPLY, Block.LEFT},
