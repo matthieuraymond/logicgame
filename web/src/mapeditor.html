@@ -2,6 +2,7 @@
 <html>
   <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
     <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="style.css" />
@@ -17,35 +18,157 @@
         <div class="col-md-9" id="map">
 
         </div>
-        <div class="col-md-3" id="tiles-pane">
-          <br />
-          <p>
-            Upload a map:
-            <span class="btn btn-default btn-file">
-              Browse <input type="file" name="file" id="file">
-            </span>
-          </p>
-          <button class="btn btn-default" id="download">Download this map</button>
-          <hr />
-          <p>
-            Selected tile:
-            <div class="tile-selector tile" data-id="" id="selected">
+
+        <div class="col-md-3">
+          <div class="panel panel-primary" id="tiles-pane">
+
+            <div class="panel-heading"><b>Step 1: map layout</b></div>
+            <div class="panel-body">
+              <p style="display:none">
+                Upload a map:
+                <span class="btn btn-default btn-file">
+                  Browse <input type="file" name="file" id="file">
+                </span>
+              </p>
+              <p>
+                Selected tile:
+                <span class="tile-selector tile" data-id="" id="selected" style="vertical-align:middle">
+                </span>
+              </p>
+              <hr />
+              <div class="tiles" style="text-align:center;">
+                <div class="tile-selector tile" data-id="1"></div>
+                <div class="tile-selector tile" data-id="2"></div>
+                <div class="tile-selector tile" data-id="3"></div>
+                <div class="tile-selector tile" data-id="4"></div>
+                <div class="tile-selector tile" data-id="5"></div>
+                <div class="tile-selector tile" data-id="6"></div>
+                <div class="tile-selector tile" data-id="7"></div>
+                <div class="tile-selector tile" data-id="8"></div>
+                <div class="tile-selector tile" data-id="9"></div>
+              </div>
             </div>
-          </p>
-          <div class="tiles">
-            <div class="tile-selector tile" data-id="1"></div>
-            <div class="tile-selector tile" data-id="2"></div>
-            <div class="tile-selector tile" data-id="3"></div>
-            <div class="tile-selector tile" data-id="4"></div>
-            <div class="tile-selector tile" data-id="5"></div>
-            <div class="tile-selector tile" data-id="6"></div>
-            <div class="tile-selector tile" data-id="7"></div>
-            <div class="tile-selector tile" data-id="8"></div>
-            <div class="tile-selector tile" data-id="10"></div>
+            <div class="panel-footer" style="text-align:center;">
+              <button class="btn btn-primary btn-lg" id="tiles-next">Next step</button>
+            </div>
+          </div>
+
+          <div class="panel panel-primary" id="objects-pane" style="display:none;">
+
+            <div class="panel-heading"><b>Step 2: Bob and lights</b></div>
+            <div class="panel-body">
+                <div class="object-selector selected" data-obj="bob-tool">
+                  <img src="bob.png" />
+                </div>
+                <div class="object-selector" data-obj="light-plus">
+                  <img src="light_plus.png" />
+                </div>
+                <div class="object-selector" data-obj="light-del">
+                  <img src="light_del.png" />
+                </div>
+                <br />
+                <p style="text-align:center"><i>Please click on tile, not on objects</i></p>
+            </div>
+            <div class="panel-footer" style="text-align:center;">
+              <button typel="button" class="btn btn-primary btn-lg" id="objects-next" data-toggle="modal" data-target="#downloadModal">Next step</button>
+            </div>
           </div>
         </div>
       </div>
   </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="downloadModal" tabindex="-1" role="dialog" aria-labelledby="downloadModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content panel-primary">
+          <div class="modal-header panel-heading">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Step 3: choose playing mode</h4>
+          </div>
+          <div class="modal-body">
+            <ul class="nav nav-pills nav-justified" id="modeTabs" style="padding-bottom:20px;">
+              <li role="presentation" class="active"><a href="#write">WRITE</a></li>
+              <li role="presentation"><a href="#read">READ</a></li>
+              <li role="presentation"><a href="#macro">MACRO</a></li>
+            </ul>
+           <div class="tab-content">
+             <div role="tabpanel" class="tab-pane active" id="write">
+               <div class="block" data-string="white">
+                 <img src="blocks/white.png" />
+               </div><!--
+               --><div class="block" data-string="red">
+                 <img src="blocks/red.png" />
+               </div><!--
+               --><div class="block" data-string="green">
+                 <img src="blocks/green.png" />
+               </div><!--
+               --><div class="block" data-string="yellow">
+                 <img src="blocks/yellow.png" />
+               </div><!--
+               --><div class="block" data-string="purple">
+                 <img src="blocks/purple.png" />
+               </div><!--
+               --><div class="block" data-string="orange">
+                 <img src="blocks/orange.png" />
+               </div><!--
+               --><div class="block" data-string="white_prev">
+                 <img src="blocks/white_prev.png" />
+               </div><!--
+               --><div class="block" data-string="red_prev">
+                 <img src="blocks/red_prev.png" />
+               </div><!--
+               --><div class="block" data-string="green_prev">
+                 <img src="blocks/green_prev.png" />
+               </div><!--
+               --><div class="block" data-string="yellow_prev">
+                 <img src="blocks/yellow_prev.png" />
+               </div><!--
+               --><div class="block" data-string="purple_prev">
+                 <img src="blocks/purple_prev.png" />
+               </div><!--
+               --><div class="block" data-string="orange_prev">
+                 <img src="blocks/orange_prev.png" />
+               </div><!--
+               --><div class="block" data-string="imply">
+                 <img src="blocks/imply.png" />
+               </div><!--
+               --><div class="block" data-string="and">
+                 <img src="blocks/and.png" />
+               </div><!--
+               --><div class="block" data-string="not">
+                 <img src="blocks/not.png" />
+               </div><!--
+               --><div class="block" data-string="up">
+                 <img src="blocks/up.png" />
+               </div><!--
+               --><div class="block" data-string="right">
+                 <img src="blocks/right.png" />
+               </div><!--
+               --><div class="block" data-string="down">
+                 <img src="blocks/down.png" />
+               </div><!--
+               --><div class="block" data-string="left">
+                 <img src="blocks/left.png" />
+               </div>
+             </div>
+             <div role="tabpanel" class="tab-pane" id="read">
+
+
+             </div>
+             <div role="tabpanel" class="tab-pane" id="macro">
+               <p style="text-align:center;padding:20px;">
+                 Nothing more to configure for the macro mode, just click download :)
+               </p>
+             </div>
+           </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" id="download">Download</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
   </body>
   <script src="js.js"></script>
 </html>

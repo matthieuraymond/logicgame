@@ -19,11 +19,48 @@ html, body {
   color: white;
   font-weight: bold;
 }
-
+/*
 #tiles-pane {
   background: white;
   border-radius: 10px;
+}*/
 
+.object-selector {
+  text-align: center;
+  margin-bottom: 5px;
+  padding: 5px;
+  border: 1px solid transparent;
+}
+
+.object-selector img {
+  height: 100px;
+}
+
+.object-selector.selected {
+  border: 1px solid blue;
+  border-radius: 5px;
+}
+
+.in-tile-container {
+  position: relative;
+  height: 32px;
+  padding-left: 16px;
+}
+
+.in-tile {
+  position: absolute;
+  bottom: 0;
+  width: 32px;
+  padding-bottom: 10px;
+}
+
+.block {
+  display: inline-block;
+  padding: 10px;
+}
+
+.picked {
+  background: lightgrey;
 }
 
 .tile {
@@ -35,7 +72,7 @@ html, body {
   background-repeat: no-repeat;
 }
 
-.tile[data-id="10"] {
+.tile[data-id="9"] {
   background-image: url("water_tile_long.png");
   background-size: 1024px 32px;
 
@@ -97,4 +134,8 @@ html, body {
 
 .not-visible {
     opacity: 0.5;
+}
+
+.modal-header.panel-heading {
+  border-radius: 5px 5px 0 0;
 }

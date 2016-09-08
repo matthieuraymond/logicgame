@@ -3,6 +3,8 @@ screen.x = map.x * TILE_WIDTH_HALF - map.y * TILE_WIDTH_HALF;
 screen.y = map.x * TILE_HEIGHT_HALF + map.y * TILE_HEIGHT_HALF;
 */
 
+var step = 1;
+
 function setup(textFile) {
   var $map = $('#map');
   var lines = textFile.split('\n');
@@ -37,7 +39,19 @@ function setup(textFile) {
 }
 
 function update(l, c, id) {
-  $('.updatable.'+l+'-'+c).attr('data-id', id);
+  var tile = '.updatable.'+l+'-'+c;
+  if (step == 1) {
+    $(tile).attr('data-id', id);
+  } else if (step == 2) {
+    if ($('.selected').data('obj') == "bob-tool") {
+      $('#bob').remove();
+      $(tile).html('<div class="in-tile-container"><img src="bob.png" class="in-tile" id="bob"/></div>');
+    } else if ($('.selected').data('obj') == "light-plus") {
+      $(tile).html('<div class="in-tile-container"><img src="light_bulb.png" class="in-tile" /></div>');
+    } else if ($('.selected').data('obj') == "light-del") {
+      $(tile).html('');
+    }
+  }
 }
 
 // TO REFACTOR
@@ -56,46 +70,116 @@ $('.tile-selector.tile').on('click', function() {
   $('#selected').attr("data-id", id);
 });
 
-var emptyFile = "10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,\n"
-+"10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,\n"
-+"10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,\n"
-+"10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,\n"
-+"10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,\n"
-+"10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,\n"
-+"10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,\n"
-+"10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,\n"
-+"10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,\n"
-+"10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,\n"
-+"10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,\n"
-+"10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,\n"
-+"10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,\n"
-+"10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,\n"
-+"10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,\n"
-+"10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,\n"
-+"10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,\n"
-+"10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,\n"
-+"10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,\n"
-+"10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,\n"
-+"10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,\n"
-+"10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,\n"
-+"10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10";
+// Navigation
+$('#tiles-next').on('click', function() {
+  $('#tiles-pane').hide();
+  $('#objects-pane').show();
+  step++;
+});
+
+// Object selector
+$('.object-selector').on('click', function() {
+  $('.object-selector.selected').removeClass('selected');
+  $(this).addClass('selected');
+});
+
+$('#modeTabs a').click(function(e){
+  e.preventDefault();
+  $(this).tab('show');
+});
+
+$('.block').on('click',function(){
+  var $this = $(this);
+  if ($this.hasClass('picked')) {
+    $this.removeClass('picked');
+  } else {
+    $this.addClass('picked');
+  }
+});
+
+var emptyFile = "9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,\n"
++"9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,\n"
++"9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,\n"
++"9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,\n"
++"9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,\n"
++"9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,\n"
++"9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,\n"
++"9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,\n"
++"9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,\n"
++"9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,\n"
++"9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,\n"
++"9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,\n"
++"9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,\n"
++"9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,\n"
++"9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,\n"
++"9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,\n"
++"9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,\n"
++"9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,\n"
++"9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,\n"
++"9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,\n"
++"9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,\n"
++"9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,\n"
++"9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9";
 
 setup(emptyFile);
 
 /* Download button */
 $('#download').on('click', function() {
-    var csvContent = headTMX;
+    var mode = $('.nav-pills .active a').html();
+    var map = '<floor>';
+    var objects = '<objects>';
+    var startX = 0;
+    var startY = 0;
 
     for(var i = 0; i < 23; i++) {
         for(var j = 0; j < 23; j++) {
-            csvContent += $($('.updatable')[i * 23 + j]).data('id') + ',';
+            var $tile = $($('.updatable')[i * 23 + j]);
+            map += $tile.data('id') + ',';
+
+            if ($tile.find('img').attr('src') == 'bob.png') {
+              startX = i;
+              startY = j;
+            }
+
+            if ($tile.find('img').attr('src') == 'light_bulb.png') {
+              objects += '25,'
+            } else {
+              objects += '0,'
+            }
         }
-        csvContent += '\n';
+        map += '\n';
+        objects += '\n';
     }
 
-    csvContent += tailTMX;
+    map += '</floor>';
+    objects += '</objects>';
 
-    download(csvContent);
+    var file = '<?xml version="1.0" encoding="UTF-8"?>\n';
+
+    file += '<root type="' + mode + '">\n';
+
+    file += '<bob x="' + startX + '" y="' + startY + '" />\n';
+    file += '<rules available="8" />\n';
+    file += '<text></text>';
+
+    if (mode == "WRITE") {
+      file += '<inputs>\n';
+
+      var arr = $('.picked');
+
+      for (var i = 0; i < arr.length; i++) {
+        file += '<block name="' + $(arr[i]).data('string') + '" />\n';
+      }
+
+      file += '</inputs>\n';
+    }
+
+
+    file += map;
+    file += objects;
+    file += "</root>";
+
+    download(file);
 });
 
 function download(content) {
@@ -103,155 +187,10 @@ function download(content) {
 
     var downLink = document.createElement("A");
     downLink.innerHTML = "File ready!";
-    downLink.download = "map.tmx";
+    downLink.download = "custom.xml";
     downLink.href = window.URL.createObjectURL(blob);
     downLink.click();
 }
 
-var tailTMX = '</data>\n'
-+'                </layer>\n'
-+'                <objectgroup name="Borders">\n'
-+'                 <object id="6" x="30.6667" y="670.667">\n'
-+'                  <polyline points="0,0 644.667,-639.333 1410,128.667 770,771.333 0.666667,2"/>\n'
-+'                 </object>\n'
-+'                </objectgroup>\n'
-+'               </map>';
 
-var headTMX = '<?xml version="1.0" encoding="UTF-8"?>'
-+'               <map version="1.0" orientation="isometric" renderorder="right-down" width="23" height="23" tilewidth="128" tileheight="64" nextobjectid="8">'
-+'                <tileset firstgid="1" name="floor" tilewidth="128" tileheight="64" tilecount="8" columns="8">'
-+'                 <image source="../tiles.png" width="1024" height="64"/>'
-+'                 <tile id="0">'
-+'                  <properties>'
-+'                   <property name="type" value="white"/>'
-+'                  </properties>'
-+'                 </tile>'
-+'                 <tile id="1">'
-+'                  <properties>'
-+'                   <property name="type" value="red"/>'
-+'                  </properties>'
-+'                 </tile>'
-+'                 <tile id="2">'
-+'                  <properties>'
-+'                   <property name="type" value="yellow"/>'
-+'                  </properties>'
-+'                 </tile>'
-+'                 <tile id="3">'
-+'                  <properties>'
-+'                   <property name="type" value="green"/>'
-+'                  </properties>'
-+'                 </tile>'
-+'                 <tile id="4">'
-+'                  <properties>'
-+'                   <property name="type" value="purple"/>'
-+'                  </properties>'
-+'                 </tile>'
-+'                 <tile id="5">'
-+'                  <properties>'
-+'                   <property name="type" value="orange"/>'
-+'                  </properties>'
-+'                 </tile>'
-+'                 <tile id="6">'
-+'                  <properties>'
-+'                   <property name="type" value="gold"/>'
-+'                  </properties>'
-+'                 </tile>'
-+'                 <tile id="7">'
-+'                  <properties>'
-+'                   <property name="type" value="question"/>'
-+'                  </properties>'
-+'                 </tile>'
-+'                </tileset>'
-+'                <tileset firstgid="9" name="lava" tilewidth="128" tileheight="64" tilecount="1" columns="1">'
-+'                 <image source="../lava.png" width="129" height="65"/>'
-+'                 <tile id="0">'
-+'                  <properties>'
-+'                   <property name="type" value="lava"/>'
-+'                  </properties>'
-+'                 </tile>'
-+'                </tileset>'
-+'                <tileset firstgid="10" name="water" tilewidth="128" tileheight="64" tilecount="16" columns="16">'
-+'                 <image source="../water_tile_long.png" width="2048" height="64"/>'
-+'                 <tile id="0">'
-+'                  <properties>'
-+'                   <property name="type" value="water"/>'
-+'                  </properties>'
-+'                 </tile>'
-+'                 <tile id="1">'
-+'                  <properties>'
-+'                   <property name="type" value="water"/>'
-+'                  </properties>'
-+'                 </tile>'
-+'                 <tile id="2">'
-+'                  <properties>'
-+'                   <property name="type" value="water"/>'
-+'                  </properties>'
-+'                 </tile>'
-+'                 <tile id="3">'
-+'                  <properties>'
-+'                   <property name="type" value="water"/>'
-+'                  </properties>'
-+'                 </tile>'
-+'                 <tile id="4">'
-+'                  <properties>'
-+'                   <property name="type" value="water"/>'
-+'                  </properties>'
-+'                 </tile>'
-+'                 <tile id="5">'
-+'                  <properties>'
-+'                   <property name="type" value="water"/>'
-+'                  </properties>'
-+'                 </tile>'
-+'                 <tile id="6">'
-+'                  <properties>'
-+'                   <property name="type" value="water"/>'
-+'                  </properties>'
-+'                 </tile>'
-+'                 <tile id="7">'
-+'                  <properties>'
-+'                   <property name="type" value="water"/>'
-+'                  </properties>'
-+'                 </tile>'
-+'                 <tile id="8">'
-+'                  <properties>'
-+'                   <property name="type" value="water"/>'
-+'                  </properties>'
-+'                 </tile>'
-+'                 <tile id="9">'
-+'                  <properties>'
-+'                   <property name="type" value="water"/>'
-+'                  </properties>'
-+'                 </tile>'
-+'                 <tile id="10">'
-+'                  <properties>'
-+'                   <property name="type" value="water"/>'
-+'                  </properties>'
-+'                 </tile>'
-+'                 <tile id="11">'
-+'                  <properties>'
-+'                   <property name="type" value="water"/>'
-+'                  </properties>'
-+'                 </tile>'
-+'                 <tile id="12">'
-+'                  <properties>'
-+'                   <property name="type" value="water"/>'
-+'                  </properties>'
-+'                 </tile>'
-+'                 <tile id="13">'
-+'                  <properties>'
-+'                   <property name="type" value="water"/>'
-+'                  </properties>'
-+'                 </tile>'
-+'                 <tile id="14">'
-+'                  <properties>'
-+'                   <property name="type" value="water"/>'
-+'                  </properties>'
-+'                 </tile>'
-+'                 <tile id="15">'
-+'                  <properties>'
-+'                   <property name="type" value="water"/>'
-+'                  </properties>'
-+'                 </tile>'
-+'                </tileset>'
-+'                <layer name="Floor" width="23" height="23">'
-+'                 <data encoding="csv">';
+var headTMX = '';
