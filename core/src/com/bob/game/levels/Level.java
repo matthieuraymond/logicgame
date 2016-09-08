@@ -1,10 +1,7 @@
 package com.bob.game.levels;
 
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.XmlReader;
 import com.bob.game.inputs.Block;
-
-import java.io.IOException;
 
 public abstract class Level {
 
@@ -109,12 +106,14 @@ public abstract class Level {
         int[][] res = new int[lines.length][];
 
         for (int i = 0; i < lines.length; i++) {
-            String[] cols = lines[i].split(",");
-            res[i] = new int[cols.length];
-            for(int j = 0; j < cols.length; j++) {
-                res[i][j] = Integer.parseInt(cols[j]);
-            }
+            res[i] = new int[lines.length];
+        }
 
+        for (int i = 0; i < lines.length; i++) {
+            String[] cols = lines[i].split(",");
+            for(int j = 0; j < cols.length; j++) {
+                res[j][i] = Integer.parseInt(cols[j]);
+            }
         }
 
         return res;
