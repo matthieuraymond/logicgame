@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root type="READ">
     <bob x="11" y="11" />
-    <text>The previous one was too easy...
-
-Same layout, different rules, can you guess it right?
+    <text>You will not get that one,
+I am sure that it is too complicated!
     </text>
     <hints>
         <hint>hint 1</hint>

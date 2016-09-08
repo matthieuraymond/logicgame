@@ -12,18 +12,18 @@ public class LevelFactory {
     public static final List<Level> READ = new ArrayList<>();
     public static final List<Level> MACRO = new ArrayList<>();
 
-    public static void initialiseLevels() { // TODO, PUT INTO FILES
+    public static void initialiseLevels() {
         populateWrite();
         populateRead();
         populateMacro();
     }
 
     private static void populateWrite() {
-        WRITE.add(loadLevelFromFile("maps/xml/short.xml"));
-        WRITE.add(loadLevelFromFile("maps/xml/straight.xml"));
-        WRITE.add(loadLevelFromFile("maps/xml/turn.xml"));
-        WRITE.add(loadLevelFromFile("maps/xml/not.xml"));
-        WRITE.add(loadLevelFromFile("maps/xml/loop.xml"));
+        WRITE.add(loadLevelFromFile("levels/short.xml"));
+        WRITE.add(loadLevelFromFile("levels/straight.xml"));
+        WRITE.add(loadLevelFromFile("levels/turn.xml"));
+        WRITE.add(loadLevelFromFile("levels/not.xml"));
+        WRITE.add(loadLevelFromFile("levels/loop.xml"));
 
         for (int i = 0; i < WRITE.size() - 1; i++) {
             WRITE.get(i).setNext(WRITE.get(i+1));
@@ -31,36 +31,23 @@ public class LevelFactory {
     }
 
     private static void populateRead() {
-        READ.add(loadLevelFromFile("maps/xml/guess.xml"));
-        READ.add(loadLevelFromFile("maps/xml/guessBis.xml"));
-        READ.add(loadLevelFromFile("maps/xml/guessTer.xml"));/*
-                11,11,
-                new Block[][]{
+        READ.add(loadLevelFromFile("levels/guess.xml"));
+        READ.add(loadLevelFromFile("levels/guessBis.xml"));
+        READ.add(loadLevelFromFile("levels/guessTer.xml"));
 
-                },
-                "You will not get that one,\nI am sure that it is too complicated!",
-                new String[]{"Vas y", "Tu peux y arriver", "Tu es beau!"}
-        ));
-*/
         for (int i = 0; i < READ.size() - 1; i++) {
             READ.get(i).setNext(READ.get(i+1));
         }
     }
 
-    private static void populateMacro() {/*
-        MACRO.add(new MacroLevel("maps/xml/macro.xml",
-            6,11,
-            "In this mode, I'll change my behavior.\nIndeed, it depends on how many light bulbs I have.\n\nCan you help me collect this light bulb?",
-            new String[]{"Vas y", "Tu peux y arriver", "Tu es beau!"},
-            new String[]{"screens/tut_macro.png"}
-        ));
-        MACRO.add(new MacroLevel("maps/xml/macro2.xml",
-            6,11,
-            "Okay, \nNow that you understood the concept, can you apply the same principles here?",
-            new String[]{"Vas y", "Tu peux y arriver", "Tu es beau!"}
-        ));*/
-    }
+    private static void populateMacro() {
+        MACRO.add(loadLevelFromFile("levels/macro.xml"));
+        MACRO.add(loadLevelFromFile("levels/macro2.xml"));
 
+        for (int i = 0; i < MACRO.size() - 1; i++) {
+            MACRO.get(i).setNext(MACRO.get(i+1));
+        }
+    }
 
     public static Level loadLevelFromFile(String path) {
         XmlReader xmlReader = new XmlReader();

@@ -112,7 +112,7 @@ public abstract class Level {
         for (int i = 0; i < lines.length; i++) {
             String[] cols = lines[(lines.length - 1) - i].split(",");
             for(int j = 0; j < lines.length; j++) {
-                res[j][i] = Integer.parseInt(cols[j]);
+                res[j][i] = Integer.parseInt(cols[j].trim());
             }
         }
 

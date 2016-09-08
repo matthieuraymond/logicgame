@@ -1,15 +1,12 @@
 package com.bob.game.world;
 
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.*;
 import com.badlogic.gdx.maps.tiled.renderers.IsometricTiledMapRenderer;
 import com.badlogic.gdx.utils.StringBuilder;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.utils.XmlReader;
 import com.bob.main.Config;
 
-import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -25,7 +22,7 @@ public class MapManager {
 
     public MapManager(int[][] floor, int[][] objects) {
 
-        map = new TmxMapLoader().load("maps/tmx/default.tmx");
+        map = new TmxMapLoader().load("maps/default.tmx");
 
         Iterator<TiledMapTileSet> tileSets = map.getTileSets().iterator();
         while(tileSets.hasNext())
