@@ -110,8 +110,8 @@ public abstract class Level {
         }
 
         for (int i = 0; i < lines.length; i++) {
-            String[] cols = lines[i].split(",");
-            for(int j = 0; j < cols.length; j++) {
+            String[] cols = lines[(lines.length - 1) - i].split(",");
+            for(int j = 0; j < lines.length; j++) {
                 res[j][i] = Integer.parseInt(cols[j]);
             }
         }
@@ -120,6 +120,8 @@ public abstract class Level {
     }
 
     private String[] extractStrings(XmlReader.Element element) {
+        if (element == null) return new String[0];
+
         String[] res = new String[element.getChildCount()];
 
         for (int i = 0; i < res.length; i++) {
@@ -130,6 +132,8 @@ public abstract class Level {
     }
 
     protected Block[] extractBlocks(XmlReader.Element blockContainer) {
+        if (blockContainer == null) return new Block[0];
+
         int n = blockContainer.getChildCount();
         Block[] res = new Block[n];
 

@@ -4,9 +4,6 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.XmlReader;
-import com.bob.game.inputs.Block;
-import com.bob.game.levels.Level;
-import com.bob.main.GameState;
 import com.bob.main.Main;
 
 import java.io.File;

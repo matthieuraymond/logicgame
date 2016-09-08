@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root type="WRITE">
-<bob x="9" y="11" />
-<rules available="1" />
-<text>Hi, my name is Bob!
+<bob x="2" y="11" />
+<rules available="4" />
+<text>Be careful, this one is tricky!
 
-I am quite a simple robot and I am lost. Can you help me to reach the golden platform?
-
-To do so, write rules I can follow in the box on the right!
-Thanks for your help!",
+Let's see if you can riddle me this.
 </text>
 <hints>
     <hint>hint 1</hint>
@@ -15,12 +12,20 @@ Thanks for your help!",
     <hint>hint 3</hint>
 </hints>
 <tutorial>
-    <image>screens/tut1.png</image>
-    <image>screens/tut2.png</image>
-    <image>screens/tut3.png</image>
 </tutorial>
 <inputs>
+    <block name="white" />
+    <block name="red" />
+    <block name="green" />
+    <block name="orange" />
+    <block name="purple" />
+    <block name="yellow" />
+    <block name="imply" />
+    <block name="not" />
+    <block name="up" />
     <block name="right" />
+    <block name="left" />
+    <block name="down" />
 </inputs>
 <floor>
 9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
@@ -34,7 +39,7 @@ Thanks for your help!",
 9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
 9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
 9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
-9,9,9,9,9,9,9,9,9,1,1,1,1,7,9,9,9,9,9,9,9,9,9,
+9,9,2,3,4,5,6,2,3,4,5,6,2,3,4,5,6,2,3,7,9,9,9,
 9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
 9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,
 9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,

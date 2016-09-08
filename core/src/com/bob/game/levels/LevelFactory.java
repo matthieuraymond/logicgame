@@ -1,13 +1,8 @@
 package com.bob.game.levels;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.XmlReader;
-import com.bob.game.inputs.Block;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,37 +14,16 @@ public class LevelFactory {
 
     public static void initialiseLevels() { // TODO, PUT INTO FILES
         populateWrite();
-        //populateRead();
-        //populateMacro();
+        populateRead();
+        populateMacro();
     }
 
     private static void populateWrite() {
-        WRITE.add(loadLevelFromFile("maps/tmx/short.tmx"));
-        WRITE.add(loadLevelFromFile("maps/tmx/straight.tmx"));
-/*
-        WRITE.add(new WriteLevel("maps/tmx/turn.tmx",
-                2,11,
-                2,
-                new Block[]{Block.WHITE, Block.RED, Block.IMPLY, Block.AND, Block.NOT, Block.LEFT, Block.RIGHT, Block.UP, Block.DOWN},
-                "WOW! That was amazing!\n\nHowever I still have a little problem:\n\tI don't know how to cross that one, can you help me again?\n\nThanks!",
-                new String[]{"Vas y", "Tu peux y arriver", "Tu es beau!"}
-        ));
-
-        WRITE.add(new WriteLevel("maps/tmx/not.tmx",
-                2,11,
-                4,
-                new Block[]{Block.WHITE, Block.RED, Block.GREEN, Block.ORANGE, Block.PURPLE, Block.YELLOW, Block.IMPLY, Block.AND, Block.NOT, Block.LEFT, Block.RIGHT, Block.UP, Block.DOWN},
-                "Be careful, this one is tricky!\n\nLet's see if you can riddle me this.",
-                new String[]{"Vas y", "Tu peux y arriver", "Tu es beau!"}
-        ));
-
-        WRITE.add(new WriteLevel("maps/tmx/loop.tmx",
-                7,11,
-                5,
-                new Block[]{Block.WHITE, Block.RED, Block.GREEN, Block.YELLOW, Block.WHITE_PREV, Block.RED_PREV, Block.GREEN_PREV, Block.YELLOW_PREV, Block.IMPLY, Block.AND, Block.NOT, Block.LEFT, Block.RIGHT, Block.UP, Block.DOWN},
-                "Oh its getting quite complicated here.\n\nIf you need a hint: you'll have to make good use of the \"previous\" block.\nThanks for your help.",
-                new String[]{"Vas y", "Tu peux y arriver", "Tu es beau!"}
-        ));
+        WRITE.add(loadLevelFromFile("maps/xml/short.xml"));
+        WRITE.add(loadLevelFromFile("maps/xml/straight.xml"));
+        WRITE.add(loadLevelFromFile("maps/xml/turn.xml"));
+        WRITE.add(loadLevelFromFile("maps/xml/not.xml"));
+        WRITE.add(loadLevelFromFile("maps/xml/loop.xml"));
 
         for (int i = 0; i < WRITE.size() - 1; i++) {
             WRITE.get(i).setNext(WRITE.get(i+1));
@@ -57,61 +31,30 @@ public class LevelFactory {
     }
 
     private static void populateRead() {
-        READ.add(new ReadLevel("maps/tmx/guess.tmx",
+        READ.add(loadLevelFromFile("maps/xml/guess.xml"));
+        READ.add(loadLevelFromFile("maps/xml/guessBis.xml"));
+        READ.add(loadLevelFromFile("maps/xml/guessTer.xml"));/*
                 11,11,
                 new Block[][]{
-                        {Block.RED, Block.IMPLY, Block.DOWN},
-                        {Block.PURPLE, Block.IMPLY, Block.RIGHT},
-                        {Block.YELLOW, Block.IMPLY, Block.DOWN},
-                        {Block.GREEN, Block.IMPLY, Block.LEFT}
-                },
-                "Hi again!\nMake sure you've played the write mode first!\n\nHere you'll need to guess where I'm going!\nClick on the question mark when you've guessed.",
-                new String[]{"Vas y", "Tu peux y arriver", "Tu es beau!"},
-                new String[]{"screens/tut_read.png"}
-        ));
-        READ.add(new ReadLevel("maps/tmx/guess.tmx",
-                11,11,
-                new Block[][]{
-                        {Block.RED, Block.AND, Block.RED_PREV, Block.IMPLY, Block.DOWN},
-                        {Block.RED, Block.AND, Block.YELLOW_PREV, Block.IMPLY, Block.LEFT},
-                        {Block.YELLOW, Block.AND, Block.YELLOW_PREV, Block.IMPLY, Block.DOWN},
-                        {Block.YELLOW, Block.AND, Block.RED_PREV, Block.IMPLY, Block.UP},
-                        {Block.PURPLE, Block.AND, Block.YELLOW_PREV, Block.IMPLY, Block.RIGHT},
-                        {Block.GREEN, Block.AND, Block.RED_PREV,Block.IMPLY, Block.LEFT},
-                        {Block.PURPLE, Block.AND, Block.PURPLE_PREV, Block.IMPLY, Block.RIGHT},
-                        {Block.GREEN, Block.AND, Block.GREEN_PREV,Block.IMPLY, Block.LEFT},
-                },
-                "The previous one was too easy...\n\nSame layout, different rules, can you guess it right?",
-                new String[]{"Vas y", "Tu peux y arriver", "Tu es beau!"}
-        ));
-        READ.add(new ReadLevel("maps/tmx/guess2.tmx",
-                11,11,
-                new Block[][]{
-                        {Block.WHITE, Block.AND, Block.WHITE_PREV, null, Block.IMPLY, Block.RIGHT},
-                        {Block.WHITE, Block.AND, Block.RED_PREV, null, Block.IMPLY, Block.LEFT},
-                        {Block.WHITE, Block.AND, Block.GREEN_PREV, null, Block.IMPLY, Block.UP},
-                        {Block.GREEN, Block.AND, Block.NOT, Block.WHITE_PREV, Block.IMPLY, Block.DOWN},
-                        {Block.GREEN, Block.AND, Block.WHITE_PREV, null, Block.IMPLY, Block.RIGHT},
-                        {Block.RED, Block.AND, Block.NOT, Block.WHITE_PREV, Block.IMPLY, Block.UP},
-                        {Block.RED, Block.AND, Block.WHITE_PREV, null, Block.IMPLY, Block.LEFT},
+
                 },
                 "You will not get that one,\nI am sure that it is too complicated!",
                 new String[]{"Vas y", "Tu peux y arriver", "Tu es beau!"}
         ));
-
+*/
         for (int i = 0; i < READ.size() - 1; i++) {
             READ.get(i).setNext(READ.get(i+1));
         }
     }
 
-    private static void populateMacro() {
-        MACRO.add(new MacroLevel("maps/tmx/macro.tmx",
+    private static void populateMacro() {/*
+        MACRO.add(new MacroLevel("maps/xml/macro.xml",
             6,11,
             "In this mode, I'll change my behavior.\nIndeed, it depends on how many light bulbs I have.\n\nCan you help me collect this light bulb?",
             new String[]{"Vas y", "Tu peux y arriver", "Tu es beau!"},
             new String[]{"screens/tut_macro.png"}
         ));
-        MACRO.add(new MacroLevel("maps/tmx/macro2.tmx",
+        MACRO.add(new MacroLevel("maps/xml/macro2.xml",
             6,11,
             "Okay, \nNow that you understood the concept, can you apply the same principles here?",
             new String[]{"Vas y", "Tu peux y arriver", "Tu es beau!"}
